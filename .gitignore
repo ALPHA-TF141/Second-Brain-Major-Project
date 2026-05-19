@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.log
+.env
+backend/.env
+backend/*.db
+backend/*.db-journal
+backend/data/
+**/__pycache__/
+backend/.venv/
+.DS_Store
+Thumbs.db

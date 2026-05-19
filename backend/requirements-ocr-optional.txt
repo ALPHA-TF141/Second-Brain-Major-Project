@@ -1,0 +1,2 @@
+# Optional OCR fallback. Install only if your Python version supports PaddleOCR cleanly.
+paddleocr==2.9.1
