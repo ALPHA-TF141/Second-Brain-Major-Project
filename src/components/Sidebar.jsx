@@ -9,7 +9,8 @@ import {
   Mic2,
   Settings,
   Sparkles,
-  Waypoints
+  Waypoints,
+  Network
 } from 'lucide-react';
 
 const navItems = [
@@ -19,6 +20,7 @@ const navItems = [
   { label: 'Live Activity', path: '/activity', icon: Activity },
   { label: 'OCR Knowledge', path: '/ocr', icon: ScanText },
   { label: 'Semantic Memory', path: '/semantic', icon: Brain },
+  { label: 'Knowledge Graph', path: '/knowledge-graph', icon: Network },
   { label: 'Voice Assistant', path: '/voice', icon: Mic2 },
   { label: 'Settings', path: '/settings', icon: Settings }
 ];
@@ -59,10 +61,10 @@ function Sidebar() {
       <div className="glass-panel mt-8 rounded-lg p-4">
         <div className="mb-3 flex items-center gap-2 text-sm font-semibold">
           <Sparkles size={16} className="text-mintGlow" />
-          Phase 1
+          Phase 9
         </div>
         <p className="text-sm leading-6 text-slate-400">
-          Frontend shell ready for memory, voice, OCR, RAG, search, and Tamil interaction modules.
+          Knowledge Graph engine with interactive visualization, recommendations, and learning path exploration.
         </p>
       </div>
     </aside>

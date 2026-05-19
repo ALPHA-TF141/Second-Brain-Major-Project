@@ -8,6 +8,7 @@ import OcrKnowledge from '../pages/OcrKnowledge.jsx';
 import SemanticMemory from '../pages/SemanticMemory.jsx';
 import VoiceAssistant from '../pages/VoiceAssistant.jsx';
 import Settings from '../pages/Settings.jsx';
+import KnowledgeGraph from '../pages/KnowledgeGraph.jsx';
 
 function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ function AppRoutes() {
         <Route path="/activity" element={<LiveActivity />} />
         <Route path="/ocr" element={<OcrKnowledge />} />
         <Route path="/semantic" element={<SemanticMemory />} />
+        <Route path="/knowledge-graph" element={<KnowledgeGraph />} />
         <Route path="/voice" element={<VoiceAssistant />} />
         <Route path="/settings" element={<Settings />} />
       </Route>

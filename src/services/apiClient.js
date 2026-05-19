@@ -152,5 +152,21 @@ export const apiClient = {
     request('/api/chat/ask', {
       method: 'POST',
       body: JSON.stringify(payload)
-    })
+    }),
+  voiceStatus: () => request('/api/voice/status'),
+  startVoiceSession: (payload) =>
+    request('/api/voice/sessions', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    }),
+  stopVoiceSession: (sessionId) => request(`/api/voice/sessions/${sessionId}/stop`, { method: 'POST' }),
+  fetchVoiceSessions: () => request('/api/voice/sessions'),
+  fetchVoiceTranscripts: (sessionId) => request(`/api/voice/sessions/${sessionId}/transcripts`),
+  fetchVoicePreferences: () => request('/api/voice/preferences'),
+  updateVoicePreferences: (payload) =>
+    request('/api/voice/preferences', {
+      method: 'PUT',
+      body: JSON.stringify(payload)
+    }),
+  voiceAudioUrl: (audioId) => `${API_BASE_URL}/api/voice/audio/${audioId}?token=${encodeURIComponent(getToken())}`
 };

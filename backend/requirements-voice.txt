@@ -1,0 +1,4 @@
+openai-whisper==20250625
+TTS==0.22.0
+webrtcvad==2.0.10
+pydub==0.25.1

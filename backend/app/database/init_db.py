@@ -4,6 +4,7 @@ from app.database.session import Base, SessionLocal, engine
 from app.models.activity import Activity
 from app.models.capture import ActivityLog, AppUsage, ClipboardLog, MemorySession, Screenshot
 from app.models.conversation import AIFeedback, AISummary, Conversation, ConversationContext, Message, RetrievedMemory
+from app.models.graph import ConceptCluster, GraphEdge, GraphMetadata, GraphNode, LearningProgression, TopicRelationship
 from app.models.memory import Memory, MemoryRelationship, MemoryTag, SearchIndex, SessionSummary
 from app.models.ocr import DetectedTopic, ExtractedText, OCRMetadata, ProcessedSession, SemanticChunk
 from app.models.semantic import EmbeddingJob, MemoryCluster, SearchHistory, SemanticRelationship, VectorMemory
@@ -11,6 +12,7 @@ from app.models.session import UserSession
 from app.models.setting import Setting
 from app.models.timeline_event import TimelineEvent
 from app.models.user import User
+from app.models.voice import ConversationAudio, LanguagePreference, Transcript, VoiceCommand, VoiceSession
 
 
 def init_database():
@@ -60,6 +62,7 @@ __all__ = [
     "AppUsage",
     "ClipboardLog",
     "Conversation",
+    "ConversationAudio",
     "ConversationContext",
     "DetectedTopic",
     "EmbeddingJob",
@@ -83,6 +86,10 @@ __all__ = [
     "UserSession",
     "Setting",
     "TimelineEvent",
+    "Transcript",
     "User",
+    "LanguagePreference",
+    "VoiceCommand",
+    "VoiceSession",
     "init_database",
 ]

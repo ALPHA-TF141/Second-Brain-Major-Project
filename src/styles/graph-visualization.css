@@ -1,0 +1,176 @@
+/* Graph Visualization */
+.graph-visualization {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+}
+
+.graph-visualization .react-flow__container {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+}
+
+.graph-visualization .react-flow__background {
+  background: none;
+}
+
+/* Custom nodes */
+.custom-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.custom-node:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.custom-node.selected {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+  transform: scale(1.15);
+}
+
+.node-label {
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.2;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-width: 80%;
+}
+
+.node-type {
+  font-size: 10px;
+  opacity: 0.8;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.node-score {
+  font-size: 9px;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+/* React Flow controls */
+.react-flow__controls {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 0.5rem;
+}
+
+.react-flow__controls-button {
+  background: rgba(100, 116, 139, 0.2);
+  color: #e2e8f0;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.react-flow__controls-button:hover {
+  background: rgba(100, 116, 139, 0.4);
+}
+
+/* MiniMap */
+.react-flow__minimap {
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.react-flow__minimap-mask {
+  fill: rgba(59, 130, 246, 0.1);
+  stroke: rgba(59, 130, 246, 0.3);
+}
+
+/* Legend */
+.graph-legend {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  max-width: 200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.graph-legend h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #cbd5e1;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Graph tooltip */
+.graph-tooltip {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  max-width: 250px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: #e2e8f0;
+}
+
+.graph-tooltip h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.graph-tooltip p {
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
+  color: #cbd5e1;
+}
+
+.graph-tooltip strong {
+  color: #60a5fa;
+}
+
+@media (max-width: 768px) {
+  .graph-legend {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .graph-tooltip {
+    bottom: 1rem;
+    left: 1rem;
+  }
+}

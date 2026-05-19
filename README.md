@@ -1,6 +1,6 @@
 # Second Brain
 
-Phase 1 through Phase 7 foundation for a beginner-friendly desktop AI assistant.
+Phase 1 through Phase 8 foundation for a beginner-friendly desktop AI assistant.
 
 ## Stack
 
@@ -78,6 +78,15 @@ RAG_CONTEXT_LIMIT=8
 
 Without `OPENAI_API_KEY`, the chat assistant uses a local extractive fallback based on retrieved memories.
 
+Voice setup:
+
+```bash
+cd backend
+pip install -r requirements-voice.txt
+```
+
+Voice dependencies are optional because Whisper and Coqui TTS are heavy native AI packages. Without them, the frontend still supports browser microphone capture, browser speech recognition where available, manual transcript fallback, backend voice sessions, Tamil-aware routing, RAG responses, and browser speech synthesis.
+
 The frontend expects the backend at `http://127.0.0.1:8000`.
 Demo login:
 
@@ -118,6 +127,13 @@ backend/
     workers/
     llm/
     streaming/
+    audio_streaming/
+    stt/
+    tts/
+    translation/
+    vad/
+    voice/
+    wakeword/
     tracking/
     utils/
     websocket/
@@ -159,6 +175,7 @@ The backend includes:
 - Structured memory archive with searchable memories, tags, session summaries, timeline grouping, relationships, and Markdown export
 - Semantic vector memory engine with embeddings, ChromaDB indexing, hybrid search, related memories, clusters, and context assembly
 - Conversational RAG memory assistant with contextual retrieval, prompt assembly, streaming responses, conversation history, modes, and citations
+- Realtime voice assistant with microphone streaming, Tamil-English transcripts, wake words, command routing, memory-aware answers, and spoken browser fallback
 
 ## Useful API Endpoints
 
@@ -213,8 +230,17 @@ GET  /api/chat/conversations
 GET  /api/chat/conversations/{conversation_id}/messages
 GET  /api/chat/conversations/{conversation_id}/retrieved
 POST /api/chat/ask
+GET  /api/voice/status
+POST /api/voice/sessions
+POST /api/voice/sessions/{session_id}/stop
+GET  /api/voice/sessions
+GET  /api/voice/sessions/{session_id}/transcripts
+GET  /api/voice/preferences
+PUT  /api/voice/preferences
+GET  /api/voice/audio/{audio_id}
 GET  /ws/live?token=JWT_TOKEN
 GET  /ws/chat?token=JWT_TOKEN
+GET  /ws/voice?token=JWT_TOKEN
 ```
 
 ## Phase 4 OCR Notes
@@ -281,6 +307,25 @@ Suggested flow:
 3. Rebuild the memory archive.
 4. Index semantic memories.
 5. Open AI Chat and ask questions like `What was I studying yesterday?`.
+
+## Phase 8 Voice Assistant Notes
+
+The Voice Assistant page is now a realtime voice interface:
+
+- Streams microphone chunks to `/ws/voice`
+- Uses browser speech recognition for low-latency English/Tamil transcript events when available
+- Stores voice sessions, transcripts, commands, audio metadata, and language preferences
+- Supports continuous, push-to-talk, and wake-word modes
+- Supports wake phrases like `Second Brain` and `Hey Brain`
+- Detects Tamil text and adds Tamil/mixed-language response instructions to the RAG assistant
+- Uses Coqui TTS when installed and browser speech synthesis as a fallback
+- Routes voice commands such as start capture, stop recording, timeline, AI chat, and search
+
+Suggested Tamil test:
+
+```text
+நேற்று நான் என்ன படித்தேன்?
+```
 
 ## Phase 3 Capture Notes
 
