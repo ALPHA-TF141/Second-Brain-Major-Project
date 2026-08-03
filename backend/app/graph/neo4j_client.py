@@ -2,7 +2,12 @@
 
 import logging
 from typing import Any, Dict, List, Optional, Tuple
-from neo4j import GraphDatabase, Session, Transaction, Driver, Result
+
+try:
+    from neo4j import GraphDatabase, Session, Transaction, Driver, Result
+except ImportError:
+    GraphDatabase = None
+    Session = Transaction = Driver = Result = Any
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +24,9 @@ class Neo4jClient:
 
     def connect(self):
         """Establish connection to Neo4j"""
+        if GraphDatabase is None:
+            raise RuntimeError("Neo4j Python driver is not installed. Install the optional neo4j package to enable graph persistence.")
+
         try:
             self.driver = GraphDatabase.driver(self.uri, auth=(self.username, self.password))
             # Verify connection

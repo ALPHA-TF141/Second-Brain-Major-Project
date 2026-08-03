@@ -29,7 +29,7 @@ class GraphNode(Base):
     last_seen = Column(DateTime, default=datetime.utcnow)
     
     # Metadata
-    metadata = Column(JSON, default={})  # Additional metadata
+    metadata_json = Column("metadata", JSON, default=dict)  # Additional metadata
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -57,7 +57,7 @@ class GraphEdge(Base):
     source = Column(String(80), default="auto")  # "auto", "semantic", "temporal", "manual"
     
     # Metadata
-    metadata = Column(JSON, default={})
+    metadata_json = Column("metadata", JSON, default=dict)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -78,7 +78,7 @@ class ConceptCluster(Base):
     cohesion_score = Column(Float, default=0.0)  # How tightly clustered (0-1)
     
     # Metadata
-    metadata = Column(JSON, default={})
+    metadata_json = Column("metadata", JSON, default=dict)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -125,7 +125,7 @@ class LearningProgression(Base):
     date = Column(DateTime, nullable=False, index=True)  # When this data point was recorded
     duration_hours = Column(Float, default=0.0)
     
-    metadata = Column(JSON, default={})
+    metadata_json = Column("metadata", JSON, default=dict)
     created_at = Column(DateTime, default=datetime.utcnow)
 
 

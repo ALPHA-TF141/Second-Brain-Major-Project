@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "concurrently \"npm run backend\" \"npm run dev:react\" \"npm run dev:electron\"",
     "dev:react": "vite",
-    "dev:electron": "wait-on tcp:5173 && electron .",
+    "dev:electron": "wait-on http://127.0.0.1:5173 && electron .",
     "backend": "cd backend && python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000",
     "build": "vite build",
     "preview": "vite preview",
@@ -17,7 +17,8 @@
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.0"
+    "react-router-dom": "^6.28.0",
+    "reactflow": "^11.11.4"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.0.0",

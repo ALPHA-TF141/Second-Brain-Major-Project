@@ -1,14 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactFlow, {
-  Node,
-  Edge,
   Controls,
   Background,
   useNodesState,
   useEdgesState,
   MiniMap,
-  addEdge,
-  Connection
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import '../styles/graph-visualization.css';

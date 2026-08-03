@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useIpc } from '../hooks/useIpc';
-import GraphVisualization from './GraphVisualization';
-import NodeDetailsPanel from './NodeDetailsPanel';
-import FilterPanel from './FilterPanel';
-import RecommendationPanel from './RecommendationPanel';
+import GraphVisualization from '../components/GraphVisualization';
+import NodeDetailsPanel from '../components/NodeDetailsPanel';
+import FilterPanel from '../components/FilterPanel';
+import RecommendationPanel from '../components/RecommendationPanel';
 import '../styles/knowledge-graph.css';
 
 export default function KnowledgeGraphPage() {
-  const ipc = useIpc();
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
   const [clusters, setClusters] = useState([]);

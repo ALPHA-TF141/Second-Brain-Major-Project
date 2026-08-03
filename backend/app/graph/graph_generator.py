@@ -9,7 +9,7 @@ from app.graph.neo4j_client import Neo4jClient
 from app.entities.entity_extractor import EntityExtractor, Entity
 from app.relationships.relationship_detector import RelationshipDetector, DetectedRelationship
 from app.models.graph import GraphNode, GraphEdge, ConceptCluster, LearningProgression
-from app.models.memory import Memory, MemorySession, SemanticChunk
+from app.models.memory import Memory
 
 logger = logging.getLogger(__name__)
 
