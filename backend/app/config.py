@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     jwt_secret_key: str = "change-this-dev-secret"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 120
-    cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
+    cors_origins: str = "*"
     demo_username: str = "demo"
     demo_password: str = "secondbrain"
     openai_api_key: str = ""
