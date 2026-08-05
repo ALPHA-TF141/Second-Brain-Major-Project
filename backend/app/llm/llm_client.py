@@ -8,7 +8,7 @@ class LLMClient:
         self.last_error = ""
 
     def has_openai(self):
-        return bool(settings.openai_api_key)
+        return bool(settings.openai_api_key) or bool(settings.openai_base_url)
 
     async def stream(self, messages: list[dict], fallback_context: list[dict]):
         if self.has_openai():
