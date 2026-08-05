@@ -23,7 +23,7 @@ class LLMClient:
         try:
             from openai import AsyncOpenAI
 
-            client = AsyncOpenAI(api_key=settings.openai_api_key)
+            client = AsyncOpenAI(api_key="ollama", base_url=settings.openai_base_url)
             stream = await client.chat.completions.create(
                 model=settings.openai_model,
                 messages=messages,
