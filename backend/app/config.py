@@ -12,7 +12,8 @@ class Settings(BaseSettings):
     demo_username: str = "demo"
     demo_password: str = "secondbrain"
     openai_api_key: str = ""
-    openai_model: str = "gpt-4o-mini"
+    openai_model: str = "qwen2.5:3b"
+    openai_base_url: str = "http://localhost:11434/v1"
     rag_context_limit: int = 8
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
