@@ -86,4 +86,5 @@ def get_voice_audio(audio_id: int, token: str = "", db: Session = Depends(get_db
     path = Path(audio.file_path)
     if not path.exists():
         raise HTTPException(status_code=404, detail="Audio file missing")
-    return FileResponse(path, media_type="audio/wav")
+    media = "audio/mpeg" if path.suffix.lower() == ".mp3" else "audio/wav"
+    return FileResponse(path, media_type=media)

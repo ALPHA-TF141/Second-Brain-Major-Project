@@ -12,6 +12,17 @@ from app.voice.orchestrator import voice_orchestrator
 router = APIRouter()
 
 
+def _json_safe(value):
+    """Convert objects (datetimes, etc.) into JSON-serializable values."""
+    if isinstance(value, dict):
+        return {k: _json_safe(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_json_safe(v) for v in value]
+    if hasattr(value, "isoformat"):
+        return value.isoformat()
+    return value
+
+
 @router.websocket("/ws/voice")
 async def voice_stream(websocket: WebSocket):
     token = websocket.query_params.get("token", "")
@@ -52,7 +63,12 @@ async def voice_stream(websocket: WebSocket):
                 await websocket.send_json({"type": "intent", "intent": result["intent"]})
                 if result["answer"]:
                     await websocket.send_json({"type": "speaking", "status": "started"})
-                    await websocket.send_json({"type": "answer", "text": result["answer"], "references": result["references"], "audio": result["audio"]})
+                    await websocket.send_json(_json_safe({
+                        "type": "answer",
+                        "text": result["answer"],
+                        "references": result["references"],
+                        "audio": result["audio"],
+                    }))
                     await websocket.send_json({"type": "speaking", "status": "ended"})
 
             elif event_type == "stop" and session:
