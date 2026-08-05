@@ -1,6 +1,26 @@
 import asyncio
+import threading
 from datetime import datetime
 from pathlib import Path
+
+
+def _run_async_in_thread(coro):
+    """Run an async coroutine from a synchronous context that may already
+    be inside a running event loop (e.g. a FastAPI WebSocket handler)."""
+    result = {}
+
+    def _runner():
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            result["value"] = loop.run_until_complete(coro)
+        finally:
+            loop.close()
+
+    thread = threading.Thread(target=_runner)
+    thread.start()
+    thread.join()
+    return result.get("value")
 
 
 class CoquiTTS:
@@ -42,8 +62,10 @@ class CoquiTTS:
             await communicate.save(str(file_path))
 
         try:
-            asyncio.run(_gen())
-            return {"file_path": str(file_path), "error": ""}
+            _run_async_in_thread(_gen())
+            if file_path.exists() and file_path.stat().st_size > 0:
+                return {"file_path": str(file_path), "error": ""}
+            return {"file_path": "", "error": "TTS produced no output"}
         except Exception as exc:
             self.last_error = str(exc)
             return {"file_path": "", "error": str(exc)}
