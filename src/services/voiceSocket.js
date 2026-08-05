@@ -1,7 +1,13 @@
 import { apiClient } from './apiClient.js';
 
-export function createVoiceSocket({ onEvent, onOpen, onClose, onError } = {}) {
-  const token = apiClient.getToken();
+export async function createVoiceSocket({ onEvent, onOpen, onClose, onError } = {}) {
+  // Always get a fresh token so we never connect with an expired one
+  let token = apiClient.getToken();
+  if (!token) {
+    await apiClient.login('demo', 'secondbrain');
+    token = apiClient.getToken();
+  }
+
   if (!token) return null;
 
   const wsBaseUrl = apiClient.baseUrl.replace(/^http/, 'ws');

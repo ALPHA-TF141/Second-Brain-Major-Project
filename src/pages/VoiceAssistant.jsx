@@ -49,7 +49,8 @@ function VoiceAssistant() {
   }, [preferences.preferred_language]);
 
   async function ensureLogin() {
-    if (!apiClient.getToken()) await loginDemo();
+    // Re-login to guarantee a valid (non-expired) token
+    await loginDemo();
   }
 
   async function loadVoiceMeta() {
@@ -58,9 +59,9 @@ function VoiceAssistant() {
     apiClient.fetchVoicePreferences().then(setPreferences).catch(() => {});
   }
 
-  function connectSocket() {
+  async function connectSocket() {
     socketRef.current?.close();
-    const socket = createVoiceSocket({
+    const socket = await createVoiceSocket({
       onOpen: () => setSocketStatus('connected'),
       onClose: () => setSocketStatus('disconnected'),
       onError: () => setSocketStatus('error'),
