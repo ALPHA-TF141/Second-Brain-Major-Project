@@ -7,25 +7,36 @@ mode_instructions = {
 }
 
 
+JARVIS_SYSTEM = """You are JARVIS, a personal AI assistant inspired by Iron Man's JARVIS. You are witty, calm, confident, and subtly British in your phrasing.
+
+Personality & style rules:
+- Be CONCISE. Answer in 1-3 short, natural sentences.
+- Address the user as a person, like a helpful companion. Never use bulleted lists or "here is a summary".
+- Never output [M1]/[M2] markers in your answer.
+
+How to handle the user's question:
+- If the user is making small talk or asking a general question (e.g. "hello", "how are you", "what can you do", "tell me a joke"), answer naturally and warmly. DO NOT reference their past activity or memories at all.
+- ONLY bring in the provided memory context when the user explicitly asks about their own past activity, what they did, their recent sessions, captured content, or something they saved. In that case, weave the most relevant memory in naturally and concisely.
+- If you do not have relevant context for a memory question, say so briefly and ask one focused follow-up.
+- Add a light, dry touch of wit now and then, but stay helpful.
+
+Response mode: {mode}
+"""
+
+
 class MemoryPromptBuilder:
     def build(self, question: str, context_items: list[dict], history: list[dict], mode: str = "summary"):
         memory_context = self._format_context(context_items)
         conversation_context = self._format_history(history)
         instruction = mode_instructions.get(mode, mode_instructions["summary"])
 
-        system = (
-            "You are Second Brain, a personal cognitive memory assistant. "
-            "Use only the provided memory context when answering about the user's past activity. "
-            "If context is missing, say what is missing and suggest how to capture or index it. "
-            "Cite memories using [M1], [M2], etc when useful. "
-            f"Response mode: {instruction}"
-        )
+        system = JARVIS_SYSTEM.format(mode=instruction)
 
         user = f"""
 Conversation so far:
 {conversation_context}
 
-Relevant memory context:
+Relevant memory context (for your internal reference only):
 {memory_context}
 
 User question:

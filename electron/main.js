@@ -1,11 +1,28 @@
-const { app, BrowserWindow, ipcMain, session, Tray, Menu, nativeImage } = require('electron');
+const { app, BrowserWindow, ipcMain, session, Tray, Menu, nativeImage, shell } = require('electron');
 const path = require('path');
+const fs = require('fs');
 
 const isDev = !app.isPackaged;
 
 let mainWindow = null;
 let tray = null;
 let isQuitting = false;
+
+const APP_ID = 'com.secondbrain.jarvis';
+
+// ---- Windows single instance + auto-start at login ----
+const gotLock = app.requestSingleInstanceLock();
+if (!gotLock) {
+  app.quit();
+} else {
+  app.setAppUserModelId(APP_ID);
+  app.on('second-instance', () => {
+    if (mainWindow) {
+      mainWindow.show();
+      mainWindow.focus();
+    }
+  });
+}
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -16,6 +33,7 @@ function createWindow() {
     frame: false,
     backgroundColor: '#070A12',
     title: 'Second Brain',
+    icon: path.join(__dirname, 'icon.png'), // optional — put an icon.png in electron/
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -37,44 +55,53 @@ function createWindow() {
       createTray();
     }
   });
+
+  mainWindow.on('show', () => { if (tray) tray.destroy(); });
 }
 
-// Allow microphone (and camera) so the Web Speech API works in the app
+// ---- Mic + notifications permission ----
 function setupPermissions() {
   session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
-    if (permission === 'media' || permission === 'microphone') {
-      return callback(true);
-    }
     return callback(true);
   });
-  session.defaultSession.setPermissionCheckHandler((webContents, permission) => {
-    if (permission === 'media' || permission === 'microphone') {
-      return true;
-    }
-    return true;
-  });
+  session.defaultSession.setPermissionCheckHandler(() => true);
+}
+
+function trayIcon() {
+  // Use a 16x16 empty native image; replace with a real .ico/.png for a visible icon
+  let img = nativeImage.createFromPath(path.join(__dirname, 'icon.png'));
+  if (img.isEmpty()) img = nativeImage.createEmpty();
+  return img;
 }
 
 function createTray() {
   if (tray) return;
-  const icon = nativeImage.createEmpty();
-  tray = new Tray(icon);
+  tray = new Tray(trayIcon());
   tray.setToolTip('Second Brain — Jarvis');
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Open Second Brain', click: () => { mainWindow.show(); mainWindow.focus(); } },
+    { label: 'Pause capture', click: () => mainWindow.webContents.send('jarvis:capture', 'pause') },
+    { label: 'Resume capture', click: () => mainWindow.webContents.send('jarvis:capture', 'resume') },
+    { type: 'separator' },
+    { label: 'Restart', click: () => { mainWindow.reload(); } },
+    { label: 'Open DevTools', click: () => mainWindow.webContents.openDevTools({ mode: 'detach' }) },
     { type: 'separator' },
     { label: 'Quit', click: () => { isQuitting = true; app.quit(); } }
   ]);
   tray.setContextMenu(contextMenu);
-  tray.on('click', () => {
-    mainWindow.show();
-    mainWindow.focus();
-  });
+  tray.on('click', () => { mainWindow.show(); mainWindow.focus(); });
 }
 
 app.whenReady().then(() => {
   setupPermissions();
   createWindow();
+
+  // Auto-start with Windows login
+  app.setLoginItemSettings({
+    openAtLogin: true,
+    path: process.execPath,
+    args: isDev ? [] : []
+  });
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
@@ -85,17 +112,14 @@ app.whenReady().then(() => {
   });
 });
 
-app.on('before-quit', () => {
-  isQuitting = true;
-});
-
+app.on('before-quit', () => { isQuitting = true; });
 app.on('window-all-closed', () => {
-  // Keep app running in tray instead of quitting
   if (process.platform !== 'darwin') {
-    // app.quit(); // commented out so it stays in tray
+    // keep running in tray
   }
 });
 
+// ---- IPC ----
 ipcMain.handle('app:get-info', () => ({
   name: 'Second Brain',
   phase: 'Phase 1',
@@ -109,11 +133,7 @@ ipcMain.on('window:minimize', (event) => {
 ipcMain.on('window:maximize', (event) => {
   const window = BrowserWindow.fromWebContents(event.sender);
   if (!window) return;
-  if (window.isMaximized()) {
-    window.unmaximize();
-  } else {
-    window.maximize();
-  }
+  if (window.isMaximized()) window.unmaximize(); else window.maximize();
 });
 
 ipcMain.on('window:close', (event) => {
