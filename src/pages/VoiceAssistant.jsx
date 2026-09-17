@@ -49,7 +49,6 @@ function VoiceAssistant() {
   }, [preferences.preferred_language]);
 
   async function ensureLogin() {
-    // Re-login to guarantee a valid (non-expired) token
     await loginDemo();
   }
 
@@ -60,6 +59,9 @@ function VoiceAssistant() {
   }
 
   async function connectSocket() {
+    if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+      return socketRef.current;
+    }
     socketRef.current?.close();
     const socket = await createVoiceSocket({
       onOpen: () => setSocketStatus('connected'),
@@ -107,55 +109,78 @@ function VoiceAssistant() {
 
   async function startListening() {
     await ensureLogin();
-    const socket = socketRef.current?.readyState === WebSocket.OPEN ? socketRef.current : connectSocket();
-    await new Promise((resolve) => setTimeout(resolve, 350));
+    const socket = await connectSocket();
 
-    socket?.send(JSON.stringify({ type: 'start', mode, language: preferences.preferred_language }));
-    const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    streamRef.current = mediaStream;
-    const recorder = new MediaRecorder(mediaStream, { mimeType: 'audio/webm' });
-    recorder.ondataavailable = async (event) => {
-      if (event.data.size > 0 && socketRef.current?.readyState === WebSocket.OPEN) {
-        const audio = await blobToBase64(event.data);
-        socketRef.current.send(JSON.stringify({ type: 'audio', audio }));
-      }
-    };
-    recorder.start(1200);
-    recorderRef.current = recorder;
-    startBrowserRecognition();
-    setStatus('listening');
+    // Ensure socket is open before sending start
+    if (socket && socket.readyState !== WebSocket.OPEN) {
+      await new Promise((resolve) => {
+        socket.addEventListener('open', resolve, { once: true });
+        setTimeout(resolve, 1000);
+      });
+    }
+
+    if (socket?.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify({ type: 'start', mode, language: preferences.preferred_language }));
+    }
+
+    try {
+      const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = mediaStream;
+      const recorder = new MediaRecorder(mediaStream, { mimeType: 'audio/webm' });
+      recorder.ondataavailable = async (event) => {
+        if (event.data.size > 0 && socketRef.current?.readyState === WebSocket.OPEN) {
+          const audio = await blobToBase64(event.data);
+          socketRef.current.send(JSON.stringify({ type: 'audio', audio }));
+        }
+      };
+      recorder.start(1200);
+      recorderRef.current = recorder;
+      startBrowserRecognition();
+      setStatus('listening');
+    } catch (err) {
+      console.warn('Microphone error in Electron:', err);
+      // Still set status listening if user wants to use manual transcript
+      setStatus('listening');
+    }
   }
 
   function startBrowserRecognition() {
     if (!supportsSpeechRecognition) return;
-    const recognition = new SpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.lang = languageCode;
-    recognition.onresult = (event) => {
-      let interim = '';
-      for (let index = event.resultIndex; index < event.results.length; index += 1) {
-        const text = event.results[index][0].transcript;
-        if (event.results[index].isFinal) {
-          setTranscript(text);
-          socketRef.current?.send(JSON.stringify({ type: 'transcript', text, final: true }));
-        } else {
-          interim += text;
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = languageCode;
+      recognition.onresult = (event) => {
+        let interim = '';
+        for (let index = event.resultIndex; index < event.results.length; index += 1) {
+          const text = event.results[index][0].transcript;
+          if (event.results[index].isFinal) {
+            setTranscript(text);
+            socketRef.current?.send(JSON.stringify({ type: 'transcript', text, final: true }));
+          } else {
+            interim += text;
+          }
         }
-      }
-      setPartialTranscript(interim);
-    };
-    recognition.onend = () => {
-      if (status === 'listening') {
-        try {
-          recognition.start();
-        } catch {
-          // Browser may reject immediate restart; user can press Start again.
+        setPartialTranscript(interim);
+      };
+      recognition.onerror = (err) => {
+        console.warn('SpeechRecognition error (expected in standard Electron):', err);
+      };
+      recognition.onend = () => {
+        if (status === 'listening') {
+          try {
+            recognition.start();
+          } catch {
+            // Browser may reject restart
+          }
         }
-      }
-    };
-    recognition.start();
-    recognitionRef.current = recognition;
+      };
+      recognition.start();
+      recognitionRef.current = recognition;
+    } catch (e) {
+      console.warn('SpeechRecognition initialization error:', e);
+    }
   }
 
   function stopListening() {
@@ -172,11 +197,27 @@ function VoiceAssistant() {
     setPreferences(next);
   }
 
-  function sendManualTranscript() {
+  async function sendManualTranscript() {
     const text = transcript.trim();
     if (!text) return;
-    socketRef.current?.send(JSON.stringify({ type: 'transcript', text, final: true }));
-    setTranscript('');
+
+    let socket = socketRef.current;
+    if (!socket || socket.readyState !== WebSocket.OPEN) {
+      socket = await connectSocket();
+      if (socket && socket.readyState !== WebSocket.OPEN) {
+        await new Promise((resolve) => {
+          socket.addEventListener('open', resolve, { once: true });
+          setTimeout(resolve, 800);
+        });
+      }
+    }
+
+    if (socket?.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify({ type: 'transcript', text, final: true }));
+      setTranscript('');
+    } else {
+      console.error('Socket is not open. Could not send manual transcript.');
+    }
   }
 
   useEffect(() => {
@@ -244,7 +285,13 @@ function VoiceAssistant() {
             <p className="text-xs uppercase text-slate-500">Live transcript</p>
             <p className="mt-2 min-h-12 text-sm leading-6 text-slate-200">{partialTranscript || transcript || 'Start speaking in Tamil, English, or both.'}</p>
             <div className="mt-3 flex gap-2">
-              <input value={transcript} onChange={(event) => setTranscript(event.target.value)} placeholder="Manual transcript fallback..." className="min-w-0 flex-1 rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-sm outline-none" />
+              <input
+                value={transcript}
+                onChange={(event) => setTranscript(event.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') sendManualTranscript(); }}
+                placeholder="Manual transcript fallback..."
+                className="min-w-0 flex-1 rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-sm outline-none"
+              />
               <button type="button" onClick={sendManualTranscript} className="rounded-lg bg-cyanGlow px-3 py-2 text-sm font-bold text-slate-950">Send</button>
             </div>
           </div>
