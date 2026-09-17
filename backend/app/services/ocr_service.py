@@ -208,7 +208,13 @@ class OCRProcessor:
 
     def _latest_app_info(self, db: Session, session_id: int):
         usage = db.query(AppUsage).filter(AppUsage.session_id == session_id).order_by(AppUsage.started_at.desc()).first()
-        return (usage.app_name, usage.window_title) if usage else ("unknown", "")
+        if usage and usage.window_title:
+            return (usage.app_name, usage.window_title)
+        try:
+            from app.services.capture_service import capture_manager
+            return (capture_manager.current_app or "browser", capture_manager.current_title or "")
+        except Exception:
+            return ("unknown", "")
 
     def _latest_app_source(self, db: Session, session_id: int):
         usage = db.query(AppUsage).filter(AppUsage.session_id == session_id).order_by(AppUsage.started_at.desc()).first()
