@@ -1,3 +1,4 @@
+import asyncio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -46,3 +47,15 @@ async def on_startup():
     initialize_neo4j()
     ocr_processor.start_worker()
     embedding_worker.start()
+
+    # Launch periodic GitHub Memory Vault sync
+    async def _vault_sync_loop():
+        from app.agents.vault_agent import vault_agent
+        while True:
+            await asyncio.sleep(180)
+            try:
+                await vault_agent.sync_to_github()
+            except Exception:
+                pass
+
+    asyncio.create_task(_vault_sync_loop())

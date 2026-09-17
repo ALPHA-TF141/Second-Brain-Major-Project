@@ -543,3 +543,17 @@ def get_graph_stats(
     except Exception as e:
         logger.error(f"Error getting stats: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/vault")
+def get_vault_graph():
+    """Get the live persistent GitHub Memory Vault knowledge graph"""
+    import json
+    from app.agents.vault_agent import vault_agent
+    try:
+        if vault_agent.graph_file.exists():
+            return json.loads(vault_agent.graph_file.read_text(encoding="utf-8"))
+        return {"nodes": [], "edges": []}
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+

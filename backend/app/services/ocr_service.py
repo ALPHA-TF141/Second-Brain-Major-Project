@@ -154,6 +154,28 @@ class OCRProcessor:
             self._refresh_processed_session(db, screenshot.session_id)
             db.commit()
             self._refresh_memory_archive(screenshot.session_id)
+
+            # --- Agentic Curation + GitHub Vault Sync + Ephemeral Storage Pruning ---
+            try:
+                from app.agents.curation_agent import curation_agent
+                from app.agents.vault_agent import vault_agent
+
+                app_name, win_title = self._latest_app_info(db, screenshot.session_id)
+                card = curation_agent.evaluate_and_curate(
+                    raw_text=clean_text,
+                    app_source=app_name,
+                    window_title=win_title,
+                    session_id=screenshot.session_id,
+                )
+                if card:
+                    vault_agent.store_card(card)
+                    print(f"[CurationAgent] Created & indexed JSON memory card: {card.id} ({card.domain} | {card.priority})")
+
+                # Purge raw image to protect laptop disk space
+                vault_agent.prune_screenshot(screenshot.file_path)
+            except Exception as agent_err:
+                print(f"[CurationAgent] Notice: {agent_err}")
+
             return {"status": "completed", "screenshot_id": screenshot_id, "chunks": len(chunks)}
         except Exception as exc:
             db.rollback()
@@ -175,6 +197,10 @@ class OCRProcessor:
             )
         )
         db.commit()
+
+    def _latest_app_info(self, db: Session, session_id: int):
+        usage = db.query(AppUsage).filter(AppUsage.session_id == session_id).order_by(AppUsage.started_at.desc()).first()
+        return (usage.app_name, usage.window_title) if usage else ("unknown", "")
 
     def _latest_app_source(self, db: Session, session_id: int):
         usage = db.query(AppUsage).filter(AppUsage.session_id == session_id).order_by(AppUsage.started_at.desc()).first()

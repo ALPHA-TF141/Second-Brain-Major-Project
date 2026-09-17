@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Mic2, Pause, Radio, Save, Settings2, Square, Volume2, Waves } from 'lucide-react';
+import NeuralBrain3D from '../components/NeuralBrain3D.jsx';
 import PageHeader from '../components/PageHeader.jsx';
 import { useBackend } from '../context/BackendContext.jsx';
 import { createVoiceSocket } from '../services/voiceSocket.js';
@@ -239,37 +240,28 @@ function VoiceAssistant() {
         description="Realtime microphone streaming, Tamil-English conversation, wake phrases, command routing, memory-aware answers, and spoken replies."
       />
 
-      <div className="grid gap-5 xl:grid-cols-[0.9fr_1.1fr_0.85fr]">
-        <section className="glass-panel rounded-lg p-6">
-          <div className="flex flex-col items-center justify-center rounded-lg border border-white/10 bg-slate-950/40 p-8">
-            <div className={`relative mb-6 flex h-44 w-44 items-center justify-center rounded-full border transition duration-300 ${isListening ? 'border-mintGlow/50 bg-mintGlow/10 text-mintGlow shadow-glow' : isSpeaking ? 'border-cyanGlow/50 bg-cyanGlow/10 text-cyanGlow shadow-glow' : 'border-white/10 bg-white/5 text-slate-500'}`}>
-              <span className={`absolute h-36 w-36 rounded-full ${isListening || isSpeaking ? 'status-pulse bg-cyanGlow/10' : ''}`} />
-              <Mic2 size={54} className="relative z-10" />
-            </div>
-            <h3 className="text-2xl font-semibold">{isSpeaking ? 'Speaking' : isListening ? 'Listening' : 'Standby'}</h3>
-            <p className="mt-2 text-sm text-slate-500">Socket {socketStatus} · Session {sessionId || '-'}</p>
+      <div className="grid gap-5 xl:grid-cols-[1.1fr_1.1fr_0.8fr]">
+        <section className="glass-panel flex flex-col justify-between rounded-lg p-5">
+          <NeuralBrain3D
+            state={status === 'listening' ? 'listening' : status === 'speaking' ? 'speaking' : 'idle'}
+            domainFocus="Active Sensory Audio Stream"
+          />
 
-            <div className="mt-6 flex h-12 items-end gap-1">
-              {Array.from({ length: 18 }).map((_, index) => (
-                <span
-                  key={index}
-                  className={`w-2 rounded-full ${isListening ? 'bg-mintGlow' : isSpeaking ? 'bg-cyanGlow' : 'bg-slate-700'}`}
-                  style={{ height: `${12 + ((index * 7) % 34)}px`, animation: isListening || isSpeaking ? `statusPulse ${0.8 + index * 0.03}s ease-in-out infinite` : 'none' }}
-                />
-              ))}
-            </div>
+          <div className="mt-4 flex flex-col items-center justify-center rounded-lg border border-white/10 bg-slate-950/40 p-4">
+            <h3 className="text-xl font-semibold capitalize">{status}</h3>
+            <p className="mt-1 text-xs text-slate-500">Socket {socketStatus} · Session {sessionId || '-'}</p>
 
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <button type="button" onClick={startListening} disabled={isListening} className="flex items-center gap-2 rounded-lg bg-mintGlow px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-emerald-300 disabled:opacity-40">
-                <Radio size={17} />
+            <div className="mt-4 flex flex-wrap justify-center gap-3">
+              <button type="button" onClick={startListening} disabled={isListening} className="flex items-center gap-2 rounded-lg bg-mintGlow px-5 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-emerald-300 disabled:opacity-40">
+                <Radio size={16} />
                 Start
               </button>
-              <button type="button" onClick={() => setStatus('paused')} disabled={!isListening} className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:bg-white/10 disabled:opacity-40">
-                <Pause size={17} />
+              <button type="button" onClick={() => setStatus('paused')} disabled={!isListening} className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:bg-white/10 disabled:opacity-40">
+                <Pause size={16} />
                 Pause
               </button>
-              <button type="button" onClick={stopListening} disabled={status === 'standby'} className="flex items-center gap-2 rounded-lg border border-red-400/30 bg-red-500/10 px-5 py-3 text-sm font-semibold text-red-200 transition hover:bg-red-500/20 disabled:opacity-40">
-                <Square size={17} />
+              <button type="button" onClick={stopListening} disabled={status === 'standby'} className="flex items-center gap-2 rounded-lg border border-red-400/30 bg-red-500/10 px-5 py-2.5 text-sm font-semibold text-red-200 transition hover:bg-red-500/20 disabled:opacity-40">
+                <Square size={16} />
                 Stop
               </button>
             </div>
