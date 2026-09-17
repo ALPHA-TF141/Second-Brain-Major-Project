@@ -8,7 +8,7 @@
     "dev": "concurrently \"npm run backend\" \"npm run dev:react\" \"npm run dev:electron\"",
     "dev:react": "vite",
     "dev:electron": "wait-on http://127.0.0.1:5173 && electron .",
-    "backend": "cd backend && python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000",
+    "backend": "node run_backend.js",
     "build": "vite build",
     "preview": "vite preview",
     "start": "electron ."
