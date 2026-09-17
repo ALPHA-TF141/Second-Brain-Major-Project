@@ -1,0 +1,13 @@
+{
+  "updated_at": "2026-09-17T09:24:27.981872Z",
+  "nodes": [
+    {
+      "id": "JARVIS_CORE",
+      "label": "Jarvis Core",
+      "domain": "Core",
+      "priority": "high",
+      "val": 20
+    }
+  ],
+  "edges": []
+}
