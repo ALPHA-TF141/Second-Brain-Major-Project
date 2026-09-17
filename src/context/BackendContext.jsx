@@ -67,7 +67,15 @@ export function BackendProvider({ children }) {
   useEffect(() => {
     checkHealth();
 
+    // Auto-retry health check every 4 seconds so it turns "online" as soon as backend finishes booting
+    const timer = setInterval(() => {
+      apiClient.health()
+        .then(() => setApiStatus((prev) => (prev === 'offline' || prev === 'checking' ? 'online' : prev)))
+        .catch(() => setApiStatus('offline'));
+    }, 4000);
+
     return () => {
+      clearInterval(timer);
       socketRef.current?.close();
     };
   }, []);
