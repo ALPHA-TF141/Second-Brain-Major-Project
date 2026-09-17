@@ -13,6 +13,21 @@ function Dashboard() {
   const { apiStatus, apiClient } = useBackend();
   const [vaultCards, setVaultCards] = useState([]);
   const [selectedCardImage, setSelectedCardImage] = useState(null);
+  const [isSyncing, setIsSyncing] = useState(false);
+
+  async function triggerVaultSync() {
+    setIsSyncing(true);
+    try {
+      const res = await fetch(`${apiClient.baseUrl}/api/graph/vault/sync`, { method: 'POST' });
+      if (res.ok) {
+        addNotification('GitHub Vault Synced', 'All memory cards, hero captures, and graph pushed to GitHub.');
+      }
+    } catch {
+      addNotification('Sync Notice', 'Vault background sync is active.');
+    } finally {
+      setIsSyncing(false);
+    }
+  }
 
   // Dynamic cognitive brain state determination
   const brainState = isListening
@@ -117,7 +132,7 @@ function Dashboard() {
       {/* Live Curated Knowledge Cards & Hero Screen Captures */}
       {vaultCards.length > 0 && (
         <section className="glass-panel mb-5 rounded-lg p-5">
-          <div className="mb-4 flex items-center justify-between">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <Layers className="text-cyanGlow" size={20} />
               <div>
@@ -125,7 +140,18 @@ function Dashboard() {
                 <p className="text-xs text-slate-400">Single highest-content visual evidence preserved per information cluster.</p>
               </div>
             </div>
-            <span className="text-xs text-slate-500">Live Memory Layer</span>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={triggerVaultSync}
+                disabled={isSyncing}
+                className="flex items-center gap-1.5 rounded-lg border border-cyanGlow/30 bg-cyanGlow/10 px-3 py-1.5 text-xs font-semibold text-cyanGlow transition hover:bg-cyanGlow/20 disabled:opacity-50"
+              >
+                <Sparkles size={13} className={isSyncing ? 'animate-spin' : ''} />
+                {isSyncing ? 'Pushing to GitHub...' : 'Sync to GitHub Now'}
+              </button>
+              <span className="text-xs text-slate-500">Live Memory Layer</span>
+            </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">

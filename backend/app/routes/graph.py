@@ -563,8 +563,9 @@ def get_vault_cards(limit: int = 25):
     """Get the latest curated JSON Memory Cards with Hero images and key pointers"""
     import json
     from pathlib import Path
+    from app.agents.vault_agent import vault_agent
     cards = []
-    cards_root = Path("memory_vault/cards")
+    cards_root = vault_agent.cards_dir
     if cards_root.exists():
         card_files = sorted(cards_root.rglob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
         for card_file in card_files[:limit]:
@@ -573,4 +574,12 @@ def get_vault_cards(limit: int = 25):
             except Exception:
                 pass
     return cards
+
+
+@router.post("/vault/sync")
+async def sync_vault_now():
+    """Immediately commits and pushes all pending memory cards and graph to GitHub"""
+    from app.agents.vault_agent import vault_agent
+    success = await vault_agent.sync_to_github()
+    return {"success": success}
 

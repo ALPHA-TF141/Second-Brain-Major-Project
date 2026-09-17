@@ -4,7 +4,7 @@ import os
 import subprocess
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional
+from typing import Optional
 
 from app.agents.card_schema import JSONMemoryCard
 
@@ -14,12 +14,14 @@ class GitVaultAgent:
     - Writes structured JSON cards to disk.
     - Stores the single highest-content "Hero" image per session/topic window.
     - Aggregates the dynamic live Knowledge Graph JSON.
-    - Commits and pushes cards and hero images to the user's GitHub repository.
+    - Commits and pushes cards and hero images directly to GitHub.
     - Prunes all redundant ephemeral screenshots.
     """
 
-    def __init__(self, vault_root: str = "memory_vault"):
-        self.vault_root = Path(vault_root)
+    def __init__(self):
+        # Always resolve to the true git repository root regardless of where python was spawned from
+        self.project_root = Path(__file__).resolve().parents[3]
+        self.vault_root = self.project_root / "memory_vault"
         self.cards_dir = self.vault_root / "cards"
         self.images_dir = self.vault_root / "images"
         self.cards_dir.mkdir(parents=True, exist_ok=True)
@@ -56,7 +58,6 @@ class GitVaultAgent:
     def optimize_and_store_hero_image(self, source_image_path: str, card_id: str) -> Optional[str]:
         """Compresses a representative screen capture into a lightweight,
         high-clarity WebP/JPEG image (~70-120KB) for permanent GitHub vault storage.
-        Preserves all text, code, and diagrams for Second Brain analysis and visual recall.
         """
         try:
             from PIL import Image
@@ -76,14 +77,13 @@ class GitVaultAgent:
                 if img.mode in ("RGBA", "P"):
                     img = img.convert("RGB")
 
-                # Scale down slightly if ultra-wide/4K to preserve maximum clarity with minimal size
+                # Scale down slightly if ultra-wide/4K to preserve clarity with minimal size
                 max_width = 1600
                 if img.width > max_width:
                     scale = max_width / float(img.width)
                     new_height = int(img.height * scale)
                     img = img.resize((max_width, new_height), Image.Resampling.LANCZOS)
 
-                # Save as optimized WebP (or JPEG if webp encoder unavailable)
                 try:
                     img.save(str(dest_path), format="WEBP", quality=82, method=4)
                 except Exception:
@@ -164,28 +164,35 @@ class GitVaultAgent:
 
     async def sync_to_github(self) -> bool:
         """Pushes pending memory cards, hero images, and updated graph to GitHub."""
-        if not self._pending_push:
-            return True
-
         return await asyncio.to_thread(self._git_commit_push)
 
     def _git_commit_push(self) -> bool:
         try:
             timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+            cwd = str(self.project_root)
+
             # 1. Stage memory vault files (cards, images, and graph)
-            subprocess.run(["git", "add", "memory_vault/"], check=True, capture_output=True, text=True)
+            subprocess.run(["git", "add", "memory_vault/"], cwd=cwd, check=True, capture_output=True, text=True)
+
             # 2. Check if there are changes to commit
-            status = subprocess.run(["git", "status", "--porcelain", "memory_vault/"], capture_output=True, text=True)
+            status = subprocess.run(["git", "status", "--porcelain", "memory_vault/"], cwd=cwd, capture_output=True, text=True)
             if not status.stdout.strip():
                 self._pending_push = False
                 return True
 
-            # 3. Commit
+            # 3. Commit with explicit identity to avoid author unknown errors on Windows
             commit_msg = f"chore(vault): auto-sync knowledge cards, hero images & graph [{timestamp}]"
-            subprocess.run(["git", "commit", "-m", commit_msg], check=True, capture_output=True, text=True)
+            commit_cmd = [
+                "git",
+                "-c", "user.name=ALPHA-TF141",
+                "-c", "user.email=lmariaimmanuel@gmail.com",
+                "commit",
+                "-m", commit_msg
+            ]
+            subprocess.run(commit_cmd, cwd=cwd, check=True, capture_output=True, text=True)
 
             # 4. Push to origin main
-            push_res = subprocess.run(["git", "push", "origin", "main"], capture_output=True, text=True)
+            push_res = subprocess.run(["git", "push", "origin", "main"], cwd=cwd, capture_output=True, text=True)
             if push_res.returncode == 0:
                 print(f"[VaultAgent] Successfully pushed memory cards & hero images to GitHub: {timestamp}")
                 self._pending_push = False
