@@ -639,3 +639,20 @@ async def sync_vault_now():
     success = await vault_agent.sync_to_github()
     return {"success": success}
 
+
+@router.get("/vault/wiki")
+def get_compiled_wiki_articles():
+    """Get all self-improving compiled wiki articles"""
+    from app.agents.wiki_compiler_agent import wiki_compiler
+    return wiki_compiler.list_wiki_articles()
+
+
+@router.get("/vault/wiki/article")
+def get_wiki_article_content(path: str = ""):
+    """Fetch content of a specific master wiki article"""
+    from app.agents.wiki_compiler_agent import wiki_compiler
+    target = wiki_compiler.vault_root / path
+    if target.exists() and target.is_file():
+        return {"content": target.read_text(encoding="utf-8")}
+    raise HTTPException(status_code=404, detail="Wiki article not found")
+

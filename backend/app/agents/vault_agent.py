@@ -51,6 +51,14 @@ class GitVaultAgent:
 
         # Update Knowledge Graph
         self._update_knowledge_graph(card)
+
+        # Incrementally compile into Self-Improving Wiki
+        try:
+            from app.agents.wiki_compiler_agent import wiki_compiler
+            wiki_compiler.compile_card_into_wiki(card)
+        except Exception as e:
+            print(f"[VaultAgent] Wiki compilation notice: {e}")
+
         self._pending_push = True
 
         # 100% Autonomous Auto-Push: silently sync to GitHub in background
