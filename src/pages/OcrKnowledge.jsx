@@ -49,7 +49,11 @@ function OcrKnowledge() {
   }
 
   useEffect(() => {
-    refresh();
+    async function boot() {
+      await ensureLogin();
+      await refresh();
+    }
+    boot();
   }, []);
 
   useEffect(() => {

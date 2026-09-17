@@ -53,6 +53,14 @@ class GitVaultAgent:
         self._update_knowledge_graph(card)
         self._pending_push = True
 
+        # 100% Autonomous Auto-Push: silently sync to GitHub in background
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                loop.create_task(self.sync_to_github())
+        except Exception:
+            pass
+
         return str(card_path)
 
     def optimize_and_store_hero_image(self, source_image_path: str, card_id: str) -> Optional[str]:

@@ -74,6 +74,7 @@ function SemanticMemory() {
 
   useEffect(() => {
     refreshMeta();
+    runSearch();
   }, []);
 
   useEffect(() => {

@@ -3,9 +3,13 @@ import GraphVisualization from '../components/GraphVisualization';
 import NodeDetailsPanel from '../components/NodeDetailsPanel';
 import FilterPanel from '../components/FilterPanel';
 import RecommendationPanel from '../components/RecommendationPanel';
+import PageHeader from '../components/PageHeader.jsx';
+import { useBackend } from '../context/BackendContext.jsx';
+import { Network, Sparkles, RefreshCw, Layers } from 'lucide-react';
 import '../styles/knowledge-graph.css';
 
 export default function KnowledgeGraphPage() {
+  const { apiClient, loginDemo } = useBackend();
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
   const [clusters, setClusters] = useState([]);
@@ -18,45 +22,36 @@ export default function KnowledgeGraphPage() {
     minStrength: 0,
     searchQuery: ''
   });
-  const [activeView, setActiveView] = useState('graph'); // 'graph', 'clusters', 'timeline', 'stats'
+  const [activeView, setActiveView] = useState('graph');
   const [recommendations, setRecommendations] = useState([]);
 
-  // Load graph data on component mount
-  useEffect(() => {
-    loadGraphData();
-  }, []);
-
-  // Fetch recommendations when node is selected
-  useEffect(() => {
-    if (selectedNode && selectedNode.type === 'memory') {
-      fetchRecommendations(selectedNode.id);
-    }
-  }, [selectedNode]);
+  async function ensureLogin() {
+    if (!apiClient.getToken()) await loginDemo();
+  }
 
   const loadGraphData = async () => {
     setLoading(true);
     try {
-      // Fetch all nodes and edges
-      const nodesRes = await fetch('/api/graph/nodes', {
-        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
-      });
-      const nodesData = await nodesRes.json();
+      await ensureLogin();
+      const token = apiClient.getToken();
+      const headers = {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      };
 
-      const edgesRes = await fetch('/api/graph/edges', {
-        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
-      });
-      const edgesData = await edgesRes.json();
+      const [nodesRes, edgesRes, statsRes] = await Promise.all([
+        fetch(`${apiClient.baseUrl}/api/graph/nodes?limit=150`, { headers }).then(r => r.json()).catch(() => []),
+        fetch(`${apiClient.baseUrl}/api/graph/edges?limit=250`, { headers }).then(r => r.json()).catch(() => []),
+        fetch(`${apiClient.baseUrl}/api/graph/stats`, { headers }).then(r => r.json()).catch(() => null)
+      ]);
 
-      const statsRes = await fetch('/api/graph/stats', {
-        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
-      });
-      const statsData = await statsRes.json();
+      const validNodes = Array.isArray(nodesRes) ? nodesRes : [];
+      const validEdges = Array.isArray(edgesRes) ? edgesRes : [];
 
-      setNodes(nodesData);
-      setEdges(edgesData);
-      setStats(statsData);
+      setNodes(validNodes);
+      setEdges(validEdges);
+      setStats(statsRes);
 
-      // Load clusters if viewing clusters
       if (activeView === 'clusters') {
         loadClusters();
       }
@@ -69,11 +64,11 @@ export default function KnowledgeGraphPage() {
 
   const loadClusters = async () => {
     try {
-      const res = await fetch('/api/graph/clusters', {
-        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
-      });
+      const token = apiClient.getToken();
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const res = await fetch(`${apiClient.baseUrl}/api/graph/clusters`, { headers });
       const data = await res.json();
-      setClusters(data);
+      setClusters(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error loading clusters:', error);
     }
@@ -81,9 +76,9 @@ export default function KnowledgeGraphPage() {
 
   const fetchRecommendations = async (memoryId) => {
     try {
-      const res = await fetch(`/api/graph/recommendations/related-memories/${memoryId}`, {
-        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
-      });
+      const token = apiClient.getToken();
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const res = await fetch(`${apiClient.baseUrl}/api/graph/recommendations/related-memories/${memoryId}`, { headers });
       const data = await res.json();
       setRecommendations(data.related_memories || []);
     } catch (error) {
@@ -91,42 +86,32 @@ export default function KnowledgeGraphPage() {
     }
   };
 
+  useEffect(() => {
+    loadGraphData();
+  }, []);
+
+  useEffect(() => {
+    if (selectedNode && selectedNode.type === 'memory') {
+      fetchRecommendations(selectedNode.id);
+    }
+  }, [selectedNode]);
+
   const generateGraph = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/graph/generate', {
+      await ensureLogin();
+      const token = apiClient.getToken();
+      await fetch(`${apiClient.baseUrl}/api/graph/generate`, {
         method: 'POST',
-        headers: { 
-          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
         },
         body: JSON.stringify({ limit: 1000 })
       });
-      const data = await res.json();
-      console.log('Graph generated:', data.stats);
-      loadGraphData();
+      await loadGraphData();
     } catch (error) {
       console.error('Error generating graph:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const clusterGraph = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/graph/clustering/similarity', {
-        method: 'POST',
-        headers: { 
-          'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ threshold: 0.6 })
-      });
-      const data = await res.json();
-      console.log('Clustering complete:', data);
-      loadClusters();
-    } catch (error) {
-      console.error('Error clustering:', error);
     } finally {
       setLoading(false);
     }
@@ -149,163 +134,148 @@ export default function KnowledgeGraphPage() {
   });
 
   return (
-    <div className="knowledge-graph-page">
-      <div className="graph-header">
-        <h1>Knowledge Graph</h1>
-        <p>Your interconnected learning network</p>
-      </div>
-
-      <div className="graph-toolbar">
-        <div className="toolbar-left">
-          <button 
-            onClick={generateGraph} 
-            disabled={loading}
-            className="btn btn-primary"
-          >
-            {loading ? 'Generating...' : 'Generate Graph'}
-          </button>
-          <button 
-            onClick={clusterGraph}
-            disabled={loading}
-            className="btn btn-secondary"
-          >
-            Cluster Concepts
-          </button>
-        </div>
-
-        <div className="toolbar-center">
-          <div className="view-buttons">
-            <button 
-              className={`view-btn ${activeView === 'graph' ? 'active' : ''}`}
-              onClick={() => setActiveView('graph')}
+    <div className="space-y-5">
+      <PageHeader
+        eyebrow="Neural Knowledge Network"
+        title="Dynamic Cognitive Knowledge Graph"
+        description="Explore the interconnected nodes of science, technology, concepts, and memory cards synthesized by Jarvis."
+        action={
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={loadGraphData}
+              disabled={loading}
+              className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:bg-white/10"
             >
-              Graph
+              <RefreshCw size={13} className={loading ? 'animate-spin' : ''} />
+              Refresh Graph
             </button>
-            <button 
-              className={`view-btn ${activeView === 'clusters' ? 'active' : ''}`}
-              onClick={() => setActiveView('clusters')}
+            <button
+              type="button"
+              onClick={generateGraph}
+              disabled={loading}
+              className="flex items-center gap-1.5 rounded-lg border border-cyanGlow/30 bg-cyanGlow/10 px-3 py-2 text-xs font-bold text-cyanGlow transition hover:bg-cyanGlow/20"
             >
-              Clusters
-            </button>
-            <button 
-              className={`view-btn ${activeView === 'stats' ? 'active' : ''}`}
-              onClick={() => setActiveView('stats')}
-            >
-              Stats
+              <Sparkles size={13} />
+              Re-Cluster Nodes
             </button>
           </div>
+        }
+      />
+
+      {/* View Switcher & Quick Stats Bar */}
+      <div className="glass-panel flex flex-wrap items-center justify-between gap-3 rounded-lg p-3">
+        <div className="flex items-center gap-1 rounded-lg bg-black/40 p-1">
+          {['graph', 'clusters', 'stats'].map((view) => (
+            <button
+              key={view}
+              onClick={() => setActiveView(view)}
+              className={`rounded px-3 py-1 text-xs font-semibold capitalize transition ${
+                activeView === view
+                  ? 'bg-cyanGlow text-slate-950 font-bold shadow-glow'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              {view}
+            </button>
+          ))}
         </div>
 
-        <div className="toolbar-right">
-          <span className="stat-badge">{filteredNodes.length} nodes</span>
-          <span className="stat-badge">{filteredEdges.length} edges</span>
+        <div className="flex items-center gap-4 text-xs font-medium text-slate-400">
+          <span className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-cyanGlow"></span>
+            {filteredNodes.length} Active Nodes
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-mintGlow"></span>
+            {filteredEdges.length} Synaptic Edges
+          </span>
         </div>
       </div>
 
-      <div className="graph-container">
-        <FilterPanel 
+      <div className="grid gap-5 lg:grid-cols-[280px_1fr]">
+        <FilterPanel
           filters={filters}
           onFilterChange={setFilters}
           nodeTypes={Array.from(new Set(nodes.map(n => n.type)))}
         />
 
-        <div className="graph-main">
+        <div className="glass-panel min-h-[580px] rounded-lg p-4">
           {activeView === 'graph' && (
-            <GraphVisualization 
-              nodes={filteredNodes}
-              edges={filteredEdges}
-              onNodeClick={setSelectedNode}
-              selectedNode={selectedNode}
-            />
+            <div className="relative h-[550px] w-full overflow-hidden rounded-lg border border-white/5 bg-slate-950/80">
+              <GraphVisualization
+                nodes={filteredNodes}
+                edges={filteredEdges}
+                onNodeClick={setSelectedNode}
+                selectedNode={selectedNode}
+              />
+            </div>
           )}
 
           {activeView === 'clusters' && (
-            <div className="clusters-view">
-              <div className="clusters-grid">
-                {clusters.map(cluster => (
-                  <div key={cluster.id} className="cluster-card">
-                    <h3>{cluster.name}</h3>
-                    <p className="cluster-topic">{cluster.primary_topic}</p>
-                    <div className="cluster-stats">
-                      <span>{cluster.size} concepts</span>
-                      <span className="cohesion">Cohesion: {(cluster.cohesion * 100).toFixed(0)}%</span>
-                    </div>
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              {clusters.map((cluster) => (
+                <div key={cluster.id} className="rounded-lg border border-white/10 bg-white/5 p-4">
+                  <h4 className="font-semibold text-slate-200">{cluster.name}</h4>
+                  <p className="mt-1 text-xs text-cyanGlow">{cluster.primary_topic}</p>
+                  <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
+                    <span>{cluster.size} Concepts</span>
+                    <span>Cohesion: {(cluster.cohesion * 100).toFixed(0)}%</span>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
+              {clusters.length === 0 && (
+                <div className="col-span-full py-12 text-center text-sm text-slate-500">
+                  Clusters will organize as more cards are captured.
+                </div>
+              )}
             </div>
           )}
 
           {activeView === 'stats' && stats && (
-            <div className="stats-view">
-              <div className="stats-grid">
-                <div className="stat-card">
-                  <h3>Total Nodes</h3>
-                  <p className="stat-value">{stats.total_nodes}</p>
+            <div className="space-y-4">
+              <div className="grid gap-3 sm:grid-cols-3">
+                <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-center">
+                  <p className="text-xs text-slate-500 uppercase">Total Nodes</p>
+                  <h3 className="text-2xl font-bold text-cyanGlow">{stats.total_nodes}</h3>
                 </div>
-                <div className="stat-card">
-                  <h3>Total Edges</h3>
-                  <p className="stat-value">{stats.total_edges}</p>
+                <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-center">
+                  <p className="text-xs text-slate-500 uppercase">Synaptic Edges</p>
+                  <h3 className="text-2xl font-bold text-mintGlow">{stats.total_edges}</h3>
                 </div>
-                <div className="stat-card">
-                  <h3>Clusters</h3>
-                  <p className="stat-value">{stats.total_clusters}</p>
-                </div>
-                <div className="stat-card">
-                  <h3>Graph Density</h3>
-                  <p className="stat-value">
-                    {(stats.total_edges / (stats.total_nodes * (stats.total_nodes - 1))).toFixed(3)}
-                  </p>
+                <div className="rounded-lg border border-white/10 bg-white/5 p-4 text-center">
+                  <p className="text-xs text-slate-500 uppercase">Domain Clusters</p>
+                  <h3 className="text-2xl font-bold text-amberGlow">{stats.total_clusters}</h3>
                 </div>
               </div>
 
-              <div className="node-types-section">
-                <h3>Node Types Distribution</h3>
-                <div className="type-list">
-                  {Object.entries(stats.node_types || {}).map(([type, count]) => (
-                    <div key={type} className="type-item">
-                      <span className="type-name">{type}</span>
-                      <div className="type-bar">
-                        <div 
-                          className="type-fill"
-                          style={{ width: `${(count / stats.total_nodes) * 100}%` }}
-                        ></div>
+              {stats.top_nodes && stats.top_nodes.length > 0 && (
+                <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+                  <h4 className="mb-3 text-sm font-semibold text-slate-300">Top Synaptic Concepts</h4>
+                  <div className="space-y-2">
+                    {stats.top_nodes.slice(0, 8).map((node, i) => (
+                      <div key={i} className="flex items-center justify-between text-xs text-slate-300">
+                        <span className="font-semibold">{node.name}</span>
+                        <span className="rounded bg-white/10 px-2 py-0.5 text-[10px] text-cyanGlow">{node.type}</span>
                       </div>
-                      <span className="type-count">{count}</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-
-              <div className="top-nodes-section">
-                <h3>Top 10 Most Important Concepts</h3>
-                <div className="top-nodes-list">
-                  {stats.top_nodes?.map((node, idx) => (
-                    <div key={idx} className="top-node-item">
-                      <span className="rank">#{idx + 1}</span>
-                      <span className="node-name">{node.name}</span>
-                      <span className="node-type">{node.type}</span>
-                      <span className="node-importance">
-                        ⭐ {(node.importance * 100).toFixed(0)}%
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              )}
             </div>
           )}
         </div>
-
-        {selectedNode && (
-          <NodeDetailsPanel 
-            node={selectedNode}
-            onClose={() => setSelectedNode(null)}
-          />
-        )}
       </div>
 
+      {selectedNode && (
+        <NodeDetailsPanel
+          node={selectedNode}
+          onClose={() => setSelectedNode(null)}
+        />
+      )}
+
       {recommendations.length > 0 && (
-        <RecommendationPanel 
+        <RecommendationPanel
           recommendations={recommendations}
           title="Related Memories"
         />
