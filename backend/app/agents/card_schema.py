@@ -1,11 +1,6 @@
 from datetime import datetime
-from typing import Any, List, Optional
+from typing import List, Optional
 from pydantic import BaseModel, Field
-
-
-class MemoryEntity(BaseModel):
-    name: str
-    entity_type: str  # Concept, Tool, Language, Person, Organization, Topic
 
 
 class JSONMemoryCard(BaseModel):
@@ -23,3 +18,5 @@ class JSONMemoryCard(BaseModel):
     tags: List[str] = Field(default_factory=list)
     source_url_or_ref: Optional[str] = None
     raw_ocr_excerpt: Optional[str] = None
+    hero_image: Optional[str] = None  # Relative path to persistent hero screenshot in memory_vault/images/...
+    hero_image_info_score: float = 0.0

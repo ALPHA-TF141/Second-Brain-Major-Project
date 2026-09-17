@@ -1,6 +1,8 @@
 import asyncio
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.audio_streaming.voice_stream import router as voice_stream_router
 from app.config import settings
@@ -39,6 +41,11 @@ app.include_router(graph.router, tags=["graph"])
 app.include_router(websocket_router)
 app.include_router(chat_stream_router)
 app.include_router(voice_stream_router)
+
+# Mount Memory Vault for static inspection of cards and hero images
+if not os.path.exists("memory_vault"):
+    os.makedirs("memory_vault", exist_ok=True)
+app.mount("/vault", StaticFiles(directory="memory_vault"), name="vault")
 
 
 @app.on_event("startup")

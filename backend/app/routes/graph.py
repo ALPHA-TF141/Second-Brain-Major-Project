@@ -557,3 +557,20 @@ def get_vault_graph():
     except Exception as e:
         return {"nodes": [], "edges": [], "error": str(e)}
 
+
+@router.get("/vault/cards")
+def get_vault_cards(limit: int = 25):
+    """Get the latest curated JSON Memory Cards with Hero images and key pointers"""
+    import json
+    from pathlib import Path
+    cards = []
+    cards_root = Path("memory_vault/cards")
+    if cards_root.exists():
+        card_files = sorted(cards_root.rglob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+        for card_file in card_files[:limit]:
+            try:
+                cards.append(json.loads(card_file.read_text(encoding="utf-8")))
+            except Exception:
+                pass
+    return cards
+

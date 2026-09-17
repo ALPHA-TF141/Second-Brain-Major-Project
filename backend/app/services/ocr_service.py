@@ -155,23 +155,31 @@ class OCRProcessor:
             db.commit()
             self._refresh_memory_archive(screenshot.session_id)
 
-            # --- Agentic Curation + GitHub Vault Sync + Ephemeral Storage Pruning ---
+            # --- Agentic Curation + Hero Image Selection + GitHub Vault Sync ---
             try:
                 from app.agents.curation_agent import curation_agent
                 from app.agents.vault_agent import vault_agent
 
                 app_name, win_title = self._latest_app_info(db, screenshot.session_id)
-                card = curation_agent.evaluate_and_curate(
+                curation_result = curation_agent.evaluate_and_curate(
                     raw_text=clean_text,
                     app_source=app_name,
                     window_title=win_title,
                     session_id=screenshot.session_id,
+                    raw_image_path=screenshot.file_path,
                 )
-                if card:
+                if curation_result:
+                    card, is_hero_selected = curation_result
+                    if is_hero_selected:
+                        # This frame is the richest in content & context for this time period
+                        hero_rel_path = vault_agent.optimize_and_store_hero_image(screenshot.file_path, card.id)
+                        card.hero_image = hero_rel_path
+                        print(f"[CurationAgent] Selected HERO screen capture ({card.domain}): {hero_rel_path}")
+
                     vault_agent.store_card(card)
                     print(f"[CurationAgent] Created & indexed JSON memory card: {card.id} ({card.domain} | {card.priority})")
 
-                # Purge raw image to protect laptop disk space
+                # Purge raw uncompressed image from laptop disk (zero storage waste!)
                 vault_agent.prune_screenshot(screenshot.file_path)
             except Exception as agent_err:
                 print(f"[CurationAgent] Notice: {agent_err}")

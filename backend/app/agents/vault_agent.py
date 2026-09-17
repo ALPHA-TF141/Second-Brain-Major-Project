@@ -4,7 +4,7 @@ import os
 import subprocess
 from datetime import datetime
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from app.agents.card_schema import JSONMemoryCard
 
@@ -12,18 +12,20 @@ from app.agents.card_schema import JSONMemoryCard
 class GitVaultAgent:
     """Agent that manages the persistent GitHub Memory Vault:
     - Writes structured JSON cards to disk.
+    - Stores the single highest-content "Hero" image per session/topic window.
     - Aggregates the dynamic live Knowledge Graph JSON.
-    - Commits and pushes cards to the user's GitHub repository.
-    - Prunes ephemeral screenshots so local disk usage stays minimal.
+    - Commits and pushes cards and hero images to the user's GitHub repository.
+    - Prunes all redundant ephemeral screenshots.
     """
 
     def __init__(self, vault_root: str = "memory_vault"):
         self.vault_root = Path(vault_root)
         self.cards_dir = self.vault_root / "cards"
+        self.images_dir = self.vault_root / "images"
         self.cards_dir.mkdir(parents=True, exist_ok=True)
+        self.images_dir.mkdir(parents=True, exist_ok=True)
         self.graph_file = self.vault_root / "knowledge_graph.json"
         self._pending_push = False
-        self._sync_task = None
         self._init_graph_file()
 
     def _init_graph_file(self):
@@ -51,13 +53,59 @@ class GitVaultAgent:
 
         return str(card_path)
 
+    def optimize_and_store_hero_image(self, source_image_path: str, card_id: str) -> Optional[str]:
+        """Compresses a representative screen capture into a lightweight,
+        high-clarity WebP/JPEG image (~70-120KB) for permanent GitHub vault storage.
+        Preserves all text, code, and diagrams for Second Brain analysis and visual recall.
+        """
+        try:
+            from PIL import Image
+
+            if not source_image_path or not os.path.exists(source_image_path):
+                return None
+
+            date_str = datetime.utcnow().strftime("%Y-%m-%d")
+            dest_dir = self.images_dir / date_str
+            dest_dir.mkdir(parents=True, exist_ok=True)
+
+            dest_filename = f"hero_{card_id}.webp"
+            dest_path = dest_dir / dest_filename
+            rel_path = f"memory_vault/images/{date_str}/{dest_filename}"
+
+            with Image.open(source_image_path) as img:
+                if img.mode in ("RGBA", "P"):
+                    img = img.convert("RGB")
+
+                # Scale down slightly if ultra-wide/4K to preserve maximum clarity with minimal size
+                max_width = 1600
+                if img.width > max_width:
+                    scale = max_width / float(img.width)
+                    new_height = int(img.height * scale)
+                    img = img.resize((max_width, new_height), Image.Resampling.LANCZOS)
+
+                # Save as optimized WebP (or JPEG if webp encoder unavailable)
+                try:
+                    img.save(str(dest_path), format="WEBP", quality=82, method=4)
+                except Exception:
+                    dest_filename = f"hero_{card_id}.jpg"
+                    dest_path = dest_dir / dest_filename
+                    rel_path = f"memory_vault/images/{date_str}/{dest_filename}"
+                    img.save(str(dest_path), format="JPEG", quality=80, optimize=True)
+
+            file_size_kb = os.path.getsize(dest_path) // 1024
+            print(f"[VaultAgent] Saved optimized Hero screenshot ({file_size_kb} KB): {rel_path}")
+            self._pending_push = True
+            return rel_path
+        except Exception as exc:
+            print(f"[VaultAgent] Notice: could not optimize hero image: {exc}")
+            return None
+
     def prune_screenshot(self, screenshot_file_path: str):
-        """Deletes raw screenshot file from disk after text & card extraction.
-        Keeps user's laptop storage completely free!"""
+        """Deletes raw uncompressed screenshot file from disk to eliminate local storage waste."""
         try:
             if screenshot_file_path and os.path.exists(screenshot_file_path):
                 os.remove(screenshot_file_path)
-                print(f"[VaultAgent] Ephemeral screenshot purged: {screenshot_file_path}")
+                print(f"[VaultAgent] Ephemeral screenshot purged from laptop: {screenshot_file_path}")
         except Exception as exc:
             print(f"[VaultAgent] Notice: could not remove {screenshot_file_path}: {exc}")
 
@@ -82,7 +130,7 @@ class GitVaultAgent:
             }
             edges.append({"source": "JARVIS_CORE", "target": domain_id, "label": "tracks"})
 
-        # Add Card node
+        # Add Card node with hero image reference
         card_label = card.topic if card.topic else card.window_title[:24]
         nodes[card.id] = {
             "id": card.id,
@@ -90,6 +138,7 @@ class GitVaultAgent:
             "domain": card.domain,
             "priority": card.priority,
             "summary": card.summary,
+            "hero_image": card.hero_image,
             "val": 10 if card.priority == "high" else 6
         }
         edges.append({"source": domain_id, "target": card.id, "label": "contains"})
@@ -114,7 +163,7 @@ class GitVaultAgent:
         self.graph_file.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
     async def sync_to_github(self) -> bool:
-        """Pushes pending memory cards and updated graph to GitHub."""
+        """Pushes pending memory cards, hero images, and updated graph to GitHub."""
         if not self._pending_push:
             return True
 
@@ -123,7 +172,7 @@ class GitVaultAgent:
     def _git_commit_push(self) -> bool:
         try:
             timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
-            # 1. Stage memory vault files
+            # 1. Stage memory vault files (cards, images, and graph)
             subprocess.run(["git", "add", "memory_vault/"], check=True, capture_output=True, text=True)
             # 2. Check if there are changes to commit
             status = subprocess.run(["git", "status", "--porcelain", "memory_vault/"], capture_output=True, text=True)
@@ -132,13 +181,13 @@ class GitVaultAgent:
                 return True
 
             # 3. Commit
-            commit_msg = f"chore(vault): auto-sync memory cards and knowledge graph [{timestamp}]"
+            commit_msg = f"chore(vault): auto-sync knowledge cards, hero images & graph [{timestamp}]"
             subprocess.run(["git", "commit", "-m", commit_msg], check=True, capture_output=True, text=True)
 
             # 4. Push to origin main
             push_res = subprocess.run(["git", "push", "origin", "main"], capture_output=True, text=True)
             if push_res.returncode == 0:
-                print(f"[VaultAgent] Successfully pushed memory cards to GitHub: {timestamp}")
+                print(f"[VaultAgent] Successfully pushed memory cards & hero images to GitHub: {timestamp}")
                 self._pending_push = False
                 return True
             else:
