@@ -17,9 +17,13 @@ const proc = spawn(
   {
     cwd: path.join(__dirname, 'backend'),
     stdio: 'inherit',
-    shell: isWin
+    shell: false
   }
 );
+
+proc.on('error', (err) => {
+  console.error('[Jarvis Backend] Failed to start backend process:', err);
+});
 
 proc.on('close', (code) => {
   process.exit(code || 0);
