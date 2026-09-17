@@ -48,39 +48,42 @@ export default function GraphVisualization({ nodes, edges, onNodeClick, selected
 
   // Convert data to React Flow format
   useEffect(() => {
-    const flowNodesData = nodes.map(node => ({
-      id: String(node.id),
-      data: {
-        label: node.name.substring(0, 20) + (node.name.length > 20 ? '...' : ''),
-        type: node.type,
-        importance: node.importance,
-        frequency: node.frequency,
-        fullName: node.name
-      },
-      position: {
-        x: Math.random() * 500,
-        y: Math.random() * 500
-      },
-      type: 'custom',
-      selected: selectedNode?.id === node.id,
-      style: {
-        background: getNodeColor(node.type),
-        border: selectedNode?.id === node.id ? '3px solid white' : '2px solid ' + getNodeColor(node.type),
-        borderRadius: '50%',
-        width: 60 + node.frequency,
-        height: 60 + node.frequency,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        cursor: 'pointer',
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: '10px',
-        padding: '4px',
-        transition: 'all 0.2s ease'
-      }
-    }));
+    const flowNodesData = nodes.map(node => {
+      const displayName = node.name || node.label || String(node.id);
+      return {
+        id: String(node.id),
+        data: {
+          label: displayName.substring(0, 20) + (displayName.length > 20 ? '...' : ''),
+          type: node.type || 'concept',
+          importance: node.importance || 0.7,
+          frequency: node.frequency || 1,
+          fullName: displayName
+        },
+        position: {
+          x: Math.random() * 500 + 50,
+          y: Math.random() * 400 + 50
+        },
+        type: 'custom',
+        selected: selectedNode?.id === node.id,
+        style: {
+          background: getNodeColor(node.type || 'concept'),
+          border: selectedNode?.id === node.id ? '3px solid white' : '2px solid ' + getNodeColor(node.type || 'concept'),
+          borderRadius: '50%',
+          width: 60 + (node.frequency || 1),
+          height: 60 + (node.frequency || 1),
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          color: 'white',
+          fontWeight: 'bold',
+          fontSize: '10px',
+          padding: '4px',
+          transition: 'all 0.2s ease'
+        }
+      };
+    });
 
     const flowEdgesData = edges.map((edge, idx) => ({
       id: `e-${edge.id || idx}`,

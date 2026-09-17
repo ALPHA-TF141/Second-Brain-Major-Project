@@ -55,11 +55,11 @@ async def on_startup():
     ocr_processor.start_worker()
     embedding_worker.start()
 
-    # Launch periodic GitHub Memory Vault sync
+    # Launch periodic GitHub Memory Vault sync (every 60s background guarantee)
     async def _vault_sync_loop():
         from app.agents.vault_agent import vault_agent
         while True:
-            await asyncio.sleep(180)
+            await asyncio.sleep(60)
             try:
                 await vault_agent.sync_to_github()
             except Exception:
