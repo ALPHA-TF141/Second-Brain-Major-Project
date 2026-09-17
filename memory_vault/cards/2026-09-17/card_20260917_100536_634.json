@@ -1,0 +1,30 @@
+{
+  "id": "card_20260917_100536_634",
+  "timestamp": "2026-09-17T10:05:36.634860Z",
+  "domain": "Technology",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "(3043) 25 Coolest Tech at IFA 2026 - YouTube - Google Chrome",
+  "topic": "Web_Knowledge",
+  "summary": "[Technology] (3043) 25 Coolest Tech at IFA 2026: Activity on chrome.exe: (3043) 25 Coolest Tech at IFA 2026 - YouTube - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: (3043) 25 Coolest Tech at IFA 2026 - YouTube - Google Chrome"
+  ],
+  "entities": [
+    "Activity",
+    "Coolest",
+    "Web_Knowledge",
+    "Google",
+    "Tech"
+  ],
+  "tags": [
+    "technology",
+    "chrome",
+    "web_knowledge"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: (3043) 25 Coolest Tech at IFA 2026 - YouTube - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 48.75
+}

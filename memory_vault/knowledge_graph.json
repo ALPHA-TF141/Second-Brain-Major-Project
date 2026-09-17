@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-17T10:04:45.257396Z",
+  "updated_at": "2026-09-17T10:06:28.001938Z",
   "nodes": [
     {
       "id": "JARVIS_CORE",
@@ -177,6 +177,240 @@
       "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
       "hero_image": null,
       "val": 6
+    },
+    {
+      "id": "card_20260917_100450_310",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "DOMAIN_GENERAL",
+      "label": "General",
+      "domain": "General",
+      "priority": "high",
+      "val": 15
+    },
+    {
+      "id": "card_20260917_100455_379",
+      "label": "Second-Brain-Major-Project/memory_vault/knowl",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_100455_379.webp",
+      "val": 6
+    },
+    {
+      "id": "ENT_second-brain-major-project",
+      "label": "Second-Brain-Major-Project",
+      "domain": "General",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "ENT_alpha-tf141",
+      "label": "ALPHA-TF141",
+      "domain": "General",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "ENT_google",
+      "label": "Google",
+      "domain": "General",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "card_20260917_100500_724",
+      "label": "Second-Brain-Major-Project/memory_vault/knowl",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260917_100505_685",
+      "label": "Second-Brain-Major-Project/memory_vault/knowl",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260917_100515_958",
+      "label": "Second-Brain-Major-Project/memory_vault/knowl",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260917_100521_243",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3043) 25 Coolest Tech at IFA 2026: Activity on chrome.exe: (3043) 25 Coolest Tech at IFA 2026 - YouTube - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_100521_243.webp",
+      "val": 6
+    },
+    {
+      "id": "ENT_coolest",
+      "label": "Coolest",
+      "domain": "Technology",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "ENT_web_knowledge",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "card_20260917_100526_318",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3043) 25 Coolest Tech at IFA 2026: Activity on chrome.exe: (3043) 25 Coolest Tech at IFA 2026 - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260917_100531_574",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3043) 25 Coolest Tech at IFA 2026: Activity on chrome.exe: (3043) 25 Coolest Tech at IFA 2026 - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260917_100536_634",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3043) 25 Coolest Tech at IFA 2026: Activity on chrome.exe: (3043) 25 Coolest Tech at IFA 2026 - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260917_100542_087",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] (3043) ai trends: Activity on chrome.exe: (3043) ai trends - YouTube - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_100542_087.webp",
+      "val": 10
+    },
+    {
+      "id": "ENT_ai",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "val": 8
+    },
+    {
+      "id": "card_20260917_100546_817",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] (3043) ai trends: Activity on chrome.exe: (3043) ai trends - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260917_100551_997",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] (3043) ai trends: Activity on chrome.exe: (3043) ai trends - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260917_100557_099",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] (3043) Top AI Platform Recommendations: Activity on chrome.exe: (3043) Top AI Platform Recommendations - YouTube - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_100557_099.webp",
+      "val": 10
+    },
+    {
+      "id": "ENT_platform",
+      "label": "Platform",
+      "domain": "Technology",
+      "priority": "high",
+      "val": 8
+    },
+    {
+      "id": "ENT_recommendations",
+      "label": "Recommendations",
+      "domain": "Technology",
+      "priority": "high",
+      "val": 8
+    },
+    {
+      "id": "card_20260917_100602_257",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] (3043) Top AI Platform Recommendations: Activity on chrome.exe: (3043) Top AI Platform Recommendations - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260917_100607_389",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] (3043) Top AI Platform Recommendations: Activity on chrome.exe: (3043) Top AI Platform Recommendations - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260917_100612_582",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] (3043) Top AI Platform Recommendations: Activity on chrome.exe: (3043) Top AI Platform Recommendations - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260917_100617_740",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] (3043) Top AI Platform Recommendations: Activity on chrome.exe: (3043) Top AI Platform Recommendations - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260917_100622_866",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] (3043) Top AI Platform Recommendations: Activity on chrome.exe: (3043) Top AI Platform Recommendations - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260917_100627_979",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] (3043) Top AI Platform Recommendations: Activity on chrome.exe: (3043) Top AI Platform Recommendations - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 10
     }
   ],
   "edges": [
@@ -558,6 +792,471 @@
     {
       "source": "card_20260917_100445_225",
       "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100450_310",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100450_310",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100450_310",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100450_310",
+      "target": "ENT_electron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100450_310",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "JARVIS_CORE",
+      "target": "DOMAIN_GENERAL",
+      "label": "tracks"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260917_100455_379",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100455_379",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100455_379",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100455_379",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100455_379",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260917_100500_724",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100500_724",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100500_724",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100500_724",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100500_724",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260917_100505_685",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100505_685",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100505_685",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100505_685",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100505_685",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260917_100515_958",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100515_958",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100515_958",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100515_958",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100515_958",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100521_243",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100521_243",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100521_243",
+      "target": "ENT_coolest",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100521_243",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100521_243",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100526_318",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100526_318",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100526_318",
+      "target": "ENT_coolest",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100526_318",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100526_318",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100531_574",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100531_574",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100531_574",
+      "target": "ENT_coolest",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100531_574",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100531_574",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100536_634",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100536_634",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100536_634",
+      "target": "ENT_coolest",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100536_634",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100536_634",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100542_087",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100542_087",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100542_087",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100542_087",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100546_817",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100546_817",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100546_817",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100546_817",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100551_997",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100551_997",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100551_997",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100551_997",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100557_099",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100557_099",
+      "target": "ENT_platform",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100557_099",
+      "target": "ENT_recommendations",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100557_099",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100557_099",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100602_257",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100602_257",
+      "target": "ENT_platform",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100602_257",
+      "target": "ENT_recommendations",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100602_257",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100602_257",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100607_389",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100607_389",
+      "target": "ENT_platform",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100607_389",
+      "target": "ENT_recommendations",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100607_389",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100607_389",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100612_582",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100612_582",
+      "target": "ENT_platform",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100612_582",
+      "target": "ENT_recommendations",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100612_582",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100612_582",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100617_740",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100617_740",
+      "target": "ENT_platform",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100617_740",
+      "target": "ENT_recommendations",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100617_740",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100617_740",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100622_866",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100622_866",
+      "target": "ENT_platform",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100622_866",
+      "target": "ENT_recommendations",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100622_866",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100622_866",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260917_100627_979",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260917_100627_979",
+      "target": "ENT_platform",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100627_979",
+      "target": "ENT_recommendations",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100627_979",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260917_100627_979",
+      "target": "ENT_ai",
       "label": "mentions"
     }
   ]

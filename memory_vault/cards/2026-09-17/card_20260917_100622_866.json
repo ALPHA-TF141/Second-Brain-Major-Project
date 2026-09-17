@@ -1,0 +1,30 @@
+{
+  "id": "card_20260917_100622_866",
+  "timestamp": "2026-09-17T10:06:22.866218Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "(3043) Top AI Platform Recommendations - YouTube - Google Chrome",
+  "topic": "Ai",
+  "summary": "[Technology] (3043) Top AI Platform Recommendations: Activity on chrome.exe: (3043) Top AI Platform Recommendations - YouTube - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: (3043) Top AI Platform Recommendations - YouTube - Google Chrome"
+  ],
+  "entities": [
+    "Platform",
+    "Recommendations",
+    "Activity",
+    "Ai",
+    "Google"
+  ],
+  "tags": [
+    "technology",
+    "chrome",
+    "ai"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: (3043) Top AI Platform Recommendations - YouTube - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 50.85
+}
