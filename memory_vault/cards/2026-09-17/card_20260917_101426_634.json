@@ -1,0 +1,30 @@
+{
+  "id": "card_20260917_101426_634",
+  "timestamp": "2026-09-17T10:14:26.634589Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "Code.exe",
+  "window_title": "knowledge_graph.json - Second Brain - Visual Studio Code",
+  "topic": "Code",
+  "summary": "[Technology] knowledge_graph.json - Second Brain: Activity on Code.exe: knowledge_graph.json - Second Brain - Visual Studio Code",
+  "key_pointers": [
+    "Activity on Code.exe: knowledge_graph.json - Second Brain - Visual Studio Code"
+  ],
+  "entities": [
+    "Second",
+    "Code",
+    "Brain",
+    "Activity",
+    "Studio",
+    "Visual"
+  ],
+  "tags": [
+    "technology",
+    "code"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on Code.exe: knowledge_graph.json - Second Brain - Visual Studio Code",
+  "hero_image": null,
+  "hero_image_info_score": 49.95
+}
