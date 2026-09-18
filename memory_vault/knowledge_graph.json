@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-18T06:19:38.927236Z",
+  "updated_at": "2026-09-18T14:03:31.145487Z",
   "nodes": [
     {
       "id": "JARVIS_CORE",
@@ -2646,34 +2646,39 @@
       "summary": "[Technology] IEEE_Conference_Paper_Jarvis_Second_Brain.pdf - Second Brain: Activity on Code.exe: IEEE_Conference_Paper_Jarvis_Second_Brain.pdf - Second Brain - Visual Studio Code",
       "hero_image": null,
       "val": 10
+    },
+    {
+      "id": "card_20260918_140331_137",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] I Built a Self-Improving AI Second Brain \ud83e\udd2f: Full Spoken Audio Transcript: I just built a self-improving second brain with Claude and it's very convincing. One of the most respected people in AI quietly posted how he runs his personal knowledge base. 105,000 people bookmarked it and probably...",
+      "hero_image": "https://img.youtube.com/vi/f_iWrXDpUkw/maxresdefault.jpg",
+      "val": 10
+    },
+    {
+      "id": "ENT_audio",
+      "label": "Audio",
+      "domain": "Technology",
+      "priority": "high",
+      "val": 8
+    },
+    {
+      "id": "ENT_full",
+      "label": "Full",
+      "domain": "Technology",
+      "priority": "high",
+      "val": 8
+    },
+    {
+      "id": "ENT_claude",
+      "label": "Claude",
+      "domain": "Technology",
+      "priority": "high",
+      "val": 8
     }
   ],
   "edges": [
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102013_867",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102013_867",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102013_867",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102013_867",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102013_867",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
     {
       "source": "DOMAIN_TECHNOLOGY",
       "target": "card_20260917_102019_082",
@@ -5147,6 +5152,31 @@
     {
       "source": "card_20260918_061938_912",
       "target": "ENT_visual",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_140331_137",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_140331_137",
+      "target": "ENT_audio",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_140331_137",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_140331_137",
+      "target": "ENT_full",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_140331_137",
+      "target": "ENT_claude",
       "label": "mentions"
     }
   ]
