@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from '../components/Sidebar.jsx';
 import Navbar from '../components/Navbar.jsx';
 import FloatingAssistantButton from '../components/FloatingAssistantButton.jsx';
+import AmbientCapsuleHUD from '../components/AmbientCapsuleHUD.jsx';
 import { useBackend } from '../context/BackendContext.jsx';
 
 function AppLayout() {
@@ -57,6 +58,7 @@ function AppLayout() {
         </div>
       </div>
       <FloatingAssistantButton />
+      <AmbientCapsuleHUD />
     </div>
   );
 }

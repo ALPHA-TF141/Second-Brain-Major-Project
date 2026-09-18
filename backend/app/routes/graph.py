@@ -656,3 +656,68 @@ def get_wiki_article_content(path: str = ""):
         return {"content": target.read_text(encoding="utf-8")}
     raise HTTPException(status_code=404, detail="Wiki article not found")
 
+
+# ============ Proactive Briefing & Deliverable Forge Routes ============
+
+@router.get("/briefing/today")
+async def get_daily_executive_briefing(db: Session = Depends(get_db)):
+    """Generates or returns today's Jarvis executive morning briefing"""
+    from app.agents.insight_agent import insight_agent
+    return await insight_agent.generate_daily_briefing(db)
+
+
+@router.get("/insights/recent")
+def get_recent_insights():
+    """Returns recent proactive insight collisions"""
+    from app.agents.insight_agent import insight_agent
+    return insight_agent.recent_insights
+
+
+@router.post("/deliverables/generate")
+async def generate_deliverable_endpoint(payload: dict):
+    """Forges an autonomous publication-grade deliverable from captured memory vault cards"""
+    from app.agents.deliverable_agent import deliverable_agent
+    from app.agents.vault_agent import vault_agent
+    import json
+
+    deliv_type = payload.get("deliverable_type", "research_paper")
+    topic = payload.get("topic", "General Research")
+    user_instructions = payload.get("user_instructions", "")
+
+    # Gather matching or recent cards
+    cards = []
+    if vault_agent.cards_dir.exists():
+        card_files = sorted(vault_agent.cards_dir.rglob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+        for f in card_files[:20]:
+            try:
+                card_data = json.loads(f.read_text(encoding="utf-8"))
+                from app.agents.card_schema import JSONMemoryCard
+                cards.append(JSONMemoryCard(**card_data))
+            except Exception:
+                pass
+
+    result = await deliverable_agent.generate_deliverable(
+        deliverable_type=deliv_type,
+        topic=topic,
+        cards=cards,
+        user_instructions=user_instructions
+    )
+    return result
+
+
+@router.get("/deliverables")
+def list_deliverables_endpoint():
+    """Lists all forged deliverables"""
+    from app.agents.deliverable_agent import deliverable_agent
+    return deliverable_agent.list_deliverables()
+
+
+@router.get("/deliverables/content")
+def get_deliverable_content_endpoint(filename: str = ""):
+    """Fetches full markdown text of a deliverable"""
+    from app.agents.deliverable_agent import deliverable_agent
+    target = deliverable_agent.deliverables_dir / filename
+    if target.exists():
+        return {"content": target.read_text(encoding="utf-8")}
+    raise HTTPException(status_code=404, detail="Deliverable not found")
+

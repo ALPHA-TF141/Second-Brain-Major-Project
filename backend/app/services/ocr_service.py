@@ -179,6 +179,22 @@ class OCRProcessor:
                     vault_agent.store_card(card)
                     print(f"[CurationAgent] Created & indexed JSON memory card: {card.id} ({card.domain} | {card.priority})")
 
+                    # Proactive Cognitive Collision Check
+                    try:
+                        import json
+                        from app.agents.card_schema import JSONMemoryCard
+                        from app.agents.insight_agent import insight_agent
+                        recent_card_objs = []
+                        if vault_agent.cards_dir.exists():
+                            for cf in sorted(vault_agent.cards_dir.rglob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)[:12]:
+                                try:
+                                    recent_card_objs.append(JSONMemoryCard(**json.loads(cf.read_text(encoding="utf-8"))))
+                                except Exception:
+                                    pass
+                        asyncio.create_task(insight_agent.evaluate_collision(card, recent_card_objs))
+                    except Exception as ins_err:
+                        print(f"[InsightAgent] Collision notice: {ins_err}")
+
                 # Purge raw uncompressed image from laptop disk (zero storage waste!)
                 vault_agent.prune_screenshot(screenshot.file_path)
             except Exception as agent_err:

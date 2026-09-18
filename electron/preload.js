@@ -7,5 +7,8 @@ contextBridge.exposeInMainWorld('secondBrain', {
   close: () => ipcRenderer.send('window:close'),
   onCaptureCommand: (callback) => {
     ipcRenderer.on('jarvis:capture', (_event, command) => callback(command));
+  },
+  onSpotlightToggle: (callback) => {
+    ipcRenderer.on('jarvis:spotlight', () => callback());
   }
 });

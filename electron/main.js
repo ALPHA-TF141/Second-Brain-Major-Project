@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, session, Tray, Menu, nativeImage, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, session, Tray, Menu, nativeImage, shell, globalShortcut } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -96,6 +96,22 @@ app.whenReady().then(() => {
   setupPermissions();
   createWindow();
 
+  // Register Global Jarvis Spotlight Hotkey (Alt+Space)
+  try {
+    globalShortcut.register('Alt+Space', () => {
+      if (!mainWindow) return;
+      if (mainWindow.isVisible() && mainWindow.isFocused()) {
+        mainWindow.hide();
+      } else {
+        mainWindow.show();
+        mainWindow.focus();
+        mainWindow.webContents.send('jarvis:spotlight');
+      }
+    });
+  } catch (err) {
+    console.warn('Could not register Alt+Space shortcut:', err);
+  }
+
   // Auto-start with Windows login
   app.setLoginItemSettings({
     openAtLogin: true,
@@ -110,6 +126,10 @@ app.whenReady().then(() => {
       mainWindow.show();
     }
   });
+});
+
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
 });
 
 app.on('before-quit', () => { isQuitting = true; });

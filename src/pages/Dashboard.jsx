@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { BrainCircuit, BookOpen, ExternalLink, Image as ImageIcon, Layers, Mic2, Power, Search, Sparkles, Activity, ShieldCheck, Database, GitBranch, FileText } from 'lucide-react';
 import BackendStatus from '../components/BackendStatus.jsx';
 import NeuralBrain3D from '../components/NeuralBrain3D.jsx';
+import ExecutiveBriefingWidget from '../components/ExecutiveBriefingWidget.jsx';
+import DeliverableForge from '../components/DeliverableForge.jsx';
 import NotificationPanel from '../components/NotificationPanel.jsx';
 import PageHeader from '../components/PageHeader.jsx';
 import StatusCard from '../components/StatusCard.jsx';
@@ -131,6 +133,9 @@ function Dashboard() {
           </div>
         }
       />
+
+      {/* Executive Daily Briefing (Iron Man Audio + Trajectory) */}
+      <ExecutiveBriefingWidget />
 
       {/* Massive 3D Neural Brain Hero Viewport */}
       <div className="w-full">
@@ -328,6 +333,9 @@ function Dashboard() {
           </div>
         )}
       </section>
+
+      {/* 1-Click Deliverable Forge (Research Papers, Cheatsheets, Specs) */}
+      <DeliverableForge />
 
       {/* Autonomous Agent Swarm & Notifications */}
       <div className="grid gap-6 xl:grid-cols-[1.4fr_0.8fr]">
