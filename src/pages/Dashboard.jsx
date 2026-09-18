@@ -3,6 +3,7 @@ import { BrainCircuit, BookOpen, ExternalLink, Image as ImageIcon, Layers, Mic2,
 import BackendStatus from '../components/BackendStatus.jsx';
 import NeuralBrain3D from '../components/NeuralBrain3D.jsx';
 import ExecutiveBriefingWidget from '../components/ExecutiveBriefingWidget.jsx';
+import SocialIngestionHub from '../components/SocialIngestionHub.jsx';
 import DeliverableForge from '../components/DeliverableForge.jsx';
 import NotificationPanel from '../components/NotificationPanel.jsx';
 import PageHeader from '../components/PageHeader.jsx';
@@ -136,6 +137,9 @@ function Dashboard() {
 
       {/* Executive Daily Briefing (Iron Man Audio + Trajectory) */}
       <ExecutiveBriefingWidget />
+
+      {/* Social Media & Web Scraper Hub (YouTube Transcripts, Twitter, Instagram) */}
+      <SocialIngestionHub onIngested={() => setActiveNodeCount((prev) => prev + 12)} />
 
       {/* Massive 3D Neural Brain Hero Viewport */}
       <div className="w-full">

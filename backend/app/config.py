@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     openai_model: str = "qwen2.5:3b"
     openai_base_url: str = "http://localhost:11434/v1"
     rag_context_limit: int = 8
+    apify_api_token: str = ""
+    supadata_api_key: str = ""
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
