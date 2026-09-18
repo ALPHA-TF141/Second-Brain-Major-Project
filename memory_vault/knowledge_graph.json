@@ -1,124 +1,6 @@
 {
-  "updated_at": "2026-09-18T16:18:06.761027Z",
+  "updated_at": "2026-09-18T16:18:48.410000Z",
   "nodes": [
-    {
-      "id": "card_20260917_100332_476",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_100332_476.webp",
-      "val": 6
-    },
-    {
-      "id": "ENT_second",
-      "label": "Second",
-      "domain": "Technology",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "ENT_activity",
-      "label": "Activity",
-      "domain": "Technology",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "ENT_electron",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "ENT_brain",
-      "label": "Brain",
-      "domain": "Technology",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "card_20260917_100337_615",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100342_670",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100347_892",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100352_891",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100358_000",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100403_103",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100408_223",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100413_378",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100418_598",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
     {
       "id": "card_20260917_100423_654",
       "label": "Electron",
@@ -3070,214 +2952,123 @@
       "domain": "General",
       "priority": "medium",
       "val": 8
+    },
+    {
+      "id": "DOMAIN_TECHNOLOGY",
+      "label": "Technology",
+      "domain": "Technology",
+      "priority": "high",
+      "val": 15
+    },
+    {
+      "id": "card_20260918_161811_452",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_161816_789",
+      "label": "Work-in-Progress: On-device Retrieval Augment",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Work-in-Progress: On-device Retrieval Augmented Generation with Knowledge Graphs for Personalized Large Language Models: Activity on chrome.exe: Work-in-Progress: On-device Retrieval Augmented Generation with Knowledge Graphs for Personalized Large Language Models - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_161821_827",
+      "label": "Work-in-Progress: On-device Retrieval Augment",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Work-in-Progress: On-device Retrieval Augmented Generation with Knowledge Graphs for Personalized Large Language Models: Activity on chrome.exe: Work-in-Progress: On-device Retrieval Augmented Generation with Knowledge Graphs for Personalized Large Language Models - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_activity",
+      "label": "Activity",
+      "domain": "General",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "card_20260918_161827_208",
+      "label": "Major proj - File Explorer",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Major proj - File Explorer: Activity on explorer.exe: Major proj - File Explorer",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_161831_731",
+      "label": "Enhancing Vector based Retrieval Augmented Ge",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Enhancing Vector based Retrieval Augmented Generation with Contextual Knowledge Graph Construction: Activity on chrome.exe: Enhancing Vector based Retrieval Augmented Generation with Contextual Knowledge Graph Construction - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-18/hero_card_20260918_161831_731.webp",
+      "val": 6
+    },
+    {
+      "id": "ENT_vector",
+      "label": "Vector",
+      "domain": "General",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "card_20260918_161837_716",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_electron",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "ENT_brain",
+      "label": "Brain",
+      "domain": "Technology",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "ENT_second",
+      "label": "Second",
+      "domain": "Technology",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "card_20260918_161843_091",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_161848_366",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
+      "hero_image": null,
+      "val": 6
     }
   ],
   "edges": [
-    {
-      "source": "card_20260917_102318_158",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102323_368",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102323_368",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102323_368",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102323_368",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102323_368",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102328_401",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102328_401",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102328_401",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102328_401",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102328_401",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102333_540",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102333_540",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102333_540",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102333_540",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102333_540",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102338_696",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102338_696",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102338_696",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102338_696",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102338_696",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102343_827",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102343_827",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102343_827",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102343_827",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102343_827",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102348_947",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102348_947",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102348_947",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102348_947",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102348_947",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102354_111",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102354_111",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102354_111",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102354_111",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102354_111",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102359_244",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102359_244",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102359_244",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102359_244",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102359_244",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
     {
       "source": "DOMAIN_TECHNOLOGY",
       "target": "card_20260917_102404_373",
@@ -5571,6 +5362,211 @@
     {
       "source": "card_20260918_161806_674",
       "target": "ENT_maria",
+      "label": "mentions"
+    },
+    {
+      "source": "JARVIS_CORE",
+      "target": "DOMAIN_TECHNOLOGY",
+      "label": "tracks"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_161811_452",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161811_452",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161811_452",
+      "target": "ENT_electron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161811_452",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161811_452",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260918_161816_789",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161816_789",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161816_789",
+      "target": "ENT_augmented",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161816_789",
+      "target": "ENT_retrieval",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161816_789",
+      "target": "ENT_work-in-progress",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260918_161821_827",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161821_827",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161821_827",
+      "target": "ENT_augmented",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161821_827",
+      "target": "ENT_retrieval",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161821_827",
+      "target": "ENT_work-in-progress",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260918_161827_208",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161827_208",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161827_208",
+      "target": "ENT_major",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161827_208",
+      "target": "ENT_file",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161827_208",
+      "target": "ENT_explorer",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260918_161831_731",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161831_731",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161831_731",
+      "target": "ENT_augmented",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161831_731",
+      "target": "ENT_retrieval",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161831_731",
+      "target": "ENT_vector",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_161837_716",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161837_716",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161837_716",
+      "target": "ENT_electron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161837_716",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161837_716",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_161843_091",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161843_091",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161843_091",
+      "target": "ENT_electron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161843_091",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161843_091",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_161848_366",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161848_366",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161848_366",
+      "target": "ENT_electron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161848_366",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161848_366",
+      "target": "ENT_second",
       "label": "mentions"
     }
   ]

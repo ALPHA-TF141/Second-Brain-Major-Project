@@ -1,0 +1,32 @@
+{
+  "id": "card_20260918_161831_731",
+  "timestamp": "2026-09-18T16:18:31.731913Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Enhancing Vector based Retrieval Augmented Generation with Contextual Knowledge Graph Construction - Google Chrome",
+  "topic": "Enhancing Vector based Retrieval Augmented Ge",
+  "summary": "[General] Enhancing Vector based Retrieval Augmented Generation with Contextual Knowledge Graph Construction: Activity on chrome.exe: Enhancing Vector based Retrieval Augmented Generation with Contextual Knowledge Graph Construction - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Enhancing Vector based Retrieval Augmented Generation with Contextual Knowledge Graph Construction - Google Chrome"
+  ],
+  "entities": [
+    "Activity",
+    "Augmented",
+    "Retrieval",
+    "Vector",
+    "Contextual",
+    "Enhancing",
+    "Knowledge",
+    "Generation"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Enhancing Vector based Retrieval Augmented Generation with Contextual Knowledge Graph Construction - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-18/hero_card_20260918_161831_731.webp",
+  "hero_image_info_score": 34.65
+}
