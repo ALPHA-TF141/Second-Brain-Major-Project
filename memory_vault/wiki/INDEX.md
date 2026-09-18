@@ -13,3 +13,5 @@
 - [Technology: Web_Knowledge](technology/web_knowledge.md) — *Updated 2026-09-18*
 - [General: Dropbox - File Explorer](general/dropbox___file_explorer.md) — *Updated 2026-09-18*
 - [General: Major proj - File Explorer](general/major_proj___file_explorer.md) — *Updated 2026-09-18*
+- [General: Work-in-Progress: On-device Retrieval Augment](general/work_in_progress__on_device_retrieval_augment.md) — *Updated 2026-09-18*
+- [General: Web Research Article](general/web_research_article.md) — *Updated 2026-09-18*

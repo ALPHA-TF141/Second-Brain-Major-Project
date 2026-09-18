@@ -1,20 +1,6 @@
 {
-  "updated_at": "2026-09-18T16:17:45.956898Z",
+  "updated_at": "2026-09-18T16:18:06.761027Z",
   "nodes": [
-    {
-      "id": "JARVIS_CORE",
-      "label": "Jarvis Core",
-      "domain": "Core",
-      "priority": "high",
-      "val": 20
-    },
-    {
-      "id": "DOMAIN_TECHNOLOGY",
-      "label": "Technology",
-      "domain": "Technology",
-      "priority": "high",
-      "val": 15
-    },
     {
       "id": "card_20260917_100332_476",
       "label": "Electron",
@@ -2997,134 +2983,96 @@
       "domain": "General",
       "priority": "medium",
       "val": 8
+    },
+    {
+      "id": "card_20260918_161750_159",
+      "label": "Major proj - File Explorer",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Major proj - File Explorer: Activity on explorer.exe: Major proj - File Explorer",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_161754_976",
+      "label": "Major proj - File Explorer",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Major proj - File Explorer: Activity on explorer.exe: Major proj - File Explorer",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_161800_599",
+      "label": "Work-in-Progress: On-device Retrieval Augment",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Work-in-Progress: On-device Retrieval Augmented Generation with Knowledge Graphs for Personalized Large Language Models: Activity on chrome.exe: Work-in-Progress: On-device Retrieval Augmented Generation with Knowledge Graphs for Personalized Large Language Models - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-18/hero_card_20260918_161800_599.webp",
+      "val": 6
+    },
+    {
+      "id": "ENT_augmented",
+      "label": "Augmented",
+      "domain": "General",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "ENT_retrieval",
+      "label": "Retrieval",
+      "domain": "General",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "ENT_work-in-progress",
+      "label": "Work-in-Progress",
+      "domain": "General",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "card_20260918_161806_166",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_161806_674",
+      "label": "Web Research Article",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Web Research Article: Article content from: file:///C:/Users/Maria%20Immanuel/Dropbox/Major%20proj/Work-in-Progress_On-device_Retrieval_Augmented_Generation_with_Knowledge_Graphs_for_Personalized_Large_Language_Models.pdf",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_work-in-progress_on-device_retrieval_augmented_generation_with_knowledge_graphs_for_personalized_large_language_models",
+      "label": "Work-in-Progress_On-device_Retrieval_Augmented_Generation_with_Knowledge_Graphs_for_Personalized_Large_Language_Models",
+      "domain": "General",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "ENT_article",
+      "label": "Article",
+      "domain": "General",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "ENT_maria",
+      "label": "Maria",
+      "domain": "General",
+      "priority": "medium",
+      "val": 8
     }
   ],
   "edges": [
-    {
-      "source": "card_20260917_102252_603",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102257_777",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102257_777",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102257_777",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102257_777",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102257_777",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102302_769",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102302_769",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102302_769",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102302_769",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102302_769",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102308_012",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102308_012",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102308_012",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102308_012",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102308_012",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102313_070",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102313_070",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102313_070",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102313_070",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102313_070",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260917_102318_158",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260917_102318_158",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102318_158",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260917_102318_158",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
     {
       "source": "card_20260917_102318_158",
       "target": "ENT_electron",
@@ -5498,6 +5446,131 @@
     {
       "source": "card_20260918_161745_625",
       "target": "ENT_explorer",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260918_161750_159",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161750_159",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161750_159",
+      "target": "ENT_major",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161750_159",
+      "target": "ENT_file",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161750_159",
+      "target": "ENT_explorer",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260918_161754_976",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161754_976",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161754_976",
+      "target": "ENT_major",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161754_976",
+      "target": "ENT_file",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161754_976",
+      "target": "ENT_explorer",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260918_161800_599",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161800_599",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161800_599",
+      "target": "ENT_augmented",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161800_599",
+      "target": "ENT_retrieval",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161800_599",
+      "target": "ENT_work-in-progress",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_161806_166",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161806_166",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161806_166",
+      "target": "ENT_electron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161806_166",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161806_166",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260918_161806_674",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_161806_674",
+      "target": "ENT_major",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161806_674",
+      "target": "ENT_work-in-progress_on-device_retrieval_augmented_generation_with_knowledge_graphs_for_personalized_large_language_models",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161806_674",
+      "target": "ENT_article",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_161806_674",
+      "target": "ENT_maria",
       "label": "mentions"
     }
   ]
