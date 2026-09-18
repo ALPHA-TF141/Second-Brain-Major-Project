@@ -90,11 +90,42 @@ def get_screenshot_image(screenshot_id: int, token: str = "", db: Session = Depe
         raise HTTPException(status_code=401, detail="Invalid token")
 
     screenshot = db.query(Screenshot).filter(Screenshot.id == screenshot_id).first()
-    if not screenshot:
-        raise HTTPException(status_code=404, detail="Screenshot not found")
+    if screenshot:
+        path = Path(screenshot.file_path)
+        if path.exists():
+            return FileResponse(path, media_type="image/jpeg")
 
-    path = Path(screenshot.file_path)
-    if not path.exists():
-        raise HTTPException(status_code=404, detail="Screenshot file missing")
+    # Seamless fallback to live preview buffer if ephemeral pruner unlinked the raw frame
+    live_preview = Path("data/screenshots/live_preview.jpg")
+    if live_preview.exists():
+        return FileResponse(live_preview, media_type="image/jpeg")
 
-    return FileResponse(path, media_type="image/jpeg")
+    # Fallback to recent persistent hero captures in memory vault
+    from app.agents.vault_agent import vault_agent
+    if vault_agent.images_dir.exists():
+        heroes = sorted(vault_agent.images_dir.rglob("hero_*"), key=lambda p: p.stat().st_mtime, reverse=True)
+        if heroes and heroes[0].exists():
+            media = "image/webp" if heroes[0].suffix == ".webp" else "image/jpeg"
+            return FileResponse(heroes[0], media_type=media)
+
+    raise HTTPException(status_code=404, detail="Screenshot file missing")
+
+
+@router.get("/live-preview")
+def get_live_preview(token: str = ""):
+    """Dedicated endpoint returning the latest real-time screen capture buffer"""
+    if not decode_token(token):
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    live_preview = Path("data/screenshots/live_preview.jpg")
+    if live_preview.exists():
+        return FileResponse(live_preview, media_type="image/jpeg")
+
+    from app.agents.vault_agent import vault_agent
+    if vault_agent.images_dir.exists():
+        heroes = sorted(vault_agent.images_dir.rglob("hero_*"), key=lambda p: p.stat().st_mtime, reverse=True)
+        if heroes and heroes[0].exists():
+            media = "image/webp" if heroes[0].suffix == ".webp" else "image/jpeg"
+            return FileResponse(heroes[0], media_type=media)
+
+    raise HTTPException(status_code=404, detail="No live preview captured yet")

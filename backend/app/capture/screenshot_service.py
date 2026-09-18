@@ -45,6 +45,13 @@ class ScreenshotService:
         file_path = session_dir / filename
         file_path.write_bytes(image_bytes)
 
+        # Maintain single dedicated live preview buffer for Live Activity Feed
+        live_preview = self.storage_root / "live_preview.jpg"
+        try:
+            live_preview.write_bytes(image_bytes)
+        except Exception:
+            pass
+
         return {
             "file_path": str(file_path),
             "image_hash": image_hash,

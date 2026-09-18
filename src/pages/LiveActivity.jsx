@@ -168,19 +168,36 @@ function LiveActivity() {
             </span>
           </div>
 
-          <div className="flex min-h-[330px] items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-slate-950/50">
-            {latestScreenshot ? (
-              <img
-                src={`${apiClient.baseUrl}/api/capture/screenshots/${latestScreenshot.id}/image?token=${encodeURIComponent(apiClient.getToken())}`}
-                alt="Latest capture"
-                className="max-h-[420px] w-full object-contain"
-              />
-            ) : (
-              <div className="text-center text-slate-500">
-                <Camera size={42} className="mx-auto mb-3 text-slate-600" />
-                <p>No screenshots captured yet</p>
-              </div>
-            )}
+          <div className="relative flex min-h-[330px] items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-slate-950/70 p-2">
+            <img
+              key={latestScreenshot ? latestScreenshot.id : 'live'}
+              src={
+                latestScreenshot
+                  ? `${apiClient.baseUrl}/api/capture/screenshots/${latestScreenshot.id}/image?token=${encodeURIComponent(apiClient.getToken())}`
+                  : `${apiClient.baseUrl}/api/capture/live-preview?token=${encodeURIComponent(apiClient.getToken())}`
+              }
+              alt="Live Screen Capture"
+              className="max-h-[420px] w-full rounded object-contain shadow-lg"
+              onError={(e) => {
+                if (!e.target.dataset.triedLive) {
+                  e.target.dataset.triedLive = 'true';
+                  e.target.src = `${apiClient.baseUrl}/api/capture/live-preview?token=${encodeURIComponent(apiClient.getToken())}&t=${Date.now()}`;
+                } else {
+                  e.target.style.display = 'none';
+                  const fallback = document.getElementById('capture-empty-placeholder');
+                  if (fallback) fallback.style.display = 'block';
+                }
+              }}
+              onLoad={(e) => {
+                e.target.style.display = 'block';
+                const fallback = document.getElementById('capture-empty-placeholder');
+                if (fallback) fallback.style.display = 'none';
+              }}
+            />
+            <div id="capture-empty-placeholder" className="hidden text-center text-slate-500">
+              <Camera size={42} className="mx-auto mb-3 text-slate-600" />
+              <p>Waiting for next active frame...</p>
+            </div>
           </div>
         </section>
 

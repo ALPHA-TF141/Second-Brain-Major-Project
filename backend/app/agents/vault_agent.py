@@ -120,8 +120,9 @@ class GitVaultAgent:
         """Deletes raw uncompressed screenshot file from disk to eliminate local storage waste."""
         try:
             if screenshot_file_path and os.path.exists(screenshot_file_path):
-                os.remove(screenshot_file_path)
-                print(f"[VaultAgent] Ephemeral screenshot purged from laptop: {screenshot_file_path}")
+                if "live_preview" not in screenshot_file_path:
+                    os.remove(screenshot_file_path)
+                    print(f"[VaultAgent] Ephemeral screenshot purged from laptop: {screenshot_file_path}")
         except Exception as exc:
             print(f"[VaultAgent] Notice: could not remove {screenshot_file_path}: {exc}")
 
