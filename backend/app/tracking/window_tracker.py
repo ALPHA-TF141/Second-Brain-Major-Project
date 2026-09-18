@@ -2,8 +2,6 @@ import ctypes
 import sys
 
 import psutil
-import pyautogui
-
 
 browser_names = {"chrome.exe", "msedge.exe", "firefox.exe", "brave.exe", "opera.exe"}
 
@@ -42,6 +40,10 @@ class WindowTracker:
         return {"app_name": app_name, "window_title": title, "is_browser": self.is_browser(app_name)}
 
     def _get_pyautogui_window(self):
-        window = pyautogui.getActiveWindow()
-        title = window.title if window else ""
-        return {"app_name": "unknown", "window_title": title, "is_browser": False}
+        try:
+            import pyautogui
+            window = pyautogui.getActiveWindow()
+            title = window.title if window else ""
+            return {"app_name": "unknown", "window_title": title, "is_browser": False}
+        except Exception:
+            return {"app_name": "unknown", "window_title": "Active Window", "is_browser": False}
