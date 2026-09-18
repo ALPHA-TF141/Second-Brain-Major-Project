@@ -1,123 +1,6 @@
 {
-  "updated_at": "2026-09-18T16:22:00.603040Z",
+  "updated_at": "2026-09-18T16:23:07.363505Z",
   "nodes": [
-    {
-      "id": "card_20260917_100709_353",
-      "label": "Second-Brain-Major-Project/memory_vault/knowl",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100714_495",
-      "label": "Second-Brain-Major-Project/memory_vault/knowl",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100719_563",
-      "label": "Second-Brain-Major-Project/memory_vault/knowl",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/knowledge_graph.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100724_744",
-      "label": "Second-Brain-Major-Project/memory_vault/image",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-17 at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-17 at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_100724_744.webp",
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100729_899",
-      "label": "Second-Brain-Major-Project/memory_vault/image",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-17 at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-17 at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100735_060",
-      "label": "Second-Brain-Major-Project/memory_vault/image",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-17/hero_card_20260917_100557_099.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-17/hero_card_20260917_100557_099.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_100735_060.webp",
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100740_167",
-      "label": "Second-Brain-Major-Project/memory_vault/image",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-17 at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-17 at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100745_367",
-      "label": "Second-Brain-Major-Project/memory_vault/image",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-17/hero_card_20260917_100542_087.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-17/hero_card_20260917_100542_087.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_100745_367.webp",
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100750_551",
-      "label": "Second-Brain-Major-Project/memory_vault/image",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-17/hero_card_20260917_100455_379.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-17/hero_card_20260917_100455_379.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_100750_551.webp",
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100755_722",
-      "label": "Second-Brain-Major-Project/memory_vault/cards",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/cards/2026-09-17 at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/cards/2026-09-17 at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_100755_722.webp",
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100800_919",
-      "label": "Second-Brain-Major-Project/memory_vault/cards",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/cards/2026-09-17/card_20260917_100332_476.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/cards/2026-09-17/card_20260917_100332_476.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_100800_919.webp",
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100806_015",
-      "label": "Second-Brain-Major-Project/memory_vault/cards",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/cards/2026-09-17/card_20260917_100332_476.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/cards/2026-09-17/card_20260917_100332_476.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260917_100811_179",
-      "label": "Second-Brain-Major-Project/memory_vault/cards",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Second-Brain-Major-Project/memory_vault/cards/2026-09-17/card_20260917_100546_817.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/cards/2026-09-17/card_20260917_100546_817.json at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
-      "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_100811_179.webp",
-      "val": 6
-    },
     {
       "id": "card_20260917_100816_333",
       "label": "Second-Brain-Major-Project/memory_vault/cards",
@@ -3074,334 +2957,126 @@
       "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
       "hero_image": null,
       "val": 6
+    },
+    {
+      "id": "card_20260918_162205_750",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_162210_866",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_162215_961",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_162221_053",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_162226_329",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_162231_491",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_162236_526",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_162241_718",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_162246_835",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_162251_979",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_162257_117",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_162302_263",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260918_162307_328",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: \u0baa\u0bc1\u0ba4\u0bbf\u0baf \u0ba4\u0bc1\u0bb5\u0b95\u0bcd\u0b95\u0bae\u0bcd | Pudhiya Thuvakkam | YOUTH NIGHT| \u0b9c\u0bc0\u0bb5\u0ba9\u0bcd \u0b9a\u0bc6\u0bb2\u0bcd\u0bb2\u0ba4\u0bc1\u0bb0\u0bc8 | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+      "hero_image": null,
+      "val": 6
     }
   ],
   "edges": [
-    {
-      "source": "card_20260918_061757_048",
-      "target": "ENT_arena",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061802_083",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061802_083",
-      "target": "ENT_compare",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061802_083",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061802_083",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061802_083",
-      "target": "ENT_arena",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061806_728",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061806_728",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061806_728",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061806_728",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061806_728",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061811_819",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061811_819",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061811_819",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061811_819",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061811_819",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061816_987",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061816_987",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061816_987",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061816_987",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061816_987",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061822_264",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061822_264",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061822_264",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061822_264",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061822_264",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061827_514",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061827_514",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061827_514",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061827_514",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061827_514",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061832_758",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061832_758",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061832_758",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061832_758",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061832_758",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061837_579",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061837_579",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061837_579",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061837_579",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061837_579",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061843_016",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061843_016",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061843_016",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061843_016",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061843_016",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061847_947",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061847_947",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061847_947",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061847_947",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061847_947",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061853_038",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061853_038",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061853_038",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061853_038",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061853_038",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061858_146",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061858_146",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061858_146",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061858_146",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061858_146",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_061903_314",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_061903_314",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061903_314",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_061903_314",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
     {
       "source": "card_20260918_061903_314",
       "target": "ENT_brain",
@@ -5574,6 +5249,331 @@
     },
     {
       "source": "card_20260918_162200_570",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162205_750",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162205_750",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162205_750",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162205_750",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162205_750",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162210_866",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162210_866",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162210_866",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162210_866",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162210_866",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162215_961",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162215_961",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162215_961",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162215_961",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162215_961",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162221_053",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162221_053",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162221_053",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162221_053",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162221_053",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162226_329",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162226_329",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162226_329",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162226_329",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162226_329",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162231_491",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162231_491",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162231_491",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162231_491",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162231_491",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162236_526",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162236_526",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162236_526",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162236_526",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162236_526",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162241_718",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162241_718",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162241_718",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162241_718",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162241_718",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162246_835",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162246_835",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162246_835",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162246_835",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162246_835",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162251_979",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162251_979",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162251_979",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162251_979",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162251_979",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162257_117",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162257_117",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162257_117",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162257_117",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162257_117",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162302_263",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162302_263",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162302_263",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162302_263",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162302_263",
+      "target": "ENT_web_knowledge",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260918_162307_328",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260918_162307_328",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162307_328",
+      "target": "ENT_thuvakkam",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162307_328",
+      "target": "ENT_pudhiya",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260918_162307_328",
       "target": "ENT_web_knowledge",
       "label": "mentions"
     }
