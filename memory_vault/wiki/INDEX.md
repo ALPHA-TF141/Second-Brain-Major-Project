@@ -7,3 +7,5 @@
 ---
 
 - [Technology: Electron](technology/electron.md) — *Updated 2026-09-18*
+- [Technology: Code](technology/code.md) — *Updated 2026-09-18*
+- [Technology: Ai](technology/ai.md) — *Updated 2026-09-18*
