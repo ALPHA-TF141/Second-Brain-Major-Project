@@ -13,3 +13,7 @@ psutil==6.1.0
 watchdog==6.0.0
 pyperclip==1.9.0
 pytesseract==0.3.13
+youtube-transcript-api>=0.6.2
+instaloader>=4.10.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0

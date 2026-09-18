@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Globe, Key, Link as LinkIcon, RefreshCw, Send, Sparkles, Youtube, Twitter, Instagram, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Globe, Key, Link as LinkIcon, RefreshCw, Send, Sparkles, Youtube, Twitter, Instagram, CheckCircle2, AlertCircle, ShieldCheck, UserCheck } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 
 export default function SocialIngestionHub({ onIngested }) {
@@ -8,10 +8,9 @@ export default function SocialIngestionHub({ onIngested }) {
   const [notes, setNotes] = useState('');
   const [isIngesting, setIsIngesting] = useState(false);
   const [status, setStatus] = useState(null);
-  const [showConfig, setShowConfig] = useState(false);
-  const [apifyToken, setApifyToken] = useState('');
-  const [supadataKey, setSupadataKey] = useState('');
-  const [isSavingKeys, setIsSavingKeys] = useState(false);
+  const [showAccountModal, setShowAccountModal] = useState(false);
+  const [igUsername, setIgUsername] = useState('');
+  const [isSavingAccount, setIsSavingAccount] = useState(false);
   const [resultMessage, setResultMessage] = useState(null);
 
   async function loadStatus() {
@@ -61,26 +60,25 @@ export default function SocialIngestionHub({ onIngested }) {
     }
   }
 
-  async function saveKeys(e) {
-    e?.preventDefault();
-    setIsSavingKeys(true);
+  async function connectAccount(platform) {
+    setIsSavingAccount(true);
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/social/keys`, {
+      const res = await fetch(`${apiClient.baseUrl}/api/social/connect-account`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          apify_api_token: apifyToken,
-          supadata_api_key: supadataKey
+          platform,
+          username: igUsername.trim()
         })
       });
       if (res.ok) {
         await loadStatus();
-        setShowConfig(false);
+        setShowAccountModal(false);
       }
     } catch (err) {
-      console.warn('Could not save API keys:', err);
+      console.warn('Could not save account session:', err);
     } finally {
-      setIsSavingKeys(false);
+      setIsSavingAccount(false);
     }
   }
 
@@ -88,31 +86,28 @@ export default function SocialIngestionHub({ onIngested }) {
     <div className="glass-panel relative overflow-hidden rounded-2xl p-5 border border-cyanGlow/25 bg-gradient-to-r from-slate-950/85 via-[#070e24]/85 to-slate-950/85 shadow-2xl backdrop-blur-xl">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-cyanGlow/30 bg-cyanGlow/10 text-cyanGlow">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-cyanGlow/30 bg-cyanGlow/10 text-cyanGlow shadow-glow">
             <Globe size={19} />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-100 uppercase tracking-wider">Social Intel & Cloud Scraper</h3>
-            <p className="text-xs text-slate-400">Ingest YouTube transcripts, Tweets, Instagram reels & Web research directly into memory.</p>
+            <h3 className="text-sm font-bold text-slate-100 uppercase tracking-wider">Native Social Media & Web Scraper</h3>
+            <p className="text-xs text-slate-400">100% Free & Built-In: Ingest YouTube full transcripts, X posts, Instagram reels & research papers with zero paid SaaS fees.</p>
           </div>
         </div>
 
-        {/* Integration Badges */}
+        {/* Free Native Engine Badges */}
         <div className="flex items-center gap-2">
           <button
             type="button"
-            onClick={() => setShowConfig(true)}
+            onClick={() => setShowAccountModal(true)}
             className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-semibold text-slate-300 transition hover:bg-white/10"
           >
             <Key size={12} className="text-cyanGlow" />
-            <span>Connect Accounts</span>
+            <span>Link Accounts (Local)</span>
           </button>
 
-          <span className={`flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${status?.supadata_connected ? 'border border-mintGlow/30 bg-mintGlow/10 text-mintGlow' : 'border border-slate-700 bg-slate-800 text-slate-400'}`}>
-            SupaData {status?.supadata_connected ? '●' : '○'}
-          </span>
-          <span className={`flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${status?.apify_connected ? 'border border-cyanGlow/30 bg-cyanGlow/10 text-cyanGlow' : 'border border-slate-700 bg-slate-800 text-slate-400'}`}>
-            Apify {status?.apify_connected ? '●' : '○'}
+          <span className="flex items-center gap-1 rounded-full border border-mintGlow/30 bg-mintGlow/10 px-2.5 py-0.5 text-[10px] font-bold text-mintGlow uppercase tracking-wider">
+            <ShieldCheck size={11} /> 100% Free & Private
           </span>
         </div>
       </div>
@@ -126,7 +121,7 @@ export default function SocialIngestionHub({ onIngested }) {
               type="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
-              placeholder="Paste any YouTube video, Tweet, Instagram reel, or Research URL..."
+              placeholder="Paste any YouTube video, Tweet, Instagram reel, or Research article URL..."
               className="w-full rounded-xl border border-white/10 bg-black/60 py-2.5 pl-9 pr-4 text-xs text-slate-100 outline-none focus:border-cyanGlow"
             />
           </div>
@@ -137,23 +132,23 @@ export default function SocialIngestionHub({ onIngested }) {
             className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyanGlow to-mintGlow px-5 py-2.5 text-xs font-bold text-slate-950 shadow-glow transition hover:opacity-90 disabled:opacity-40 shrink-0"
           >
             {isIngesting ? <RefreshCw size={14} className="animate-spin" /> : <Sparkles size={14} />}
-            {isIngesting ? 'Scraping & Synthesizing...' : 'Ingest to Brain'}
+            {isIngesting ? 'Extracting & Transcribing...' : 'Ingest to Brain'}
           </button>
         </div>
 
-        {/* Quick Platform Icons */}
-        <div className="flex items-center gap-4 text-[11px] text-slate-500">
-          <span className="flex items-center gap-1 text-slate-400">
-            <Youtube size={13} className="text-red-400" /> Full Transcripts
+        {/* Quick Platform Indicators */}
+        <div className="flex flex-wrap items-center gap-4 text-[11px] text-slate-400">
+          <span className="flex items-center gap-1 text-slate-300">
+            <Youtube size={13} className="text-red-400" /> Native Audio Transcripts
           </span>
-          <span className="flex items-center gap-1 text-slate-400">
-            <Twitter size={13} className="text-sky-400" /> Threads & Posts
+          <span className="flex items-center gap-1 text-slate-300">
+            <Twitter size={13} className="text-sky-400" /> X Threads & Media
           </span>
-          <span className="flex items-center gap-1 text-slate-400">
+          <span className="flex items-center gap-1 text-slate-300">
             <Instagram size={13} className="text-pink-400" /> Reels & Captions
           </span>
-          <span className="flex items-center gap-1 text-slate-400">
-            <Globe size={13} className="text-mintGlow" /> Papers & Markdown
+          <span className="flex items-center gap-1 text-slate-300">
+            <Globe size={13} className="text-mintGlow" /> Clean Web Markdown
           </span>
         </div>
       </form>
@@ -171,10 +166,10 @@ export default function SocialIngestionHub({ onIngested }) {
         </div>
       )}
 
-      {/* API Key Connection Modal */}
-      {showConfig && (
+      {/* Account Connector Modal */}
+      {showAccountModal && (
         <div
-          onClick={() => setShowConfig(false)}
+          onClick={() => setShowAccountModal(false)}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-6 backdrop-blur-xl"
         >
           <div
@@ -183,61 +178,58 @@ export default function SocialIngestionHub({ onIngested }) {
           >
             <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
               <div className="flex items-center gap-2.5">
-                <Key className="text-cyanGlow" size={18} />
-                <h3 className="text-sm font-bold text-slate-100 uppercase tracking-wide">Connect Scraper Accounts</h3>
+                <UserCheck className="text-cyanGlow" size={19} />
+                <h3 className="text-sm font-bold text-slate-100 uppercase tracking-wide">Connect Personal Accounts (100% Local)</h3>
               </div>
               <button
                 type="button"
-                onClick={() => setShowConfig(false)}
+                onClick={() => setShowAccountModal(false)}
                 className="rounded-lg bg-white/10 px-2.5 py-1 text-xs text-slate-400 hover:text-white"
               >
                 Close
               </button>
             </div>
 
-            <form onSubmit={saveKeys} className="space-y-4">
-              <div>
-                <label className="text-xs font-semibold text-slate-300">SupaData API Key (For Instant YouTube Transcripts & Web Markdown):</label>
-                <input
-                  type="password"
-                  value={supadataKey}
-                  onChange={(e) => setSupadataKey(e.target.value)}
-                  placeholder="Paste your SupaData API Key..."
-                  className="mt-1.5 w-full rounded-lg border border-white/10 bg-black/60 px-3.5 py-2 text-xs text-slate-100 outline-none focus:border-cyanGlow"
-                />
-                <p className="mt-1 text-[10px] text-slate-500">Get a free key from <a href="https://supadata.ai" target="_blank" rel="noreferrer" className="text-cyanGlow underline">supadata.ai</a>.</p>
-              </div>
+            <div className="space-y-4 text-xs text-slate-300">
+              <p className="leading-relaxed">
+                Jarvis scrapes all public YouTube transcripts, Tweets, and articles automatically with zero credentials.
+                To scrape your own private saved bookmarks or reels from Instagram or X, link your handle below (stored 100% on your laptop, zero cloud transmission):
+              </p>
 
               <div>
-                <label className="text-xs font-semibold text-slate-300">Apify API Token (For Instagram, Twitter/X, & LinkedIn Actors):</label>
+                <label className="font-semibold text-slate-300">Instagram Handle / Profile:</label>
                 <input
-                  type="password"
-                  value={apifyToken}
-                  onChange={(e) => setApifyToken(e.target.value)}
-                  placeholder="apify_api_..."
+                  type="text"
+                  value={igUsername}
+                  onChange={(e) => setIgUsername(e.target.value)}
+                  placeholder="e.g. your_instagram_username"
                   className="mt-1.5 w-full rounded-lg border border-white/10 bg-black/60 px-3.5 py-2 text-xs text-slate-100 outline-none focus:border-cyanGlow"
                 />
-                <p className="mt-1 text-[10px] text-slate-500">Get a token from <a href="https://console.apify.com/account/integrations" target="_blank" rel="noreferrer" className="text-cyanGlow underline">console.apify.com</a>.</p>
+              </div>
+
+              <div className="rounded-xl border border-mintGlow/20 bg-mintGlow/10 p-3 text-[11px] text-mintGlow">
+                ✓ <strong>Zero Paid APIs:</strong> No subscriptions to Apify or SupaData are ever required. All scraping runs natively from your machine.
               </div>
 
               <div className="flex justify-end gap-2 pt-2">
                 <button
                   type="button"
-                  onClick={() => setShowConfig(false)}
+                  onClick={() => setShowAccountModal(false)}
                   className="rounded-lg bg-white/10 px-4 py-2 text-xs font-semibold text-slate-300 hover:bg-white/15"
                 >
                   Cancel
                 </button>
                 <button
-                  type="submit"
-                  disabled={isSavingKeys}
-                  className="flex items-center gap-1.5 rounded-lg bg-cyanGlow px-5 py-2 text-xs font-bold text-slate-950 shadow-glow"
+                  type="button"
+                  onClick={() => connectAccount('instagram')}
+                  disabled={isSavingAccount || !igUsername.trim()}
+                  className="flex items-center gap-1.5 rounded-lg bg-cyanGlow px-5 py-2 text-xs font-bold text-slate-950 shadow-glow disabled:opacity-50"
                 >
-                  {isSavingKeys ? <RefreshCw size={13} className="animate-spin" /> : <Sparkles size={13} />}
-                  Save & Connect
+                  {isSavingAccount ? <RefreshCw size={13} className="animate-spin" /> : <Sparkles size={13} />}
+                  Save Local Session
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       )}
