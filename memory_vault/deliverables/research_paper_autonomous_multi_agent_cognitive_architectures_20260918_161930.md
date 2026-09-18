@@ -1,0 +1,1 @@
+I do not have enough indexed memory context to answer that yet. Capture activity, process OCR, rebuild the memory archive, and index semantic memories first. 
