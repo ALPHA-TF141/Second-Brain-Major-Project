@@ -112,12 +112,23 @@ app.whenReady().then(() => {
     console.warn('Could not register Alt+Space shortcut:', err);
   }
 
-  // Auto-start with Windows login
-  app.setLoginItemSettings({
-    openAtLogin: true,
-    path: process.execPath,
-    args: isDev ? [] : []
-  });
+  // Only auto-start on Windows boot if the app is packaged as an installed production .exe
+  if (app.isPackaged) {
+    app.setLoginItemSettings({
+      openAtLogin: true,
+      path: process.execPath,
+      args: []
+    });
+  } else {
+    // In development mode, explicitly turn OFF auto-start so raw electron.exe never opens on boot
+    try {
+      app.setLoginItemSettings({
+        openAtLogin: false
+      });
+    } catch {
+      // Ignore
+    }
+  }
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
