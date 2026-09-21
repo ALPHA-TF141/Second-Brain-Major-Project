@@ -1,119 +1,6 @@
 {
-  "updated_at": "2026-09-21T06:01:32.575348Z",
+  "updated_at": "2026-09-21T06:02:39.276720Z",
   "nodes": [
-    {
-      "id": "card_20260921_043143_639",
-      "label": "obsidian app second brain - Google Search",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] obsidian app second brain - Google Search: Activity on chrome.exe: obsidian app second brain - Google Search - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_043148_613",
-      "label": "obsidian app second brain - Google Search",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] obsidian app second brain - Google Search: Activity on chrome.exe: obsidian app second brain - Google Search - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_043153_765",
-      "label": "obsidian app second brain - Google Search",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] obsidian app second brain - Google Search: Activity on chrome.exe: obsidian app second brain - Google Search - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_043158_867",
-      "label": "obsidian app second brain - Google Search",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] obsidian app second brain - Google Search: Activity on chrome.exe: obsidian app second brain - Google Search - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_043203_825",
-      "label": "obsidian app second brain - Google Search",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] obsidian app second brain - Google Search: Activity on chrome.exe: obsidian app second brain - Google Search - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_043209_381",
-      "label": "obsidian app second brain - Google Search",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] obsidian app second brain - Google Search: Activity on chrome.exe: obsidian app second brain - Google Search - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_043214_533",
-      "label": "obsidian app second brain - Google Search",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] obsidian app second brain - Google Search: Activity on chrome.exe: obsidian app second brain - Google Search - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_043219_908",
-      "label": "obsidian app second brain - Google Search",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] obsidian app second brain - Google Search: Activity on chrome.exe: obsidian app second brain - Google Search - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_043224_804",
-      "label": "New tab",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] New tab: Activity on chrome.exe: New tab - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_043230_074",
-      "label": "canva - Google Search",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] canva - Google Search: Activity on chrome.exe: canva - Google Search - Google Chrome",
-      "hero_image": "memory_vault/images/2026-09-21/hero_card_20260921_043230_074.webp",
-      "val": 6
-    },
-    {
-      "id": "card_20260921_043235_051",
-      "label": "Redirecting... | Canva",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Redirecting... | Canva: Activity on chrome.exe: Redirecting... | Canva - Google Chrome",
-      "hero_image": "memory_vault/images/2026-09-21/hero_card_20260921_043235_051.webp",
-      "val": 6
-    },
-    {
-      "id": "ENT_redirecting",
-      "label": "Redirecting",
-      "domain": "General",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "ENT_canva",
-      "label": "Canva",
-      "domain": "General",
-      "priority": "medium",
-      "val": 8
-    },
     {
       "id": "card_20260921_043240_614",
       "label": "Home - Canva",
@@ -3076,324 +2963,126 @@
       "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
       "hero_image": null,
       "val": 6
+    },
+    {
+      "id": "card_20260921_060137_894",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260921_060143_902",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260921_060147_925",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260921_060153_178",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260921_060158_352",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260921_060203_261",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260921_060208_502",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260921_060213_842",
+      "label": "WhatsApp",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] WhatsApp: Activity on WhatsApp.Root.exe: WhatsApp",
+      "hero_image": "memory_vault/images/2026-09-21/hero_card_20260921_060213_842.webp",
+      "val": 6
+    },
+    {
+      "id": "card_20260921_060218_796",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260921_060224_289",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260921_060229_134",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260921_060234_463",
+      "label": "WhatsApp",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] WhatsApp: Activity on WhatsApp.Root.exe: WhatsApp",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_060239_243",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
     }
   ],
   "edges": [
-    {
-      "source": "card_20260921_053643_970",
-      "target": "ENT_best",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053649_142",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053649_142",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053649_142",
-      "target": "ENT_compare",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053649_142",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053649_142",
-      "target": "ENT_best",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053654_302",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053654_302",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053654_302",
-      "target": "ENT_compare",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053654_302",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053654_302",
-      "target": "ENT_best",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053659_440",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053659_440",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053659_440",
-      "target": "ENT_compare",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053659_440",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053659_440",
-      "target": "ENT_best",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053704_507",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053704_507",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053704_507",
-      "target": "ENT_compare",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053704_507",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053704_507",
-      "target": "ENT_best",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053709_748",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053709_748",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053709_748",
-      "target": "ENT_compare",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053709_748",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053709_748",
-      "target": "ENT_best",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053714_863",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053714_863",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053714_863",
-      "target": "ENT_compare",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053714_863",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053714_863",
-      "target": "ENT_best",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053720_045",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053720_045",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053720_045",
-      "target": "ENT_compare",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053720_045",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053720_045",
-      "target": "ENT_best",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053725_158",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053725_158",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053725_158",
-      "target": "ENT_compare",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053725_158",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053725_158",
-      "target": "ENT_best",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053730_339",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053730_339",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053730_339",
-      "target": "ENT_compare",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053730_339",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053730_339",
-      "target": "ENT_best",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260921_053735_803",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053735_803",
-      "target": "ENT_root",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053735_803",
-      "target": "ENT_whatsapp",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053735_803",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260921_053740_184",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053740_184",
-      "target": "ENT_protected",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053740_184",
-      "target": "ENT_soc_batch",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053740_184",
-      "target": "ENT_excel",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053740_184",
-      "target": "ENT_details_2027yop-training",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260921_053745_909",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053745_909",
-      "target": "ENT_replace",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053745_909",
-      "target": "ENT_excel",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053745_909",
-      "target": "ENT_find",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053745_909",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260921_053751_012",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053751_012",
-      "target": "ENT_protected",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053751_012",
-      "target": "ENT_soc_batch",
-      "label": "mentions"
-    },
     {
       "source": "card_20260921_053751_012",
       "target": "ENT_excel",
@@ -5577,6 +5266,321 @@
     {
       "source": "card_20260921_060132_534",
       "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060137_894",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060137_894",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060137_894",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060137_894",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060137_894",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060143_902",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060143_902",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060143_902",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060143_902",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060143_902",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060147_925",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060147_925",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060147_925",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060147_925",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060147_925",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060153_178",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060153_178",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060153_178",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060153_178",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060153_178",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060158_352",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060158_352",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060158_352",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060158_352",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060158_352",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060203_261",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060203_261",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060203_261",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060203_261",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060203_261",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060208_502",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060208_502",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060208_502",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060208_502",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060208_502",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_060213_842",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060213_842",
+      "target": "ENT_whatsapp",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060213_842",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060213_842",
+      "target": "ENT_root",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060218_796",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060218_796",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060218_796",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060218_796",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060218_796",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060224_289",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060224_289",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060224_289",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060224_289",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060224_289",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060229_134",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060229_134",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060229_134",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060229_134",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060229_134",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_060234_463",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060234_463",
+      "target": "ENT_whatsapp",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060234_463",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060234_463",
+      "target": "ENT_root",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060239_243",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060239_243",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060239_243",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060239_243",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060239_243",
+      "target": "ENT_best",
       "label": "mentions"
     }
   ]
