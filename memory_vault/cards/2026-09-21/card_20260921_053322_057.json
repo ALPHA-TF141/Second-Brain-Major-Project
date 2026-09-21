@@ -1,0 +1,33 @@
+{
+  "id": "card_20260921_053322_057",
+  "timestamp": "2026-09-21T05:33:22.057938Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "Code.exe",
+  "window_title": "electron.md (Working Tree) (electron.md) - Second Brain - Visual Studio Code",
+  "topic": "Electron",
+  "summary": "[Technology] electron.md (Working Tree) (electron.md) - Second Brain: Activity on Code.exe: electron.md (Working Tree) (electron.md) - Second Brain - Visual Studio Code",
+  "key_pointers": [
+    "Activity on Code.exe: electron.md (Working Tree) (electron.md) - Second Brain - Visual Studio Code"
+  ],
+  "entities": [
+    "Electron",
+    "Visual",
+    "Working",
+    "Code",
+    "Brain",
+    "Studio",
+    "Tree",
+    "Second"
+  ],
+  "tags": [
+    "electron",
+    "code",
+    "technology"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on Code.exe: electron.md (Working Tree) (electron.md) - Second Brain - Visual Studio Code",
+  "hero_image": null,
+  "hero_image_info_score": 66.3
+}
