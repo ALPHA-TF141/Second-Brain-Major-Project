@@ -24,3 +24,5 @@
 - [General: Face Prep Class - OneNote](general/face_prep_class___onenote.md) — *Updated 2026-09-21*
 - [General: Solve VelTech_Alpha 1789441433 Questions | Co](general/solve_veltech_alpha_1789441433_questions___co.md) — *Updated 2026-09-21*
 - [General: Linked List - Product ID Insertion in Invento](general/linked_list___product_id_insertion_in_invento.md) — *Updated 2026-09-21*
+- [General: Snipping Tool Overlay](general/snipping_tool_overlay.md) — *Updated 2026-09-21*
+- [General: obsidian app second brain - Google Search](general/obsidian_app_second_brain___google_search.md) — *Updated 2026-09-21*
