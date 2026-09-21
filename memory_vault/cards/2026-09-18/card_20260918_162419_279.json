@@ -1,0 +1,26 @@
+{
+  "id": "card_20260918_162419_279",
+  "timestamp": "2026-09-18T16:24:19.279723Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Leave site?",
+  "topic": "Leave site?",
+  "summary": "[General] Leave site?: Activity on chrome.exe: Leave site?",
+  "key_pointers": [
+    "Activity on chrome.exe: Leave site?"
+  ],
+  "entities": [
+    "Activity",
+    "Leave"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Leave site?",
+  "hero_image": "memory_vault/images/2026-09-18/hero_card_20260918_162419_279.webp",
+  "hero_image_info_score": 29.25
+}

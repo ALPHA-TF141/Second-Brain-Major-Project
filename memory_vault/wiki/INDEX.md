@@ -17,3 +17,6 @@
 - [General: Web Research Article](general/web_research_article.md) — *Updated 2026-09-18*
 - [General: Enhancing Vector based Retrieval Augmented Ge](general/enhancing_vector_based_retrieval_augmented_ge.md) — *Updated 2026-09-18*
 - [General: WhatsApp](general/whatsapp.md) — *Updated 2026-09-18*
+- [General: New tab](general/new_tab.md) — *Updated 2026-09-18*
+- [General: Leave site?](general/leave_site.md) — *Updated 2026-09-18*
+- [General: Control center](general/control_center.md) — *Updated 2026-09-18*
