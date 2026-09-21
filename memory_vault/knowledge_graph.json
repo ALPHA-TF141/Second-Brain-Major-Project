@@ -1,24 +1,6 @@
 {
-  "updated_at": "2026-09-21T06:08:55.658631Z",
+  "updated_at": "2026-09-21T06:09:05.421682Z",
   "nodes": [
-    {
-      "id": "card_20260921_043744_711",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_043749_997",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
     {
       "id": "card_20260921_043755_113",
       "label": "Electron",
@@ -3084,59 +3066,27 @@
       "summary": "[General] WhatsApp: Activity on WhatsApp.Root.exe: WhatsApp",
       "hero_image": null,
       "val": 6
+    },
+    {
+      "id": "card_20260921_060900_952",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260921_060905_394",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] electron.md (Working Tree) (electron.md) - Second Brain: Activity on Code.exe: electron.md (Working Tree) (electron.md) - Second Brain - Visual Studio Code",
+      "hero_image": null,
+      "val": 10
     }
   ],
   "edges": [
-    {
-      "source": "card_20260921_054543_923",
-      "target": "ENT_best",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_054549_093",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_054549_093",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_054549_093",
-      "target": "ENT_compare",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_054549_093",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_054549_093",
-      "target": "ENT_best",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_054554_261",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_054554_261",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_054554_261",
-      "target": "ENT_compare",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_054554_261",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
     {
       "source": "card_20260921_054554_261",
       "target": "ENT_best",
@@ -5585,6 +5535,56 @@
     {
       "source": "card_20260921_060855_619",
       "target": "ENT_root",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060900_952",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060900_952",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060900_952",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060900_952",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060900_952",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_060905_394",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_060905_394",
+      "target": "ENT_studio",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060905_394",
+      "target": "ENT_working",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060905_394",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_060905_394",
+      "target": "ENT_visual",
       "label": "mentions"
     }
   ]
