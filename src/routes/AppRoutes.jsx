@@ -1,36 +1,80 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import AppLayout from '../layouts/AppLayout.jsx';
-import Dashboard from '../pages/Dashboard.jsx';
-import Chat from '../pages/Chat.jsx';
-import Timeline from '../pages/Timeline.jsx';
-import LiveActivity from '../pages/LiveActivity.jsx';
-import OcrKnowledge from '../pages/OcrKnowledge.jsx';
-import SemanticMemory from '../pages/SemanticMemory.jsx';
+import HomeOS from '../pages/HomeOS.jsx';
+import AgentWorkspace from '../pages/AgentWorkspace.jsx';
+import GmailWorkspace from '../pages/GmailWorkspace.jsx';
+import CalendarWorkspace from '../pages/CalendarWorkspace.jsx';
+import TasksWorkspace from '../pages/TasksWorkspace.jsx';
+import NotificationsWorkspace from '../pages/NotificationsWorkspace.jsx';
+import RemindersWorkspace from '../pages/RemindersWorkspace.jsx';
+import KnowledgeWorkspace from '../pages/KnowledgeWorkspace.jsx';
+import KnowledgeGraphPage from '../pages/KnowledgeGraph.jsx';
+import FilesWorkspace from '../pages/FilesWorkspace.jsx';
+import ProjectsWorkspace from '../pages/ProjectsWorkspace.jsx';
+import AutomationsWorkspace from '../pages/AutomationsWorkspace.jsx';
+import AgentActivityLog from '../pages/AgentActivityLog.jsx';
+import IntegrationsManager from '../pages/IntegrationsManager.jsx';
 import VoiceAssistant from '../pages/VoiceAssistant.jsx';
 import Settings from '../pages/Settings.jsx';
-import KnowledgeGraph from '../pages/KnowledgeGraph.jsx';
 import JarvisHoloOrb from '../pages/JarvisHoloOrb.jsx';
 
-function AppRoutes() {
+export default function AppRoutes() {
   return (
     <Routes>
       {/* Floating Transparent Golden Holographic Orb (Standalone overlay) */}
       <Route path="/jarvis-orb" element={<JarvisHoloOrb />} />
 
+      {/* Main Autonomous AI Personal OS Shell */}
       <Route element={<AppLayout />}>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/timeline" element={<Timeline />} />
-        <Route path="/activity" element={<LiveActivity />} />
-        <Route path="/ocr" element={<OcrKnowledge />} />
-        <Route path="/semantic" element={<SemanticMemory />} />
-        <Route path="/knowledge-graph" element={<KnowledgeGraph />} />
+        {/* 1. Home Command Center */}
+        <Route path="/" element={<HomeOS />} />
+
+        {/* 2. Full-Screen AI Agent */}
+        <Route path="/agent" element={<AgentWorkspace />} />
+        <Route path="/chat" element={<AgentWorkspace />} />
+
+        {/* 3. Connected Gmail Workspace */}
+        <Route path="/gmail" element={<GmailWorkspace />} />
+
+        {/* 4. Calendar Workspace */}
+        <Route path="/calendar" element={<CalendarWorkspace />} />
+
+        {/* 5. Tasks Management */}
+        <Route path="/tasks" element={<TasksWorkspace />} />
+
+        {/* 6. Notifications Center */}
+        <Route path="/notifications" element={<NotificationsWorkspace />} />
+
+        {/* 7. Reminders Workspace */}
+        <Route path="/reminders" element={<RemindersWorkspace />} />
+
+        {/* 8. Knowledge Base & Wiki */}
+        <Route path="/knowledge" element={<KnowledgeWorkspace />} />
+
+        {/* 9. Dedicated Interactive Obsidian Knowledge Graph */}
+        <Route path="/knowledge-graph" element={<KnowledgeGraphPage />} />
+
+        {/* 10. Files & Artifacts */}
+        <Route path="/files" element={<FilesWorkspace />} />
+
+        {/* 11. Projects Workspace */}
+        <Route path="/projects" element={<ProjectsWorkspace />} />
+
+        {/* 12. Automations & Workflows */}
+        <Route path="/automations" element={<AutomationsWorkspace />} />
+
+        {/* 13. Agent Activity Audit Log */}
+        <Route path="/activity" element={<AgentActivityLog />} />
+
+        {/* 14. Integrations Manager */}
+        <Route path="/integrations" element={<IntegrationsManager />} />
+
+        {/* 15. Voice Companion & Settings */}
         <Route path="/voice" element={<VoiceAssistant />} />
         <Route path="/settings" element={<Settings />} />
       </Route>
+
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
-
-export default AppRoutes;
