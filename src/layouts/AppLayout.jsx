@@ -39,7 +39,6 @@ export default function AppLayout() {
   const { apiClient, loginDemo, username } = useBackend();
   const navigate = useNavigate();
   const location = useLocation();
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   // Auto-login as Immanuel & auto-start capture
   useEffect(() => {
@@ -84,16 +83,16 @@ export default function AppLayout() {
     }
   }
 
-  const primaryModules = [
-    { label: 'Command Center', path: '/', icon: LayoutDashboard, badge: 'Core' },
-    { label: 'AI Conversational Partner', path: '/chat', icon: MessageSquareText },
-    { label: 'Knowledge Graph Network', path: '/knowledge-graph', icon: Network },
-    { label: 'Semantic Memory Vectors', path: '/semantic', icon: Brain },
-    { label: 'Screen OCR & Cognition', path: '/ocr', icon: ScanText },
-    { label: 'Live Telemetry & Viewfinder', path: '/activity', icon: Activity },
-    { label: 'Cognitive Memory Timeline', path: '/timeline', icon: Waypoints },
-    { label: 'Spoken Voice Companion', path: '/voice', icon: Mic },
-    { label: 'System Configuration', path: '/settings', icon: Settings }
+  const navTabs = [
+    { label: 'Command Center', path: '/', icon: LayoutDashboard },
+    { label: 'AI Partner', path: '/chat', icon: MessageSquareText },
+    { label: 'Knowledge Graph', path: '/knowledge-graph', icon: Network },
+    { label: 'Semantic Memory', path: '/semantic', icon: Brain },
+    { label: 'Screen OCR', path: '/ocr', icon: ScanText },
+    { label: 'Live Activity', path: '/activity', icon: Activity },
+    { label: 'Memory Timeline', path: '/timeline', icon: Waypoints },
+    { label: 'Voice Intercom', path: '/voice', icon: Mic },
+    { label: 'Settings', path: '/settings', icon: Settings }
   ];
 
   return (
@@ -113,26 +112,40 @@ export default function AppLayout() {
           </span>
         </div>
 
-        {/* Center: Live Neural Pulse Beacon */}
-        <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-slate-400 uppercase tracking-wider">
-          <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-          <span className="text-slate-300 font-medium">NEURAL CORTEX: ONLINE</span>
-          <span className="text-slate-600">·</span>
-          <span className="text-cyan-400 font-medium">EPHEMERAL ZERO-STORAGE ACTIVE</span>
-          <span className="text-slate-600">·</span>
+        {/* Center: Top Navigation Pills */}
+        <nav className="hidden md:flex items-center gap-1 -webkit-app-region-no-drag">
+          {navTabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = location.pathname === tab.path;
+            return (
+              <NavLink
+                key={tab.path}
+                to={tab.path}
+                className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-[11px] font-medium transition ${
+                  isActive
+                    ? 'border border-cyan-400/40 bg-cyan-500/15 text-cyan-300 shadow-[0_0_10px_rgba(56,189,248,0.25)] font-semibold'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                }`}
+              >
+                <Icon size={12} className={isActive ? 'text-cyan-300' : 'text-slate-500'} />
+                <span>{tab.label}</span>
+              </NavLink>
+            );
+          })}
+        </nav>
+
+        {/* Right: Immanuel Profile & Window Controls */}
+        <div className="flex items-center gap-2 -webkit-app-region-no-drag">
           <button
             type="button"
             onClick={summonJarvisOrb}
-            className="flex items-center gap-1 text-amber-300 hover:text-amber-200 transition"
-            title="Summon Golden Holo-Orb"
+            className="flex items-center gap-1 rounded-full border border-amber-400/40 bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-mono font-bold text-amber-300 hover:bg-amber-500/20 transition shadow-[0_0_10px_rgba(251,191,36,0.2)]"
+            title="Summon Golden Holographic Orb (Alt + J)"
           >
             <Sparkles size={11} className="text-amber-400 animate-spin" />
-            <span>ORB: ALT+J</span>
+            <span>ALT + J</span>
           </button>
-        </div>
 
-        {/* Right: Immanuel User Badge & Window Controls */}
-        <div className="flex items-center gap-2 -webkit-app-region-no-drag">
           <div className="flex items-center gap-1.5 rounded-lg border border-white/5 bg-white/5 px-2.5 py-0.5 text-[11px] font-mono text-slate-300">
             <span className="text-cyan-400 font-bold uppercase">{username || 'IMMANUEL'}</span>
             <span className="text-slate-600">/</span>
@@ -168,97 +181,12 @@ export default function AppLayout() {
         </div>
       </header>
 
-      {/* ================= MAIN DUAL-PANE COGNITIVE SHELL ================= */}
-      <div className="flex flex-1 min-h-0 min-w-0 overflow-hidden relative">
-        {/* Left Modular Navigation Rail (Collapsible) */}
-        <aside
-          className={`flex flex-col justify-between border-r border-cyan-500/15 bg-slate-950/80 backdrop-blur-2xl transition-all duration-300 z-30 ${
-            isSidebarCollapsed ? 'w-14' : 'w-64'
-          }`}
-        >
-          {/* Top Header inside Sidebar */}
-          <div>
-            <div className="flex items-center justify-between border-b border-white/5 px-3 py-2.5">
-              {!isSidebarCollapsed && (
-                <div className="flex items-center gap-2">
-                  <Compass size={14} className="text-cyan-400" />
-                  <span className="text-[11px] font-mono font-bold tracking-wider text-slate-300 uppercase">
-                    AI Modules
-                  </span>
-                </div>
-              )}
-              <button
-                type="button"
-                onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-                className={`p-1 text-slate-400 hover:text-white hover:bg-white/10 rounded transition ${
-                  isSidebarCollapsed ? 'mx-auto' : ''
-                }`}
-                title={isSidebarCollapsed ? 'Expand Navigation' : 'Collapse Navigation'}
-              >
-                {isSidebarCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
-              </button>
-            </div>
+      {/* Main Full-Bleed HUD Viewport */}
+      <main className="relative flex flex-1 flex-col min-h-0 min-w-0 overflow-hidden bg-[#030712]">
+        <Outlet />
+      </main>
 
-            {/* Navigation Items */}
-            <nav className="p-2 space-y-1">
-              {primaryModules.map((item) => {
-                const Icon = item.icon;
-                const isActive = location.pathname === item.path;
-
-                return (
-                  <NavLink
-                    key={item.path}
-                    to={item.path}
-                    title={isSidebarCollapsed ? item.label : undefined}
-                    className={`group flex items-center gap-3 rounded-xl px-2.5 py-2 text-xs font-medium transition-all ${
-                      isActive
-                        ? 'border border-cyan-400/40 bg-gradient-to-r from-cyan-500/20 to-blue-600/10 text-white shadow-[0_0_15px_rgba(56,189,248,0.25)] font-semibold'
-                        : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
-                    } ${isSidebarCollapsed ? 'justify-center' : ''}`}
-                  >
-                    <Icon size={16} className={isActive ? 'text-cyan-300' : 'text-slate-500 group-hover:text-slate-300'} />
-                    {!isSidebarCollapsed && (
-                      <span className="truncate flex-1">{item.label}</span>
-                    )}
-                    {!isSidebarCollapsed && item.badge && (
-                      <span className="rounded bg-cyan-400/15 border border-cyan-400/30 px-1.5 py-0.2 text-[9px] font-mono font-bold text-cyan-300">
-                        {item.badge}
-                      </span>
-                    )}
-                  </NavLink>
-                );
-              })}
-            </nav>
-          </div>
-
-          {/* Bottom Telemetry Chip in Sidebar */}
-          <div className="border-t border-white/5 p-2.5">
-            {!isSidebarCollapsed ? (
-              <div className="rounded-xl border border-white/5 bg-black/40 p-2.5 space-y-1">
-                <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
-                  <span>STORAGE BLOAT</span>
-                  <span className="text-emerald-400 font-bold">0.0 MB</span>
-                </div>
-                <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
-                  <span>GIT VAULT</span>
-                  <span className="text-cyan-400 font-bold">SYNCED</span>
-                </div>
-              </div>
-            ) : (
-              <div className="flex justify-center text-emerald-400" title="Zero Local Storage Bloat Active">
-                <ShieldCheck size={16} />
-              </div>
-            )}
-          </div>
-        </aside>
-
-        {/* Main Application Viewport */}
-        <div className="relative flex flex-1 flex-col min-h-0 min-w-0 overflow-hidden bg-[#030712]">
-          <Outlet />
-        </div>
-      </div>
-
-      {/* Global Ambient Floating Jarvis Orb Trigger (Alt + J / Alt + Space) */}
+      {/* Ambient Floating Jarvis HUD Capsule (Alt + J / Alt + Space) */}
       <AmbientCapsuleHUD />
     </div>
   );
