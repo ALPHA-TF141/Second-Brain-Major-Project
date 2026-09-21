@@ -1,94 +1,6 @@
 {
-  "updated_at": "2026-09-21T04:17:30.551492Z",
+  "updated_at": "2026-09-21T04:18:37.457369Z",
   "nodes": [
-    {
-      "id": "ENT_code",
-      "label": "Code",
-      "domain": "Technology",
-      "priority": "high",
-      "val": 8
-    },
-    {
-      "id": "card_20260917_101406_123",
-      "label": "Code",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] knowledge_graph.json - Second Brain: Activity on Code.exe: knowledge_graph.json - Second Brain - Visual Studio Code",
-      "hero_image": null,
-      "val": 10
-    },
-    {
-      "id": "card_20260917_101411_273",
-      "label": "Code",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] knowledge_graph.json - Second Brain: Activity on Code.exe: knowledge_graph.json - Second Brain - Visual Studio Code",
-      "hero_image": null,
-      "val": 10
-    },
-    {
-      "id": "card_20260917_101416_350",
-      "label": "Code",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] knowledge_graph.json - Second Brain: Activity on Code.exe: knowledge_graph.json - Second Brain - Visual Studio Code",
-      "hero_image": null,
-      "val": 10
-    },
-    {
-      "id": "card_20260917_101421_556",
-      "label": "Code",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] knowledge_graph.json - Second Brain: Activity on Code.exe: knowledge_graph.json - Second Brain - Visual Studio Code",
-      "hero_image": null,
-      "val": 10
-    },
-    {
-      "id": "card_20260917_101426_634",
-      "label": "Code",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] knowledge_graph.json - Second Brain: Activity on Code.exe: knowledge_graph.json - Second Brain - Visual Studio Code",
-      "hero_image": null,
-      "val": 10
-    },
-    {
-      "id": "card_20260917_101431_713",
-      "label": "Code",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] knowledge_graph.json - Second Brain: Activity on Code.exe: knowledge_graph.json - Second Brain - Visual Studio Code",
-      "hero_image": null,
-      "val": 10
-    },
-    {
-      "id": "card_20260917_101436_807",
-      "label": "Code",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] knowledge_graph.json - Second Brain: Activity on Code.exe: knowledge_graph.json - Second Brain - Visual Studio Code",
-      "hero_image": null,
-      "val": 10
-    },
-    {
-      "id": "card_20260917_101441_928",
-      "label": "Code",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] knowledge_graph.json - Second Brain: Activity on Code.exe: knowledge_graph.json - Second Brain - Visual Studio Code",
-      "hero_image": null,
-      "val": 10
-    },
-    {
-      "id": "card_20260917_101447_245",
-      "label": "Code",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] knowledge_graph.json - Second Brain: Activity on Code.exe: knowledge_graph.json - Second Brain - Visual Studio Code",
-      "hero_image": null,
-      "val": 10
-    },
     {
       "id": "card_20260917_101452_944",
       "label": "Ai",
@@ -3064,259 +2976,99 @@
       "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
       "hero_image": null,
       "val": 6
+    },
+    {
+      "id": "card_20260921_041745_962",
+      "label": "Face Prep Class - OneNote",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_041756_272",
+      "label": "Face Prep Class - OneNote",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_041801_507",
+      "label": "Face Prep Class - OneNote",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_041806_497",
+      "label": "Face Prep Class - OneNote",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_041811_703",
+      "label": "Face Prep Class - OneNote",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_041816_947",
+      "label": "Face Prep Class - OneNote",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_041821_977",
+      "label": "Face Prep Class - OneNote",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_041827_257",
+      "label": "Face Prep Class - OneNote",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_041832_292",
+      "label": "Face Prep Class - OneNote",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_041837_426",
+      "label": "Face Prep Class - OneNote",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
+      "hero_image": null,
+      "val": 6
     }
   ],
   "edges": [
-    {
-      "source": "card_20260918_161935_475",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161935_475",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161935_475",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_161940_562",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_161940_562",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161940_562",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161940_562",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161940_562",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_161945_622",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_161945_622",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161945_622",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161945_622",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161945_622",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_161950_831",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_161950_831",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161950_831",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161950_831",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161950_831",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_161956_039",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_161956_039",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161956_039",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161956_039",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_161956_039",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_162001_225",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_162001_225",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162001_225",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162001_225",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162001_225",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_162006_463",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_162006_463",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162006_463",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162006_463",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162006_463",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_162011_569",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_162011_569",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162011_569",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162011_569",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162011_569",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "JARVIS_CORE",
-      "target": "DOMAIN_GENERAL",
-      "label": "tracks"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260918_162016_530",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_162016_530",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162016_530",
-      "target": "ENT_augmented",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162016_530",
-      "target": "ENT_retrieval",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162016_530",
-      "target": "ENT_vector",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_162021_721",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260918_162021_721",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162021_721",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162021_721",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260918_162021_721",
-      "target": "ENT_models",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260918_162037_133",
-      "label": "contains"
-    },
     {
       "source": "card_20260918_162037_133",
       "target": "ENT_google",
@@ -5564,6 +5316,256 @@
     },
     {
       "source": "card_20260921_041730_519",
+      "target": "ENT_onenote",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_041745_962",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_041745_962",
+      "target": "ENT_prep",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041745_962",
+      "target": "ENT_face",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041745_962",
+      "target": "ENT_class",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041745_962",
+      "target": "ENT_onenote",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_041756_272",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_041756_272",
+      "target": "ENT_prep",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041756_272",
+      "target": "ENT_face",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041756_272",
+      "target": "ENT_class",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041756_272",
+      "target": "ENT_onenote",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_041801_507",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_041801_507",
+      "target": "ENT_prep",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041801_507",
+      "target": "ENT_face",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041801_507",
+      "target": "ENT_class",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041801_507",
+      "target": "ENT_onenote",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_041806_497",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_041806_497",
+      "target": "ENT_prep",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041806_497",
+      "target": "ENT_face",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041806_497",
+      "target": "ENT_class",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041806_497",
+      "target": "ENT_onenote",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_041811_703",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_041811_703",
+      "target": "ENT_prep",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041811_703",
+      "target": "ENT_face",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041811_703",
+      "target": "ENT_class",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041811_703",
+      "target": "ENT_onenote",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_041816_947",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_041816_947",
+      "target": "ENT_prep",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041816_947",
+      "target": "ENT_face",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041816_947",
+      "target": "ENT_class",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041816_947",
+      "target": "ENT_onenote",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_041821_977",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_041821_977",
+      "target": "ENT_prep",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041821_977",
+      "target": "ENT_face",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041821_977",
+      "target": "ENT_class",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041821_977",
+      "target": "ENT_onenote",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_041827_257",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_041827_257",
+      "target": "ENT_prep",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041827_257",
+      "target": "ENT_face",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041827_257",
+      "target": "ENT_class",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041827_257",
+      "target": "ENT_onenote",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_041832_292",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_041832_292",
+      "target": "ENT_prep",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041832_292",
+      "target": "ENT_face",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041832_292",
+      "target": "ENT_class",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041832_292",
+      "target": "ENT_onenote",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_041837_426",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_041837_426",
+      "target": "ENT_prep",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041837_426",
+      "target": "ENT_face",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041837_426",
+      "target": "ENT_class",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_041837_426",
       "target": "ENT_onenote",
       "label": "mentions"
     }
