@@ -1,24 +1,6 @@
 {
-  "updated_at": "2026-09-21T05:41:37.539923Z",
+  "updated_at": "2026-09-21T05:42:03.136385Z",
   "nodes": [
-    {
-      "id": "card_20260921_042305_602",
-      "label": "Face Prep Class - OneNote",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_042310_774",
-      "label": "Face Prep Class - OneNote",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
-      "hero_image": null,
-      "val": 6
-    },
     {
       "id": "card_20260921_042316_040",
       "label": "WhatsApp",
@@ -3062,59 +3044,27 @@
       "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
       "hero_image": null,
       "val": 6
+    },
+    {
+      "id": "card_20260921_054152_878",
+      "label": "SoC_Batch Details_2027YoP-Training Schedule-2",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_054203_103",
+      "label": "SoC_Batch Details_2027YoP-Training Schedule-2",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
+      "hero_image": null,
+      "val": 6
     }
   ],
   "edges": [
-    {
-      "source": "card_20260921_053123_978",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053123_978",
-      "target": "ENT_visual",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053123_978",
-      "target": "ENT_working",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053123_978",
-      "target": "ENT_code",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053129_034",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053129_034",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053129_034",
-      "target": "ENT_visual",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053129_034",
-      "target": "ENT_working",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053129_034",
-      "target": "ENT_code",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053134_088",
-      "label": "contains"
-    },
     {
       "source": "card_20260921_053134_088",
       "target": "ENT_electron",
@@ -5562,6 +5512,56 @@
     },
     {
       "source": "card_20260921_054137_495",
+      "target": "ENT_details_2027yop-training",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_054152_878",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_054152_878",
+      "target": "ENT_protected",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054152_878",
+      "target": "ENT_soc_batch",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054152_878",
+      "target": "ENT_excel",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054152_878",
+      "target": "ENT_details_2027yop-training",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_054203_103",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_054203_103",
+      "target": "ENT_protected",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054203_103",
+      "target": "ENT_soc_batch",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054203_103",
+      "target": "ENT_excel",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054203_103",
       "target": "ENT_details_2027yop-training",
       "label": "mentions"
     }
