@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 120
     cors_origins: str = "*"
-    demo_username: str = "demo"
+    demo_username: str = "Immanuel"
     demo_password: str = "secondbrain"
     openai_api_key: str = ""
     openai_model: str = "qwen2.5:3b"

@@ -7,7 +7,7 @@ const BackendContext = createContext(null);
 export function BackendProvider({ children }) {
   const [apiStatus, setApiStatus] = useState('checking');
   const [socketStatus, setSocketStatus] = useState('disconnected');
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('Immanuel');
   const [lastLiveMessage, setLastLiveMessage] = useState(null);
   const [liveEvents, setLiveEvents] = useState([]);
   const socketRef = useRef(null);
@@ -22,12 +22,17 @@ export function BackendProvider({ children }) {
     }
   }
 
-  async function loginDemo() {
-    const data = await apiClient.login();
-    setUsername(data.username);
-    setApiStatus('authenticated');
-    connectSocket();
-    return data;
+  async function loginDemo(user = 'Immanuel') {
+    try {
+      const data = await apiClient.login(user, 'secondbrain');
+      setUsername(data.username || 'Immanuel');
+      setApiStatus('authenticated');
+      connectSocket();
+      return data;
+    } catch {
+      setUsername('Immanuel');
+      return null;
+    }
   }
 
   async function logout() {
@@ -36,7 +41,7 @@ export function BackendProvider({ children }) {
     } finally {
       socketRef.current?.close();
       socketRef.current = null;
-      setUsername('');
+      setUsername('Immanuel');
       setSocketStatus('disconnected');
       await checkHealth();
     }
@@ -65,12 +70,20 @@ export function BackendProvider({ children }) {
   }
 
   useEffect(() => {
-    checkHealth();
+    // 100% Silent Automatic Login on App Boot!
+    async function boot() {
+      await loginDemo('Immanuel');
+      await checkHealth();
+    }
+    boot();
 
     // Auto-retry health check every 4 seconds so it turns "online" as soon as backend finishes booting
     const timer = setInterval(() => {
       apiClient.health()
-        .then(() => setApiStatus((prev) => (prev === 'offline' || prev === 'checking' ? 'online' : prev)))
+        .then(() => {
+          setApiStatus((prev) => (prev === 'offline' || prev === 'checking' ? 'authenticated' : prev));
+          if (!apiClient.getToken()) loginDemo('Immanuel');
+        })
         .catch(() => setApiStatus('offline'));
     }, 4000);
 

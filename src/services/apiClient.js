@@ -38,7 +38,7 @@ export const apiClient = {
   setToken,
   clearToken,
   health: () => request('/api/health'),
-  login: async (username = 'demo', password = 'secondbrain') => {
+  login: async (username = 'Immanuel', password = 'secondbrain') => {
     const data = await request('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify({ username, password, device_name: 'electron-desktop' })
