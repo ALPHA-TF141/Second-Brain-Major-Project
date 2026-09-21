@@ -1,0 +1,30 @@
+{
+  "id": "card_20260921_042346_693",
+  "timestamp": "2026-09-21T04:23:46.693309Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Solve VelTech_Alpha 1789441433 Questions | Contests - Google Chrome",
+  "topic": "Solve VelTech_Alpha 1789441433 Questions | Co",
+  "summary": "[General] Solve VelTech_Alpha 1789441433 Questions | Contests: Activity on chrome.exe: Solve VelTech_Alpha 1789441433 Questions | Contests - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Solve VelTech_Alpha 1789441433 Questions | Contests - Google Chrome"
+  ],
+  "entities": [
+    "Questions",
+    "Contests",
+    "VelTech_Alpha",
+    "Solve",
+    "Activity",
+    "Google"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Solve VelTech_Alpha 1789441433 Questions | Contests - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 32.4
+}
