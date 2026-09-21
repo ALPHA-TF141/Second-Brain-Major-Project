@@ -31,3 +31,4 @@
 - [General: Home - Canva](general/home___canva.md) — *Updated 2026-09-21*
 - [General: Untitled](general/untitled.md) — *Updated 2026-09-21*
 - [General: Untitled design - Presentation](general/untitled_design___presentation.md) — *Updated 2026-09-21*
+- [General: Find and Replace](general/find_and_replace.md) — *Updated 2026-09-21*

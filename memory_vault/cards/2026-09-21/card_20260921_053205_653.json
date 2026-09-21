@@ -1,0 +1,28 @@
+{
+  "id": "card_20260921_053205_653",
+  "timestamp": "2026-09-21T05:32:05.653516Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "EXCEL.EXE",
+  "window_title": "Find and Replace",
+  "topic": "Find and Replace",
+  "summary": "[General] Find and Replace: Activity on EXCEL.EXE: Find and Replace",
+  "key_pointers": [
+    "Activity on EXCEL.EXE: Find and Replace"
+  ],
+  "entities": [
+    "Replace",
+    "EXCEL",
+    "Find",
+    "Activity"
+  ],
+  "tags": [
+    "general",
+    "excel"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on EXCEL.EXE: Find and Replace",
+  "hero_image": null,
+  "hero_image_info_score": 29.7
+}
