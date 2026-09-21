@@ -5,6 +5,7 @@ const fs = require('fs');
 const isDev = !app.isPackaged;
 
 let mainWindow = null;
+let orbWindow = null;
 let tray = null;
 let isQuitting = false;
 
@@ -33,7 +34,7 @@ function createWindow() {
     frame: false,
     backgroundColor: '#070A12',
     title: 'Second Brain',
-    icon: path.join(__dirname, 'icon.png'), // optional — put an icon.png in electron/
+    icon: path.join(__dirname, 'icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -59,6 +60,55 @@ function createWindow() {
   mainWindow.on('show', () => { if (tray) tray.destroy(); });
 }
 
+// ---- Transparent Floating Golden Holographic Orb Window ----
+function createOrbWindow() {
+  if (orbWindow && !orbWindow.isDestroyed()) return orbWindow;
+
+  orbWindow = new BrowserWindow({
+    width: 480,
+    height: 580,
+    frame: false,
+    transparent: true,
+    alwaysOnTop: true,
+    skipTaskbar: true,
+    hasShadow: false,
+    resizable: false,
+    show: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: false
+    }
+  });
+
+  const orbUrl = isDev
+    ? 'http://127.0.0.1:5173/#/jarvis-orb'
+    : `file://${path.join(__dirname, '../dist/index.html')}#/jarvis-orb`;
+
+  orbWindow.loadURL(orbUrl);
+
+  orbWindow.on('closed', () => {
+    orbWindow = null;
+  });
+
+  return orbWindow;
+}
+
+function toggleOrbWindow() {
+  if (!orbWindow || orbWindow.isDestroyed()) {
+    createOrbWindow();
+  }
+
+  if (orbWindow.isVisible()) {
+    orbWindow.hide();
+  } else {
+    orbWindow.show();
+    orbWindow.focus();
+    orbWindow.webContents.send('jarvis:wake');
+  }
+}
+
 // ---- Mic + notifications permission ----
 function setupPermissions() {
   session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
@@ -68,7 +118,6 @@ function setupPermissions() {
 }
 
 function trayIcon() {
-  // Use a 16x16 empty native image; replace with a real .ico/.png for a visible icon
   let img = nativeImage.createFromPath(path.join(__dirname, 'icon.png'));
   if (img.isEmpty()) img = nativeImage.createEmpty();
   return img;
@@ -79,7 +128,9 @@ function createTray() {
   tray = new Tray(trayIcon());
   tray.setToolTip('Second Brain — Jarvis');
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'Open Second Brain', click: () => { mainWindow.show(); mainWindow.focus(); } },
+    { label: 'Summon Jarvis Orb', click: () => toggleOrbWindow() },
+    { label: 'Open Command Center', click: () => { mainWindow.show(); mainWindow.focus(); } },
+    { type: 'separator' },
     { label: 'Pause capture', click: () => mainWindow.webContents.send('jarvis:capture', 'pause') },
     { label: 'Resume capture', click: () => mainWindow.webContents.send('jarvis:capture', 'resume') },
     { type: 'separator' },
@@ -89,27 +140,24 @@ function createTray() {
     { label: 'Quit', click: () => { isQuitting = true; app.quit(); } }
   ]);
   tray.setContextMenu(contextMenu);
-  tray.on('click', () => { mainWindow.show(); mainWindow.focus(); });
+  tray.on('click', () => { toggleOrbWindow(); });
 }
 
 app.whenReady().then(() => {
   setupPermissions();
   createWindow();
+  createOrbWindow();
 
-  // Register Global Jarvis Spotlight Hotkey (Alt+Space)
+  // Register Global Jarvis Shortcuts: Alt+Space and Alt+J
   try {
+    globalShortcut.register('Alt+J', () => {
+      toggleOrbWindow();
+    });
     globalShortcut.register('Alt+Space', () => {
-      if (!mainWindow) return;
-      if (mainWindow.isVisible() && mainWindow.isFocused()) {
-        mainWindow.hide();
-      } else {
-        mainWindow.show();
-        mainWindow.focus();
-        mainWindow.webContents.send('jarvis:spotlight');
-      }
+      toggleOrbWindow();
     });
   } catch (err) {
-    console.warn('Could not register Alt+Space shortcut:', err);
+    console.warn('Could not register global shortcuts:', err);
   }
 
   // Only auto-start on Windows boot if the app is packaged as an installed production .exe
@@ -120,7 +168,6 @@ app.whenReady().then(() => {
       args: []
     });
   } else {
-    // In development mode, explicitly turn OFF auto-start so raw electron.exe never opens on boot
     try {
       app.setLoginItemSettings({
         openAtLogin: false
@@ -170,4 +217,21 @@ ipcMain.on('window:maximize', (event) => {
 ipcMain.on('window:close', (event) => {
   BrowserWindow.fromWebContents(event.sender)?.hide();
   createTray();
+});
+
+ipcMain.on('orb:hide', () => {
+  if (orbWindow && !orbWindow.isDestroyed()) {
+    orbWindow.hide();
+  }
+});
+
+ipcMain.on('orb:show', () => {
+  toggleOrbWindow();
+});
+
+ipcMain.on('orb:show-main', () => {
+  if (mainWindow) {
+    mainWindow.show();
+    mainWindow.focus();
+  }
 });

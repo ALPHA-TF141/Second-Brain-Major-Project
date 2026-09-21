@@ -9,10 +9,14 @@ import SemanticMemory from '../pages/SemanticMemory.jsx';
 import VoiceAssistant from '../pages/VoiceAssistant.jsx';
 import Settings from '../pages/Settings.jsx';
 import KnowledgeGraph from '../pages/KnowledgeGraph.jsx';
+import JarvisHoloOrb from '../pages/JarvisHoloOrb.jsx';
 
 function AppRoutes() {
   return (
     <Routes>
+      {/* Floating Transparent Golden Holographic Orb (Standalone overlay) */}
+      <Route path="/jarvis-orb" element={<JarvisHoloOrb />} />
+
       <Route element={<AppLayout />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/chat" element={<Chat />} />

@@ -90,12 +90,18 @@ export default function AmbientCapsuleHUD({ onTriggerBriefing }) {
       {/* Floating Ambient Capsule Button */}
       <button
         type="button"
-        onClick={() => setIsOpen(true)}
-        className="group fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full border border-cyanGlow/40 bg-slate-950/90 px-4 py-2.5 text-xs font-bold text-slate-200 shadow-glow backdrop-blur-xl transition hover:border-cyanGlow hover:scale-105"
+        onClick={() => {
+          if (window.secondBrain?.showOrb) {
+            window.secondBrain.showOrb();
+          } else {
+            setIsOpen(true);
+          }
+        }}
+        className="group fixed bottom-5 right-5 z-40 flex items-center gap-2.5 rounded-full border border-amber-400/50 bg-slate-950/95 px-4 py-2.5 text-xs font-bold text-amber-200 shadow-glow backdrop-blur-xl transition hover:border-amber-400 hover:scale-105"
       >
-        <span className="flex h-2 w-2 rounded-full bg-cyanGlow animate-ping" />
-        <span className="font-mono text-cyanGlow">JARVIS HUD</span>
-        <span className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] text-slate-400 font-mono">Alt + Space</span>
+        <span className="flex h-2 w-2 rounded-full bg-amber-400 animate-ping" />
+        <span className="font-mono text-amber-300">JARVIS HOLO-ORB</span>
+        <span className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] text-amber-400 font-mono">Alt + J</span>
       </button>
 
       {/* Spotlight HUD Modal */}
