@@ -1,7 +1,7 @@
 {
   "name": "second-brain",
-  "version": "0.1.0",
-  "description": "Phase 1 desktop shell for the Second Brain AI assistant.",
+  "version": "1.0.0",
+  "description": "Jarvis OS - Autonomous Personal Cognitive Knowledge Synthesizer.",
   "main": "electron/main.js",
   "private": true,
   "scripts": {
@@ -10,8 +10,33 @@
     "dev:electron": "wait-on http://127.0.0.1:5173 && electron .",
     "backend": "node run_backend.js",
     "build": "vite build",
+    "build:exe": "vite build && electron-builder --win",
     "preview": "vite preview",
     "start": "electron ."
+  },
+  "build": {
+    "appId": "com.secondbrain.jarvis",
+    "productName": "Jarvis Second Brain",
+    "directories": {
+      "output": "dist_installer"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "electron/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ]
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
@@ -25,6 +50,7 @@
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.1.0",
     "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
     "vite": "^6.0.3",

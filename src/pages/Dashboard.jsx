@@ -4,6 +4,7 @@ import LivingJarvisCore from '../components/LivingJarvisCore.jsx';
 import ObsidianGraphView from '../components/ObsidianGraphView.jsx';
 import DeliverableForge from '../components/DeliverableForge.jsx';
 import SocialIngestionHub from '../components/SocialIngestionHub.jsx';
+import { soundEffects } from '../services/soundEffects.js';
 import { useBackend } from '../context/BackendContext.jsx';
 import { createVoiceSocket } from '../services/voiceSocket.js';
 
@@ -101,6 +102,26 @@ export default function Dashboard() {
     };
   }, [apiClient]);
 
+  // Live Screen Vision Analysis
+  async function analyzeActiveScreen() {
+    setJarvisState('thinking');
+    soundEffects.playThoughtBlip();
+    setJarvisReply('Scanning monitor optic telemetry, Sir...');
+    try {
+      const res = await fetch(`${apiClient.baseUrl}/api/graph/vision/analyze-screen`, {
+        method: 'POST'
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setJarvisReply(data.analysis);
+        soundEffects.playSuccessChime();
+        speak(data.analysis);
+      }
+    } catch {
+      setJarvisReply('Visual sensor telemetry busy, Sir.');
+    }
+  }
+
   // Voice Synthesis Output
   function speak(text) {
     if (!window.speechSynthesis || !text) return;
@@ -132,6 +153,7 @@ export default function Dashboard() {
     }
 
     try {
+      soundEffects.playWakeChime();
       const rec = new SpeechRecognition();
       rec.continuous = true;
       rec.interimResults = true;
@@ -312,6 +334,15 @@ export default function Dashboard() {
 
         {/* Holographic Arc Action Matrix Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
+          <button
+            type="button"
+            onClick={analyzeActiveScreen}
+            className="flex items-center gap-2 rounded-xl border border-cyan-400/40 bg-gradient-to-r from-cyan-500/20 to-blue-600/10 px-3.5 py-2 font-semibold text-cyan-300 transition hover:scale-105 active:scale-95 shadow-glow"
+          >
+            <Eye size={14} className="text-cyan-400 animate-pulse" />
+            <span>Scan Monitor (Vision)</span>
+          </button>
+
           <button
             type="button"
             onClick={() => setActiveOverlay(activeOverlay === 'graph' ? null : 'graph')}

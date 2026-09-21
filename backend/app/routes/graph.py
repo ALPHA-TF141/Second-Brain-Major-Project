@@ -721,3 +721,67 @@ def get_deliverable_content_endpoint(filename: str = ""):
         return {"content": target.read_text(encoding="utf-8")}
     raise HTTPException(status_code=404, detail="Deliverable not found")
 
+
+@router.post("/vision/analyze-screen")
+async def analyze_screen_endpoint():
+    """Captures the active screen in real time, extracts text & context, and has Jarvis explain it verbally."""
+    import asyncio
+    from app.capture.screenshot_service import ScreenshotService
+    from app.ocr.ocr_engine import OCREngine
+    from app.services.capture_service import capture_manager
+    from app.llm.llm_client import llm_client
+    from app.agents.vault_agent import vault_agent
+
+    # 1. Grab fresh screen frame
+    service = ScreenshotService()
+    res = await asyncio.to_thread(service.capture, 0)
+    if not res:
+        raise HTTPException(status_code=500, detail="Could not capture monitor frame")
+
+    # 2. Extract OCR
+    ocr_engine = OCREngine()
+    ocr_res = await asyncio.to_thread(ocr_engine.extract_text, res["file_path"])
+    raw_text = ocr_res.get("text", "")
+
+    app_name = capture_manager.current_app or "Active Application"
+    window_title = capture_manager.current_title or "Active Screen"
+
+    # Prune temporary image to maintain zero local storage waste
+    vault_agent.prune_screenshot(res["file_path"])
+
+    # 3. Formulate prompt for Jarvis
+    prompt = [
+        {
+            "role": "system",
+            "content": (
+                "You are JARVIS, Tony Stark's personal AI. "
+                "The user just commanded you to inspect their live monitor screen. "
+                "In exactly 2 concise, witty, British-style sentences, summarize what is on their screen "
+                "and provide one immediate, actionable observation or takeaway. "
+                "Do NOT use bullet points. Address the user as 'Sir'."
+            )
+        },
+        {
+            "role": "user",
+            "content": (
+                f"Active Application: {app_name}\\n"
+                f"Window Title: {window_title}\\n"
+                f"Visible Screen Text Excerpt: {raw_text[:1200] if raw_text else 'Visual media / interface'}"
+            )
+        }
+    ]
+
+    answer = ""
+    try:
+        async for token in llm_client.stream(prompt, []):
+            answer += token
+    except Exception:
+        answer = f"I observe you are actively working in {app_name} with focus on {window_title}, Sir."
+
+    return {
+        "status": "success",
+        "app_name": app_name,
+        "window_title": window_title,
+        "analysis": answer.strip()
+    }
+
