@@ -21,3 +21,4 @@
 - [General: Leave site?](general/leave_site.md) — *Updated 2026-09-18*
 - [General: Control center](general/control_center.md) — *Updated 2026-09-18*
 - [General: second brain app - Google Search](general/second_brain_app___google_search.md) — *Updated 2026-09-21*
+- [General: Face Prep Class - OneNote](general/face_prep_class___onenote.md) — *Updated 2026-09-21*
