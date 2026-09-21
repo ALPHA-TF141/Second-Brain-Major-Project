@@ -1,0 +1,32 @@
+{
+  "id": "card_20260921_043948_425",
+  "timestamp": "2026-09-21T04:39:48.425118Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Linked List - Product ID Insertion in Inventory | HackerRank - Google Chrome",
+  "topic": "Linked List - Product ID Insertion in Invento",
+  "summary": "[General] Linked List - Product ID Insertion in Inventory | HackerRank: Activity on chrome.exe: Linked List - Product ID Insertion in Inventory | HackerRank - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Linked List - Product ID Insertion in Inventory | HackerRank - Google Chrome"
+  ],
+  "entities": [
+    "Linked",
+    "Inventory",
+    "Insertion",
+    "HackerRank",
+    "Google",
+    "Activity",
+    "List",
+    "Product"
+  ],
+  "tags": [
+    "general",
+    "chrome"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Linked List - Product ID Insertion in Inventory | HackerRank - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 34.2
+}
