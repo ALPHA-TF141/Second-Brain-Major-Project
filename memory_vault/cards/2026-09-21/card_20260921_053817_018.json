@@ -1,0 +1,32 @@
+{
+  "id": "card_20260921_053817_018",
+  "timestamp": "2026-09-21T05:38:17.018336Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "EXCEL.EXE",
+  "window_title": "SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel",
+  "topic": "SoC_Batch Details_2027YoP-Training Schedule-2",
+  "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
+  "key_pointers": [
+    "Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel"
+  ],
+  "entities": [
+    "Protected",
+    "SoC_Batch",
+    "Excel",
+    "Details_2027YoP-Training",
+    "EXCEL",
+    "Schedule-21",
+    "View",
+    "Activity"
+  ],
+  "tags": [
+    "general",
+    "excel"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel",
+  "hero_image": null,
+  "hero_image_info_score": 31.95
+}
