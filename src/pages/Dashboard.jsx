@@ -6,6 +6,7 @@ import {
   Brain,
   CheckCircle2,
   CheckSquare,
+  ChevronRight,
   Circle,
   Clock,
   Compass,
