@@ -1,0 +1,27 @@
+{
+  "id": "card_20260921_041542_292",
+  "timestamp": "2026-09-21T04:15:42.292126Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "second brain app - Google Search - Google Chrome",
+  "topic": "second brain app - Google Search",
+  "summary": "[General] second brain app - Google Search: Activity on chrome.exe: second brain app - Google Search - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: second brain app - Google Search - Google Chrome"
+  ],
+  "entities": [
+    "Activity",
+    "Search",
+    "Google"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: second brain app - Google Search - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 32.4
+}
