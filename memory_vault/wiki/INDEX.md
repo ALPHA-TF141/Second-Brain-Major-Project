@@ -26,3 +26,6 @@
 - [General: Linked List - Product ID Insertion in Invento](general/linked_list___product_id_insertion_in_invento.md) — *Updated 2026-09-21*
 - [General: Snipping Tool Overlay](general/snipping_tool_overlay.md) — *Updated 2026-09-21*
 - [General: obsidian app second brain - Google Search](general/obsidian_app_second_brain___google_search.md) — *Updated 2026-09-21*
+- [General: canva - Google Search](general/canva___google_search.md) — *Updated 2026-09-21*
+- [General: Redirecting... | Canva](general/redirecting______canva.md) — *Updated 2026-09-21*
+- [General: Home - Canva](general/home___canva.md) — *Updated 2026-09-21*
