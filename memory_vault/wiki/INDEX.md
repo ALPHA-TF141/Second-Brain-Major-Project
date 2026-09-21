@@ -33,3 +33,4 @@
 - [General: Untitled design - Presentation](general/untitled_design___presentation.md) — *Updated 2026-09-21*
 - [General: Find and Replace](general/find_and_replace.md) — *Updated 2026-09-21*
 - [General: SoC_Batch Details_2027YoP-Training Schedule-2](general/soc_batch_details_2027yop_training_schedule_2.md) — *Updated 2026-09-21*
+- [General: This PC - File Explorer](general/this_pc___file_explorer.md) — *Updated 2026-09-21*
