@@ -1,24 +1,28 @@
-import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import Sidebar from '../components/Sidebar.jsx';
-import Navbar from '../components/Navbar.jsx';
-import FloatingAssistantButton from '../components/FloatingAssistantButton.jsx';
+import { useEffect, useState } from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import ObsidianRibbon from '../components/ObsidianRibbon.jsx';
+import ObsidianFileTree from '../components/ObsidianFileTree.jsx';
+import ObsidianTabBar from '../components/ObsidianTabBar.jsx';
 import AmbientCapsuleHUD from '../components/AmbientCapsuleHUD.jsx';
 import { useBackend } from '../context/BackendContext.jsx';
 
-function AppLayout() {
+export default function AppLayout() {
   const { apiClient, loginDemo } = useBackend();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // Auto-start capture once on app launch + handle tray commands
+  const [activeTab, setActiveTab] = useState('graph');
+  const [activeRibbonView, setActiveRibbonView] = useState('files');
+  const [activeCategory, setActiveCategory] = useState('Artificial Intelligence');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  // Auto-start capture and login as Immanuel automatically
   useEffect(() => {
     let cancelled = false;
 
     async function boot() {
       try {
-        // 1. Ensure we are logged in (demo)
-        if (!apiClient.getToken()) await loginDemo();
-
-        // 2. Start capture automatically if not already running
+        if (!apiClient.getToken()) await loginDemo('Immanuel');
         const status = await apiClient.captureStatus().catch(() => null);
         if (!cancelled && status && !status.is_active) {
           await apiClient.startCapture({
@@ -27,13 +31,12 @@ function AppLayout() {
           }).catch((e) => console.warn('Auto-capture start failed:', e));
         }
       } catch (e) {
-        console.warn('Jarvis boot failed:', e);
+        console.warn('Boot failed:', e);
       }
     }
 
     boot();
 
-    // 3. Listen for tray Pause/Resume commands (from Electron)
     const handleCapture = (cmd) => {
       if (cmd === 'pause') apiClient.pauseCapture().catch(() => {});
       else if (cmd === 'resume') apiClient.resumeCapture().catch(() => {});
@@ -46,21 +49,64 @@ function AppLayout() {
     return () => { cancelled = true; };
   }, [apiClient, loginDemo]);
 
+  // Sync active tab with route
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+    if (tabId === 'graph') navigate('/');
+    else if (tabId === 'todo') navigate('/');
+    else if (tabId === 'research') navigate('/');
+    else if (tabId === 'focus') navigate('/');
+  };
+
+  const handleRibbonChange = (viewId) => {
+    setActiveRibbonView(viewId);
+    if (viewId === 'files') {
+      setIsSidebarOpen(!isSidebarOpen);
+    } else if (viewId === 'graph') {
+      setActiveTab('graph');
+      navigate('/');
+    } else if (viewId === 'settings') {
+      navigate('/settings');
+    }
+  };
+
   return (
-    <div className="h-screen overflow-hidden bg-ink/80 text-slate-100">
-      <div className="flex h-full">
-        <Sidebar />
-        <div className="flex min-w-0 flex-1 flex-col">
-          <Navbar />
-          <main className="thin-scrollbar min-h-0 flex-1 overflow-y-auto px-4 pb-5 pt-4 sm:px-6">
-            <Outlet />
-          </main>
-        </div>
+    <div className="flex h-screen w-screen flex-col overflow-hidden bg-[#161616] text-[#dcddde] select-none font-sans">
+      {/* Top Obsidian Window Bar with Document Tabs & Native Frameless Window Controls */}
+      <ObsidianTabBar
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        onCloseTab={(id) => {}}
+      />
+
+      {/* Main Dual-Pane Obsidian Body */}
+      <div className="flex flex-1 min-h-0 overflow-hidden">
+        {/* Leftmost Obsidian Ribbon (Activity Bar) */}
+        <ObsidianRibbon
+          activeView={activeRibbonView}
+          onViewChange={handleRibbonChange}
+        />
+
+        {/* Left Collapsible Vault File Explorer */}
+        {isSidebarOpen && (
+          <ObsidianFileTree
+            onSelectCategory={(cat) => {
+              setActiveCategory(cat);
+              setActiveTab('graph');
+              navigate('/');
+            }}
+            activeCategory={activeCategory}
+          />
+        )}
+
+        {/* Main Content Area (Full-Bleed Force-Directed Knowledge Graph) */}
+        <main className="flex flex-1 flex-col min-w-0 bg-[#1e1e1e] overflow-hidden relative">
+          <Outlet />
+        </main>
       </div>
-      <FloatingAssistantButton />
+
+      {/* Ambient Floating Jarvis Orb Trigger (Alt + J / Alt + Space) */}
       <AmbientCapsuleHUD />
     </div>
   );
 }
-
-export default AppLayout;
