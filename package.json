@@ -10,7 +10,6 @@
     "dev:electron": "wait-on http://127.0.0.1:5173 && electron .",
     "backend": "node run_backend.js",
     "build": "vite build",
-    "build:exe": "vite build && electron-builder --win",
     "preview": "vite preview",
     "start": "electron ."
   },
@@ -50,7 +49,6 @@
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.1.0",
     "electron": "^33.2.1",
-    "electron-builder": "^25.1.8",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
     "vite": "^6.0.3",

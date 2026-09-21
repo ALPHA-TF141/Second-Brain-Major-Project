@@ -45,9 +45,24 @@ function createWindow() {
 
   if (isDev) {
     mainWindow.loadURL('http://127.0.0.1:5173');
+    mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
+      console.warn(`[Electron] Reconnecting to Vite dev server (${validatedURL})... Retrying in 1.5s`);
+      setTimeout(() => {
+        if (mainWindow && !mainWindow.isDestroyed()) {
+          mainWindow.loadURL('http://127.0.0.1:5173');
+        }
+      }, 1500);
+    });
   } else {
     mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
   }
+
+  // Forward console warnings and errors from React to terminal
+  mainWindow.webContents.on('console-message', (event, level, message, line, sourceId) => {
+    if (level >= 2) {
+      console.log(`[Renderer Console] ${message} (${sourceId}:${line})`);
+    }
+  });
 
   mainWindow.on('close', (event) => {
     if (!isQuitting) {
