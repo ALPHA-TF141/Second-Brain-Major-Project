@@ -46,7 +46,9 @@ import { soundEffects } from '../services/soundEffects.js';
 import { useBackend } from '../context/BackendContext.jsx';
 import { createVoiceSocket } from '../services/voiceSocket.js';
 
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const SpeechRecognition = typeof window !== 'undefined'
+  ? (window.SpeechRecognition || window.webkitSpeechRecognition)
+  : null;
 
 export default function Dashboard() {
   const { apiClient, username } = useBackend();
@@ -58,7 +60,7 @@ export default function Dashboard() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [activeOverlay, setActiveOverlay] = useState(null); // 'graph' | 'forge' | 'social' | 'cards' | 'wiki_reader' | null
 
-  // Telemetry & Second Brain Data State
+  // Telemetry & Second Brain Data State (Defensive initialization)
   const [graphData, setGraphData] = useState({ nodes: [], edges: [] });
   const [vaultCards, setVaultCards] = useState([]);
   const [wikiArticles, setWikiArticles] = useState([]);
@@ -91,30 +93,39 @@ export default function Dashboard() {
     return 'Good evening';
   };
 
+  const getHeroImageUrl = (card) => {
+    if (!card?.hero_image || typeof card.hero_image !== 'string') return null;
+    if (card.hero_image.startsWith('http://') || card.hero_image.startsWith('https://')) {
+      return card.hero_image;
+    }
+    const cleanPath = card.hero_image.replace(/\\/g, '/');
+    return `${apiClient?.baseUrl || 'http://127.0.0.1:8000'}/${cleanPath}`;
+  };
+
   // 1. Initialize Real-Time Voice Socket
   useEffect(() => {
     let active = true;
 
     async function initVoice() {
       try {
-        if (!apiClient.getToken()) {
-          await apiClient.login('Immanuel', 'secondbrain');
+        if (!apiClient?.getToken?.()) {
+          await apiClient?.login?.('Immanuel', 'secondbrain');
         }
 
         const socket = await createVoiceSocket({
           onOpen: () => {
-            socket.send(JSON.stringify({ type: 'start', mode: 'continuous', language: 'mixed' }));
+            socket?.send(JSON.stringify({ type: 'start', mode: 'continuous', language: 'mixed' }));
           },
           onEvent: (event) => {
-            if (!active) return;
+            if (!active || !event) return;
             if (event.type === 'transcript') {
-              setUserTranscript(event.text);
+              setUserTranscript(event.text || '');
               setJarvisState('thinking');
             } else if (event.type === 'speaking') {
               setJarvisState(event.status === 'started' ? 'speaking' : 'listening');
             } else if (event.type === 'answer') {
-              setJarvisReply(event.text);
-              speak(event.text);
+              setJarvisReply(event.text || 'Response received.');
+              speak(event.text || '');
             }
           }
         });
@@ -128,46 +139,45 @@ export default function Dashboard() {
 
     // 2. Fetch Deep Telemetry (Graph, Wiki, Deliverables, Cards, Insights, Activity)
     async function fetchAllTelemetry() {
+      const baseUrl = apiClient?.baseUrl || 'http://127.0.0.1:8000';
       try {
-        const [gRes, cRes, wRes, dRes, insRes, bRes, actRes] = await Promise.all([
-          fetch(`${apiClient.baseUrl}/api/graph/vault`),
-          fetch(`${apiClient.baseUrl}/api/graph/vault/cards?limit=12`),
-          fetch(`${apiClient.baseUrl}/api/graph/vault/wiki`),
-          fetch(`${apiClient.baseUrl}/api/graph/deliverables`),
-          fetch(`${apiClient.baseUrl}/api/graph/insights/recent`),
-          fetch(`${apiClient.baseUrl}/api/graph/briefing/today`),
-          apiClient.fetchActivities().catch(() => [])
+        const [gRes, cRes, wRes, dRes, insRes, bRes] = await Promise.all([
+          fetch(`${baseUrl}/api/graph/vault`).catch(() => null),
+          fetch(`${baseUrl}/api/graph/vault/cards?limit=12`).catch(() => null),
+          fetch(`${baseUrl}/api/graph/vault/wiki`).catch(() => null),
+          fetch(`${baseUrl}/api/graph/deliverables`).catch(() => null),
+          fetch(`${baseUrl}/api/graph/insights/recent`).catch(() => null),
+          fetch(`${baseUrl}/api/graph/briefing/today`).catch(() => null),
         ]);
 
-        if (gRes.ok && active) {
-          const gData = await gRes.json();
-          if (gData?.nodes) setGraphData(gData);
+        if (active) {
+          if (gRes?.ok) {
+            const gData = await gRes.json().catch(() => null);
+            if (gData?.nodes && Array.isArray(gData.nodes)) setGraphData(gData);
+          }
+          if (cRes?.ok) {
+            const cData = await cRes.json().catch(() => null);
+            if (Array.isArray(cData)) setVaultCards(cData);
+          }
+          if (wRes?.ok) {
+            const wData = await wRes.json().catch(() => null);
+            if (Array.isArray(wData)) setWikiArticles(wData);
+          }
+          if (dRes?.ok) {
+            const dData = await dRes.json().catch(() => null);
+            if (Array.isArray(dData)) setDeliverables(dData);
+          }
+          if (insRes?.ok) {
+            const insData = await insRes.json().catch(() => null);
+            if (Array.isArray(insData)) setRecentInsights(insData);
+          }
+          if (bRes?.ok) {
+            const bData = await bRes.json().catch(() => null);
+            if (bData && typeof bData === 'object') setBriefing(bData);
+          }
         }
-        if (cRes.ok && active) {
-          const cData = await cRes.json();
-          if (Array.isArray(cData)) setVaultCards(cData);
-        }
-        if (wRes.ok && active) {
-          const wData = await wRes.json();
-          if (Array.isArray(wData)) setWikiArticles(wData);
-        }
-        if (dRes.ok && active) {
-          const dData = await dRes.json();
-          if (Array.isArray(dData)) setDeliverables(dData);
-        }
-        if (insRes.ok && active) {
-          const insData = await insRes.json();
-          if (Array.isArray(insData)) setRecentInsights(insData);
-        }
-        if (bRes.ok && active) {
-          const bData = await bRes.json();
-          setBriefing(bData);
-        }
-        if (Array.isArray(actRes) && active) {
-          setRecentActivities(actRes.slice(0, 8));
-        }
-      } catch {
-        // Offline / booting
+      } catch (err) {
+        console.warn('Telemetry fetch note:', err);
       }
     }
 
@@ -176,33 +186,37 @@ export default function Dashboard() {
 
     return () => {
       active = false;
-      socketRef.current?.close();
-      recognitionRef.current?.stop();
+      socketRef.current?.close?.();
+      recognitionRef.current?.stop?.();
       clearInterval(interval);
     };
   }, [apiClient]);
 
   // Voice Speech Output
   function speak(text) {
-    if (!window.speechSynthesis || !text) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 1.05;
-    utterance.pitch = 1.0;
+    if (typeof window === 'undefined' || !window.speechSynthesis || !text) return;
+    try {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.05;
+      utterance.pitch = 1.0;
 
-    const voices = window.speechSynthesis.getVoices();
-    const naturalVoice = voices.find(v => v.lang.includes('en-GB') || v.name.includes('Natural') || v.name.includes('George'));
-    if (naturalVoice) utterance.voice = naturalVoice;
+      const voices = window.speechSynthesis.getVoices();
+      const britishOrNatural = voices.find(v => v.lang?.includes('en-GB') || v.name?.includes('Natural') || v.name?.includes('George'));
+      if (britishOrNatural) utterance.voice = britishOrNatural;
 
-    utterance.onstart = () => setJarvisState('speaking');
-    utterance.onend = () => setJarvisState('idle');
-    window.speechSynthesis.speak(utterance);
+      utterance.onstart = () => setJarvisState('speaking');
+      utterance.onend = () => setJarvisState('idle');
+      window.speechSynthesis.speak(utterance);
+    } catch {
+      setJarvisState('idle');
+    }
   }
 
   // Toggle Microphone
   function toggleListening() {
     if (jarvisState === 'listening') {
-      recognitionRef.current?.stop();
+      recognitionRef.current?.stop?.();
       setJarvisState('idle');
       return;
     }
@@ -225,7 +239,7 @@ export default function Dashboard() {
           if (e.results[i].isFinal) {
             setUserTranscript(text);
             setJarvisState('thinking');
-            socketRef.current?.send(JSON.stringify({ type: 'transcript', text, final: true }));
+            socketRef.current?.send?.(JSON.stringify({ type: 'transcript', text, final: true }));
           } else {
             interim += text;
           }
@@ -233,7 +247,7 @@ export default function Dashboard() {
         if (interim) setUserTranscript(interim);
       };
       rec.onerror = () => setJarvisState('idle');
-      rec.onend = () => { if (jarvisState === 'listening') rec.start(); };
+      rec.onend = () => { if (jarvisState === 'listening') try { rec.start(); } catch {} };
       rec.start();
       recognitionRef.current = rec;
       setJarvisState('listening');
@@ -269,8 +283,9 @@ export default function Dashboard() {
         return;
       }
       if (low.includes('task') || low.includes('work on') || low.includes('todo') || low.includes('priority')) {
-        setJarvisReply(`Sir, based on your current trajectory, your top priority is: ${priorities.find(p => !p.done)?.text || 'Continue synthesis'}.`);
-        speak(`Sir, based on your current trajectory, your top priority is: ${priorities.find(p => !p.done)?.text || 'Continue synthesis'}.`);
+        const topTask = (priorities || []).find(p => !p.done)?.text || 'Continue synthesis';
+        setJarvisReply(`Sir, based on your current trajectory, your top priority is: ${topTask}.`);
+        speak(`Sir, based on your current trajectory, your top priority is: ${topTask}.`);
         return;
       }
 
@@ -278,10 +293,11 @@ export default function Dashboard() {
       if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
         socketRef.current.send(JSON.stringify({ type: 'transcript', text, final: true }));
       } else {
-        const res = await apiClient.askMemory({ question: text, mode: 'summary' });
-        setJarvisReply(res.answer || 'Query processed, Sir.');
+        const res = await apiClient?.askMemory?.({ question: text, mode: 'summary' });
+        const ans = res?.answer || 'Query processed, Sir.';
+        setJarvisReply(ans);
         soundEffects.playSuccessChime();
-        speak(res.answer);
+        speak(ans);
       }
     } catch {
       setJarvisReply('Local Qwen 2.5 is synthesizing your request.');
@@ -295,15 +311,17 @@ export default function Dashboard() {
     setJarvisState('thinking');
     soundEffects.playThoughtBlip();
     setJarvisReply('Scanning monitor optic telemetry, Sir...');
+    const baseUrl = apiClient?.baseUrl || 'http://127.0.0.1:8000';
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/graph/vision/analyze-screen`, {
+      const res = await fetch(`${baseUrl}/api/graph/vision/analyze-screen`, {
         method: 'POST'
       });
       if (res.ok) {
         const data = await res.json();
-        setJarvisReply(data.analysis);
+        const ans = data?.analysis || 'Screen scanned, Sir.';
+        setJarvisReply(ans);
         soundEffects.playSuccessChime();
-        speak(data.analysis);
+        speak(ans);
       }
     } catch {
       setJarvisReply('Visual sensor telemetry busy, Sir.');
@@ -316,7 +334,7 @@ export default function Dashboard() {
   function toggleBriefingAudio() {
     if (!briefing?.spoken_script) return;
     if (isBriefingPlaying) {
-      window.speechSynthesis?.cancel();
+      if (typeof window !== 'undefined') window.speechSynthesis?.cancel();
       setIsBriefingPlaying(false);
     } else {
       setIsBriefingPlaying(true);
@@ -326,15 +344,17 @@ export default function Dashboard() {
   }
 
   const toggleTask = (id) => {
-    setPriorities(prev => prev.map(p => p.id === id ? { ...p, done: !p.done } : p));
+    setPriorities(prev => (prev || []).map(p => p.id === id ? { ...p, done: !p.done } : p));
   };
 
   async function openWikiArticle(art) {
+    if (!art?.path) return;
+    const baseUrl = apiClient?.baseUrl || 'http://127.0.0.1:8000';
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/graph/vault/wiki/article?path=${encodeURIComponent(art.path)}`);
+      const res = await fetch(`${baseUrl}/api/graph/vault/wiki/article?path=${encodeURIComponent(art.path)}`);
       if (res.ok) {
         const data = await res.json();
-        setSelectedWikiDoc({ ...art, content: data.content });
+        setSelectedWikiDoc({ ...art, content: data?.content || 'Empty article' });
         setActiveOverlay('wiki_reader');
       }
     } catch {
@@ -342,8 +362,16 @@ export default function Dashboard() {
     }
   }
 
+  const safeVaultCards = Array.isArray(vaultCards) ? vaultCards : [];
+  const safeWikiArticles = Array.isArray(wikiArticles) ? wikiArticles : [];
+  const safeDeliverables = Array.isArray(deliverables) ? deliverables : [];
+  const safeInsights = Array.isArray(recentInsights) ? recentInsights : [];
+  const safePriorities = Array.isArray(priorities) ? priorities : [];
+  const safeNodes = Array.isArray(graphData?.nodes) ? graphData.nodes : [];
+  const safeEdges = Array.isArray(graphData?.edges) ? graphData.edges : [];
+
   const categories = [
-    { name: 'All Knowledge', count: vaultCards.length + wikiArticles.length, icon: Layers },
+    { name: 'All Knowledge', count: safeVaultCards.length + safeWikiArticles.length, icon: Layers },
     { name: 'Technology & AI', count: 42, icon: Cpu },
     { name: 'Science & Quantum', count: 28, icon: Brain },
     { name: 'Cybersecurity & Defense', count: 16, icon: ShieldCheck },
@@ -402,11 +430,11 @@ export default function Dashboard() {
               <span className="flex items-center gap-1.5 text-amber-400">
                 <BookOpen size={12} /> Self-Improving Wiki
               </span>
-              <span className="text-slate-500 font-mono">{wikiArticles.length} Articles</span>
+              <span className="text-slate-500 font-mono">{safeWikiArticles.length} Articles</span>
             </div>
 
             <div className="space-y-1">
-              {wikiArticles.slice(0, 4).map((art, idx) => (
+              {safeWikiArticles.slice(0, 4).map((art, idx) => (
                 <div
                   key={idx}
                   onClick={() => openWikiArticle(art)}
@@ -419,7 +447,7 @@ export default function Dashboard() {
                   <ChevronRight size={12} className="text-slate-500 shrink-0" />
                 </div>
               ))}
-              {wikiArticles.length === 0 && (
+              {safeWikiArticles.length === 0 && (
                 <p className="text-[11px] text-slate-500 italic p-1">Compiling wiki from activity...</p>
               )}
             </div>
@@ -441,7 +469,7 @@ export default function Dashboard() {
             </div>
 
             <div className="space-y-1">
-              {deliverables.slice(0, 3).map((doc, idx) => (
+              {safeDeliverables.slice(0, 3).map((doc, idx) => (
                 <div
                   key={idx}
                   onClick={() => setActiveOverlay('forge')}
@@ -454,7 +482,7 @@ export default function Dashboard() {
                   <Download size={11} className="text-slate-500 shrink-0" />
                 </div>
               ))}
-              {deliverables.length === 0 && (
+              {safeDeliverables.length === 0 && (
                 <p className="text-[11px] text-slate-500 italic p-1">No forged papers yet.</p>
               )}
             </div>
@@ -465,20 +493,21 @@ export default function Dashboard() {
             <div className="flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
               <span>Hero Evidence</span>
               <button type="button" onClick={() => setActiveOverlay('cards')} className="text-cyan-400 hover:underline">
-                View All ({vaultCards.length})
+                View All ({safeVaultCards.length})
               </button>
             </div>
 
             <div className="grid grid-cols-2 gap-1.5">
-              {vaultCards.filter(c => c.hero_image).slice(0, 2).map((card) => {
-                const imgUrl = `${apiClient.baseUrl}/${card.hero_image.replace(/\\/g, '/')}`;
+              {safeVaultCards.filter(c => c?.hero_image).slice(0, 2).map((card) => {
+                const imgUrl = getHeroImageUrl(card);
+                if (!imgUrl) return null;
                 return (
                   <div
                     key={card.id}
                     onClick={() => setSelectedCardImage(imgUrl)}
                     className="group relative h-16 cursor-pointer overflow-hidden rounded-md border border-white/10 bg-black"
                   >
-                    <img src={imgUrl} alt={card.topic} className="h-full w-full object-cover group-hover:scale-105 transition" />
+                    <img src={imgUrl} alt={card.topic || 'Hero image'} className="h-full w-full object-cover group-hover:scale-105 transition" />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
                       <Eye size={12} className="text-white" />
                     </div>
@@ -569,9 +598,9 @@ export default function Dashboard() {
               <span className="text-slate-600 font-mono">Live Stream</span>
             </div>
 
-            {recentInsights.length > 0 ? (
+            {safeInsights.length > 0 ? (
               <div className="space-y-1.5">
-                {recentInsights.slice(0, 2).map((ins, idx) => (
+                {safeInsights.slice(0, 2).map((ins, idx) => (
                   <div key={idx} className="rounded-xl border border-cyan-500/20 bg-black/40 p-2.5 space-y-1">
                     <div className="flex items-center justify-between font-bold text-cyan-300 text-[11px]">
                       <span className="truncate">{ins.title}</span>
@@ -594,11 +623,11 @@ export default function Dashboard() {
               <span className="flex items-center gap-1.5 text-emerald-400">
                 <CheckSquare size={12} /> Today's Priorities
               </span>
-              <span className="text-slate-500 font-mono">{priorities.filter(p => p.done).length}/{priorities.length}</span>
+              <span className="text-slate-500 font-mono">{safePriorities.filter(p => p.done).length}/{safePriorities.length}</span>
             </div>
 
             <div className="space-y-1.5">
-              {priorities.map((item) => (
+              {safePriorities.map((item) => (
                 <div
                   key={item.id}
                   onClick={() => toggleTask(item.id)}
@@ -635,7 +664,7 @@ export default function Dashboard() {
               </div>
               <div className="p-1.5 rounded bg-white/5">
                 <span className="text-slate-500 block">SYNAPSE MESH</span>
-                <span className="text-purple-300 font-bold">{graphData.nodes.length || 540} NODES</span>
+                <span className="text-purple-300 font-bold">{safeNodes.length || 540} NODES</span>
               </div>
               <div className="p-1.5 rounded bg-white/5">
                 <span className="text-slate-500 block">LOCAL DISK</span>
@@ -697,7 +726,7 @@ export default function Dashboard() {
                 { label: 'Knowledge Galaxy', action: () => setActiveOverlay('graph'), icon: Network, color: 'text-cyan-400' },
                 { label: 'Deliverable Forge', action: () => setActiveOverlay('forge'), icon: Wrench, color: 'text-emerald-400' },
                 { label: 'Social Scraper', action: () => setActiveOverlay('social'), icon: Globe, color: 'text-purple-400' },
-                { label: `Vault Cards (${vaultCards.length})`, action: () => setActiveOverlay('cards'), icon: Layers, color: 'text-amber-400' },
+                { label: `Vault Cards (${safeVaultCards.length})`, action: () => setActiveOverlay('cards'), icon: Layers, color: 'text-amber-400' },
               ].map((chip, idx) => {
                 const Icon = chip.icon;
                 return (
@@ -757,7 +786,7 @@ export default function Dashboard() {
             <div className="flex-1 min-h-0">
               {activeOverlay === 'graph' && (
                 <div className="h-[70vh] w-full overflow-hidden rounded-2xl border border-white/10">
-                  <ObsidianGraphView nodes={graphData.nodes} edges={graphData.edges} />
+                  <ObsidianGraphView nodes={safeNodes} edges={safeEdges} />
                 </div>
               )}
 
@@ -769,18 +798,29 @@ export default function Dashboard() {
 
               {activeOverlay === 'cards' && (
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {vaultCards.map((card) => (
-                    <div key={card.id} className="rounded-xl border border-white/10 bg-slate-900/60 p-4 space-y-2">
-                      <span className="rounded bg-cyan-400/10 px-2 py-0.5 text-[10px] font-bold text-cyan-400 uppercase">
-                        {card.domain}
-                      </span>
-                      <h4 className="text-xs font-bold text-white line-clamp-1">{card.topic || card.window_title}</h4>
-                      <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">{card.summary}</p>
-                      <div className="border-t border-white/5 pt-2 text-[10px] text-slate-500 font-mono">
-                        {card.app_source}
+                  {safeVaultCards.map((card) => {
+                    const heroImg = getHeroImageUrl(card);
+                    return (
+                      <div key={card.id} className="rounded-xl border border-white/10 bg-slate-900/60 p-4 space-y-2">
+                        {heroImg && (
+                          <div
+                            onClick={() => setSelectedCardImage(heroImg)}
+                            className="relative h-28 w-full cursor-pointer overflow-hidden rounded-lg border border-white/10 bg-black"
+                          >
+                            <img src={heroImg} alt={card.topic || 'Hero image'} className="h-full w-full object-cover hover:scale-105 transition" />
+                          </div>
+                        )}
+                        <span className="rounded bg-cyan-400/10 px-2 py-0.5 text-[10px] font-bold text-cyan-400 uppercase">
+                          {card.domain}
+                        </span>
+                        <h4 className="text-xs font-bold text-white line-clamp-1">{card.topic || card.window_title}</h4>
+                        <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">{card.summary}</p>
+                        <div className="border-t border-white/5 pt-2 text-[10px] text-slate-500 font-mono">
+                          {card.app_source}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
 
