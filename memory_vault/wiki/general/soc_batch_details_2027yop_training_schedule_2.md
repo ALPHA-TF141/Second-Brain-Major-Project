@@ -79,3 +79,63 @@
 **Identified Concepts & Entities:** `Protected`, `SoC_Batch`, `Excel`, `Details_2027YoP-Training`, `EXCEL`, `Schedule-21`, `View`, `Activity`
 
 ---
+
+### Synthesized Entry: SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Pro (2026-09-21 05:39 UTC)
+- **Source Application:** `EXCEL.EXE`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** [General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...
+
+#### Key Takeaways & Evidence:
+- Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel
+
+**Identified Concepts & Entities:** `Protected`, `SoC_Batch`, `Excel`, `Details_2027YoP-Training`, `EXCEL`, `Schedule-21`, `View`, `Activity`
+
+---
+
+### Synthesized Entry: SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Pro (2026-09-21 05:39 UTC)
+- **Source Application:** `EXCEL.EXE`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** [General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...
+
+#### Key Takeaways & Evidence:
+- Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel
+
+**Identified Concepts & Entities:** `Protected`, `SoC_Batch`, `Excel`, `Details_2027YoP-Training`, `EXCEL`, `Schedule-21`, `View`, `Activity`
+
+---
+
+### Synthesized Entry: SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Pro (2026-09-21 05:39 UTC)
+- **Source Application:** `EXCEL.EXE`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** [General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...
+
+#### Key Takeaways & Evidence:
+- Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel
+
+**Identified Concepts & Entities:** `Protected`, `SoC_Batch`, `Excel`, `Details_2027YoP-Training`, `EXCEL`, `Schedule-21`, `View`, `Activity`
+
+---
+
+### Synthesized Entry: SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Pro (2026-09-21 05:39 UTC)
+- **Source Application:** `EXCEL.EXE`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** [General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...
+
+#### Key Takeaways & Evidence:
+- Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel
+
+**Identified Concepts & Entities:** `Protected`, `SoC_Batch`, `Excel`, `Details_2027YoP-Training`, `EXCEL`, `Schedule-21`, `View`, `Activity`
+
+---
+
+### Synthesized Entry: SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Pro (2026-09-21 05:39 UTC)
+- **Source Application:** `EXCEL.EXE`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** [General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...
+
+#### Key Takeaways & Evidence:
+- Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel
+
+**Identified Concepts & Entities:** `Protected`, `SoC_Batch`, `Excel`, `Details_2027YoP-Training`, `EXCEL`, `Schedule-21`, `View`, `Activity`
+
+---
