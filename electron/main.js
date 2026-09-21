@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, session, Tray, Menu, nativeImage, shell, globalShortcut } = require('electron');
+const { app, BrowserWindow, ipcMain, session, Tray, Menu, nativeImage, shell, globalShortcut, screen } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -64,11 +64,21 @@ function createWindow() {
 function createOrbWindow() {
   if (orbWindow && !orbWindow.isDestroyed()) return orbWindow;
 
+  const primaryDisplay = screen.getPrimaryDisplay();
+  const { width: screenWidth, height: screenHeight } = primaryDisplay.workAreaSize;
+  const orbW = 380;
+  const orbH = 460;
+  const orbX = Math.round(screenWidth - orbW - 20);
+  const orbY = Math.round(screenHeight - orbH - 20);
+
   orbWindow = new BrowserWindow({
-    width: 480,
-    height: 580,
+    width: orbW,
+    height: orbH,
+    x: orbX,
+    y: orbY,
     frame: false,
     transparent: true,
+    backgroundColor: '#00000000',
     alwaysOnTop: true,
     skipTaskbar: true,
     hasShadow: false,

@@ -8,6 +8,15 @@
   background: #070a12;
 }
 
+body.transparent-orb,
+body.transparent-orb #root {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
 * {
   box-sizing: border-box;
 }
