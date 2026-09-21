@@ -1,51 +1,6 @@
 {
-  "updated_at": "2026-09-21T05:40:25.810030Z",
+  "updated_at": "2026-09-21T05:41:37.539923Z",
   "nodes": [
-    {
-      "id": "card_20260921_042234_356",
-      "label": "Face Prep Class - OneNote",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_042239_644",
-      "label": "Face Prep Class - OneNote",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_042244_725",
-      "label": "Face Prep Class - OneNote",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_042249_970",
-      "label": "Face Prep Class - OneNote",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_042255_132",
-      "label": "Face Prep Class - OneNote",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
-      "hero_image": null,
-      "val": 6
-    },
     {
       "id": "card_20260921_042305_602",
       "label": "Face Prep Class - OneNote",
@@ -3062,134 +3017,54 @@
       "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
       "hero_image": null,
       "val": 6
+    },
+    {
+      "id": "card_20260921_054051_393",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260921_054056_636",
+      "label": "SoC_Batch Details_2027YoP-Training Schedule-2",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_054101_828",
+      "label": "SoC_Batch Details_2027YoP-Training Schedule-2",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_054106_856",
+      "label": "SoC_Batch Details_2027YoP-Training Schedule-2",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260921_054137_495",
+      "label": "SoC_Batch Details_2027YoP-Training Schedule-2",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
+      "hero_image": null,
+      "val": 6
     }
   ],
   "edges": [
-    {
-      "source": "card_20260921_053035_836",
-      "target": "ENT_working",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053035_836",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053035_836",
-      "target": "ENT_code",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053035_836",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053040_736",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053040_736",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053040_736",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053040_736",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053040_736",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053050_751",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053050_751",
-      "target": "ENT_working",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053050_751",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053050_751",
-      "target": "ENT_code",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053050_751",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053114_289",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053114_289",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053114_289",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053114_289",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053114_289",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053119_356",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260921_053119_356",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053119_356",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053119_356",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260921_053119_356",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260921_053123_978",
-      "label": "contains"
-    },
     {
       "source": "card_20260921_053123_978",
       "target": "ENT_electron",
@@ -5562,6 +5437,131 @@
     },
     {
       "source": "card_20260921_054025_764",
+      "target": "ENT_details_2027yop-training",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260921_054051_393",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_054051_393",
+      "target": "ENT_models",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054051_393",
+      "target": "ENT_compare",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054051_393",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054051_393",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_054056_636",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_054056_636",
+      "target": "ENT_protected",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054056_636",
+      "target": "ENT_soc_batch",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054056_636",
+      "target": "ENT_excel",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054056_636",
+      "target": "ENT_details_2027yop-training",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_054101_828",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_054101_828",
+      "target": "ENT_protected",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054101_828",
+      "target": "ENT_soc_batch",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054101_828",
+      "target": "ENT_excel",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054101_828",
+      "target": "ENT_details_2027yop-training",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_054106_856",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_054106_856",
+      "target": "ENT_protected",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054106_856",
+      "target": "ENT_soc_batch",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054106_856",
+      "target": "ENT_excel",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054106_856",
+      "target": "ENT_details_2027yop-training",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260921_054137_495",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260921_054137_495",
+      "target": "ENT_protected",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054137_495",
+      "target": "ENT_soc_batch",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054137_495",
+      "target": "ENT_excel",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260921_054137_495",
       "target": "ENT_details_2027yop-training",
       "label": "mentions"
     }
