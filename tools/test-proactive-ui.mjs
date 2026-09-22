@@ -19,6 +19,13 @@ import { createRequire } from 'node:module';
 import { JSDOM } from 'jsdom';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+// flushMount/flushEvent flush React's commit + effects, so "the UI reacted to
+// that broadcast" is answered deterministically rather than after a fixed
+// sleep. See harness-utils.mjs for the phantom failure this removes.
+import { sleep, waitFor, flushMount, flushEvent } from './harness-utils.mjs';
+
+// act() is resolved once the React instance is available (inside main()).
+let act = null;
 
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -128,35 +135,46 @@ async function main() {
     dom.window.document.body.appendChild(container);
     const root = createRoot(container);
 
-    root.render(
-      React.createElement(MemoryRouter, { initialEntries: ['/'] },
-        React.createElement(BackendProvider, null,
-          React.createElement(AssistantProvider, null, React.createElement(AppRoutes, null))))
-    );
+    act = await flushMount(root, React.createElement(MemoryRouter, { initialEntries: ['/'] },
+      React.createElement(BackendProvider, null,
+        React.createElement(AssistantProvider, null, React.createElement(AppRoutes, null)))), React);
 
-    await new Promise((r) => setTimeout(r, 500));
+    // The socket is opened from an effect; flushMount has already run it, but
+    // poll anyway so a slower machine cannot turn into a false failure.
+    await waitFor(() => sockets.length > 0, 8000);
 
     // deliver() is called on the socket bound to this window; backend broadcast
     // = same payload to every client, so use whichever socket is the live one.
     const live = sockets.find((s) => String(s.url).includes('/ws/live')) || sockets[0];
     check('a live socket was opened by the UI', !!live, `sockets: ${sockets.length}`);
 
+    if (!live) {
+      console.log('');
+      console.log('\u001b[31m  No /ws/live socket was opened, so no broadcast can be delivered.\u001b[0m');
+      console.log('  The UI is supposed to open one on mount - check the AssistantContext wiring.');
+      summary();
+      return;
+    }
+
+    /** Deliver a broadcast and flush the React work it causes. */
+    const deliver = (payload) => flushEvent(act, () => live.deliver(payload));
+
     console.log('\n[1] A wake word reaches the orb');
     calls.revealOrb = 0; calls.showOrb = 0;
-    live.deliver({ type: 'wake', source: 'wake_word', score: 0.96, timestamp: 'T1' });
+    await deliver({ type: 'wake', source: 'wake_word', score: 0.96, timestamp: 'T1' });
     await new Promise((r) => setTimeout(r, 120));
     check('revealOrb was called', calls.revealOrb === 1, `revealOrb=${calls.revealOrb}`);
     check('the TOGGLING showOrb was NOT used (it would hide a visible orb)',
       calls.showOrb === 0, `showOrb=${calls.showOrb}`);
 
     console.log('\n[2] The same wake event twice is handled once');
-    live.deliver({ type: 'wake', source: 'wake_word', score: 0.96, timestamp: 'T1' });
+    await deliver({ type: 'wake', source: 'wake_word', score: 0.96, timestamp: 'T1' });
     await new Promise((r) => setTimeout(r, 120));
     check('a duplicate event does not re-fire', calls.revealOrb === 1, `revealOrb=${calls.revealOrb}`);
 
     console.log('\n[3] Jarvis speaks first');
     spoken.length = 0; calls.revealOrb = 0;
-    live.deliver({
+    await deliver({
       type: 'speak',
       text: 'Sir, the IEEE conference draft deadline is due 2026-09-25.',
       priority: 'high', source: 'mail', show_orb: true, timestamp: 'S1'
@@ -168,9 +186,9 @@ async function main() {
     check('the orb was revealed for the announcement', calls.revealOrb === 1, `revealOrb=${calls.revealOrb}`);
 
     console.log('\n[4] The same sentence is not said twice');
-    live.deliver({ type: 'speak', text: 'identical sentence', priority: 'high', timestamp: 'S2' });
+    await deliver({ type: 'speak', text: 'identical sentence', priority: 'high', timestamp: 'S2' });
     await new Promise((r) => setTimeout(r, 80));
-    live.deliver({ type: 'speak', text: 'identical sentence', priority: 'high', timestamp: 'S2' });
+    await deliver({ type: 'speak', text: 'identical sentence', priority: 'high', timestamp: 'S2' });
     await new Promise((r) => setTimeout(r, 120));
     check('duplicate speak event spoken once',
       spoken.filter((t) => t === 'identical sentence').length === 1,
@@ -178,9 +196,9 @@ async function main() {
 
     console.log('\n[5] Unrelated live events are ignored');
     const before = { spoken: spoken.length, reveal: calls.revealOrb };
-    live.deliver({ type: 'status', status: 'connected' });
-    live.deliver({ type: 'echo', message: 'hello' });
-    live.deliver({ type: 'mail_sync', account: 'x@y.z', ingested: 3, timestamp: 'M1' });
+    await deliver({ type: 'status', status: 'connected' });
+    await deliver({ type: 'echo', message: 'hello' });
+    await deliver({ type: 'mail_sync', account: 'x@y.z', ingested: 3, timestamp: 'M1' });
     await new Promise((r) => setTimeout(r, 150));
     check('no speech from non-speak events', spoken.length === before.spoken,
       JSON.stringify(spoken));
@@ -193,6 +211,11 @@ async function main() {
     await vite.close().catch(() => {});
   }
 
+  summary();
+}
+
+/** Print the verdict and exit non-zero on any failed check. */
+function summary() {
   console.log('');
   if (failures.length) {
     console.log(`\u001b[31m=== ${failures.length} HANDS-FREE UI CHECK(S) FAILED ===\u001b[0m`);

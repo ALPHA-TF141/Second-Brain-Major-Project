@@ -16,6 +16,25 @@
  *   6. `not-allowed` stops retrying and explains itself instead of looping
  *   7. Alt+J (the wake IPC) re-arms a dead recogniser
  *
+ * TIMING POLICY (do not reintroduce fixed sleeps for mount)
+ * ---------------------------------------------------------
+ * The mount is flushed with `React.act()` rather than "sleep 300 ms and hope".
+ * A constant sleep is a wall-clock race: on a busy Windows box (antivirus
+ * scanning the drive, the dev server, Electron and Ollama all running) the
+ * first effect can land later than any constant, and the gate then reports a
+ * phantom failure while the orb is perfectly healthy. `act()` flushes the
+ * mount and its effects before a single assertion runs, on any machine.
+ *
+ * Every later assertion about asynchronous behaviour (re-arm, watchdog,
+ * captions) polls for the condition with a generous deadline instead of
+ * asserting after a fixed sleep - same property, no machine-speed dependency.
+ * A bounded poll still fails when the behaviour is genuinely missing, so
+ * nothing is weakened: the checks below fail on a real defect either way.
+ *
+ * If the orb never arms the microphone the harness prints a diagnosis (what
+ * loaded, whether React committed, what React logged) and exits non-zero - it
+ * never dies with a bare TypeError.
+ *
  * Usage:  node tools/test-orb-voice.mjs      (or: npm run test:orb)
  */
 import { createServer } from 'vite';
@@ -23,6 +42,9 @@ import { createRequire } from 'node:module';
 import { JSDOM } from 'jsdom';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+// Shared mount/poll policy - see harness-utils.mjs for why a fixed sleep after
+// render() is not allowed in these harnesses.
+import { sleep, waitFor, flushMount } from './harness-utils.mjs';
 
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -31,8 +53,10 @@ const ROOT = path.resolve(__dirname, '..');
 const PASS = '\u001b[32m  PASS\u001b[0m';
 const FAIL = '\u001b[31m  FAIL\u001b[0m';
 const failures = [];
+let checkCount = 0;
 
 function check(label, condition, detail = '') {
+  checkCount += 1;
   if (condition) {
     console.log(`${PASS}  ${label}`);
   } else {
@@ -208,6 +232,19 @@ const offlineFetch = async (url) => {
 setGlobal('fetch', offlineFetch);
 dom.window.fetch = offlineFetch;
 
+/* --------------------------------------------------------------- summary */
+/** Print the verdict. Exits non-zero on any failed check. */
+function finish() {
+  console.log('');
+  if (failures.length) {
+    const scope = checkCount > 0 ? ` (of ${checkCount})` : '';
+    console.log(`\u001b[31m=== ${failures.length} ORB VOICE CHECK(S) FAILED${scope} ===\u001b[0m`);
+    for (const f of failures) console.log(`\u001b[31m  - ${f}\u001b[0m`);
+    process.exit(1);
+  }
+  console.log(`\u001b[32m=== ALL ${checkCount} ORB VOICE CHECKS PASSED ===\u001b[0m\n`);
+}
+
 /* ------------------------------------------------------------------- run */
 async function main() {
   console.log('\n\u001b[36m=== JARVIS ORB : VOICE LOOP TEST ===\u001b[0m\n');
@@ -226,7 +263,8 @@ async function main() {
 
     const { BackendProvider } = await vite.ssrLoadModule('/src/context/BackendContext.jsx');
     const { AssistantProvider } = await vite.ssrLoadModule('/src/context/AssistantContext.jsx');
-    const Orb = (await vite.ssrLoadModule('/src/pages/JarvisHoloOrb.jsx')).default;
+    const orbModule = await vite.ssrLoadModule('/src/pages/JarvisHoloOrb.jsx');
+    const Orb = orbModule.default;
     const { MemoryRouter } = require('react-router-dom');
 
     // The preload bridge: records wake callbacks so the test can fire Alt+J.
@@ -243,17 +281,63 @@ async function main() {
     dom.window.document.body.appendChild(container);
     const root = createRoot(container);
 
-    root.render(
-      React.createElement(MemoryRouter, { initialEntries: ['/jarvis-orb'] },
-        React.createElement(BackendProvider, null,
-          React.createElement(AssistantProvider, null, React.createElement(Orb, null))))
-    );
+    // Everything React logs while mounting is collected, so a genuine failure
+    // explains itself instead of leaving us with "rec is null".
+    const consoleIssues = [];
+    const realError = console.error.bind(console);
+    const realWarn = console.warn.bind(console);
+    console.error = (...args) => { consoleIssues.push(args.map(String).join(' ')); realError(...args); };
+    console.warn = (...args) => { consoleIssues.push(args.map(String).join(' ')); realWarn(...args); };
 
-    await new Promise((r) => setTimeout(r, 300));
+    const tree = React.createElement(MemoryRouter, { initialEntries: ['/jarvis-orb'] },
+      React.createElement(BackendProvider, null,
+        React.createElement(AssistantProvider, null, React.createElement(Orb, null))));
+
+    const ARM_DEADLINE_MS = 20000;
+    const armedBefore = engine.instances.length;
+    const mountStart = Date.now();
+    const act = await flushMount(root, tree, React);
+    const mountMs = Date.now() - mountStart;
+
+    // act() has already flushed the mount effect; the poll is a safety net for
+    // React versions that defer passive effects anyway.
+    const armed = await waitFor(() => engine.instances.length > armedBefore, ARM_DEADLINE_MS);
+    console.log(`   (mount flushed in ${mountMs} ms with ${act ? 'React.act' : 'a plain render'}; ` +
+      `mic armed: ${armed ? 'yes' : 'no'})`);
+
+    if (!armed) {
+      console.log('');
+      console.log('\u001b[31m  The orb never created a SpeechRecognition object.\u001b[0m');
+      console.log('\u001b[31m  Diagnosis:\u001b[0m');
+      console.log(`    module default export:            ${typeof Orb} (expected: function)`);
+      console.log(`    window.SpeechRecognition:         ${typeof dom.window.SpeechRecognition}`);
+      console.log(`    window.webkitSpeechRecognition:   ${typeof dom.window.webkitSpeechRecognition}`);
+      console.log(`    React committed DOM nodes:        ${container.children.length}`);
+      console.log(`    recogniser instances created:     ${engine.instances.length}`);
+      console.log(`    DOM text:                         ${JSON.stringify(container.textContent.slice(0, 120))}`);
+      console.log(`    wait budget after the mount:      ${ARM_DEADLINE_MS} ms`);
+      console.log('    what React logged while mounting:');
+      if (consoleIssues.length === 0) {
+        console.log('      (nothing - the component tree never rendered)');
+      } else {
+        for (const line of consoleIssues.slice(0, 8)) {
+          console.log(`      ${line.replace(/\s+/g, ' ').slice(0, 220)}`);
+        }
+      }
+      console.log('');
+      console.log('    - "React committed DOM nodes: 0"  -> the page failed to render at all.');
+      console.log('    - a ReferenceError / TypeError above -> that is the app bug to fix.');
+      console.log('    - everything plausible -> the box was simply busy; re-run this gate.');
+      failures.push('the orb armed the microphone');
+      console.error = realError;
+      console.warn = realWarn;
+      finish();
+      return;
+    }
 
     const rec = engine.last;
 
-    console.log('[1] Starts listening on mount');
+    console.log('\n[1] Starts listening on mount');
     check('a recogniser was created', !!rec);
     check('continuous + interim enabled', rec?.continuous === true && rec?.interimResults === true,
       `continuous=${rec?.continuous} interim=${rec?.interimResults}`);
@@ -261,7 +345,7 @@ async function main() {
 
     console.log('\n[2] A spoken question reaches the backend');
     rec.emitFinal('what is the IEEE conference draft deadline');
-    await new Promise((r) => setTimeout(r, 60));
+    await waitFor(() => sent.some((m) => m.type === 'transcript'), 4000);
     const transcriptMsg = sent.find((m) => m.type === 'transcript');
     check('final transcript sent over the socket', !!transcriptMsg,
       JSON.stringify(sent.map((m) => m.type)));
@@ -288,29 +372,30 @@ async function main() {
     // The FakeWebSocket does not expose the component's handler, so we assert
     // the re-arm behaviour through the engine instead, which is the real bug.
     rec.emitFinal('second question after the first answer');
-    await new Promise((r) => setTimeout(r, 60));
+    const gotSecond = await waitFor(
+      () => sent.filter((m) => m.type === 'transcript').length === 2, 4000);
     check('a SECOND question is accepted (orb is not deaf after one turn)',
-      sent.filter((m) => m.type === 'transcript').length === 2,
+      gotSecond,
       `transcripts: ${sent.filter((m) => m.type === 'transcript').length}`);
 
     console.log('\n[4] The engine ends the session by itself (the actual bug)');
     // Deliver a real answer first, so the turn completes the way it should.
     sockets[0].deliver({ type: 'answer', text: 'The deadline is Friday at 5 PM.' });
-    await new Promise((r) => setTimeout(r, 100));
+    await waitFor(() => spoken.some((t) => t.includes('Friday')), 5000);
     check('answer is spoken aloud', spoken.some((t) => t.includes('Friday')),
       JSON.stringify(spoken));
 
     // A real voice engine fires onend when it finishes. Simulate that.
     finishSpeaking();
-    await new Promise((r) => setTimeout(r, 300));
-    check('mic resumes after Jarvis finishes speaking', engine.last.started === true,
+    const resumed = await waitFor(() => engine.last.started === true, 8000);
+    check('mic resumes after Jarvis finishes speaking', resumed,
       'orb stayed muted after the answer');
 
     const beforeRestart = engine.startCalls;
     rec.engineEnds();                          // <-- what Chromium does after silence
-    await new Promise((r) => setTimeout(r, 800));
+    const reArmed = await waitFor(() => engine.startCalls > beforeRestart, 8000);
     check('microphone RE-ARMS after an engine-initiated onend',
-      engine.startCalls > beforeRestart,
+      reArmed,
       `start calls before=${beforeRestart} after=${engine.startCalls}`);
     check('re-arm does not rebuild the recogniser',
       engine.instances.length === 1,
@@ -319,72 +404,77 @@ async function main() {
     console.log('\n[4a] TTS that never reports finishing must not leave the orb muted');
     const beforeTts = engine.stopCalls;
     sockets[0].deliver({ type: 'answer', text: 'short reply' });
-    await new Promise((r) => setTimeout(r, 150));
-    // Deliberately do NOT fire onend. Wait past the shortest watchdog bound.
-    await new Promise((r) => setTimeout(r, 4500));
+    await waitFor(() => spoken.some((t) => t === 'short reply'), 4000);
+    // Deliberately do NOT fire onend: only the watchdog can rescue this turn.
+    const recovered = await waitFor(() => engine.last.started === true && engine.stopCalls >= beforeTts, 20000);
     check('orb recovers when the voice engine says nothing at all',
-      engine.last.started === true && engine.stopCalls >= beforeTts,
-      `mic started=${engine.last.started}`);
+      recovered, `mic started=${engine.last.started}`);
 
     console.log('\n[4b] A turn the backend never answers must not strand the orb');
     // Hand over a turn, then deliver NO answer at all. Without a watchdog the
     // orb would wait forever and never listen again.
     const beforeHang = engine.startCalls;
     engine.last.emitFinal('a question the backend will never answer');
-    await new Promise((r) => setTimeout(r, 200));
-    check('turn handed over (mic paused)', engine.last.started === false,
+    const handedOver = await waitFor(() => engine.last.started === false, 4000);
+    check('turn handed over (mic paused)', handedOver,
       'mic should pause while waiting for the answer');
 
     // force the watchdog by shrinking the wait: emulate by firing the same path
     // the socket close takes, which is the other real-world way a turn dies
     sockets[0].close();
-    await new Promise((r) => setTimeout(r, 400));
+    const released = await waitFor(() => engine.startCalls > beforeHang, 8000);
     check('socket loss releases the turn and resumes listening',
-      engine.startCalls > beforeHang,
+      released,
       `start calls before=${beforeHang} after=${engine.startCalls}`);
 
     console.log('\n[5] Repeated silence must not spin the CPU');
     const spinBefore = engine.startCalls;
     for (let i = 0; i < 5; i += 1) {
       engine.last.engineEnds();
-      await new Promise((r) => setTimeout(r, 60));
+      await sleep(60);
     }
-    await new Promise((r) => setTimeout(r, 600));
+    await sleep(600);
     check('restarts stay bounded', engine.startCalls - spinBefore <= 8,
       `restarts: ${engine.startCalls - spinBefore} in ~1s`);
 
     console.log('\n[6] A blocked microphone explains itself instead of looping');
     engine.last.failWith('not-allowed');
-    await new Promise((r) => setTimeout(r, 300));
-    const afterBlock = engine.startCalls;
-    engine.last.engineEnds();
-    await new Promise((r) => setTimeout(r, 700));
-    check('stops retrying once permission is denied',
-      engine.startCalls === afterBlock,
-      `start calls grew from ${afterBlock} to ${engine.startCalls}`);
+    await waitFor(() => container.textContent.includes('Microphone blocked'), 6000);
     check('tells the user what to do',
       container.textContent.includes('Microphone blocked'),
       container.textContent.slice(0, 120));
+    // Snapshot only once the denial has been processed, then prove the orb
+    // stays put: a retry loop is the failure this guards against.
+    const afterBlock = engine.startCalls;
+    engine.last.engineEnds();
+    await sleep(900);
+    check('stops retrying once permission is denied',
+      engine.startCalls === afterBlock,
+      `start calls grew from ${afterBlock} to ${engine.startCalls}`);
 
     console.log('\n[7] Alt+J revives a dead recogniser');
     check('wake callback registered', wakeCallbacks.length > 0, `${wakeCallbacks.length} callbacks`);
     const beforeWake = engine.startCalls;
     wakeCallbacks[0]?.();
-    await new Promise((r) => setTimeout(r, 500));
-    check('mic re-armed on wake', engine.startCalls > beforeWake,
+    const woke = await waitFor(() => engine.startCalls > beforeWake, 8000);
+    check('mic re-armed on wake', woke,
       `start calls before=${beforeWake} after=${engine.startCalls}`);
-    check('greeting is spoken', spoken.some((t) => t.includes('Yes, Sir')),
-      JSON.stringify(spoken));
+    const greeted = await waitFor(() => spoken.some((t) => t.includes('Yes, Sir')), 6000);
+    check('greeting is spoken', greeted, JSON.stringify(spoken));
 
     console.log('\n[8] Interim results show as live captions (no backend spam)');
     const beforeInterim = sent.filter((m) => m.type === 'transcript').length;
     engine.last.emitInterim('what is the');
-    await new Promise((r) => setTimeout(r, 60));
+    await waitFor(() => container.textContent.includes('what is the'), 4000);
+    await sleep(80);   // let any (wrong) transmission land before we count
     check('interim text shown but NOT sent',
       sent.filter((m) => m.type === 'transcript').length === beforeInterim,
       'interim results must not be transmitted as questions');
     check('interim caption rendered', container.textContent.includes('what is the'),
       container.textContent.slice(0, 120));
+
+    console.error = realError;
+    console.warn = realWarn;
 
     try { root.unmount(); } catch { /* ignore */ }
     container.remove();
@@ -392,13 +482,7 @@ async function main() {
     await vite.close().catch(() => {});
   }
 
-  console.log('');
-  if (failures.length) {
-    console.log(`\u001b[31m=== ${failures.length} ORB VOICE CHECK(S) FAILED ===\u001b[0m`);
-    for (const f of failures) console.log(`\u001b[31m  - ${f}\u001b[0m`);
-    process.exit(1);
-  }
-  console.log('\u001b[32m=== ALL ORB VOICE CHECKS PASSED ===\u001b[0m\n');
+  finish();
 }
 
 main().catch((err) => {

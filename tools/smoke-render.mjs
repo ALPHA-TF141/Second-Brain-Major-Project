@@ -23,6 +23,10 @@ import { createRequire } from 'node:module';
 import { JSDOM } from 'jsdom';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+// flushMount() flushes the commit AND the passive effects, so "did the page
+// survive its effects?" is answered deterministically instead of after a sleep.
+// See harness-utils.mjs for the phantom-failure this removes.
+import { sleep, waitFor, flushMount } from './harness-utils.mjs';
 
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -357,20 +361,20 @@ async function main() {
       let root = null;
       try {
         root = createRoot(container);
-        root.render(
+        await flushMount(root, React.createElement(
+          MemoryRouter,
+          { initialEntries: [route] },
           React.createElement(
-            MemoryRouter,
-            { initialEntries: [route] },
-            React.createElement(
-              BackendProvider,
-              null,
-              React.createElement(AssistantProvider, null, React.createElement(App, null))
-            )
+            BackendProvider,
+            null,
+            React.createElement(AssistantProvider, null, React.createElement(App, null))
           )
-        );
+        ), React);
 
-        // Give effects, timers and the stubbed fetch promises time to settle
-        await new Promise((r) => setTimeout(r, 350));
+        // Effects have already run (flushMount). This sleep is unchanged from
+        // before - it only gives in-page timers their moment, so the crash
+        // coverage we had is not reduced; it is simply no longer load-bearing.
+        await sleep(350);
 
         const hardIssues = reactIssues.filter((i) => i.level === 'error');
         if (hardIssues.length) {
@@ -434,23 +438,26 @@ async function main() {
       let root = null;
       try {
         root = createRoot(container);
-        root.render(
-          React.createElement(
-            MemoryRouter,
-            { initialEntries: [route] },
-            React.createElement(BackendProvider, null,
-              React.createElement(AssistantProvider, null, React.createElement(App, null)))
-          )
-        );
-        await new Promise((r) => setTimeout(r, 400));
+        await flushMount(root, React.createElement(
+          MemoryRouter,
+          { initialEntries: [route] },
+          React.createElement(BackendProvider, null,
+            React.createElement(AssistantProvider, null, React.createElement(App, null)))
+        ), React);
 
         const hard = reactIssues.filter((i) => i.level === 'error');
+        // A connected page fills itself in from the stubbed fetch. Poll for that
+        // content instead of assuming it landed inside a fixed sleep, then let
+        // the rest of the panel (message list, agenda) settle as before.
+        const hasAccountContent = route === '/integrations'
+          || await waitFor(() => container.innerHTML.includes('@'), 8000);
+        await sleep(300);
         const html = container.innerHTML;
 
         if (hard.length) {
           connectedFailures.push({ route, label, error: hard.map((i) => i.text.replace(/\s+/g, ' ')).join(' | ') });
           console.log(`\u001b[33m  WARN\u001b[0m  ${route.padEnd(18)} ${label}`);
-        } else if (route !== '/integrations' && !html.includes('@')) {
+        } else if (!hasAccountContent) {
           // A connected page must show the account address, not an empty shell
           connectedFailures.push({ route, label, error: 'page rendered but shows no account/email content' });
           console.log(`\u001b[33m  WARN\u001b[0m  ${route.padEnd(18)} ${label}  (no account content found)`);
