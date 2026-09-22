@@ -1,3 +1,15 @@
+# ============================================================================
+#  JARVIS SECOND BRAIN - CORE BACKEND REQUIREMENTS
+# ============================================================================
+#  These are REQUIRED. The backend will not start without them.
+#  Install with:
+#      backend\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
+#
+#  Optional feature packs (voice, embeddings, Neo4j...) live in
+#  requirements-optional.txt - the backend degrades gracefully without them.
+# ============================================================================
+
+# --- Web framework / API layer ---
 fastapi==0.115.6
 uvicorn[standard]==0.32.1
 sqlalchemy==2.0.36
@@ -6,13 +18,26 @@ pydantic-settings==2.7.0
 python-jose[cryptography]==3.3.0
 passlib==1.7.4
 python-dotenv==1.0.1
+
+# --- HTTP client: used by the LLM bridge (Ollama /api/chat streaming) and the
+#     native social scraper. Imported unguarded at module level, so it is CORE. ---
+httpx==0.27.2
+
+# --- Screen capture / OCR pipeline ---
 opencv-python==4.10.0.84
+numpy>=1.26.0
 mss==10.0.0
-pyautogui==0.9.54
 psutil==6.1.0
+pyautogui==0.9.54
 watchdog==6.0.0
 pyperclip==1.9.0
 pytesseract==0.3.13
+
+# --- Image handling: Best-Shot hero images (WebP) + scraped thumbnails.
+#     Imported unguarded by the social ingestion + vault agents. ---
+pillow>=10.4.0
+
+# --- Free native social / web ingestion (replaces paid Apify & Supadata) ---
 youtube-transcript-api>=0.6.2
 instaloader>=4.10.0
 beautifulsoup4>=4.12.0

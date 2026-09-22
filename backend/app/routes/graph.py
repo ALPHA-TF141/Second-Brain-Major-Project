@@ -1,6 +1,7 @@
 """Knowledge graph API routes"""
 
 import logging
+from pathlib import Path
 from typing import List, Dict, Any, Optional
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
@@ -79,6 +80,8 @@ def update_graph_from_session(
             "stats": stats
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error updating graph: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -132,6 +135,8 @@ def get_nodes(
             return vault_nodes[:limit]
         return []
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting nodes: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -175,6 +180,8 @@ def get_node_detail(
             } for e in outgoing]
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting node: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -204,6 +211,8 @@ def search_nodes(
             "importance": n.importance_score
         } for n in nodes]
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error searching nodes: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -260,6 +269,8 @@ def get_edges(
             return vault_edges[:limit]
         return []
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting edges: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -314,6 +325,8 @@ def get_node_neighbors(
 
         return neighbors
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting neighbors: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -342,6 +355,8 @@ def cluster_by_similarity(
             } for c in clusters]
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error clustering: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -368,6 +383,8 @@ def get_clusters(
             "node_count": len(c.node_ids) if c.node_ids else 0
         } for c in clusters]
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting clusters: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -403,6 +420,8 @@ def get_cluster_detail(
             } for n in nodes]
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting cluster: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -427,6 +446,8 @@ def recommend_related_topics(
             "recommendations": recommendations
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting recommendations: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -449,6 +470,8 @@ def recommend_next_topics(
             "recommendations": recommendations
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting recommendations: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -468,6 +491,8 @@ def recommend_forgotten_concepts(
 
         return recommendations
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting recommendations: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -490,6 +515,8 @@ def recommend_related_memories(
             "related_memories": recommendations
         }
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting recommendations: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -508,6 +535,8 @@ def get_learning_gaps(
 
         return {"learning_gaps": gaps}
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting learning gaps: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -527,6 +556,8 @@ def get_learning_path(
 
         return path
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting learning path: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -647,12 +678,23 @@ def get_compiled_wiki_articles():
     return wiki_compiler.list_wiki_articles()
 
 
+def _safe_child(root: Path, name: str, what: str) -> Path:
+    """Resolve `name` inside `root`, refusing empty names and path traversal."""
+    if not name or not name.strip():
+        raise HTTPException(status_code=400, detail=f"{what} name is required")
+    root_resolved = Path(root).resolve()
+    target = (root_resolved / name).resolve()
+    if target != root_resolved and root_resolved not in target.parents:
+        raise HTTPException(status_code=400, detail="Invalid path")
+    return target
+
+
 @router.get("/vault/wiki/article")
 def get_wiki_article_content(path: str = ""):
     """Fetch content of a specific master wiki article"""
     from app.agents.wiki_compiler_agent import wiki_compiler
-    target = wiki_compiler.vault_root / path
-    if target.exists() and target.is_file():
+    target = _safe_child(wiki_compiler.vault_root, path, "Wiki article")
+    if target.is_file():
         return {"content": target.read_text(encoding="utf-8")}
     raise HTTPException(status_code=404, detail="Wiki article not found")
 
@@ -716,8 +758,8 @@ def list_deliverables_endpoint():
 def get_deliverable_content_endpoint(filename: str = ""):
     """Fetches full markdown text of a deliverable"""
     from app.agents.deliverable_agent import deliverable_agent
-    target = deliverable_agent.deliverables_dir / filename
-    if target.exists():
+    target = _safe_child(deliverable_agent.deliverables_dir, filename, "Deliverable")
+    if target.is_file():
         return {"content": target.read_text(encoding="utf-8")}
     raise HTTPException(status_code=404, detail="Deliverable not found")
 

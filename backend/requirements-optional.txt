@@ -1,0 +1,39 @@
+# ============================================================================
+#  JARVIS SECOND BRAIN - OPTIONAL FEATURE PACKS
+# ============================================================================
+#  Every module below is imported behind a try/except in the backend, so the
+#  app boots and runs WITHOUT these. Install a pack only when you want that
+#  specific capability, e.g.:
+#
+#      backend\.venv\Scripts\python.exe -m pip install -r backend\requirements-optional.txt
+#
+#  Each pack is heavy. Install only what you actually use.
+# ============================================================================
+
+# --- Semantic memory / vector search  (~1.5 GB with model weights) ----------
+# Enables: /api/semantic/*, embedding jobs, concept clusters, hybrid search.
+# Without it the API still answers and reports embedding_model_ready=false.
+# chromadb>=0.5.0
+# sentence-transformers>=3.0.0
+
+# --- Local speech-to-text  (~150 MB base model, 1.5 GB for larger) ----------
+# Enables: voice input transcription (/api/voice/*, Whisper engine).
+# whisper>=1.1.10
+
+# --- Natural text-to-speech  (tiny, ~5 MB) ---------------------------------
+# Enables: Jarvis speaking replies out loud. Recommended - install this one.
+# edge-tts>=6.1.12
+
+# --- Advanced OCR  (very heavy, ~800 MB - 2 GB) ----------------------------
+# Enables: PaddleOCR as a higher-accuracy alternative to Tesseract.
+# Tesseract (already in requirements.txt) is enough for most use.
+# paddleocr>=2.7.0
+
+# --- Neo4j graph backend  (tiny client, needs a Neo4j server) --------------
+# Enables: persistent graph database. The app uses the built-in SQLite graph
+# and the memory-vault JSON graph when this is absent.
+# neo4j>=5.25.0
+
+# --- OpenAI-compatible remote LLM  (only if you ever move off local Ollama) -
+# The app talks to local Ollama over httpx by default and stays 100% free.
+# openai>=1.50.0

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   Bot,
+  Brain,
   Send,
   Mic,
   MicOff,

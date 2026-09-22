@@ -10,3 +10,4 @@ backend/data/
 backend/.venv/
 .DS_Store
 Thumbs.db
+artifacts/
