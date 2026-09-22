@@ -1,17 +1,10 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
-  Search,
-  Filter,
   Maximize2,
   ZoomIn,
   ZoomOut,
   Sparkles,
-  Layers,
-  ArrowRight,
   ExternalLink,
-  MessageSquare,
-  Link2,
-  Plus,
   Sliders,
   X
 } from 'lucide-react';
@@ -24,7 +17,7 @@ export default function InteractiveKnowledgeGraphEngine({
   const [selectedNode, setSelectedNode] = useState(null);
   const [hoveredNode, setHoveredNode] = useState(null);
   const [activeFilter, setActiveFilter] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery] = useState('');
   const [aiGraphPrompt, setAiGraphPrompt] = useState('');
   const [aiHighlightedNodeIds, setAiHighlightedNodeIds] = useState(new Set());
   const [zoom, setZoom] = useState(1.0);

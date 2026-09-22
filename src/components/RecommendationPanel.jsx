@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../styles/recommendation-panel.css';
 
 export default function RecommendationPanel({ recommendations, title = "Recommendations" }) {

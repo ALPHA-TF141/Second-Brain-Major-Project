@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Calendar as CalIcon, Clock, Plus, Sparkles, MapPin, CheckCircle2, ChevronRight } from 'lucide-react';
+import { Calendar as CalIcon, Clock, Plus, Sparkles, MapPin } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch } from '../services/apiClient.js';
 

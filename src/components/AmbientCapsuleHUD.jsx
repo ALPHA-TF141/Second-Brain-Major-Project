@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { Command, Cpu, Mic, Search, Sparkles, X, Zap, ArrowRight, CornerDownLeft } from 'lucide-react';
+import { Cpu, Sparkles, Zap, CornerDownLeft } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
-export default function AmbientCapsuleHUD({ onTriggerBriefing }) {
+export default function AmbientCapsuleHUD() {
   const { apiClient, liveEvents } = useBackend();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);

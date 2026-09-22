@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Bot, Play, Pause, Plus, Sparkles, RefreshCw, Clock, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { Bot, Play, Plus, Sparkles, RefreshCw } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch } from '../services/apiClient.js';
 

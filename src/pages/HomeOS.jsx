@@ -1,24 +1,12 @@
 import { useEffect, useState } from 'react';
 import {
   Activity,
-  Bell,
   Calendar,
   CheckCircle2,
   Clock,
-  Compass,
-  Cpu,
-  ExternalLink,
-  Eye,
-  GitBranch,
-  Layers,
   Mail,
-  Mic,
-  MicOff,
-  Network,
   Play,
   Pause,
-  RefreshCw,
-  Search,
   Sparkles,
   Zap,
   ArrowRight
@@ -26,19 +14,17 @@ import {
 import LivingJarvisCore from '../components/LivingJarvisCore.jsx';
 import { useBackend } from '../context/BackendContext.jsx';
 import { useNavigate } from 'react-router-dom';
-import { soundEffects } from '../services/soundEffects.js';
 import { apiFetch } from '../services/apiClient.js';
 
 export default function HomeOS() {
   const { apiClient, username } = useBackend();
   const navigate = useNavigate();
   const [intel, setIntel] = useState(null);
-  const [jarvisState, setJarvisState] = useState('idle');
-  const [audioLevel, setAudioLevel] = useState(0.5);
+  const [jarvisState] = useState('idle');
+  const [audioLevel] = useState(0.5);
   const [briefing, setBriefing] = useState(null);
   const [isPlayingBriefing, setIsPlayingBriefing] = useState(false);
   const [command, setCommand] = useState('');
-  const [isBusy, setIsBusy] = useState(false);
 
   async function loadHomeIntel() {
     try {

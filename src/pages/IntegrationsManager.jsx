@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Link2, ShieldCheck, CheckCircle2, AlertCircle, RefreshCw, Key, ExternalLink, Cpu, GitBranch, Globe, Mail, Calendar } from 'lucide-react';
+import { Link2 } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch } from '../services/apiClient.js';
 
 export default function IntegrationsManager() {
   const { apiClient } = useBackend();
   const [integrations, setIntegrations] = useState({});
-  const [connectingKey, setConnectingKey] = useState(null);
-  const [accountEmail, setAccountEmail] = useState('');
+  const [, setConnectingKey] = useState(null);
+  const [accountEmail] = useState('');
 
   async function loadIntegrations() {
     try {

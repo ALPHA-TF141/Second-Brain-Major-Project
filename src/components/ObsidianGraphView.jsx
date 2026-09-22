@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { Search, Sliders, RefreshCw, ZoomIn, ZoomOut, Maximize2, Sparkles, Filter } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Search, Sliders, ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
 
 export default function ObsidianGraphView({
   nodes = [],
   edges = [],
-  onSelectNode = null,
-  activeFilter = ''
+  onSelectNode = null
 }) {
   const canvasRef = useRef(null);
   const [hoveredNode, setHoveredNode] = useState(null);
@@ -42,10 +41,7 @@ export default function ObsidianGraphView({
   // Initialize or update force simulation nodes
   useEffect(() => {
     const existingMap = new Map(simNodesRef.current.map(n => [n.id, n]));
-    const width = canvasRef.current?.clientWidth || 900;
-    const height = canvasRef.current?.clientHeight || 650;
-
-    const newSimNodes = nodes.map((node, i) => {
+    const newSimNodes = nodes.map((node) => {
       const existing = existingMap.get(node.id);
       if (existing) {
         existing.val = node.val || 8;

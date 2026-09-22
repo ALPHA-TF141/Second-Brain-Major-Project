@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Volume2, VolumeX, Sparkles, Play, Pause, Compass, CheckCircle2, RefreshCw } from 'lucide-react';
+import { Sparkles, Play, Pause, Compass, CheckCircle2, RefreshCw } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch } from '../services/apiClient.js';
 

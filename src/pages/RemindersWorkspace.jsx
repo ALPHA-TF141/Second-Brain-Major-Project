@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Bell, Clock, Plus, CheckCircle2, Circle, RefreshCw, Repeat } from 'lucide-react';
+import { Bell, Clock, Plus, CheckCircle2, Circle, Repeat } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch } from '../services/apiClient.js';
 

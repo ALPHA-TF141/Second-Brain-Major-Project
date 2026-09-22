@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BookOpen, Layers, Network, Search, ExternalLink, Image as ImageIcon, Sparkles, Plus, FileText, ChevronRight } from 'lucide-react';
+import { BookOpen, Network, Search, ChevronRight } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import { apiFetch, readList } from '../services/apiClient.js';
@@ -11,7 +11,7 @@ export default function KnowledgeWorkspace() {
   const [wikiArticles, setWikiArticles] = useState([]);
   const [vaultCards, setVaultCards] = useState([]);
   const [selectedDoc, setSelectedDoc] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [, setSelectedImage] = useState(null);
   const [search, setSearch] = useState('');
 
   async function loadKnowledge() {

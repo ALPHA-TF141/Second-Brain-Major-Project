@@ -1,6 +1,5 @@
-const { app, BrowserWindow, ipcMain, session, Tray, Menu, nativeImage, shell, globalShortcut, screen } = require('electron');
+const { app, BrowserWindow, ipcMain, session, Tray, Menu, nativeImage, globalShortcut, screen } = require('electron');
 const path = require('path');
-const fs = require('fs');
 
 const isDev = !app.isPackaged;
 

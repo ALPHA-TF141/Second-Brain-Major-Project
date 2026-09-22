@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/node-details.css';
 import { apiFetch } from '../services/apiClient.js';
 

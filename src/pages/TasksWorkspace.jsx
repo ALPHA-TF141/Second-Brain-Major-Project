@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CheckSquare, Circle, CheckCircle2, Clock, Plus, Sparkles, Filter, Trash2, Calendar, AlertCircle } from 'lucide-react';
+import { CheckSquare, Circle, CheckCircle2, Plus, Sparkles, Trash2 } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch } from '../services/apiClient.js';
 

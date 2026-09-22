@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../styles/filter-panel.css';
 
 export default function FilterPanel({ filters, onFilterChange, nodeTypes }) {

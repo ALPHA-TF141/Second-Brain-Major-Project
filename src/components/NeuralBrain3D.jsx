@@ -5,8 +5,7 @@ export default function NeuralBrain3D({
   state = 'idle', // 'idle' | 'listening' | 'thinking' | 'speaking'
   energy = 1.0,
   domainFocus = 'Technology & Science',
-  nodeCount = 450,
-  onNodeAdded = null
+  nodeCount = 450
 }) {
   const canvasRef = useRef(null);
   const [synapseCount, setSynapseCount] = useState(nodeCount);

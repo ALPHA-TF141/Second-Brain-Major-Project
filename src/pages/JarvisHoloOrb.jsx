@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ExternalLink, Mic, MicOff, Volume2, X, Sparkles } from 'lucide-react';
+import { ExternalLink, X } from 'lucide-react';
 import GoldenJarvisMatrix from '../components/GoldenJarvisMatrix.jsx';
 import { createVoiceSocket } from '../services/voiceSocket.js';
 import { apiClient } from '../services/apiClient.js';
@@ -10,8 +10,7 @@ export default function JarvisHoloOrb() {
   const [orbState, setOrbState] = useState('listening'); // 'listening' | 'thinking' | 'speaking' | 'idle'
   const [transcript, setTranscript] = useState('');
   const [replyText, setReplyText] = useState('Listening, Sir...');
-  const [isMuted, setIsMuted] = useState(false);
-  const [audioLevel, setAudioLevel] = useState(0.5);
+  const [audioLevel] = useState(0.5);
   const socketRef = useRef(null);
   const recognitionRef = useRef(null);
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import ReactFlow, {
   Controls,
   Background,
@@ -109,7 +109,7 @@ export default function GraphVisualization({ nodes, edges, onNodeClick, selected
     }
   };
 
-  const onConnect = useCallback((connection) => {
+  const onConnect = useCallback(() => {
     // Prevent adding new edges
   }, []);
 

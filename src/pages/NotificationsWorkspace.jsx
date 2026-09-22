@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Bell, Sparkles, CheckCircle2, AlertCircle, Clock, Filter, Trash2 } from 'lucide-react';
+import { Bell } from 'lucide-react';
 
 export default function NotificationsWorkspace() {
   const [filter, setFilter] = useState('all'); // 'all' | 'important' | 'unread' | 'ai_filtered'
-  const [notifications, setNotifications] = useState([
+  const [notifications] = useState([
     {
       id: 1,
       title: 'Assignment Deadline Detected by AI',

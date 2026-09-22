@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Globe, Key, Link as LinkIcon, RefreshCw, Send, Sparkles, Youtube, Twitter, Instagram, CheckCircle2, AlertCircle, ShieldCheck, UserCheck } from 'lucide-react';
+import { Globe, Key, Link as LinkIcon, RefreshCw, Sparkles, Youtube, Twitter, Instagram, CheckCircle2, AlertCircle, ShieldCheck, UserCheck } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch } from '../services/apiClient.js';
 
@@ -8,7 +8,7 @@ export default function SocialIngestionHub({ onIngested }) {
   const [url, setUrl] = useState('');
   const [notes, setNotes] = useState('');
   const [isIngesting, setIsIngesting] = useState(false);
-  const [status, setStatus] = useState(null);
+  const [, setStatus] = useState(null);
   const [showAccountModal, setShowAccountModal] = useState(false);
   const [igUsername, setIgUsername] = useState('');
   const [isSavingAccount, setIsSavingAccount] = useState(false);

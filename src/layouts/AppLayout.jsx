@@ -1,25 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import {
   Activity,
   Bell,
   BookOpen,
   Bot,
-  Brain,
   Calendar,
   CheckSquare,
   ChevronLeft,
   ChevronRight,
   Clock,
   Cpu,
-  FileText,
   Folder,
-  Layers,
   LayoutDashboard,
   Link2,
   Mail,
   Maximize2,
-  Mic,
   Minus,
   Network,
   Rocket,
@@ -36,7 +32,6 @@ import { useBackend } from '../context/BackendContext.jsx';
 
 export default function AppLayout() {
   const { apiClient, loginDemo, username } = useBackend();
-  const navigate = useNavigate();
   const location = useLocation();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 

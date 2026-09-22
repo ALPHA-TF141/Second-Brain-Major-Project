@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ArrowLeft, ArrowRight, ChevronDown, Columns, Maximize2, Minus, Network, Plus, X, Pin } from 'lucide-react';
 
 export default function ObsidianTabBar({ activeTab, onTabChange, onCloseTab }) {

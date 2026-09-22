@@ -63,7 +63,6 @@ export default function GoldenJarvisMatrix({
       const energyMod = isListening ? (1.0 + audioLevel * 1.5) : isThinking ? 2.0 : isSpeaking ? 1.4 : 0.8;
       const rotY = time * 0.45 * (isThinking ? 1.8 : 1.0);
       const rotX = Math.sin(time * 0.3) * 0.2 + 0.15;
-      const rotZ = Math.cos(time * 0.25) * 0.15;
 
       const cosY = Math.cos(rotY);
       const sinY = Math.sin(rotY);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BookOpen, Copy, Check, Download, FileText, Layers, RefreshCw, Sparkles, Terminal, Wrench } from 'lucide-react';
+import { BookOpen, Copy, Check, Download, FileText, RefreshCw, Sparkles, Terminal, Wrench } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch } from '../services/apiClient.js';
 

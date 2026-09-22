@@ -2,21 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import {
   Bot,
   Brain,
-  Send,
-  Mic,
-  MicOff,
   Sparkles,
   Paperclip,
-  CheckCircle2,
-  Clock,
-  Terminal,
   Cpu,
   Search,
   Mail,
   Calendar,
   BookOpen,
   Wrench,
-  AlertCircle,
   RefreshCw,
   CornerDownLeft
 } from 'lucide-react';
@@ -24,7 +17,7 @@ import { useBackend } from '../context/BackendContext.jsx';
 import { soundEffects } from '../services/soundEffects.js';
 
 export default function AgentWorkspace() {
-  const { apiClient, username } = useBackend();
+  const { apiClient } = useBackend();
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -36,7 +29,6 @@ export default function AgentWorkspace() {
   const [input, setInput] = useState('');
   const [isBusy, setIsBusy] = useState(false);
   const [currentToolState, setCurrentToolState] = useState(null); // 'Thinking' | 'Searching' | 'Reading Gmail' | 'Checking Calendar' | 'Analyzing Knowledge' | 'Executing Task' | null
-  const [isVoiceActive, setIsVoiceActive] = useState(false);
   const scrollRef = useRef(null);
 
   useEffect(() => {

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Search,
-  Command,
   CheckSquare,
   Bell,
   Mail,
@@ -10,9 +9,7 @@ import {
   Bot,
   Rocket,
   FileText,
-  Sparkles,
   Calendar,
-  X,
   ArrowRight
 } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';

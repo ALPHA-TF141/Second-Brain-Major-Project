@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function LivingJarvisCore({
   state = 'idle', // 'idle' | 'listening' | 'thinking' | 'speaking'
@@ -76,7 +76,6 @@ export default function LivingJarvisCore({
       // Dynamic Color Scheme (Gold when speaking/thinking, Cyan when idle/listening)
       const isGoldTheme = isSpeaking || isThinking;
       const primaryColor = isGoldTheme ? '#fbbf24' : '#38bdf8';
-      const coreColor = isGoldTheme ? '#f59e0b' : '#0284c7';
       const sparkColor = isGoldTheme ? '#ffffff' : '#e0f2fe';
 
       const rotY = time * 0.35 * (isThinking ? 2.0 : 1.0) + mouseRef.current.x * 0.4;

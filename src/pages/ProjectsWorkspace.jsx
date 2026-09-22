@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Rocket, CheckSquare, FileText, Folder, Mail, Network, Sparkles, Clock, ArrowRight, Layers } from 'lucide-react';
+import { Rocket, CheckSquare, FileText, Network, Sparkles } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import { apiFetch, readList } from '../services/apiClient.js';

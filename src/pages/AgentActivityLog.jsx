@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Activity, CheckCircle2, Clock, AlertTriangle, RefreshCw, Zap } from 'lucide-react';
+import { RefreshCw, Zap } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch } from '../services/apiClient.js';
 
 export default function AgentActivityLog() {
   const { apiClient } = useBackend();
   const [activities, setActivities] = useState([]);
-  const [selectedActivity, setSelectedActivity] = useState(null);
+  const [, setSelectedActivity] = useState(null);
 
   async function loadActivities() {
     try {

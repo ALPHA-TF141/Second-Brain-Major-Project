@@ -104,6 +104,36 @@ applied across **18 files**. Verified: **0 raw backend fetches remain**.
 | 11 | `GET /api/graph/nodes/{node_id}` | declared `node_id: int`, but `/api/graph/nodes` returns **string** card ids (`card_20260921_…`) → every node-detail lookup failed | endpoint now understands **both** id spaces (SQLite int + vault JSON string) |
 | 12 | `package.json` | **`npm install` failed with `ERESOLVE`**: `@eslint/js@^10` peer-requires ESLint 10, but ESLint was pinned `^9.39.5` → the lint tooling could not be installed at all | versions aligned to `^9.39.5` |
 
+### 3.4 The verifier itself crashed on your machine (Node 24)
+
+When you ran `verify-jarvis.ps1`, gate 4 died with:
+
+```
+TypeError: Cannot set property navigator of #<Object> which has only a getter
+    at tools/smoke-render.mjs:41
+```
+
+**Cause:** Node 21+ ships `globalThis.navigator` as a **getter-only accessor**, so a plain
+`globalThis.navigator = dom.window.navigator` throws. It worked in my sandbox because that
+had Node 20. Your machine has Node 24.12.0. `crypto` is an accessor too.
+
+**Fix:** all browser globals are now installed through a `setGlobal()` helper that uses
+`Object.defineProperty` (they are still `configurable`), with plain assignment as a
+fallback. Verified on **both** Node 24.12.0 and Node 20.20.2.
+
+While in there I also removed the noisy
+`MODULE_TYPELESS_PACKAGE_JSON` warning by renaming `eslint.config.js` → `eslint.config.mjs`.
+(Adding `"type": "module"` to `package.json` would have been the other fix, but that
+**breaks Electron** — `electron/main.js` and `run_backend.js` use CommonJS `require`.)
+
+### 3.5 All 47 ESLint warnings cleared
+
+The remaining warnings were all dead variables. They are now removed, so the lint output is
+**0 errors / 0 warnings** — meaning any future warning is a real signal, not background
+noise. One removal had to be reverted: `setIsConnected` in `GmailWorkspace.jsx` looked
+unused but the "Connect Gmail Account" button calls it inline. Restored, with a comment
+noting it only flips local UI state (see section 6).
+
 ---
 
 ## 4. Permanent error-check system
@@ -147,7 +177,7 @@ Non-zero exit → `verify-jarvis` would have blocked it. This bug cannot ship ag
 ## 5. Verification results (final, this commit)
 
 ```
-1. ESLint ..................... 0 errors   (47 benign unused-var warnings)
+1. ESLint ..................... 0 errors, 0 warnings  (verified on Node 24.12.0 AND Node 20.20.2)
 2. Static health check ........ ALL 8 CHECKS PASSED - 0 ERRORS
 3. API contract ............... 46 / 46 UI endpoints matched - NO 404 RISK
 4. Route render smoke ......... 18 / 18 routes render AND mount cleanly

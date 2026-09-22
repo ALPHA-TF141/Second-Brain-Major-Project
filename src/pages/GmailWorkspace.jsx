@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
-import { Mail, Inbox, Star, Send, FileEdit, Search, Sparkles, CheckSquare, Clock, ArrowRight, ShieldCheck, RefreshCw, Plus } from 'lucide-react';
+import { useState } from 'react';
+import { Mail, Inbox, Star, Send, FileEdit, Search, Sparkles, Clock, ShieldCheck, Plus } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch } from '../services/apiClient.js';
 
 export default function GmailWorkspace() {
   const { apiClient } = useBackend();
   const [activeFolder, setActiveFolder] = useState('inbox');
+  // NOTE: this only flips local UI state - there is NO Gmail OAuth yet.
+  // The "Connect Gmail Account" button below sets it directly.
   const [isConnected, setIsConnected] = useState(false);
-  const [emailInput, setEmailInput] = useState('');
-  const [isConnecting, setIsConnecting] = useState(false);
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [aiDraft, setAiDraft] = useState('');
 
   // Sample emails once connected or simulated integration
-  const [emails, setEmails] = useState([
+  const [emails] = useState([
     {
       id: 'em_1',
       sender: 'Prof. Sharma <sharma@university.edu>',
@@ -37,16 +37,6 @@ export default function GmailWorkspace() {
       body: 'Dear Author,\n\nWe acknowledge receipt of your research abstract on Autonomous Personal Knowledge Synthesizers. Your paper ID is #SMC-4820. Final camera-ready notifications will be released next month.\n\nSincerely,\nIEEE SMC Program Committee'
     }
   ]);
-
-  function handleConnect(e) {
-    e?.preventDefault();
-    if (!emailInput.trim()) return;
-    setIsConnecting(true);
-    setTimeout(() => {
-      setIsConnected(true);
-      setIsConnecting(false);
-    }, 800);
-  }
 
   function convertEmailToTask(email) {
     if (!email.aiExtractedTask) return;

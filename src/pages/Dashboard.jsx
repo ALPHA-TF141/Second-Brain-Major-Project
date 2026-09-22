@@ -1,42 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  Activity,
-  ArrowRight,
   BookOpen,
   Brain,
   CheckCircle2,
   CheckSquare,
   ChevronRight,
   Circle,
-  Clock,
   Compass,
   CornerDownLeft,
   Cpu,
-  Database,
   Download,
-  ExternalLink,
   Eye,
   FileText,
-  Folder,
-  GitBranch,
   Globe,
-  HardDrive,
-  Image as ImageIcon,
   Layers,
   Mic,
   MicOff,
   Network,
   Play,
   Pause,
-  Plus,
   RefreshCw,
-  Search,
   ShieldCheck,
   Sparkles,
-  Terminal,
-  Volume2,
   Wrench,
-  X,
   Zap
 } from 'lucide-react';
 import LivingJarvisCore from '../components/LivingJarvisCore.jsx';
@@ -55,7 +41,7 @@ const SpeechRecognition = typeof window !== 'undefined'
 export default function Dashboard() {
   const { apiClient, username } = useBackend();
   const [jarvisState, setJarvisState] = useState('idle'); // 'idle' | 'listening' | 'thinking' | 'speaking'
-  const [audioLevel, setAudioLevel] = useState(0.5);
+  const [audioLevel] = useState(0.5);
   const [userTranscript, setUserTranscript] = useState('');
   const [jarvisReply, setJarvisReply] = useState('All systems synchronized, Immanuel. How may I direct our cognitive focus?');
   const [commandInput, setCommandInput] = useState('');
@@ -68,7 +54,6 @@ export default function Dashboard() {
   const [wikiArticles, setWikiArticles] = useState([]);
   const [deliverables, setDeliverables] = useState([]);
   const [recentInsights, setRecentInsights] = useState([]);
-  const [recentActivities, setRecentActivities] = useState([]);
   const [briefing, setBriefing] = useState(null);
   const [isBriefingPlaying, setIsBriefingPlaying] = useState(false);
   const [selectedWikiDoc, setSelectedWikiDoc] = useState(null);

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Folder, FileText, Image as ImageIcon, Search, Download, ExternalLink, HardDrive, RefreshCw } from 'lucide-react';
+import { Folder } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch, readList } from '../services/apiClient.js';
 
 export default function FilesWorkspace() {
   const { apiClient } = useBackend();
   const [cards, setCards] = useState([]);
-  const [search, setSearch] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
 
   async function loadFiles() {

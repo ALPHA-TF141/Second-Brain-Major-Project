@@ -36,18 +36,54 @@ const dom = new JSDOM('<!doctype html><html><body><div id="root"></div></body></
   pretendToBeVisual: true
 });
 
-globalThis.window = dom.window;
-globalThis.document = dom.window.document;
-globalThis.navigator = dom.window.navigator;
-globalThis.location = dom.window.location;
-globalThis.localStorage = dom.window.localStorage;
-globalThis.sessionStorage = dom.window.sessionStorage;
-globalThis.HTMLElement = dom.window.HTMLElement;
-globalThis.Element = dom.window.Element;
-globalThis.Node = dom.window.Node;
-globalThis.getComputedStyle = dom.window.getComputedStyle.bind(dom.window);
-globalThis.requestAnimationFrame = (cb) => setTimeout(() => cb(Date.now()), 0);
-globalThis.cancelAnimationFrame = (id) => clearTimeout(id);
+/**
+ * Install a global safely.
+ *
+ * Node 21+ ships some globals as GETTER-ONLY accessors - `navigator` and
+ * `crypto` in particular - so a plain `globalThis.navigator = x` throws
+ * "Cannot set property navigator of #<Object> which has only a getter".
+ * That is exactly what broke this script on Node 24 while it worked on Node 20.
+ * They are still `configurable`, so defineProperty succeeds; we fall back to
+ * plain assignment for runtimes where that is the only option.
+ */
+function setGlobal(name, value) {
+  try {
+    Object.defineProperty(globalThis, name, {
+      value,
+      writable: true,
+      configurable: true,
+      enumerable: false
+    });
+    return true;
+  } catch {
+    /* not configurable on this runtime - try assignment */
+  }
+  try {
+    globalThis[name] = value;
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+setGlobal('window', dom.window);
+setGlobal('document', dom.window.document);
+setGlobal('navigator', dom.window.navigator);
+setGlobal('location', dom.window.location);
+setGlobal('localStorage', dom.window.localStorage);
+setGlobal('sessionStorage', dom.window.sessionStorage);
+setGlobal('HTMLElement', dom.window.HTMLElement);
+setGlobal('Element', dom.window.Element);
+setGlobal('Node', dom.window.Node);
+setGlobal('getComputedStyle', dom.window.getComputedStyle.bind(dom.window));
+setGlobal('requestAnimationFrame', (cb) => setTimeout(() => cb(Date.now()), 0));
+setGlobal('cancelAnimationFrame', (id) => clearTimeout(id));
+
+if (typeof globalThis.navigator === 'undefined' || typeof globalThis.document === 'undefined') {
+  console.error('\u001b[31mCould not install the browser environment globals on Node '
+    + process.version + ' - cannot run the route smoke test.\u001b[0m');
+  process.exit(2);
+}
 
 // APIs Electron/Chromium may expose that jsdom does not
 dom.window.matchMedia = dom.window.matchMedia || (() => ({
@@ -59,13 +95,13 @@ dom.window.matchMedia = dom.window.matchMedia || (() => ({
   removeEventListener() {},
   dispatchEvent() { return false; }
 }));
-globalThis.matchMedia = dom.window.matchMedia;
-globalThis.ResizeObserver = class { observe() {} unobserve() {} disconnect() {} };
-globalThis.IntersectionObserver = class { observe() {} unobserve() {} disconnect() {} };
-globalThis.SpeechSynthesisUtterance = class { constructor(t) { this.text = t; } };
+setGlobal('matchMedia', dom.window.matchMedia);
+setGlobal('ResizeObserver', class { observe() {} unobserve() {} disconnect() {} });
+setGlobal('IntersectionObserver', class { observe() {} unobserve() {} disconnect() {} });
+setGlobal('SpeechSynthesisUtterance', class { constructor(t) { this.text = t; } });
 dom.window.speechSynthesis = { speak() {}, cancel() {}, getVoices: () => [] };
-globalThis.WebSocket = class { constructor() {} close() {} send() {} addEventListener() {} };
-globalThis.AudioContext = class { constructor() { this.state = 'running'; this.destination = {}; } createOscillator() { return { connect() {}, start() {}, stop() {}, frequency: {}, type: '' }; } createGain() { return { connect() {}, gain: { value: 0, setValueAtTime() {}, exponentialRampToValueAtTime() {} } }; } close() {} };
+setGlobal('WebSocket', class { constructor() {} close() {} send() {} addEventListener() {} });
+setGlobal('AudioContext', class { constructor() { this.state = 'running'; this.destination = {}; } createOscillator() { return { connect() {}, start() {}, stop() {}, frequency: {}, type: '' }; } createGain() { return { connect() {}, gain: { value: 0, setValueAtTime() {}, exponentialRampToValueAtTime() {} } }; } close() {} });
 
 // Offline-safe fetch stub: never touches the network, always answers.
 // Real data is irrelevant here — we only care that rendering does not crash.
@@ -96,7 +132,7 @@ const offlineFetch = async (url) => {
     clone() { return this; }
   };
 };
-globalThis.fetch = offlineFetch;
+setGlobal('fetch', offlineFetch);
 dom.window.fetch = offlineFetch;
 
 /* ------------------------------------------------------------------ *

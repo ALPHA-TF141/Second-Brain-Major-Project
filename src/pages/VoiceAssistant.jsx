@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Mic2, Pause, Radio, Save, Settings2, Square, Volume2, Waves } from 'lucide-react';
+import { Pause, Radio, Save, Settings2, Square, Volume2, Waves } from 'lucide-react';
 import NeuralBrain3D from '../components/NeuralBrain3D.jsx';
 import PageHeader from '../components/PageHeader.jsx';
 import { useBackend } from '../context/BackendContext.jsx';
@@ -40,7 +40,6 @@ function VoiceAssistant() {
   const streamRef = useRef(null);
 
   const isListening = status === 'listening';
-  const isSpeaking = status === 'speaking';
   const supportsSpeechRecognition = Boolean(SpeechRecognition);
 
   const languageCode = useMemo(() => {
