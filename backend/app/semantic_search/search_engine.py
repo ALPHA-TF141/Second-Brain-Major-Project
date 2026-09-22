@@ -15,7 +15,14 @@ class SemanticSearchEngine:
         if session_id:
             where["session_id"] = session_id
 
-        query_vector = embedding_model.encode([query])[0]
+        try:
+            query_vector = embedding_model.encode([query])[0]
+        except Exception:
+            # Embedding model still warming up / not installed. Degrade to the
+            # hybrid path (which falls back to keyword search) instead of
+            # returning a 500 to the UI.
+            return self.hybrid_search(db, query, limit, source_type, session_id)
+
         raw = chroma_store.query(query_vector, n_results=limit, where=where or None)
         ids = raw.get("ids", [[]])[0]
         distances = raw.get("distances", [[]])[0]

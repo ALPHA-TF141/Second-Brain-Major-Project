@@ -1,18 +1,23 @@
 """
 JARVIS OS - Live Backend Endpoint Sweep
 ===========================================================================
-Boots the real FastAPI app on a private port and calls EVERY registered GET
-route with a valid login token, reporting the HTTP status of each.
+Boots the real FastAPI app on a private port, logs in, and calls EVERY
+registered GET route - reporting the HTTP status AND the elapsed time of each.
 
-Any route answering 5xx is a REAL bug that the UI would hit.
+Why the timing matters:
+    Some endpoints are legitimately slow the FIRST time they are called
+    (the semantic engine loads a sentence-transformers model, the briefing
+    endpoint calls the local LLM). A slow-but-successful request is not a
+    crash, and a timeout is not a 5xx - the two must be reported separately so
+    a real server error never hides behind "it's just slow".
 
 Deliberately uses ONLY the standard library (urllib) plus what the backend
 already depends on (uvicorn), so it can never fail on a missing dev package.
 
-Usage (from the backend folder, with the venv active):
-    python verify_backend_endpoints.py
+Usage (from the repo root or the backend folder, venv active):
+    python backend/verify_backend_endpoints.py
 
-Exit code 0 = no server errors, 1 = at least one 5xx / crash.
+Exit code 0 = no server errors, 1 = at least one 5xx / unresponsive route.
 """
 import json
 import os
@@ -28,6 +33,19 @@ BASE = f"http://127.0.0.1:{PORT}"
 
 USERNAME = "Immanuel"
 PASSWORD = "secondbrain"
+
+# Generous: a cold embedding-model load can take a while on first ever call.
+REQUEST_TIMEOUT = 180
+# Anything slower than this is reported as slow even when it succeeds.
+SLOW_THRESHOLD = 5.0
+
+# First call is expected to be slow (model / LLM warm-up). Hitting these once
+# before the timed sweep keeps the sweep measuring steady-state behaviour.
+WARMUP_PATHS = [
+    "/api/semantic/status",
+    "/api/semantic/related/1",
+    "/api/graph/briefing/today",
+]
 
 # Allow "python backend/verify_backend_endpoints.py" from the repo root.
 _BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -46,19 +64,19 @@ except Exception:
 
 
 def start_server():
-    config = uvicorn.Config(app, host="127.0.0.1", port=PORT, log_level="error")
+    config = uvicorn.Config(app, host="127.0.0.1", port=PORT, log_level="warning")
     server = uvicorn.Server(config)
     thread = threading.Thread(target=server.run, daemon=True)
     thread.start()
-    for _ in range(100):
+    for _ in range(150):
         if server.started:
             return server
         time.sleep(0.1)
     raise RuntimeError("uvicorn did not start in time")
 
 
-def call(method, path, token=None, body=None):
-    """Returns (status_code, body_text). Never raises for HTTP errors."""
+def call(method, path, token=None, body=None, timeout=REQUEST_TIMEOUT):
+    """Returns (status_code, body_text, elapsed_seconds). Never raises for HTTP errors."""
     url = f"{BASE}{path}"
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(url, data=data, method=method)
@@ -66,13 +84,15 @@ def call(method, path, token=None, body=None):
         req.add_header("Content-Type", "application/json")
     if token:
         req.add_header("Authorization", f"Bearer {token}")
+
+    started = time.time()
     try:
-        with urllib.request.urlopen(req, timeout=30) as res:
-            return res.status, res.read().decode("utf-8", "replace")
+        with urllib.request.urlopen(req, timeout=timeout) as res:
+            return res.status, res.read().decode("utf-8", "replace"), time.time() - started
     except urllib.error.HTTPError as e:
-        return e.code, e.read().decode("utf-8", "replace")
-    except Exception as e:  # connection level failure
-        return -1, f"{type(e).__name__}: {e}"
+        return e.code, e.read().decode("utf-8", "replace"), time.time() - started
+    except Exception as e:  # connection / timeout level failure
+        return -1, f"{type(e).__name__}: {e}", time.time() - started
 
 
 SAMPLE = {
@@ -97,9 +117,9 @@ def main():
     server = start_server()
 
     # ---------------------------------------------------------------- login
-    status, text = call("POST", "/api/auth/login",
-                        body={"username": USERNAME, "password": PASSWORD,
-                              "device_name": "verify-script"})
+    status, text, _ = call("POST", "/api/auth/login",
+                           body={"username": USERNAME, "password": PASSWORD,
+                                 "device_name": "verify-script"})
     print(f"\nlogin                          -> {status}")
 
     token = None
@@ -113,13 +133,19 @@ def main():
 
     if not token:
         print("\n[!] Could not obtain a token - authenticated routes will 401.")
-        print("    This itself is a bug worth fixing.")
+        print("    That is itself a bug worth fixing.")
+
+    # ------------------------------------------------------------ warm-up
+    print("\n--- warm-up (first calls can be slow: model + LLM load) ---")
+    for path in WARMUP_PATHS:
+        code, _, elapsed = call("GET", path, token=token)
+        print(f"  {code:>4}  {elapsed:6.1f}s  {path}")
 
     # ---------------------------------------------------------------- routes
     schema = app.openapi()
     paths = sorted(schema.get("paths", {}).keys())
 
-    ok, redirect, client_err, server_err = [], [], [], []
+    ok, slow, redirect, client_err, timeouts, server_err = [], [], [], [], [], []
 
     for path in paths:
         methods = schema["paths"][path]
@@ -131,23 +157,36 @@ def main():
         if "{" in url:
             continue
 
-        status, _ = call("GET", url, token=token)
-        label = f"{status:>4}  GET {url}"
+        code, body, elapsed = call("GET", url, token=token)
+        label = f"{code:>4}  {elapsed:6.1f}s  GET {url}"
 
-        if status == -1 or status >= 500:
-            server_err.append(label)
-        elif 300 <= status < 400:
+        if code == -1:
+            if "timeout" in body.lower() or "timed out" in body.lower():
+                timeouts.append(f"{label}   <- {body}")
+            else:
+                timeouts.append(f"{label}   <- {body}")
+        elif code >= 500:
+            server_err.append(f"{label}   <- {body[:160]}")
+        elif 300 <= code < 400:
             redirect.append(label)
-        elif status >= 400:
+        elif code >= 400:
             client_err.append(label)
         else:
             ok.append(label)
+            if elapsed >= SLOW_THRESHOLD:
+                slow.append(label)
 
     print("\n================ LIVE ENDPOINT SWEEP ================")
 
     if server_err:
         print(f"\n--- 5xx SERVER ERRORS / CRASHES ({len(server_err)}) ---")
         for line in server_err:
+            print(" ", line)
+
+    if timeouts:
+        print(f"\n--- NO RESPONSE / TIMEOUT ({len(timeouts)}) ---")
+        print("    (not an HTTP error - the route never answered in time)")
+        for line in timeouts:
             print(" ", line)
 
     if redirect:
@@ -164,16 +203,23 @@ def main():
     for line in ok:
         print(" ", line)
 
+    if slow:
+        print(f"\n--- SLOW BUT SUCCESSFUL ({len(slow)}) >= {SLOW_THRESHOLD:.0f}s ---")
+        for line in slow:
+            print(" ", line)
+
     summary = {
         "ok": len(ok),
+        "slow": len(slow),
         "4xx": len(client_err),
         "redirects": len(redirect),
+        "timeout_or_no_response": len(timeouts),
         "5xx_or_crash": len(server_err),
     }
     print("\nSUMMARY:", json.dumps(summary, indent=1))
 
-    if server_err:
-        print("\nRESULT: FAIL - routes above returned server errors.\n")
+    if server_err or timeouts:
+        print("\nRESULT: FAIL - see the sections above.\n")
         return 1
 
     print("\nRESULT: PASS - no server errors on any GET route.\n")
@@ -181,7 +227,4 @@ def main():
 
 
 if __name__ == "__main__":
-    try:
-        sys.exit(main())
-    finally:
-        pass
+    sys.exit(main())

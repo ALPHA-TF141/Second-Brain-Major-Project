@@ -134,6 +134,68 @@ noise. One removal had to be reverted: `setIsConnected` in `GmailWorkspace.jsx` 
 unused but the "Connect Gmail Account" button calls it inline. Restored, with a comment
 noting it only flips local UI state (see section 6).
 
+### 3.6 Gate 7's "crash" was really a 30-second timeout — and it exposed two real bugs
+
+Your run ended with:
+
+```
+--- 5xx SERVER ERRORS / CRASHES (1) ---
+    -1  GET /api/semantic/related/1
+```
+
+`-1` is not an HTTP status — it means **my sweep's own client never got a reply**. Just
+above it in your log:
+
+```
+Warning: You are sending unauthenticated requests to the HF Hub...
+Loading weights: 100%|███| 103/103
+```
+
+The semantic engine loads `sentence-transformers` **inside the first request** that needs
+it, downloading and loading the model from HuggingFace. That took longer than the 30-second
+timeout I had configured, so the sweep gave up and mislabelled it as a server crash.
+
+Three fixes:
+
+1. **Backend: the embedding model is now warmed up in a background thread at startup**, so
+   the model is usually ready before you open anything. Previously the first visit to
+   Semantic Memory (or any semantic search) hung for 30s+ — a real, user-visible stall.
+2. **Backend: `semantic_search` degrades to keyword search instead of 500ing** while the
+   model is still loading or if `sentence-transformers` is not installed.
+3. **My sweep was wrong and is now honest**: 180s timeout, a warm-up pass before timing,
+   slow-but-successful calls listed under their own heading, and "no response / timeout"
+   reported separately from "5xx server error" so a real crash can never hide behind
+   "it's just slow".
+
+### 3.7 Your Ollama model is missing — that is why Jarvis answered with a canned line
+
+Your log:
+
+```
+[LLM] Ollama native stream failed: Ollama returned 404: {"error":"model 'qwen2.5:3b' not found"}
+[LLM] OpenAI stream failed: Error code: 404 - model 'qwen2.5:3b' not found
+```
+
+Ollama no longer has `qwen2.5:3b`, so every generative reply fell through to the offline
+fallback text — which then blamed *"not enough indexed memory context"*, pointing you at the
+wrong problem entirely.
+
+**Fixes:**
+
+- `LLMClient` now asks Ollama `/api/tags` what is actually installed, uses the configured
+  model when present, otherwise picks the closest installed model, and says so plainly:
+  `[LLM] Configured model 'qwen2.5:3b' is not installed in Ollama. Using 'llama3.2:3b'
+  instead. (Run: ollama pull qwen2.5:3b)`
+- The offline fallback now names the real cause instead of blaming your memories:
+  *"Local language model unavailable — Ollama returned 404 … Check that Ollama is running
+  (ollama list) and that the model is installed."*
+- Detection probes the server rather than trusting the URL, so a non-standard port or a
+  remote Ollama still works. Tested against fake Ollama servers: configured-model-present,
+  configured-model-missing, only-a-variant, nothing-installed, and server-unreachable.
+
+**Action on your side:** run `ollama list`. If `qwen2.5:3b` is absent, either
+`ollama pull qwen2.5:3b`, or leave it — Jarvis will now use whichever model you do have.
+
 ---
 
 ## 4. Permanent error-check system
@@ -183,9 +245,10 @@ Non-zero exit → `verify-jarvis` would have blocked it. This bug cannot ship ag
 4. Route render smoke ......... 18 / 18 routes render AND mount cleanly
 5. Production build ........... built in 3.50s (1614 modules)
 6. Backend test suites ........ ALL 11 TEST SUITES PASSED - 0 errors
-7. Endpoint sweep ............. 58 x 2xx, 13 x legitimate 4xx, 0 x 5xx   (exit 0)
+7. Endpoint sweep ............. ok 58, slow 0, 4xx 13, timeouts 0, 5xx/crash 0   (exit 0)
 8. Live API sweep tool ........ 71 GET endpoints probed, 0 crashing
 9. Fresh venv from requirements boots OK, 124 routes
+10. LLM model auto-detection ... 5/5 scenarios correct (incl. your missing-model case)
 ```
 
 The 13 remaining 4xx are correct behaviour, not bugs: `401` on the four routes that

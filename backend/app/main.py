@@ -1,5 +1,6 @@
 import asyncio
 import os
+import threading
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -68,3 +69,32 @@ async def on_startup():
                 pass
 
     asyncio.create_task(_vault_sync_loop())
+
+    # ---------------------------------------------------------------------
+    # Warm the semantic embedding model in a BACKGROUND thread.
+    #
+    # Loading sentence-transformers is expensive: the first call downloads the
+    # model from HuggingFace and loads ~90MB of weights into memory. That load
+    # used to happen INSIDE the first user request, so the first time anything
+    # semantic was opened (Semantic Memory, related memories, hybrid search) the
+    # request blocked for 30s+ and could exceed the caller's HTTP timeout.
+    #
+    # Doing it here means the model is usually ready before the UI asks for it.
+    # ---------------------------------------------------------------------
+    def _warm_embedding_model():
+        try:
+            from app.embeddings.embedding_model import embedding_model
+
+            if embedding_model.is_ready():
+                return
+            print("[Semantic] Warming up embedding model in background...")
+            model = embedding_model.load()
+            if model:
+                print("[Semantic] Embedding model ready.")
+            else:
+                print(f"[Semantic] Embedding model unavailable: {embedding_model.last_error}")
+                print("[Semantic] Semantic search will degrade to keyword search.")
+        except Exception as exc:  # never let warm-up break startup
+            print(f"[Semantic] Warm-up skipped: {exc}")
+
+    threading.Thread(target=_warm_embedding_model, name="embedding-warmup", daemon=True).start()
