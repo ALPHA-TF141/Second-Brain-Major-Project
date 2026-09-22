@@ -36,3 +36,5 @@
 - [General: This PC - File Explorer](general/this_pc___file_explorer.md) — *Updated 2026-09-21*
 - [General: Inbox (1,189) - lmariaimmanuel@gmail.com - Gm](general/inbox__1_189____lmariaimmanuel_gmail_com___gm.md) — *Updated 2026-09-22*
 - [General: Inbox (3,670) - vtu24334@veltech.edu.in - Vel](general/inbox__3_670____vtu24334_veltech_edu_in___vel.md) — *Updated 2026-09-22*
+- [General: Search results - vtu24334@veltech.edu.in - Ve](general/search_results___vtu24334_veltech_edu_in___ve.md) — *Updated 2026-09-22*
+- [Research: Paper](research/paper.md) — *Updated 2026-09-22*
