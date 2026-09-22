@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-22T11:17:39.856327Z",
+  "updated_at": "2026-09-22T11:18:41.445107Z",
   "nodes": [
     {
       "id": "DOMAIN_COMMUNICATION",
@@ -898,6 +898,256 @@
     },
     {
       "id": "card_20260922_111739_823",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_111744_997",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_111750_117",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_111755_325",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_111800_348",
+      "label": "Electron",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_111805_912",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_111805_912.webp",
+      "val": 10
+    },
+    {
+      "id": "ENT_models",
+      "label": "Models",
+      "domain": "Technology",
+      "priority": "high",
+      "val": 8
+    },
+    {
+      "id": "ENT_ai",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "val": 8
+    },
+    {
+      "id": "card_20260922_111811_944",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_111816_281",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "mail_306_767443",
+      "label": "Email: INTERNSHIP AT BLEND VIDYA EdTech",
+      "domain": "Communication",
+      "priority": "medium",
+      "summary": "Email from vinay <blendvidya@zohomail.in> to vtu24334@veltech.edu.in about: INTERNSHIP AT BLEND VIDYA EdTech",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_blendvidya@zohomail.in",
+      "label": "blendvidya@zohomail.in",
+      "domain": "Communication",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "mail_308_4e130b",
+      "label": "Email: IBM, Microsoft Internship and Training Program",
+      "domain": "Communication",
+      "priority": "medium",
+      "summary": "Email from shashidhara d <shashidhara.d@teachnook.com> to vtu24334@veltech.edu.in about: IBM, Microsoft Internship and Training Program",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_shashidhara.d@teachnook.com",
+      "label": "shashidhara.d@teachnook.com",
+      "domain": "Communication",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "mail_309_4e130b",
+      "label": "Email: IBM, Microsoft Internship and Training Program",
+      "domain": "Communication",
+      "priority": "medium",
+      "summary": "Email from Ayush Gakhare <ayush.gakhare@teachnook.com> to vtu24334@veltech.edu.in about: IBM, Microsoft Internship and Training Program",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_ayush.gakhare@teachnook.com",
+      "label": "ayush.gakhare@teachnook.com",
+      "domain": "Communication",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "mail_313_cd82db",
+      "label": "Email: INFO_VELTECH STUDENTS",
+      "domain": "Communication",
+      "priority": "medium",
+      "summary": "Email from Yogeshwari Subramanian <yogesubramanian@gmail.com> to vtu24334@veltech.edu.in about: INFO_VELTECH STUDENTS",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_yogesubramanian@gmail.com",
+      "label": "yogesubramanian@gmail.com",
+      "domain": "Communication",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "mail_316_eb66e7",
+      "label": "Email: Invitation For IBM, Microsoft Training and Internship Program",
+      "domain": "Communication",
+      "priority": "medium",
+      "summary": "Email from Ayush Gakhare <ayush.gakhare@teachnook.com> to vtu24334@veltech.edu.in about: Invitation For IBM, Microsoft Training and Internship Program",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "mail_320_a25bfc",
+      "label": "Email: IBM, Microsoft Training and Internship Program",
+      "domain": "Communication",
+      "priority": "medium",
+      "summary": "Email from samarpit gupta <samarpit.gupta@teachnook.com> to vtu24334@veltech.edu.in about: IBM, Microsoft Training and Internship Program",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_samarpit.gupta@teachnook.com",
+      "label": "samarpit.gupta@teachnook.com",
+      "domain": "Communication",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "mail_323_a25bfc",
+      "label": "Email: IBM, Microsoft Training and Internship Program",
+      "domain": "Communication",
+      "priority": "medium",
+      "summary": "Email from khushi kumari <khushi.kumari@teachnook.com> to vtu24334@veltech.edu.in about: IBM, Microsoft Training and Internship Program",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_khushi.kumari@teachnook.com",
+      "label": "khushi.kumari@teachnook.com",
+      "domain": "Communication",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "ENT_kindly",
+      "label": "kindly",
+      "domain": "Communication",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "mail_324_d9f716",
+      "label": "Email: Congratulations on your Internship Program!",
+      "domain": "Communication",
+      "priority": "medium",
+      "summary": "Email from naveen2@blendvidya.online to vtu24334@veltech.edu.in about: Congratulations on your Internship Program!",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_naveen2@blendvidya.online",
+      "label": "naveen2@blendvidya.online",
+      "domain": "Communication",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "card_20260922_111820_785",
+      "label": "Code",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] card_20260922_111548_807.json - Second Brain: Activity on Code.exe: card_20260922_111548_807.json - Second Brain - Visual Studio Code",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_111825_849",
+      "label": "Code",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] card_20260922_111548_807.json - Second Brain: Activity on Code.exe: card_20260922_111548_807.json - Second Brain - Visual Studio Code",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_111830_974",
+      "label": "Code",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] card_20260922_111548_807.json - Second Brain: Activity on Code.exe: card_20260922_111548_807.json - Second Brain - Visual Studio Code",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_111836_051",
+      "label": "Code",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] card_20260922_111548_807.json - Second Brain: Activity on Code.exe: card_20260922_111548_807.json - Second Brain - Visual Studio Code",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_111841_414",
       "label": "Electron",
       "domain": "Technology",
       "priority": "medium",
@@ -2489,6 +2739,461 @@
     },
     {
       "source": "card_20260922_111739_823",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_111744_997",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_111744_997",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111744_997",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111744_997",
+      "target": "ENT_electron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111744_997",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_111750_117",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_111750_117",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111750_117",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111750_117",
+      "target": "ENT_electron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111750_117",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_111755_325",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_111755_325",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111755_325",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111755_325",
+      "target": "ENT_electron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111755_325",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_111800_348",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_111800_348",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111800_348",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111800_348",
+      "target": "ENT_electron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111800_348",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_111805_912",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_111805_912",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111805_912",
+      "target": "ENT_models",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111805_912",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111805_912",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_111811_944",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_111811_944",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111811_944",
+      "target": "ENT_models",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111811_944",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111811_944",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_111816_281",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_111816_281",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111816_281",
+      "target": "ENT_models",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111816_281",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111816_281",
+      "target": "ENT_best",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_COMMUNICATION",
+      "target": "mail_306_767443",
+      "label": "contains"
+    },
+    {
+      "source": "mail_306_767443",
+      "target": "ENT_blendvidya@zohomail.in",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_306_767443",
+      "target": "ENT_vtu24334@veltech.edu.in",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_306_767443",
+      "target": "ENT_interview",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_COMMUNICATION",
+      "target": "mail_308_4e130b",
+      "label": "contains"
+    },
+    {
+      "source": "mail_308_4e130b",
+      "target": "ENT_shashidhara.d@teachnook.com",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_308_4e130b",
+      "target": "ENT_vtu24334@veltech.edu.in",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_308_4e130b",
+      "target": "ENT_interview",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_COMMUNICATION",
+      "target": "mail_309_4e130b",
+      "label": "contains"
+    },
+    {
+      "source": "mail_309_4e130b",
+      "target": "ENT_ayush.gakhare@teachnook.com",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_309_4e130b",
+      "target": "ENT_vtu24334@veltech.edu.in",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_309_4e130b",
+      "target": "ENT_interview",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_COMMUNICATION",
+      "target": "mail_313_cd82db",
+      "label": "contains"
+    },
+    {
+      "source": "mail_313_cd82db",
+      "target": "ENT_yogesubramanian@gmail.com",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_313_cd82db",
+      "target": "ENT_vtu24334@veltech.edu.in",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_313_cd82db",
+      "target": "ENT_interview",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_COMMUNICATION",
+      "target": "mail_316_eb66e7",
+      "label": "contains"
+    },
+    {
+      "source": "mail_316_eb66e7",
+      "target": "ENT_ayush.gakhare@teachnook.com",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_316_eb66e7",
+      "target": "ENT_vtu24334@veltech.edu.in",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_316_eb66e7",
+      "target": "ENT_interview",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_COMMUNICATION",
+      "target": "mail_320_a25bfc",
+      "label": "contains"
+    },
+    {
+      "source": "mail_320_a25bfc",
+      "target": "ENT_samarpit.gupta@teachnook.com",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_320_a25bfc",
+      "target": "ENT_vtu24334@veltech.edu.in",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_320_a25bfc",
+      "target": "ENT_interview",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_COMMUNICATION",
+      "target": "mail_323_a25bfc",
+      "label": "contains"
+    },
+    {
+      "source": "mail_323_a25bfc",
+      "target": "ENT_khushi.kumari@teachnook.com",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_323_a25bfc",
+      "target": "ENT_vtu24334@veltech.edu.in",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_323_a25bfc",
+      "target": "ENT_kindly",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_COMMUNICATION",
+      "target": "mail_324_d9f716",
+      "label": "contains"
+    },
+    {
+      "source": "mail_324_d9f716",
+      "target": "ENT_naveen2@blendvidya.online",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_324_d9f716",
+      "target": "ENT_vtu24334@veltech.edu.in",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_111820_785",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_111820_785",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111820_785",
+      "target": "ENT_visual",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111820_785",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111820_785",
+      "target": "ENT_code",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_111825_849",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_111825_849",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111825_849",
+      "target": "ENT_visual",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111825_849",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111825_849",
+      "target": "ENT_code",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_111830_974",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_111830_974",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111830_974",
+      "target": "ENT_visual",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111830_974",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111830_974",
+      "target": "ENT_code",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_111836_051",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_111836_051",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111836_051",
+      "target": "ENT_visual",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111836_051",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111836_051",
+      "target": "ENT_code",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_111841_414",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_111841_414",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111841_414",
+      "target": "ENT_second",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111841_414",
+      "target": "ENT_electron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_111841_414",
       "target": "ENT_activity",
       "label": "mentions"
     }

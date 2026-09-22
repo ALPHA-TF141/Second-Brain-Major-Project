@@ -33,3 +33,31 @@ Email from "anil ." <anil@teachnook.com> to vtu24334@veltech.edu.in about: IBM, 
 **Identified Concepts & Entities:** `thatte.bhargavi@teachnook.com`, `vtu24334@veltech.edu.in`, `interview`
 
 ---
+
+### Synthesized Entry: IBM, Microsoft Training and Internship Program (2026-09-22 11:18 UTC)
+- **Source Application:** `gmail`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** Email from samarpit gupta <samarpit.gupta@teachnook.com> to vtu24334@veltech.edu.in about: IBM, Microsoft Training and Internship Program
+
+#### Key Takeaways & Evidence:
+- Action: Action: IBM, Microsoft Training and Internship Program - due 2024-02-13
+- From: samarpit gupta <samarpit.gupta@teachnook.com>
+- Received: Tue, 13 Feb 2024 21:50:00 +0530
+
+**Identified Concepts & Entities:** `samarpit.gupta@teachnook.com`, `vtu24334@veltech.edu.in`, `interview`
+
+---
+
+### Synthesized Entry: IBM, Microsoft Training and Internship Program (2026-09-22 11:18 UTC)
+- **Source Application:** `gmail`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** Email from khushi kumari <khushi.kumari@teachnook.com> to vtu24334@veltech.edu.in about: IBM, Microsoft Training and Internship Program
+
+#### Key Takeaways & Evidence:
+- Action: Action: IBM, Microsoft Training and Internship Program
+- From: khushi kumari <khushi.kumari@teachnook.com>
+- Received: Thu, 15 Feb 2024 21:50:00 +0530
+
+**Identified Concepts & Entities:** `khushi.kumari@teachnook.com`, `vtu24334@veltech.edu.in`, `kindly`
+
+---

@@ -18,3 +18,17 @@ Email from nuka umasri <nuka.umasri@teachnook.com> to vtu24334@veltech.edu.in ab
 - Received: Wed, 20 Dec 2023 18:40:10 +0530
 
 ---
+
+### Synthesized Entry: Invitation For IBM, Microsoft Training and Internship Progra (2026-09-22 11:18 UTC)
+- **Source Application:** `gmail`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** Email from Ayush Gakhare <ayush.gakhare@teachnook.com> to vtu24334@veltech.edu.in about: Invitation For IBM, Microsoft Training and Internship Program
+
+#### Key Takeaways & Evidence:
+- Action: Action: Invitation For IBM, Microsoft Training and Internship Program
+- From: Ayush Gakhare <ayush.gakhare@teachnook.com>
+- Received: Tue, 13 Feb 2024 00:25:23 +0530
+
+**Identified Concepts & Entities:** `ayush.gakhare@teachnook.com`, `vtu24334@veltech.edu.in`, `interview`
+
+---

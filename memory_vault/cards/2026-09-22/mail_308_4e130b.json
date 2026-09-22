@@ -1,0 +1,31 @@
+{
+  "id": "mail_308_4e130b",
+  "timestamp": "2024-02-10T17:47:55+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "IBM, Microsoft Internship and Training Program",
+  "topic": "Email: IBM, Microsoft Internship and Training Program",
+  "summary": "Email from shashidhara d <shashidhara.d@teachnook.com> to vtu24334@veltech.edu.in about: IBM, Microsoft Internship and Training Program",
+  "key_pointers": [
+    "Action: Action: IBM, Microsoft Internship and Training Program",
+    "From: shashidhara d <shashidhara.d@teachnook.com>",
+    "Received: Sat, 10 Feb 2024 23:17:55 +0530"
+  ],
+  "entities": [
+    "shashidhara.d@teachnook.com",
+    "vtu24334@veltech.edu.in",
+    "interview"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "teachnook.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:shashidhara.d@teachnook.com",
+  "raw_ocr_excerpt": "Dear Student,* Congratulations   on being shortlisted for the Internship\nProgram!*\n\n🎓*TEACHNOOK* in collaboration with *Wissenaire(IIT Bhubaneswar)* brings\nyou a unique *2-month Internship + Training program.*\n\n*👇Here is an outline of the program's structure.👇*\n\n 📚*Training program*:- Provides a comprehensive and immersive learning\nexperience by industry professionals having *10+ years of work ex* with\nover *60+ hours* of content spread across 25-30 modules. Prerequisite\nclasses ensure students have the foundational knowledge required to make\nthem industry ready.\n\n⚙️*Industrial Internship*:- Provides practical experience with *10+ live\nprojects* alongside the training program. Projects challenge students to\napply learned skills in real-world situations. The *CAPSTONE* project,\nintegrated into the final week of the internship, requires students to use\nall learned skills and knowledge.\n*Top Preferred Courses: *\n✅\n\n*Artificial Intelligence.✅ Data Science.✅ Machine Learning.✅ Cloud\nComputing.*\n*✅ Cyber Security.*\n*✅ Full Stack Web Development.*\n*✅ Management.*\n⚙️ *Interested students fill out the google form, if you get shortlisted\nyou will get a call from our HR Team:*\n*👉  *https://forms.gle/VCWQ3vaKj1Vqmnp98\n\n🎉\n\n* By joining our program, you'll receive:🟡 Program completion certificate\nfrom Teachnook in collaboration with IIT-B (Wissenaire)🟡 Co-branded\nInternship Certificate from MNC's (i.e IBM & MICROSOFT)🟡Mock interviews\nand resume-building session🟡 Free growth community acces",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

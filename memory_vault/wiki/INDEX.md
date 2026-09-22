@@ -204,3 +204,6 @@
 - [Communication: Email: Bonus reputation points awarded by the Cisco Learning Network](communication/email__bonus_reputation_points_awarded_by_the_cisco_learning_network.md) — *Updated 2026-09-22*
 - [Communication: Email: FREE Webinar to Crack 40LPA Job](communication/email__free_webinar_to_crack_40lpa_job.md) — *Updated 2026-09-22*
 - [Communication: Email: ProPeers: Webinar Registration Confirmation](communication/email__propeers__webinar_registration_confirmation.md) — *Updated 2026-09-22*
+- [Communication: Email: INTERNSHIP AT BLEND VIDYA EdTech](communication/email__internship_at_blend_vidya_edtech.md) — *Updated 2026-09-22*
+- [Communication: Email: IBM, Microsoft Internship and Training Program](communication/email__ibm__microsoft_internship_and_training_program.md) — *Updated 2026-09-22*
+- [Communication: Email: INFO_VELTECH STUDENTS](communication/email__info_veltech_students.md) — *Updated 2026-09-22*
