@@ -796,7 +796,8 @@ def build():
         ["Adaptive (proposed)", "1.000", "1.000", "0.000", "0.000", "0.000", "84 ms"],
     ], [116, 52, 50, 56, 48, 66, W - 388],
         caption="Table 20 \u2014 Comparative results on PersonalBrain-Bench (k = 5, 11 questions, 15 "
-                "memories, corpus-scoped evaluation). The quality metrics are deterministic: "
+                "memories, corpus-scoped evaluation, dense retriever pinned to the offline TF-IDF "
+                "path). The quality metrics are deterministic: "
                 "consecutive runs reproduce them exactly, on a database holding the corpus alone or "
                 "the corpus beside hundreds of unrelated memories. Latency is wall-clock and varies "
                 "between runs."))

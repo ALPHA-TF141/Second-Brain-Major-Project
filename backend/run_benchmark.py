@@ -20,6 +20,7 @@ The evaluation is corpus-scoped end to end (retrieval, scoring, conflict
 detection, temporal supersession, gap statistics), so the numbers depend only on
 the corpus and not on whatever else is in the database.
 """
+import argparse
 import json
 import os
 import platform
@@ -41,9 +42,18 @@ OUT = os.path.join(HERE, os.pardir, "benchmark_results.json")
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description="Regenerate benchmark_results.json")
+    parser.add_argument("--backend", choices=("tfidf", "neural"), default="tfidf",
+                        help="dense retriever used by the evaluation. 'tfidf' (default) is "
+                             "offline, needs no model download and is what the published "
+                             "numbers were produced with; 'neural' uses sentence-transformers "
+                             "when it is installed and gives different figures.")
+    parser.add_argument("--k", type=int, default=5)
+    args = parser.parse_args()
+
     db = SessionLocal()
     try:
-        result = benchmark_runner.run_all(db, k=5)
+        result = benchmark_runner.run_all(db, k=args.k, dense_backend=args.backend)
     finally:
         db.close()
 

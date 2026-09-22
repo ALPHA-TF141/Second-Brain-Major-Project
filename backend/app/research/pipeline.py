@@ -173,7 +173,8 @@ class AdaptiveMemoryRetrieval:
 
     # ================================================================== modes
     def retrieve(self, db, question: str, limit: int = 8, mode: str = "adaptive",
-                 allowed_ids: Optional[Iterable[int]] = None) -> List[Dict[str, Any]]:
+                 allowed_ids: Optional[Iterable[int]] = None,
+                 dense_backend: Optional[str] = None) -> List[Dict[str, Any]]:
         """
         `allowed_ids` restricts the candidate pool to a set of memories.
 
@@ -196,7 +197,12 @@ class AdaptiveMemoryRetrieval:
         pool = max(limit * 4, 24)
 
         # ---- candidate generation ----------------------------------------
-        semantic = self._candidate_semantic(db, question, pool, scope)
+        # `dense_backend="tfidf"` pins the offline dense retriever and never even
+        # loads the neural model. The benchmark asks for that: it is deterministic,
+        # needs no network, and it is the configuration the published numbers were
+        # produced with, so the table means the same thing on every machine.
+        semantic = ([] if dense_backend == "tfidf"
+                    else self._candidate_semantic(db, question, pool, scope))
         keyword_ids = self._candidate_keyword(db, question, pool, scope)
         trace["stages"]["semantic_candidates"] = len(semantic)
         trace["stages"]["keyword_candidates"] = len(keyword_ids)
@@ -207,7 +213,9 @@ class AdaptiveMemoryRetrieval:
         # TF-IDF. Either way every mode has a real dense signal, so no baseline
         # degenerates to zero and flatters the proposed method.
         dense = semantic if semantic else self._candidate_tfidf(db, question, pool, scope)
-        trace["stages"]["dense_backend"] = "neural" if semantic else "tfidf"
+        trace["stages"]["dense_backend"] = (
+            "tfidf" if dense_backend == "tfidf" else ("neural" if semantic else "tfidf"))
+        trace["stages"]["dense_pinned"] = dense_backend or "auto"
         trace["stages"]["dense_candidates"] = len(dense)
 
         # ================================================== VANILLA =======

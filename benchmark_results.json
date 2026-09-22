@@ -1,8 +1,9 @@
 {
-  "generated_at": "2026-09-22T15:35:02.931897+00:00",
+  "generated_at": "2026-09-22T15:36:57.238544+00:00",
   "system": "SecondBrain - Adaptive Memory Retrieval",
   "configuration": {
     "dense_backend": "tfidf",
+    "dense_backend_requested": "tfidf",
     "scoring_weights_version": "v1",
     "corpus_scope": true,
     "k": 5
@@ -32,7 +33,7 @@
       "forgotten_leak_rate": 0.0222,
       "duplicate_rate": 0.0222,
       "avg_context_chars": 409.4,
-      "latency_ms": 39,
+      "latency_ms": 37,
       "per_type": {
         "factual": {
           "n": 3,
@@ -91,7 +92,7 @@
       "forgotten_leak_rate": 0.0217,
       "duplicate_rate": 0.0217,
       "avg_context_chars": 409.4,
-      "latency_ms": 33,
+      "latency_ms": 29,
       "per_type": {
         "factual": {
           "n": 3,
@@ -150,7 +151,7 @@
       "forgotten_leak_rate": 0.0217,
       "duplicate_rate": 0.0217,
       "avg_context_chars": 409.4,
-      "latency_ms": 42,
+      "latency_ms": 39,
       "per_type": {
         "factual": {
           "n": 3,
@@ -209,7 +210,7 @@
       "forgotten_leak_rate": 0.0,
       "duplicate_rate": 0.0,
       "avg_context_chars": 397.3,
-      "latency_ms": 84,
+      "latency_ms": 76,
       "per_type": {
         "factual": {
           "n": 3,

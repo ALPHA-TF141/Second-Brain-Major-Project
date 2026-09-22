@@ -442,8 +442,9 @@ def build():
         ["Adaptive (proposed)", "1.000", "1.000", "0.000", "0.000", "0.000", "84 ms"],
     ], [116, 52, 50, 56, 48, 66, W - 388],
         caption="Table 26 \u2014 Comparative results (k = 5, 11 questions, 15 memories, "
-                "corpus-scoped evaluation). The quality metrics are deterministic and reproduce "
-                "exactly on any database; latency is wall-clock and varies between runs."))
+                "corpus-scoped evaluation, dense retriever pinned to the offline TF-IDF path). The "
+                "quality metrics are deterministic and reproduce exactly on any database; latency "
+                "is wall-clock and varies between runs."))
     f.extend(table([
         ["Question category", "Vanilla MRR", "Hybrid MRR", "Adaptive MRR", "Change"],
         ["Factual", "1.000", "1.000", "1.000", "\u2014"],

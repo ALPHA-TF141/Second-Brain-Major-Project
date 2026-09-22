@@ -550,10 +550,14 @@ def main():
 
     story.append(Paragraph("D. Reproducibility", S["h2"]))
     story.append(Paragraph(
-        "The pipeline requires no neural embedding model and no network access: when no embedder is "
-        "configured, dense retrieval is served by TF-IDF cosine similarity, which is deterministic. "
-        "Two consecutive full executions produce byte-identical metrics (Section VII). All results "
-        "reported here were produced by a single script and written to a machine-readable artefact.", S["body"]))
+        "The evaluation runs the model-free configuration: with the dense retriever pinned to TF-IDF "
+        "cosine similarity the benchmark needs no neural embedding model, no GPU and no network, and "
+        "it is deterministic. The shipped pipeline selects a neural embedder automatically when one "
+        "is installed, so these figures describe the retriever designs rather than the environment "
+        "they were measured in. Two consecutive executions reproduce the metrics exactly on a "
+        "database holding the corpus alone or the corpus beside hundreds of unrelated memories. All "
+        "results reported here come from one script (backend/run_benchmark.py) and are written to a "
+        "machine-readable artefact.", S["body"]))
 
     # ------------------------------------------------------------ VI. RESULTS
     story.append(h1("VI", "Results and Comparative Analysis", S))

@@ -344,7 +344,8 @@ class BenchmarkRunner:
 
     # -------------------------------------------------------------- evaluate
     def evaluate(self, db, mode: str = "adaptive", k: int = 5,
-                 key_to_id: Optional[Dict[str, int]] = None) -> Dict[str, Any]:
+                 key_to_id: Optional[Dict[str, int]] = None,
+                 dense_backend: str = "tfidf") -> Dict[str, Any]:
         from app.models.memory import Memory
         from app.models.research import ForgottenMemory
         from app.research.consolidation import memory_consolidator
@@ -381,7 +382,8 @@ class BenchmarkRunner:
 
         for question in self.bench.build_questions():
             results = adaptive_retrieval.retrieve(db, question["question"], limit=k, mode=mode,
-                                                  allowed_ids=corpus_ids)
+                                                  allowed_ids=corpus_ids,
+                                                  dense_backend=dense_backend)
             result_ids = [r["memory_id"] for r in results]
             result_keys = [id_to_key.get(i, "?") for i in result_ids]
 
@@ -471,7 +473,7 @@ class BenchmarkRunner:
         }
 
     # ----------------------------------------------------------- full run
-    def run_all(self, db, k: int = 5) -> Dict[str, Any]:
+    def run_all(self, db, k: int = 5, dense_backend: str = "tfidf") -> Dict[str, Any]:
         from app.models.research import ResearchRun
 
         ingest = self.load_corpus(db, reset=True)
@@ -479,7 +481,8 @@ class BenchmarkRunner:
 
         results = {}
         for mode in ("vanilla", "hybrid", "graph", "adaptive"):
-            outcome = self.evaluate(db, mode=mode, k=k, key_to_id=key_to_id)
+            outcome = self.evaluate(db, mode=mode, k=k, key_to_id=key_to_id,
+                                    dense_backend=dense_backend)
             results[mode] = outcome
             db.add(ResearchRun(
                 kind="benchmark", system=mode, questions=outcome["questions"],
@@ -503,6 +506,7 @@ class BenchmarkRunner:
         stages = (getattr(adaptive_retrieval, "last_trace", None) or {}).get("stages", {})
         configuration = {
             "dense_backend": stages.get("dense_backend", "unknown"),
+            "dense_backend_requested": stages.get("dense_pinned", dense_backend),
             "scoring_weights_version": WEIGHTS_VERSION,
             "corpus_scope": True,
             "k": k,
