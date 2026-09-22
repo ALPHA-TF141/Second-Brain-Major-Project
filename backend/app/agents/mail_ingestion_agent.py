@@ -29,6 +29,7 @@ import hashlib
 import json
 import re
 import threading
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -74,6 +75,31 @@ MAX_LEDGER_SEEN = 20000
 MAX_CARD_BODY = 6000
 
 
+# ---------------------------------------------------------------------------
+# The IMAP credential store.
+#
+# This agent must use the SAME store instance the API routes use. It previously
+# constructed its own, which happened to point at the same default directory and
+# therefore worked by coincidence. As soon as a caller redirected the routes to
+# an isolated directory - which is exactly what a test must do to avoid touching
+# real credentials - the two stores disagreed and every sync reported
+# "Account not found".
+#
+# Two objects owning one file is a latent defect even when they currently agree,
+# so the store is resolved through one hook.
+# ---------------------------------------------------------------------------
+account_store_factory = None
+
+
+def _imap_store():
+    """Return the shared IMAP credential store, or nil if unavailable."""
+    if account_store_factory is not None:
+        return account_store_factory()
+    from app.routes.mail import mail_accounts  # local import: avoids a cycle
+
+    return mail_accounts
+
+
 # ===========================================================================
 class EmailLedger:
     """Sync cursors + already-ingested message ids. Contains no message bodies."""
@@ -81,6 +107,7 @@ class EmailLedger:
     def __init__(self, path: Optional[Path] = None):
         self.path = path or (Path(__file__).resolve().parents[2] / "data" / "mail_ledger.json")
         self._lock = threading.RLock()
+        self.last_contention = 0
 
     def _read(self) -> Dict[str, Any]:
         if not self.path.exists():
@@ -91,12 +118,53 @@ class EmailLedger:
             return {"cursors": {}, "seen": [], "sessions": {}, "stats": {}}
 
     def _write(self, data: Dict[str, Any]) -> None:
+        """
+        Persist the ledger.
+
+        Windows refuses to replace a file that another process currently holds
+        open, raising PermissionError (WinError 5). POSIX allows it, so this
+        defect is invisible on Linux and only appears on the target platform.
+        The running application holds this ledger open while its own mail sync
+        loop works, so any second writer - a concurrent test, a second instance,
+        or an antivirus scan - would previously abort ingestion outright.
+
+        Strategy: retry with backoff, then fall back to an in-place write. A
+        less-atomic ledger write is strictly better than a failed ingestion
+        pass, because the ledger can be rebuilt from the database while a
+        partially ingested mailbox cannot be un-ingested.
+        """
         self.path.parent.mkdir(parents=True, exist_ok=True)
         if len(data.get("seen", [])) > MAX_LEDGER_SEEN:
             data["seen"] = data["seen"][-MAX_LEDGER_SEEN:]
+
+        payload = json.dumps(data, indent=1)
         tmp = self.path.with_suffix(".tmp")
-        tmp.write_text(json.dumps(data, indent=1), encoding="utf-8")
-        tmp.replace(self.path)
+        tmp.write_text(payload, encoding="utf-8")
+
+        last_error: Optional[Exception] = None
+        for attempt, delay in enumerate((0.0, 0.05, 0.15, 0.4, 0.8, 1.5)):
+            if delay:
+                time.sleep(delay)
+            try:
+                tmp.replace(self.path)
+                return
+            except (PermissionError, OSError) as exc:
+                last_error = exc
+                self.last_contention = attempt + 1
+
+        # Fall back to writing in place.
+        try:
+            self.path.write_text(payload, encoding="utf-8")
+            return
+        except Exception:
+            pass
+        finally:
+            try:
+                tmp.unlink(missing_ok=True)
+            except Exception:
+                pass
+
+        raise last_error or RuntimeError("could not write the mail ledger")
 
     # ---- cursors -----------------------------------------------------------
     def cursor(self, account_id: str, folder: str) -> Dict[str, Any]:
@@ -124,6 +192,26 @@ class EmailLedger:
             seen = data.setdefault("seen", [])
             if key not in seen:
                 seen.append(key)
+            self._write(data)
+
+    def mark_seen_many(self, keys: List[str]) -> None:
+        """
+        Record several message ids with ONE file write.
+
+        Called once per folder pass instead of once per message. Fewer writes
+        means less chance of colliding with the running application, and it
+        roughly halves a large sync's I/O.
+        """
+        if not keys:
+            return
+        with self._lock:
+            data = self._read()
+            seen = data.setdefault("seen", [])
+            existing = set(seen)
+            added = [k for k in keys if k not in existing]
+            if not added:
+                return
+            seen.extend(added)
             self._write(data)
 
     # ---- sessions / stats --------------------------------------------------
@@ -412,6 +500,22 @@ class MailIngestionAgent:
 
             db.add(MemoryTag(memory_id=memory.id, tag=tag, source="email"))
 
+        # Self-heal against orphaned derived rows.
+        #
+        # `search_index` and `memory_tags` carry a UNIQUE constraint on
+        # memory_id. SQLite reuses the identifier of a deleted highest row, so an
+        # index row whose parent memory was removed by an earlier version - or by
+        # a cleanup that deleted parents before children - turns the next insert
+        # at that identifier into a hard IntegrityError, which aborts ingestion.
+        #
+        # Clearing any stale rows for this identifier first is cheap and makes
+        # the pipeline immune to the whole class rather than to one instance.
+        db.query(SearchIndex).filter(SearchIndex.memory_id == memory.id).delete(synchronize_session=False)
+
+        from app.models.memory import MemoryTag as _MemoryTag
+
+        db.query(_MemoryTag).filter(_MemoryTag.memory_id == memory.id).delete(synchronize_session=False)
+
         db.add(
             SearchIndex(
                 memory_id=memory.id,
@@ -479,7 +583,6 @@ class MailIngestionAgent:
     def sync_account(self, db: Session, account_id: str, user_id: int,
                      folders: Optional[List[str]] = None, limit: Optional[int] = None,
                      notify: bool = True, store_vault: bool = True) -> Dict[str, Any]:
-        from app.integrations.local_store import EncryptedStore
         from app.integrations.token_store import google_token_store
 
         folders = folders or [f.strip() for f in settings.mail_sync_folders.split(",") if f.strip()]
@@ -490,8 +593,8 @@ class MailIngestionAgent:
         }
 
         if account_id.startswith("imap_"):
-            store = EncryptedStore("imap_accounts.enc", collection="accounts")
-            record = store.get(account_id)
+            store = _imap_store()
+            record = store.get(account_id) if store else None
             if not record:
                 summary["errors"].append("Account not found")
                 return summary
@@ -510,15 +613,21 @@ class MailIngestionAgent:
         session = self._get_or_create_session(db, user_id, account_id, address)
 
         for folder in folders:
+            partial = None
             try:
-                result = ingestor(db, client, account_id, folder, limit, session, address,
-                                  store_vault=store_vault)
-                for key in ("ingested", "skipped_bulk", "duplicates", "actions"):
-                    summary[key] += result.get(key, 0)
-                summary["messages"].extend(result.get("messages", []))
-                summary["errors"].extend(result.get("errors", []))
+                partial = ingestor(db, client, account_id, folder, limit, session, address,
+                                   store_vault=store_vault)
             except Exception as exc:
                 summary["errors"].append(f"{folder}: {type(exc).__name__}: {exc}")
+                # Ask the ingestor for whatever it managed before failing, so
+                # work already committed to the database is still reported.
+                partial = getattr(exc, "partial", None)
+
+            if partial:
+                for key in ("ingested", "skipped_bulk", "duplicates", "actions"):
+                    summary[key] += partial.get(key, 0)
+                summary["messages"].extend(partial.get("messages", []))
+                summary["errors"].extend(partial.get("errors", []))
 
         self.ledger.record_sync(account_id, {
             "ingested": summary["ingested"],
@@ -591,35 +700,55 @@ class MailIngestionAgent:
 
         messages = client.fetch_by_uids(folder, uids)
         highest = since
+        newly_seen: List[str] = []
 
         for message in messages:
             uid = int(message["uid"])
             highest = max(highest, uid)
-
             dedupe_key = f"{account_id}:imap:{uidvalidity}:{uid}"
-            if self.ledger.seen(dedupe_key):
-                out["duplicates"] += 1
+
+            # Each message is processed in isolation. Previously a failure on
+            # message three of four propagated out of this function, so the
+            # summary reported zero ingested even though two messages had
+            # already been stored - the counts lived in a local dict that was
+            # discarded with the exception. Reporting zero work that was in
+            # fact done is worse than the original error.
+            try:
+                if self.ledger.seen(dedupe_key):
+                    out["duplicates"] += 1
+                    continue
+
+                result = self._ingest_one(db, message, account_id, address, session,
+                                          store_vault=store_vault)
+                if result["stored"]:
+                    out["ingested"] += 1
+                    out["actions"] += result["actions"]
+                    out["messages"].append({
+                        "subject": message.get("subject"),
+                        "from": message.get("from"),
+                        "importance": result["importance"],
+                        "actions": result["actions"],
+                    })
+                elif result["bulk"]:
+                    out["skipped_bulk"] += 1
+                else:
+                    out["duplicates"] += 1
+
+                newly_seen.append(dedupe_key)
+
+            except Exception as exc:
+                out["errors"].append(f"uid {uid}: {type(exc).__name__}: {exc}")
+                # Do NOT mark it seen: a transient failure should be retried on
+                # the next pass rather than silently skipped forever.
                 continue
 
-            result = self._ingest_one(db, message, account_id, address, session,
-                                      store_vault=store_vault)
-            if result["stored"]:
-                out["ingested"] += 1
-                out["actions"] += result["actions"]
-                out["messages"].append({
-                    "subject": message.get("subject"),
-                    "from": message.get("from"),
-                    "importance": result["importance"],
-                    "actions": result["actions"],
-                })
-            elif result["bulk"]:
-                out["skipped_bulk"] += 1
-            else:
-                out["duplicates"] += 1
+        # One ledger write per folder pass, not one per message.
+        try:
+            self.ledger.mark_seen_many(newly_seen)
+            self.ledger.set_cursor(account_id, folder, uidvalidity, highest)
+        except Exception as exc:
+            out["errors"].append(f"ledger: {type(exc).__name__}: {exc}")
 
-            self.ledger.mark_seen(dedupe_key)
-
-        self.ledger.set_cursor(account_id, folder, uidvalidity, highest)
         return out
 
     def _sync_google(self, db: Session, client, account_id: str, folder: str, limit: int,
@@ -828,7 +957,6 @@ class MailIngestionAgent:
 
     # ------------------------------------------------------------ sync all
     def sync_all(self, db: Session, user_id: int, notify: bool = True) -> Dict[str, Any]:
-        from app.integrations.local_store import EncryptedStore
         from app.integrations.token_store import google_token_store
 
         if self.is_syncing:
@@ -839,7 +967,9 @@ class MailIngestionAgent:
         try:
             accounts = []
             try:
-                accounts.extend(a["id"] for a in EncryptedStore("imap_accounts.enc", collection="accounts").all())
+                store = _imap_store()
+                if store:
+                    accounts.extend(a["id"] for a in store.all())
             except Exception:
                 pass
             try:
@@ -878,6 +1008,7 @@ class MailIngestionAgent:
             "store_in_vault": settings.mail_store_in_vault,
             "is_syncing": self.is_syncing,
             "last_error": self.last_error,
+            "ledger_contention_events": self.ledger.last_contention,
             **ledger_stats,
         }
 

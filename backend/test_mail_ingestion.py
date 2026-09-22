@@ -21,6 +21,7 @@ Usage (backend folder, venv active):
 import os
 import socket
 import sys
+from pathlib import Path
 import threading
 from datetime import datetime, timedelta, timezone
 
@@ -246,13 +247,35 @@ def main():
     from app.models.memory import Memory, MemoryTag, SearchIndex
     from app.routes.os_store import os_store
 
+    # ------------------------------------------------------------------ #
+    # ISOLATION. This test must not touch anything belonging to the running
+    # application or to the author.
+    #
+    # An earlier version deleted `data/mail_ledger.json` (the RUNNING APP's
+    # synchronisation cursor) and every memory with source_type == "email"
+    # (the author's REAL ingested mail - 210 rows on one observed run), plus
+    # all email sessions, all email-derived tasks and the entire notification
+    # list. Running the test therefore destroyed real data and reset the
+    # application's sync position, causing it to re-ingest a mailbox.
+    #
+    # This is the same class of defect as the vault-card incident: a test that
+    # cannot tell its own artefacts from genuine ones. The test now keeps its
+    # own ledger, its own credential store, and removes only rows it created.
+    # ------------------------------------------------------------------ #
     data_dir = os.path.join(os.getcwd(), "data")
-    for name in ("mail_ledger.json", "imap_accounts.enc"):
-        path = os.path.join(data_dir, name)
-        if os.path.exists(path):
-            os.remove(path)
-    mail_ingestion_agent.ledger = EmailLedger()
-    mail_routes.mail_accounts.__init__("imap_accounts.enc", collection="accounts")
+    test_dir = os.path.join(data_dir, "_test_harness")
+    os.makedirs(test_dir, exist_ok=True)
+
+    test_ledger_path = os.path.join(test_dir, "mail_ledger.json")
+    if os.path.exists(test_ledger_path):
+        os.remove(test_ledger_path)
+
+    mail_ingestion_agent.ledger = EmailLedger(path=Path(test_ledger_path))
+    mail_routes.mail_accounts.__init__(
+        "imap_accounts.enc", directory=test_dir, collection="accounts")
+    # The ingestion agent resolves the credential store through this hook, so it
+    # reads the isolated store rather than the application's real one.
+    mail_ingestion_agent.account_store_factory = lambda: mail_routes.mail_accounts
 
 
     try:
@@ -269,7 +292,11 @@ def main():
 
         db = SessionLocal()
         try:
-            stale = [m.id for m in db.query(Memory).filter(Memory.source_type == "email").all()]
+            # ONLY rows this test produced, identified by the test address.
+            # The author's real memories carry their own address and are left
+            # untouched no matter what.
+            stale = [m.id for m in db.query(Memory)
+                     .filter(Memory.app_source == TEST_ADDRESS).all()]
             if stale:
                 db.query(SearchIndex).filter(SearchIndex.memory_id.in_(stale)).delete(synchronize_session=False)
                 db.query(MemoryTag).filter(MemoryTag.memory_id.in_(stale)).delete(synchronize_session=False)
@@ -279,18 +306,22 @@ def main():
                 db.commit()
 
             sessions_cleared = 0
-            for session in db.query(MemorySession).filter(MemorySession.session_type == "email").all():
+            for session in db.query(MemorySession).filter(
+                    MemorySession.dominant_activity.like(f"Inbox: {TEST_ADDRESS}%")).all():
                 db.delete(session)
                 sessions_cleared += 1
             db.commit()
         finally:
             db.close()
 
-        # tasks + notifications produced by earlier runs
+        # Tasks and notifications produced by earlier runs of THIS test only.
         cleaned = os_store._read()
         cleaned["tasks"] = [t for t in cleaned.get("tasks", [])
-                            if not str(t.get("source", "")).startswith("email:")]
-        cleaned["notifications"] = []
+                            if t.get("source") != f"email:{TEST_ADDRESS}"]
+        cleaned["notifications"] = [
+            n for n in cleaned.get("notifications", [])
+            if TEST_ADDRESS not in str(n.get("body", ""))
+        ]
         os_store._write(cleaned)
 
         print(f"      (reset: {len(stale)} old email memories, {sessions_cleared} email sessions cleared)")
@@ -322,7 +353,7 @@ def main():
         print("\n[3] Stored in the searchable memory tables")
         db = SessionLocal()
         try:
-            memories = db.query(Memory).filter(Memory.source_type == "email").all()
+            memories = db.query(Memory).filter(Memory.app_source == TEST_ADDRESS).all()
             check("email memories created", len(memories) == 3, f"got {len(memories)}")
 
             subjects = " | ".join(m.title for m in memories)
@@ -336,7 +367,7 @@ def main():
             check("source_type tagged as email",
                   deadline_memory and deadline_memory.source_type == "email")
 
-            indexes = db.query(SearchIndex).filter(SearchIndex.source_type == "email").all()
+            indexes = db.query(SearchIndex).filter(SearchIndex.app_source == TEST_ADDRESS).all()
             check("search index rows created", len(indexes) == 3, f"got {len(indexes)}")
 
             tags = db.query(MemoryTag).all()
@@ -346,7 +377,7 @@ def main():
 
         # ---- vault + wiki + graph -------------------------------------------
         print("\n[4] Written into the GitHub-backed memory vault")
-        from pathlib import Path
+        # (Path is imported at module level - a local import here would shadow it)
 
         vault_cards = list(Path("..").glob("memory_vault/cards/*/mail_*.json"))
         if not vault_cards:
@@ -400,7 +431,7 @@ def main():
               f"ingested={second['ingested']}")
         db = SessionLocal()
         try:
-            count = db.query(Memory).filter(Memory.source_type == "email").count()
+            count = db.query(Memory).filter(Memory.app_source == TEST_ADDRESS).count()
             check("still exactly 3 memories (no duplicates)", count == 3, f"got {count}")
         finally:
             db.close()
@@ -553,8 +584,49 @@ def main():
     if empty_dir.is_dir() and not any(empty_dir.iterdir()):
         empty_dir.rmdir()
 
+    # ---------------------------- remove this test's own database rows -------
+    # Cleanup must be symmetric with setup. Previously rows were only cleared at
+    # the START of the next run, so every execution left four memories and a
+    # session behind. Leaving as-found is the correct property for a test.
+    removed_rows = 0
+    try:
+        from app.models.capture import MemorySession as _MS
+        from app.models.memory import Memory as _Mem
+
+        session = SessionLocal()
+        try:
+            ids = [m.id for m in session.query(_Mem).filter(_Mem.app_source == TEST_ADDRESS).all()]
+            if ids:
+                from app.models.memory import MemoryTag as _Tag
+                from app.models.memory import SearchIndex as _SI
+
+                session.query(_SI).filter(_SI.memory_id.in_(ids)).delete(synchronize_session=False)
+                session.query(_Tag).filter(_Tag.memory_id.in_(ids)).delete(synchronize_session=False)
+                session.query(_Mem).filter(_Mem.id.in_(ids)).delete(synchronize_session=False)
+                removed_rows = len(ids)
+            for sess in session.query(_MS).filter(
+                    _MS.dominant_activity.like(f"Inbox: {TEST_ADDRESS}%")).all():
+                session.delete(sess)
+            session.commit()
+        finally:
+            session.close()
+
+        store = os_store._read()
+        store["tasks"] = [t for t in store.get("tasks", [])
+                          if t.get("source") != f"email:{TEST_ADDRESS}"]
+        store["notifications"] = [n for n in store.get("notifications", [])
+                                  if TEST_ADDRESS not in str(n.get("body", ""))]
+        os_store._write(store)
+    except Exception as exc:
+        print(f"      (note: end-of-run cleanup reported: {exc})")
+
+    # Remove the isolated harness directory so nothing accumulates between runs.
+    import shutil as _shutil
+
+    _shutil.rmtree(os.path.join(os.getcwd(), "data", "_test_harness"), ignore_errors=True)
+
     print(f"\n      (cleaned up {removed_cards} test vault cards, {removed_wiki} test wiki articles, "
-          f"restored graph + wiki index)")
+          f"{removed_rows} test rows, restored graph + wiki index, removed isolated harness data)")
     if skipped_cards or skipped_wiki:
         print(f"      PROTECTED {skipped_cards} real vault card(s) and {skipped_wiki} real wiki "
               f"article(s) - they did not carry the test marker")
