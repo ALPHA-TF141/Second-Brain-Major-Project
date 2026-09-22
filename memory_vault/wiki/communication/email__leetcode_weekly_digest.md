@@ -75,3 +75,17 @@ Email from LeetCode <no-reply@leetcode.com> to lmariaimmanuel@gmail.com about: L
 **Identified Concepts & Entities:** `no-reply@leetcode.com`, `lmariaimmanuel@gmail.com`, `interview`
 
 ---
+
+### Synthesized Entry: LeetCode Weekly Digest (2026-09-22 17:27 UTC)
+- **Source Application:** `gmail`
+- **Priority Rating:** `HIGH`
+- **Context Summary:** Email from LeetCode <no-reply@leetcode.com> to lmariaimmanuel@gmail.com about: LeetCode Weekly Digest
+
+#### Key Takeaways & Evidence:
+- Deadline: Deadline: LeetCode Weekly Digest
+- From: LeetCode <no-reply@leetcode.com>
+- Received: Fri, 2 Jan 2026 11:46:32 +0000
+
+**Identified Concepts & Entities:** `no-reply@leetcode.com`, `lmariaimmanuel@gmail.com`, `submission`
+
+---
