@@ -1,0 +1,31 @@
+{
+  "id": "mail_10_93daf6",
+  "timestamp": "2026-01-01T13:27:29+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "GitHub Copilot: What’s in your free plan 🤖",
+  "topic": "Email: GitHub Copilot: What’s in your free plan 🤖",
+  "summary": "Email from GitHub <noreply@github.com> to lmariaimmanuel@gmail.com about: GitHub Copilot: What’s in your free plan 🤖",
+  "key_pointers": [
+    "Action: Action: GitHub Copilot: What’s in your free plan 🤖",
+    "From: GitHub <noreply@github.com>",
+    "Received: Thu, 01 Jan 2026 05:27:29 -0800"
+  ],
+  "entities": [
+    "noreply@github.com",
+    "lmariaimmanuel@gmail.com",
+    "exam"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "github.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:noreply@github.com",
+  "raw_ocr_excerpt": "Welcome to GitHub Copilot.\nHere’s how to get started.\n\nYou now have access to GitHub Copilot in VS Code and github.com for free as part of your GitHub user account—and\nthat includes support for models from OpenAI and Anthropic.\n\nAsk Copilot how to get started >: https://github.com/copilot\n\nWhat’s included\n\n  - 2,000 intelligent code completions a month. Get context-aware code suggestions that draw context from your GitHub projects and VS Code workspace.\n  - 50 Copilot Chat messages a month. Ask Copilot for help understanding code, refactoring something, or debugging an issue.\n  - Choose your AI model. Leverage industry leading models for your development work.\n  - Make changes to multiple files with Copilot Edits. Tackle changes across multiple files with Copilot Edits.\n  - Support for the Copilot Extensions ecosystem. Access third-party agents designed for tasks such as querying Stack Overflow or searching the web with Perplexity.\n  - Choose where you build. Enjoy support in VS Code and across GitHub.\n\nSo, what will you build?\n\nP.S. - Not sure where to start? Try these Copilot Chat prompts >: https://docs.github.com/en/copilot/example-prompts-for-github-copilot-chat\n\nCopilot Settings\n\nGitHub Copilot will show code suggestions that match public code including code references in the VS Code and github.com experience: https://docs.github.com/en/copilot/using-github-copilot/finding-public-code-that-matches-github-copilot-suggestions\nGitHub and affiliates may use your data for pr",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

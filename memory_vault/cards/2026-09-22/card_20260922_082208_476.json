@@ -1,0 +1,29 @@
+{
+  "id": "card_20260922_082208_476",
+  "timestamp": "2026-09-22T08:22:08.476724Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Google Calendar - Tuesday, September 22, 2026, today - Google Chrome",
+  "topic": "Google Calendar - Tuesday, September 22, 2026",
+  "summary": "[General] Google Calendar - Tuesday, September 22, 2026, today: Activity on chrome.exe: Google Calendar - Tuesday, September 22, 2026, today - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Google Calendar - Tuesday, September 22, 2026, today - Google Chrome"
+  ],
+  "entities": [
+    "Tuesday",
+    "Activity",
+    "Google",
+    "Calendar",
+    "September"
+  ],
+  "tags": [
+    "general",
+    "chrome"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Google Calendar - Tuesday, September 22, 2026, today - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_082208_476.webp",
+  "hero_image_info_score": 33.3
+}

@@ -1,0 +1,29 @@
+{
+  "id": "mail_1_148b68",
+  "timestamp": "2025-12-29T13:39:40+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Security alert",
+  "topic": "Email: Security alert",
+  "summary": "Email from Google <no-reply@accounts.google.com> to lmariaimmanuel@gmail.com about: Security alert",
+  "key_pointers": [
+    "From: Google <no-reply@accounts.google.com>",
+    "Received: Mon, 29 Dec 2025 13:39:40 GMT"
+  ],
+  "entities": [
+    "no-reply@accounts.google.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "accounts.google.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@accounts.google.com",
+  "raw_ocr_excerpt": "[image: Google]\nRecovery phone was changed\n\nlmariaimmanuel@gmail.com\nThe recovery phone for your account was changed. If you didn't change it,\nyou should check what happened.\nCheck activity\n<https://accounts.google.com/AccountChooser?Email=lmariaimmanuel@gmail.com&continue=https://myaccount.google.com/alert/nt/1767015580062?rfn%3D4%26rfnc%3D1%26eid%3D611646750767557068%26et%3D0>\nYou can also see security activity at\nhttps://myaccount.google.com/notifications\nYou received this email to let you know about important changes to your\nGoogle Account and services.\n© 2025 Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

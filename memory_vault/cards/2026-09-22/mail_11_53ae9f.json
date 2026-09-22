@@ -1,0 +1,29 @@
+{
+  "id": "mail_11_53ae9f",
+  "timestamp": "2026-01-01T13:51:43+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "vtu24334-cyber invited you to vtu24334-cyber/studio",
+  "topic": "Email: vtu24334-cyber invited you to vtu24334-cyber/studio",
+  "summary": "Email from vtu24334-cyber <noreply@github.com> to lmariaimmanuel@gmail.com about: vtu24334-cyber invited you to vtu24334-cyber/studio",
+  "key_pointers": [
+    "From: vtu24334-cyber <noreply@github.com>",
+    "Received: Thu, 01 Jan 2026 05:51:43 -0800"
+  ],
+  "entities": [
+    "noreply@github.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "github.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:noreply@github.com",
+  "raw_ocr_excerpt": "@vtu24334-cyber has invited you to collaborate on the vtu24334-cyber/studio repository.\n\nVisit https://github.com/vtu24334-cyber/studio/invitations to accept or decline this invitation.\n\nYou can also head over to https://github.com/vtu24334-cyber/studio to check out the repository or visit https://github.com/vtu24334-cyber to learn a bit more about @vtu24334-cyber.\n\nThis invitation will expire in 7 days.\n\nSome helpful tips:\n- If you get a 404 page, make sure you’re signed in as ALPHA-TF141.\n- Too many emails from @vtu24334-cyber? You can block them by visiting\n  https://github.com/settings/blocked_users?block_user=vtu24334-cyber or report abuse at\n  https://github.com/contact/report-abuse?report=vtu24334-cyber\n\n---\nView it on GitHub:\nhttps://github.com/vtu24334-cyber/studio",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

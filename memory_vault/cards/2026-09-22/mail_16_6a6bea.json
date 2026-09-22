@@ -1,0 +1,29 @@
+{
+  "id": "mail_16_6a6bea",
+  "timestamp": "2026-01-02T13:07:22+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Welcome to SuperSimpleDev Courses",
+  "topic": "Email: Welcome to SuperSimpleDev Courses",
+  "summary": "Email from SuperSimpleDev Courses <noreply@notify.thinkific.com> to lmariaimmanuel@gmail.com about: Welcome to SuperSimpleDev Courses",
+  "key_pointers": [
+    "From: SuperSimpleDev Courses <noreply@notify.thinkific.com>",
+    "Received: Fri, 02 Jan 2026 13:07:22 +0000"
+  ],
+  "entities": [
+    "noreply@notify.thinkific.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "notify.thinkific.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:noreply@notify.thinkific.com",
+  "raw_ocr_excerpt": "SuperSimpleDev Courses \r\n( https://courses.supersimple.dev/ )‌\r\n\r\n*********************\r\nHello Maria Immanuel,\r\n*********************\r\n\r\nWelcome to SuperSimpleDev Courses! Let’s get\r\nstarted.\r\n\r\nSign in URL:\r\nhttps://courses.supersimple.dev/users/sign_in\r\n\r\nEmail: lmariaimmanuel@gmail.com\r\n\r\n---------------\r\nExplore Courses\r\n---------------\r\n\r\nReact Premium Course \r\n( https://courses.supersimple.dev/courses/react )\r\n-\r\n\r\nJavaScript Full Course \r\n( https://courses.supersimple.dev/courses/javascript )\r\n-\r\n\r\nHTML & CSS Full Course \r\n( https://courses.supersimple.dev/courses/html-css )\r\n-\r\n\r\n‌Login to your account \r\n( https://courses.supersimple.dev/users/sign_in )\r\n|\r\nEdit notification settings \r\n( https://courses.supersimple.dev/account/notifications )‌\r\n\r\nPowered by\r\nThinkific \r\n( http://www.thinkific.com/?utm_source=supersimple-s-site&utm_medium=email&utm_campaign=powered-by-referral )\r\n\r\n\r\nEverything you need to create & deliver courses on your own site",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,29 @@
+{
+  "id": "mail_23_de77d1",
+  "timestamp": "2026-01-04T00:19:26+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Dropbox bonus space received!",
+  "topic": "Email: Dropbox bonus space received!",
+  "summary": "Email from Dropbox <no-reply@dropbox.com> to lmariaimmanuel@gmail.com about: Dropbox bonus space received!",
+  "key_pointers": [
+    "From: Dropbox <no-reply@dropbox.com>",
+    "Received: Sun, 4 Jan 2026 00:19:26 +0000"
+  ],
+  "entities": [
+    "no-reply@dropbox.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "dropbox.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@dropbox.com",
+  "raw_ocr_excerpt": "Hi Maria,\n\nYou've successfully linked your Acer device to Dropbox! We've awarded your account with 100 GB of bonus space for the next 12 months.\n\nThis means you now have a total of 2 GB to store and share your photos, videos and docs with Dropbox. To get even more space and advanced features, check out our upgrade options .\n\nThanks again for supercharging your Acer device with Dropbox!\n\nEnjoy,\n- The Dropbox Team\n\n[1]: https://www.dropbox.com/upgrade?_tk=email&_camp=LCM&_ad=7501_ 20010120",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

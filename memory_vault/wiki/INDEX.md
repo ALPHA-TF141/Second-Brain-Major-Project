@@ -65,3 +65,23 @@
 - [Communication: Email: Update to your primary contact](communication/email__update_to_your_primary_contact.md) — *Updated 2026-09-22*
 - [Communication: Email: 🌎 Immanuel, your June update](communication/email____immanuel__your_june_update.md) — *Updated 2026-09-22*
 - [Communication: Email: Premium Duo, two accounts together. One month free.](communication/email__premium_duo__two_accounts_together__one_month_free.md) — *Updated 2026-09-22*
+- [Communication: Email: Recovery email verified for your Google Account](communication/email__recovery_email_verified_for_your_google_account.md) — *Updated 2026-09-22*
+- [Communication: Email: Maria Immanuel: your job alert for Software Developer in Chennai,
+
+ Tamil Nadu, India has been created](communication/email__maria_immanuel__your_job_alert_for_software_developer_in_chennai____tamil_nadu__india_has_been_created.md) — *Updated 2026-09-22*
+- [Communication: Email: [LeetCode] Confirm E-mail Address](communication/email___leetcode__confirm_e_mail_address.md) — *Updated 2026-09-22*
+- [Communication: Email: [LeetCode] Password Reset E-mail](communication/email___leetcode__password_reset_e_mail.md) — *Updated 2026-09-22*
+- [Communication: Email: [GitHub] Sudo email verification code](communication/email___github__sudo_email_verification_code.md) — *Updated 2026-09-22*
+- [Communication: Email: [GitHub] A first-party GitHub OAuth application has been added to
+
+ your account](communication/email___github__a_first_party_github_oauth_application_has_been_added_to___your_account.md) — *Updated 2026-09-22*
+- [Communication: Email: GitHub Copilot: What’s in your free plan 🤖](communication/email__github_copilot__what_s_in_your_free_plan.md) — *Updated 2026-09-22*
+- [Communication: Email: vtu24334-cyber invited you to vtu24334-cyber/studio](communication/email__vtu24334_cyber_invited_you_to_vtu24334_cyber_studio.md) — *Updated 2026-09-22*
+- [Communication: Email: LeetCode Weekly Digest](communication/email__leetcode_weekly_digest.md) — *Updated 2026-09-22*
+- [Communication: Email: Welcome to SuperSimpleDev Courses](communication/email__welcome_to_supersimpledev_courses.md) — *Updated 2026-09-22*
+- [Communication: Email: Hi Maria, please verify your email address](communication/email__hi_maria__please_verify_your_email_address.md) — *Updated 2026-09-22*
+- [Communication: Email: Dropbox bonus space received!](communication/email__dropbox_bonus_space_received.md) — *Updated 2026-09-22*
+- [Communication: Email: (1/9) You have pending action items in Dropbox](communication/email___1_9__you_have_pending_action_items_in_dropbox.md) — *Updated 2026-09-22*
+- [General: Google Calendar - Tuesday, September 22, 2026](general/google_calendar___tuesday__september_22__2026.md) — *Updated 2026-09-22*
+- [General: Google Calendar - General settings](general/google_calendar___general_settings.md) — *Updated 2026-09-22*
+- [General: Google Calendar - Calendar settings for Imman](general/google_calendar___calendar_settings_for_imman.md) — *Updated 2026-09-22*
