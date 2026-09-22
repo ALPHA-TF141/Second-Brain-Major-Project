@@ -1,0 +1,29 @@
+{
+  "id": "card_20260922_172320_097",
+  "timestamp": "2026-09-22T17:23:20.097784Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "SnippingTool.exe",
+  "window_title": "Snipping Tool Overlay",
+  "topic": "Snipping Tool Overlay",
+  "summary": "[General] Snipping Tool Overlay: Activity on SnippingTool.exe: Snipping Tool Overlay",
+  "key_pointers": [
+    "Activity on SnippingTool.exe: Snipping Tool Overlay"
+  ],
+  "entities": [
+    "Overlay",
+    "SnippingTool",
+    "Activity",
+    "Snipping",
+    "Tool"
+  ],
+  "tags": [
+    "snippingtool",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on SnippingTool.exe: Snipping Tool Overlay",
+  "hero_image": null,
+  "hero_image_info_score": 29.7
+}
