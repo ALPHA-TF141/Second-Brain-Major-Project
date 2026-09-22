@@ -1,0 +1,29 @@
+{
+  "id": "mail_350_924799",
+  "timestamp": "2024-02-24T07:51:28+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Security alert",
+  "topic": "Email: Security alert",
+  "summary": "Email from Google <no-reply@accounts.google.com> to vtu24334@veltech.edu.in about: Security alert",
+  "key_pointers": [
+    "From: Google <no-reply@accounts.google.com>",
+    "Received: Sat, 24 Feb 2024 07:51:28 GMT"
+  ],
+  "entities": [
+    "no-reply@accounts.google.com",
+    "vtu24334@veltech.edu.in"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "accounts.google.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@accounts.google.com",
+  "raw_ocr_excerpt": "[image: Google]\nA new sign-in on Windows\n\nvtu24334@veltech.edu.in\nWe noticed a new sign-in to your Google Account on a Windows device. If\nthis was you, you don’t need to do anything. If not, we’ll help you secure\nyour account.\nCheck activity\n<https://accounts.google.com/AccountChooser?Email=vtu24334@veltech.edu.in&continue=https://myaccount.google.com/alert/nt/1708761088000?rfn%3D325%26rfnc%3D1%26eid%3D-6655657465215544705%26et%3D0>\nYou can also see security activity at\nhttps://myaccount.google.com/notifications\nYou received this email to let you know about important changes to your\nGoogle Account and services.\n© 2024 Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}
