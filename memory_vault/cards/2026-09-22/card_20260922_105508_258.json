@@ -1,0 +1,33 @@
+{
+  "id": "card_20260922_105508_258",
+  "timestamp": "2026-09-22T10:55:08.258367Z",
+  "domain": "Technology",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "(3055) I Engineer Like Tony Stark! (Introducing the HoloMat) - YouTube - Google Chrome",
+  "topic": "Web_Knowledge",
+  "summary": "[Technology] (3055) I Engineer Like Tony Stark! (Introducing the HoloMat): Activity on chrome.exe: (3055) I Engineer Like Tony Stark! (Introducing the HoloMat) - YouTube - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: (3055) I Engineer Like Tony Stark! (Introducing the HoloMat) - YouTube - Google Chrome"
+  ],
+  "entities": [
+    "Stark",
+    "Like",
+    "Activity",
+    "Engineer",
+    "Introducing",
+    "HoloMat",
+    "Tony",
+    "Web_Knowledge"
+  ],
+  "tags": [
+    "chrome",
+    "technology",
+    "web_knowledge"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: (3055) I Engineer Like Tony Stark! (Introducing the HoloMat) - YouTube - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 49.65
+}
