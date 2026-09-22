@@ -63,20 +63,105 @@ class WakeWordListener:
             missing.append("sounddevice")
         return {"available": not missing, "missing": missing}
 
-    def _pretrained_path(self) -> Optional[str]:
-        """Locate the shipped ONNX file, e.g. .../resources/models/hey_jarvis_v0.1.onnx"""
+    def _models_dir(self) -> Optional[str]:
         try:
             import openwakeword
             from pathlib import Path
 
-            models_dir = Path(openwakeword.__file__).parent / "resources" / "models"
-            if not models_dir.is_dir():
-                return None
-            for candidate in sorted(models_dir.glob(f"{self.model_name}*.onnx")):
-                return str(candidate)
+            return str(Path(openwakeword.__file__).parent / "resources" / "models")
         except Exception:
-            pass
+            return None
+
+    def _pretrained_path(self) -> Optional[str]:
+        """Locate the ONNX file, e.g. .../resources/models/hey_jarvis_v0.1.onnx"""
+        models_dir = self._models_dir()
+        if not models_dir:
+            return None
+        from pathlib import Path
+
+        base = Path(models_dir)
+        if not base.is_dir():
+            return None
+        for candidate in sorted(base.glob(f"{self.model_name}*.onnx")):
+            return str(candidate)
         return None
+
+    def ensure_model_files(self) -> bool:
+        """
+        Make sure the model files exist locally, downloading them once if needed.
+
+        WHY THIS IS NECESSARY
+        openWakeWord changed a behaviour between releases that silently breaks a
+        working installation:
+
+          0.4.0  ships the ONNX/tflite model files inside the wheel.
+          0.6.0  ships NO models at all - `resources/` does not even exist - and
+                 expects them to be downloaded on first use.
+
+        Installing the latest version therefore produces a detector that imports
+        cleanly and fails at load time with a bare ONNX error:
+
+            NoSuchFile: [ONNXRuntimeError] : 3 : NO_SUCHFILE
+
+        That is a deployment failure, not a code failure, and it only appears on
+        a machine where the newer version is installed. This method performs the
+        one-time download and reports clearly if it cannot.
+        """
+        if self._pretrained_path():
+            return True
+
+        # The download helper only exists in the versions that need it, so its
+        # absence is not an error.
+        try:
+            from openwakeword.utils import download_models
+        except Exception:
+            return False
+
+        # Prefer the package directory, which is where the model loader looks by
+        # default. In a virtual environment this is writable.
+        models_dir = self._models_dir()
+        if not models_dir:
+            return False
+
+        import os
+        from pathlib import Path
+
+        # Writability must be judged against the nearest EXISTING ancestor.
+        # Checking the models directory itself is useless here: on a release that
+        # ships no models the directory does not exist yet, and os.access() on a
+        # missing path returns False - which made this pre-check refuse every
+        # download before attempting it.
+        probe = Path(models_dir)
+        while not probe.exists() and probe != probe.parent:
+            probe = probe.parent
+
+        if not os.access(probe, os.W_OK):
+            self.last_error = (
+                f"The openWakeWord package directory ({probe}) is not writable, so its models "
+                "cannot be downloaded automatically. Run this once, then restart:\n"
+                f"    python -m openwakeword.utils {self.model_name}"
+            )
+            return False
+
+        # The asset name carries a version suffix: hey_jarvis -> hey_jarvis_v0.1
+        candidates = [f"{self.model_name}_v0.1", self.model_name]
+        for asset in candidates:
+            try:
+                print(f"[Wake] Downloading the '{self.model_name}' model files "
+                      f"(one time, about 9 MB)...")
+                download_models(model_names=[asset], target_directory=models_dir)
+                if self._pretrained_path():
+                    print("[Wake] Model files ready.")
+                    return True
+            except Exception as exc:
+                self.last_error = f"download failed: {type(exc).__name__}: {exc}"
+
+        self.last_error = (
+            f"Could not download the '{self.model_name}' model files. This needs internet access "
+            "once. Run it manually, then restart:\n"
+            f"    python -m openwakeword.utils {self.model_name}"
+        )
+        return False
 
     def _load_model(self) -> bool:
         """
@@ -100,6 +185,12 @@ class WakeWordListener:
             self.last_error = f"{type(exc).__name__}: {exc}"
             self._status_detail = "openwakeword not importable"
             return False
+
+        # Fetch the model files first if this openWakeWord release does not ship
+        # them. Without this, every constructor below fails with a bare ONNX
+        # NoSuchFile that reads like a bug in this code rather than a missing
+        # download.
+        self.ensure_model_files()
 
         path = self._pretrained_path()
         attempts = [
@@ -145,7 +236,13 @@ class WakeWordListener:
             self._status_detail = f"model loaded ({label})"
             return True
 
-        self.last_error = "Could not load any wake-word model. " + ("; ".join(errors) or "unknown cause")
+        if not self._pretrained_path():
+            hint = (" The model files are not present and could not be downloaded. Run: "
+                    f"python -m openwakeword.utils {self.model_name}")
+        else:
+            hint = ""
+        self.last_error = ("Could not load any wake-word model. "
+                           + ("; ".join(errors) or "unknown cause") + hint)
         self._status_detail = "model failed to load"
         self._model = None
         return False

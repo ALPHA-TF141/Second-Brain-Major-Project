@@ -666,7 +666,9 @@ GOOGLE_CLIENT_SECRET=...`}</pre>
                         <div className="rounded-lg border border-white/10 bg-black/30 p-2.5">
                           <pre className="text-[10px] font-mono text-cyan-300 whitespace-pre-wrap break-all">{'backend/.venv/Scripts/python.exe -m pip install openwakeword sounddevice'}</pre>
                           <p className="text-[10px] text-slate-500 mt-1">
-                            Then restart. Alt+J keeps working either way.
+                            Then restart. Recent releases of openWakeWord ship no model files, so
+                            Jarvis downloads them once on first use (about 9 MB) and says so in the
+                            terminal. Alt+J keeps working either way.
                           </p>
                         </div>
                       )}
