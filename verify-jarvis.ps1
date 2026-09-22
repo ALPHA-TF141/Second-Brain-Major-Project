@@ -23,7 +23,7 @@ if (-not (Test-Path $py)) { $py = "python" }
 
 function Step($n, $title) {
   Write-Host ""
-  Write-Host "[$n/11] $title" -ForegroundColor Cyan
+  Write-Host "[$n/12] $title" -ForegroundColor Cyan
 }
 
 $failed = $false
@@ -95,13 +95,19 @@ if (-not $failed) {
 }
 
 if (-not $failed) {
-  Step 10 "Backend endpoint sweep (boots backend, probes every GET route for 5xx)"
+  Step 10 "Orb voice loop (mic re-arm, TTS watchdog, wake word)"
+  npm run test:orb
+  if ($LASTEXITCODE -ne 0) { $failed = $true }
+}
+
+if (-not $failed) {
+  Step 11 "Backend endpoint sweep (boots backend, probes every GET route for 5xx)"
   & $py backend\verify_backend_endpoints.py
   if ($LASTEXITCODE -ne 0) { $failed = $true }
 }
 
 if (-not $failed) {
-  Step 11 "Browser route smoke test (real Chromium)"
+  Step 12 "Browser route smoke test (real Chromium)"
   if (Test-Path "node_modules\playwright") {
     node scripts\smoke_test.mjs
     if ($LASTEXITCODE -ne 0) { $failed = $true }

@@ -15,7 +15,11 @@ contextBridge.exposeInMainWorld('secondBrain', {
     ipcRenderer.on('jarvis:spotlight', () => callback());
   },
   onWakeTrigger: (callback) => {
-    ipcRenderer.on('jarvis:wake', () => callback());
+    // Returns an unsubscribe function so re-mounts (HMR, reloads) do not stack
+    // duplicate listeners on the same IPC channel.
+    const handler = () => callback();
+    ipcRenderer.on('jarvis:wake', handler);
+    return () => ipcRenderer.removeListener('jarvis:wake', handler);
   },
   // Opens a URL in the user's REAL default browser. Used for the Google OAuth
   // consent screen - Google blocks sign-in inside embedded webviews, so this
