@@ -38,3 +38,6 @@
 - [General: Inbox (3,670) - vtu24334@veltech.edu.in - Vel](general/inbox__3_670____vtu24334_veltech_edu_in___vel.md) — *Updated 2026-09-22*
 - [General: Search results - vtu24334@veltech.edu.in - Ve](general/search_results___vtu24334_veltech_edu_in___ve.md) — *Updated 2026-09-22*
 - [Research: Paper](research/paper.md) — *Updated 2026-09-22*
+- [General: Quick settings](general/quick_settings.md) — *Updated 2026-09-22*
+- [General: SWAYAM](general/swayam.md) — *Updated 2026-09-22*
+- [General: Course: Basics of Food and Nutrition | SWAYAM](general/course__basics_of_food_and_nutrition___swayam.md) — *Updated 2026-09-22*
