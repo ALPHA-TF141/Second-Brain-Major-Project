@@ -56,12 +56,20 @@ popd
 if not "%BACKEND_RC%"=="0" goto :failed
 
 echo.
-echo [7/8] Backend endpoint sweep (every GET route) ...
+echo [7/9] Google integration test (offline fake-Google suite) ...
+pushd backend
+"%PY%" test_google_integration.py
+set GOOGLE_RC=%errorlevel%
+popd
+if not "%GOOGLE_RC%"=="0" goto :failed
+
+echo.
+echo [8/9] Backend endpoint sweep (every GET route) ...
 "%PY%" backend\verify_backend_endpoints.py
 if errorlevel 1 goto :failed
 
 echo.
-echo [8/8] Browser route smoke test ...
+echo [9/9] Browser route smoke test ...
 if not exist "node_modules\playwright" (
     echo       Playwright not installed - skipping.
     echo       To enable it run:  npm run smoke:setup

@@ -26,6 +26,7 @@ import threading
 import time
 import traceback
 import urllib.error
+import urllib.parse
 import urllib.request
 
 PORT = 8765
@@ -110,6 +111,7 @@ SAMPLE = {
     "service_key": "gmail",
     "query": "ai",
     "topic": "ai",
+    "account_id": "gacct_probe",   # google routes: unknown id -> clean 502/400
 }
 
 
@@ -156,6 +158,21 @@ def main():
             url = url.replace("{" + key + "}", value)
         if "{" in url:
             continue
+
+        # Fill in REQUIRED QUERY parameters too. Without this, routes like
+        # /api/google/gmail/messages?account_id=... just answer 422 for a
+        # missing parameter and the endpoint is never actually exercised.
+        required_query = [
+            q["name"]
+            for q in methods["get"].get("parameters", [])
+            if q.get("in") == "query" and q.get("required")
+        ]
+        if required_query:
+            parts = []
+            for name in required_query:
+                value = str(SAMPLE.get(name, "1"))
+                parts.append(f"{name}={urllib.parse.quote(value)}")
+            url = f"{url}?{'&'.join(parts)}"
 
         code, body, elapsed = call("GET", url, token=token)
         label = f"{code:>4}  {elapsed:6.1f}s  GET {url}"

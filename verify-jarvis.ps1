@@ -68,13 +68,22 @@ if (-not $failed) {
 }
 
 if (-not $failed) {
-  Step 7 "Backend endpoint sweep (boots backend, probes every GET route for 5xx)"
+  Step 7 "Google integration test (offline fake-Google suite)"
+  Push-Location backend
+  & $backendPy test_google_integration.py
+  $grc = $LASTEXITCODE
+  Pop-Location
+  if ($grc -ne 0) { $failed = $true }
+}
+
+if (-not $failed) {
+  Step 8 "Backend endpoint sweep (boots backend, probes every GET route for 5xx)"
   & $py backend\verify_backend_endpoints.py
   if ($LASTEXITCODE -ne 0) { $failed = $true }
 }
 
 if (-not $failed) {
-  Step 8 "Browser route smoke test (real Chromium)"
+  Step 9 "Browser route smoke test (real Chromium)"
   if (Test-Path "node_modules\playwright") {
     node scripts\smoke_test.mjs
     if ($LASTEXITCODE -ne 0) { $failed = $true }

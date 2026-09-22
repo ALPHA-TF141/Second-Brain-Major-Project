@@ -105,6 +105,38 @@ setGlobal('AudioContext', class { constructor() { this.state = 'running'; this.d
 
 // Offline-safe fetch stub: never touches the network, always answers.
 // Real data is irrelevant here — we only care that rendering does not crash.
+// Switched to 'connected' for Phase 3 so the Google pages render with real data.
+let stubMode = 'disconnected';
+
+const CONNECTED_PAYLOADS = {
+  '/api/google/status': {
+    configured: true,
+    redirect_uri: 'http://127.0.0.1:8000/api/google/callback',
+    account_count: 2,
+    accounts: [
+      { id: 'gacct_1', email: 'immanuellourdu@gmail.com', name: 'Immanuel', picture: '', services: ['gmail', 'calendar'], scopes: ['https://www.googleapis.com/auth/gmail.readonly'], status: 'connected' },
+      { id: 'gacct_2', email: 'vtu24334@veltech.edu.in', name: 'Immanuel L', picture: '', services: ['gmail'], scopes: [], status: 'connected' }
+    ]
+  },
+  '/api/google/accounts': [
+    { id: 'gacct_1', email: 'immanuellourdu@gmail.com', name: 'Immanuel', services: ['gmail', 'calendar'], scopes: [], status: 'connected' }
+  ],
+  '/api/google/gmail/messages': {
+    count: 2,
+    messages: [
+      { id: 'm1', thread_id: 't1', from: 'Prof. Sharma <sharma@university.edu>', to: 'vtu24334@veltech.edu.in', subject: 'IEEE draft deadline', snippet: 'Please submit before Friday 5 PM.', date: 'Tue, 22 Sep 2026 09:00:00 +0530', unread: true, important: true, labels: ['INBOX'] },
+      { id: 'm2', thread_id: 't2', from: 'AWS <no-reply@aws.amazon.com>', subject: 'Your AWS invoice', snippet: 'Invoice ready.', date: 'Tue, 22 Sep 2026 10:00:00 +0530', unread: false, important: false, labels: ['INBOX'] }
+    ]
+  },
+  '/api/google/calendar/events': {
+    count: 2,
+    events: [
+      { id: 'e1', summary: 'AI Project Review', start: '2026-09-23T10:00:00+05:30', end: '2026-09-23T11:00:00+05:30', all_day: false, location: 'Lab 3', attendees: ['a@b.c'], html_link: 'https://calendar.google.com/event?eid=e1' },
+      { id: 'e2', summary: 'Holiday', start: '2026-09-25', end: '2026-09-26', all_day: true, attendees: [] }
+    ]
+  }
+};
+
 const offlineFetch = async (url) => {
   const payloads = {
     '/api/os/intelligence': { while_you_were_away: {}, attention_items: [] },
@@ -117,11 +149,16 @@ const offlineFetch = async (url) => {
     '/api/os/activity': [],
     '/api/os/integrations': [],
     '/api/os/search': { results: [] },
+    '/api/google/status': { configured: false, accounts: [], account_count: 0, setup_help: '' },
+    '/api/google/accounts': [],
+    '/api/google/gmail/messages': { messages: [], count: 0 },
+    '/api/google/calendar/events': { events: [], count: 0 },
     '/api/graph/data': { nodes: [], edges: [] },
     '/api/graph/knowledge': { nodes: [], edges: [] }
   };
-  const key = Object.keys(payloads).find((k) => String(url).includes(k));
-  const body = key ? payloads[key] : {};
+  const source = stubMode === 'connected' ? { ...payloads, ...CONNECTED_PAYLOADS } : payloads;
+  const key = Object.keys(source).find((k) => String(url).includes(k));
+  const body = key ? source[key] : {};
   return {
     ok: true,
     status: 200,
@@ -328,6 +365,74 @@ async function main() {
       failures.push(...mountFailures);
     } else {
       console.log(`\u001b[32m=== ALL ${mountPassed}/${ROUTES.length} ROUTES MOUNTED AND RAN EFFECTS CLEANLY ===\u001b[0m`);
+    }
+
+    /* ---------------------------------------------------------------- *
+     * PHASE 3 - the Google pages WITH connected accounts.
+     * Phase 2 only proves the "Not Connected" state renders. This proves the
+     * connected state (account switcher, message list, event agenda) does too.
+     * ---------------------------------------------------------------- */
+    console.log('\n\u001b[36m--- PHASE 3: GOOGLE PAGES WITH CONNECTED ACCOUNTS ---\u001b[0m\n');
+    stubMode = 'connected';
+
+    const GOOGLE_ROUTES = [
+      ['/gmail', 'Gmail (connected)'],
+      ['/calendar', 'Calendar (connected)'],
+      ['/integrations', 'Integrations (connected)']
+    ];
+    let connectedPassed = 0;
+    const connectedFailures = [];
+
+    for (const [route, label] of GOOGLE_ROUTES) {
+      reactIssues.length = 0;
+      const container = dom.window.document.createElement('div');
+      dom.window.document.body.appendChild(container);
+      let root = null;
+      try {
+        root = createRoot(container);
+        root.render(
+          React.createElement(
+            MemoryRouter,
+            { initialEntries: [route] },
+            React.createElement(BackendProvider, null,
+              React.createElement(AssistantProvider, null, React.createElement(App, null)))
+          )
+        );
+        await new Promise((r) => setTimeout(r, 400));
+
+        const hard = reactIssues.filter((i) => i.level === 'error');
+        const html = container.innerHTML;
+
+        if (hard.length) {
+          connectedFailures.push({ route, label, error: hard.map((i) => i.text.replace(/\s+/g, ' ')).join(' | ') });
+          console.log(`\u001b[33m  WARN\u001b[0m  ${route.padEnd(18)} ${label}`);
+        } else if (route !== '/integrations' && !html.includes('@')) {
+          // A connected page must show the account address, not an empty shell
+          connectedFailures.push({ route, label, error: 'page rendered but shows no account/email content' });
+          console.log(`\u001b[33m  WARN\u001b[0m  ${route.padEnd(18)} ${label}  (no account content found)`);
+        } else {
+          connectedPassed += 1;
+          console.log(`\u001b[32m  PASS\u001b[0m  ${route.padEnd(18)} ${label}  (${html.length} bytes live DOM)`);
+        }
+      } catch (err) {
+        connectedFailures.push({ route, label, error: `${err.name}: ${err.message}` });
+        console.log(`\u001b[31m  FAIL\u001b[0m  ${route.padEnd(18)} ${label}`);
+      } finally {
+        try { root?.unmount(); } catch { /* ignore */ }
+        container.remove();
+      }
+    }
+
+    stubMode = 'disconnected';
+    console.log('');
+    if (connectedFailures.length) {
+      console.log(`\u001b[31m=== ${connectedFailures.length} CONNECTED-STATE ROUTE(S) PROBLEM ===\u001b[0m`);
+      for (const f of connectedFailures) {
+        console.log(`\n\u001b[31m\u25b8 ${f.route}  (${f.label})\u001b[0m\n    ${f.error}`);
+      }
+      failures.push(...connectedFailures);
+    } else {
+      console.log(`\u001b[32m=== ALL ${connectedPassed}/${GOOGLE_ROUTES.length} GOOGLE PAGES RENDER CORRECTLY WITH ACCOUNTS CONNECTED ===\u001b[0m`);
     }
 
     console.log('');

@@ -11,3 +11,11 @@ backend/.venv/
 .DS_Store
 Thumbs.db
 artifacts/
+
+# --- OAuth credentials & tokens: never commit, never sync -------------------
+backend/data/integrations/
+*.enc
+.token_key
+.env
+.env.local
+**/.env

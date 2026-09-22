@@ -1,124 +1,319 @@
-import { useEffect, useState } from 'react';
-import { Calendar as CalIcon, Clock, Plus, Sparkles, MapPin } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  AlertTriangle, Calendar as CalendarIcon, Clock, ExternalLink, Loader2,
+  MapPin, RefreshCw, ShieldCheck, Users
+} from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useBackend } from '../context/BackendContext.jsx';
-import { apiFetch } from '../services/apiClient.js';
+import { apiFetch, openInBrowser } from '../services/apiClient.js';
+
+/**
+ * CalendarWorkspace - real Google Calendar.
+ * ---------------------------------------------------------------------------
+ * Reads events straight from Google. When nothing is connected it says so
+ * rather than rendering placeholder meetings.
+ */
+const RANGES = [
+  { id: 'today', label: 'Today', daysBack: 0, daysAhead: 1 },
+  { id: 'week', label: 'Next 7 days', daysBack: 1, daysAhead: 7 },
+  { id: 'month', label: 'Next 30 days', daysBack: 1, daysAhead: 30 }
+];
+
+const SUGGESTED_ACCOUNTS = [
+  'immanuellourdu@gmail.com',
+  'lmariaimmanuel@gmail.com',
+  'vtu24334@veltech.edu.in'
+];
+
+function dayKey(value) {
+  if (!value) return 'unknown';
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? 'unknown' : date.toDateString();
+}
+
+function formatDay(key) {
+  if (key === 'unknown') return 'Date unknown';
+  const date = new Date(key);
+  const today = new Date().toDateString();
+  const tomorrow = new Date(Date.now() + 86400000).toDateString();
+  if (key === today) return 'Today';
+  if (key === tomorrow) return 'Tomorrow';
+  return date.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
+}
+
+function formatTime(event) {
+  if (event.all_day) return 'All day';
+  const start = new Date(event.start);
+  const end = event.end ? new Date(event.end) : null;
+  if (Number.isNaN(start.getTime())) return '';
+  const opts = { hour: '2-digit', minute: '2-digit' };
+  return end && !Number.isNaN(end.getTime())
+    ? `${start.toLocaleTimeString(undefined, opts)} - ${end.toLocaleTimeString(undefined, opts)}`
+    : start.toLocaleTimeString(undefined, opts);
+}
 
 export default function CalendarWorkspace() {
   const { apiClient } = useBackend();
-  const [events, setEvents] = useState([]);
-  const [newTitle, setNewTitle] = useState('');
-  const [newTime, setNewTime] = useState('');
-  const [isAdding, setIsAdding] = useState(false);
+  const navigate = useNavigate();
 
-  async function loadEvents() {
+  const [status, setStatus] = useState({ configured: false, accounts: [] });
+  const [accountId, setAccountId] = useState('');
+  const [range, setRange] = useState('week');
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const accounts = status.accounts || [];
+  const account = useMemo(
+    () => accounts.find((a) => a.id === accountId) || accounts[0] || null,
+    [accounts, accountId]
+  );
+
+  async function loadStatus() {
     try {
-      const res = await apiFetch(`${apiClient.baseUrl}/api/os/calendar`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/google/status`);
       if (res.ok) {
         const data = await res.json();
-        setEvents(data);
+        setStatus(data);
+        if (!accountId && data.accounts?.length) setAccountId(data.accounts[0].id);
       }
     } catch {
-      //
+      setError('Backend unreachable.');
     }
   }
 
-  useEffect(() => {
-    loadEvents();
-  }, []);
-
-  async function handleAddEvent(e) {
-    e?.preventDefault();
-    if (!newTitle.trim()) return;
-    setIsAdding(true);
+  async function loadEvents() {
+    if (!account?.id) return;
+    setLoading(true);
+    setError('');
+    const config = RANGES.find((r) => r.id === range) || RANGES[1];
     try {
-      const res = await apiFetch(`${apiClient.baseUrl}/api/os/calendar`, {
+      const res = await apiFetch(
+        `${apiClient.baseUrl}/api/google/calendar/events` +
+        `?account_id=${encodeURIComponent(account.id)}` +
+        `&days_ahead=${config.daysAhead}&days_back=${config.daysBack}`
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.detail || 'Could not read this calendar.');
+        setEvents([]);
+      } else {
+        setEvents(data.events || []);
+      }
+    } catch (err) {
+      setError(String(err.message || err));
+      setEvents([]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => { loadStatus(); }, []);
+  useEffect(() => { loadEvents(); }, [account?.id, range]);
+
+  async function connect(email) {
+    try {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/google/connect`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: newTitle.trim(),
-          start_time: newTime || 'Today, 3:00 PM',
-          end_time: 'Today, 4:00 PM',
-          location: 'Lab / Conference',
-          ai_insight: 'Synthesize research notes beforehand.'
-        })
+        body: JSON.stringify({ email, services: ['calendar'] })
       });
-      if (res.ok) {
-        setNewTitle('');
-        setNewTime('');
-        await loadEvents();
-      }
-    } finally {
-      setIsAdding(false);
+      const data = await res.json();
+      if (res.ok && data.auth_url) await openInBrowser(data.auth_url);
+      else setError(data.detail || 'Could not start Google sign-in.');
+    } catch {
+      setError('Could not start Google sign-in.');
     }
   }
 
+  // Group events by day for a readable agenda.
+  const grouped = useMemo(() => {
+    const map = new Map();
+    for (const event of events) {
+      const key = dayKey(event.start);
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push(event);
+    }
+    return [...map.entries()].sort((a, b) => {
+      if (a[0] === 'unknown') return 1;
+      if (b[0] === 'unknown') return -1;
+      return new Date(a[0]) - new Date(b[0]);
+    });
+  }, [events]);
+
+  /* ------------------------------------------------- not connected state */
+  if (!status.configured || accounts.length === 0) {
+    return (
+      <div className="flex h-full w-full items-center justify-center bg-[#111318] p-6 text-slate-100 font-sans">
+        <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[#0f1422] p-7 text-center space-y-4">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-amber-400/30 bg-amber-500/10">
+            <CalendarIcon size={20} className="text-amber-300" />
+          </div>
+          <div>
+            <h2 className="text-sm font-bold uppercase tracking-wider font-mono text-white">Calendar Not Connected</h2>
+            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+              {status.configured
+                ? 'No Google account is linked, so there are no real events to display. Connect one to load your actual schedule.'
+                : 'Google OAuth is not configured yet. Add your Client ID and Secret to backend/.env (see GOOGLE_SETUP.md), then connect an account.'}
+            </p>
+          </div>
+
+          {status.configured ? (
+            <div className="space-y-2">
+              {SUGGESTED_ACCOUNTS.map((email) => (
+                <button
+                  key={email}
+                  type="button"
+                  onClick={() => connect(email)}
+                  className="w-full rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-2.5 text-xs font-semibold text-cyan-200 hover:bg-cyan-500/20 transition"
+                >
+                  Connect {email}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-xl border border-white/10 bg-black/30 p-3 text-left">
+              <p className="text-[11px] font-mono text-slate-400 mb-1.5">backend/.env</p>
+              <pre className="text-[11px] font-mono text-cyan-300 whitespace-pre-wrap break-all">{`GOOGLE_CLIENT_ID=...\nGOOGLE_CLIENT_SECRET=...`}</pre>
+            </div>
+          )}
+
+          <button type="button" onClick={() => navigate('/integrations')} className="text-[11px] text-cyan-400 hover:underline">
+            Open Integrations →
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  /* ------------------------------------------------------------- agenda */
   return (
     <div className="flex h-full w-full flex-col bg-[#111318] p-6 text-slate-100 font-sans select-none overflow-y-auto thin-scrollbar">
-      <div className="mx-auto w-full max-w-4xl space-y-6">
-        <div className="border-b border-white/10 pb-4">
-          <div className="flex items-center gap-2">
-            <CalIcon size={18} className="text-cyan-400" />
-            <h2 className="text-base font-bold text-white uppercase tracking-wider font-mono">Calendar & Schedule Intelligence</h2>
-          </div>
-          <p className="text-xs text-slate-400 mt-0.5">Timeline of academic evaluations, project meetings, and AI-predicted schedule insights.</p>
-        </div>
-
-        {/* Quick Add Event */}
-        <form onSubmit={handleAddEvent} className="flex gap-2 rounded-2xl border border-white/10 bg-[#161820] p-2">
-          <input
-            type="text"
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            placeholder="Schedule event, project review, or deadline..."
-            className="flex-1 bg-transparent px-3 text-xs text-white outline-none placeholder:text-slate-500 font-medium"
-          />
-          <input
-            type="text"
-            value={newTime}
-            onChange={(e) => setNewTime(e.target.value)}
-            placeholder="Time (e.g. 2:00 PM)"
-            className="w-36 rounded-lg border border-white/10 bg-black/50 px-2.5 py-1 text-xs text-slate-200 outline-none"
-          />
-          <button
-            type="submit"
-            disabled={!newTitle.trim() || isAdding}
-            className="flex items-center gap-1.5 rounded-xl bg-cyan-400 px-4 py-1 text-xs font-bold text-slate-950 transition hover:bg-cyan-300 disabled:opacity-40"
-          >
-            <Plus size={13} /> Add Event
-          </button>
-        </form>
-
-        {/* Events Timeline */}
-        <div className="space-y-3">
-          {events.map((evt) => (
-            <div key={evt.id} className="rounded-2xl border border-white/10 bg-[#161820] p-4 space-y-2">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-bold text-white">{evt.title}</h4>
-                <span className="flex items-center gap-1 text-[11px] font-mono text-cyan-300">
-                  <Clock size={12} /> {evt.start_time} - {evt.end_time}
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2 text-xs text-slate-400">
-                <MapPin size={13} className="text-slate-500" />
-                <span>{evt.location}</span>
-                <span className="text-slate-600">·</span>
-                <span className="text-purple-300">{evt.project_id}</span>
-              </div>
-
-              {evt.ai_insight && (
-                <div className="rounded-xl border border-cyan-500/20 bg-cyan-500/10 p-2.5 flex items-center gap-2 text-xs text-cyan-200">
-                  <Sparkles size={13} className="text-cyan-400 shrink-0" />
-                  <span>AI Schedule Insight: {evt.ai_insight}</span>
-                </div>
-              )}
+      <div className="mx-auto w-full max-w-4xl space-y-5">
+        <div className="flex flex-wrap items-end justify-between gap-3 border-b border-white/10 pb-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <CalendarIcon size={18} className="text-amber-400" />
+              <h2 className="text-base font-bold text-white uppercase tracking-wider font-mono">Schedule</h2>
             </div>
-          ))}
-
-          {events.length === 0 && (
-            <p className="text-xs text-slate-500 italic py-6">No scheduled calendar events.</p>
-          )}
+            <p className="text-xs text-slate-400 mt-0.5">
+              Live from {account.email} · read-only
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={loadEvents}
+            className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10"
+          >
+            <RefreshCw size={12} className={loading ? 'animate-spin' : ''} /> Refresh
+          </button>
         </div>
+
+        {/* Account + range switchers */}
+        <div className="flex flex-wrap items-center gap-2">
+          {accounts.map((a) => (
+            <button
+              key={a.id}
+              type="button"
+              onClick={() => setAccountId(a.id)}
+              className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[11px] transition ${
+                account?.id === a.id
+                  ? 'border-amber-400/40 bg-amber-500/10 text-amber-200 font-semibold'
+                  : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10'
+              }`}
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              {a.email}
+            </button>
+          ))}
+          <div className="ml-auto flex gap-1">
+            {RANGES.map((r) => (
+              <button
+                key={r.id}
+                type="button"
+                onClick={() => setRange(r.id)}
+                className={`rounded-lg px-2.5 py-1 text-[11px] transition ${
+                  range === r.id ? 'bg-white/10 text-white font-semibold' : 'text-slate-400 hover:bg-white/5'
+                }`}
+              >
+                {r.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {error && (
+          <div className="rounded-xl border border-red-400/20 bg-red-500/10 p-3 text-[11px] text-red-200 break-all">
+            {error}
+          </div>
+        )}
+
+        {loading && (
+          <div className="flex items-center justify-center py-10 text-xs text-slate-500">
+            <Loader2 size={14} className="animate-spin mr-2" /> Reading {account.email}…
+          </div>
+        )}
+
+        {!loading && !error && events.length === 0 && (
+          <div className="rounded-2xl border border-white/10 bg-[#0f1422] p-8 text-center">
+            <CalendarIcon size={22} className="mx-auto text-slate-600" />
+            <p className="mt-2 text-xs text-slate-400">
+              No events in this range for {account.email}.
+            </p>
+          </div>
+        )}
+
+        {!loading && grouped.map(([key, dayEvents]) => (
+          <div key={key} className="space-y-2">
+            <h3 className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-300">
+              {formatDay(key)}
+            </h3>
+            <div className="space-y-2">
+              {dayEvents.map((event) => (
+                <div
+                  key={event.id}
+                  className="rounded-xl border border-white/10 bg-[#0f1422] p-3.5 hover:border-amber-400/30 transition"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-amber-400/20 bg-amber-500/10">
+                      <Clock size={13} className="text-amber-300" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm font-semibold text-white truncate">{event.summary}</p>
+                        {event.html_link && (
+                          <button
+                            type="button"
+                            onClick={() => openInBrowser(event.html_link)}
+                            className="shrink-0 text-slate-500 hover:text-cyan-400"
+                            title="Open in Google Calendar"
+                          >
+                            <ExternalLink size={11} />
+                          </button>
+                        )}
+                      </div>
+                      <p className="text-[11px] text-slate-400 mt-0.5">{formatTime(event)}</p>
+                      {event.location && (
+                        <p className="mt-1 flex items-center gap-1 text-[11px] text-slate-400">
+                          <MapPin size={10} /> {event.location}
+                        </p>
+                      )}
+                      {event.attendees?.length > 0 && (
+                        <p className="mt-1 flex items-center gap-1 text-[11px] text-slate-500">
+                          <Users size={10} /> {event.attendees.length} attendee{event.attendees.length > 1 ? 's' : ''}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        <p className="flex items-center gap-1.5 border-t border-white/5 pt-4 text-[11px] text-slate-500">
+          <ShieldCheck size={11} /> Read-only access. Jarvis cannot create, edit, or delete events.
+        </p>
       </div>
     </div>
   );

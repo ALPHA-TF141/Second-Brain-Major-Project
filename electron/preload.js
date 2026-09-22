@@ -16,5 +16,9 @@ contextBridge.exposeInMainWorld('secondBrain', {
   },
   onWakeTrigger: (callback) => {
     ipcRenderer.on('jarvis:wake', () => callback());
-  }
+  },
+  // Opens a URL in the user's REAL default browser. Used for the Google OAuth
+  // consent screen - Google blocks sign-in inside embedded webviews, so this
+  // must hand off to the actual browser.
+  openExternal: (url) => ipcRenderer.invoke('shell:open-external', url)
 });
