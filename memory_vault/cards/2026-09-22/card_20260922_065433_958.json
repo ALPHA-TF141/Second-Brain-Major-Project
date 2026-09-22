@@ -1,0 +1,33 @@
+{
+  "id": "card_20260922_065433_958",
+  "timestamp": "2026-09-22T06:54:33.958443Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "Create OAuth client ID – Google Auth Platform – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "topic": "Cloud",
+  "summary": "[Technology] Create OAuth client ID – Google Auth Platform – Jarvis Second Brain – Google Cloud console: Activity on chrome.exe: Create OAuth client ID – Google Auth Platform – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Create OAuth client ID – Google Auth Platform – Jarvis Second Brain – Google Cloud console - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Jarvis",
+    "Platform",
+    "Second",
+    "Create",
+    "OAuth",
+    "Auth",
+    "Activity"
+  ],
+  "tags": [
+    "cloud",
+    "chrome",
+    "technology"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Create OAuth client ID – Google Auth Platform – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 54.9
+}
