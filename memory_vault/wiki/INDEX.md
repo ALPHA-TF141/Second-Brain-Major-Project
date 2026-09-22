@@ -165,3 +165,6 @@
 - [Communication: Email: Email ID Verification](communication/email__email_id_verification.md) — *Updated 2026-09-22*
 - [Communication: Email: Account Activation](communication/email__account_activation.md) — *Updated 2026-09-22*
 - [Communication: Email: VTU24334-Vel Tech - Online Payment Acknowledgement.Academic-Fee](communication/email__vtu24334_vel_tech___online_payment_acknowledgement_academic_fee.md) — *Updated 2026-09-22*
+- [Communication: Email: Activate user account](communication/email__activate_user_account.md) — *Updated 2026-09-22*
+- [Communication: Email: Company Profile Sample Report](communication/email__company_profile_sample_report.md) — *Updated 2026-09-22*
+- [General: Confirm access](general/confirm_access.md) — *Updated 2026-09-22*

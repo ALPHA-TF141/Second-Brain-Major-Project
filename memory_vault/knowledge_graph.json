@@ -1,165 +1,6 @@
 {
-  "updated_at": "2026-09-22T11:00:36.346343Z",
+  "updated_at": "2026-09-22T11:01:30.787126Z",
   "nodes": [
-    {
-      "id": "card_20260922_082755_986",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082801_325",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082806_660",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "mail_53_04a088",
-      "label": "Email: Premium Duo. 1 plan, 2 accounts. One month free.",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: Premium Duo. 1 plan, 2 accounts. One month free.",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "mail_54_7f7ca1",
-      "label": "Email: Verify your new Amazon account",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from \"Amazon.com\" <account-update@amazon.com> to immanuellourdu@gmail.com about: Verify your new Amazon account",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "ENT_account-update@amazon.com",
-      "label": "account-update@amazon.com",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "mail_58_83d7bf",
-      "label": "Email: OTP for Sign Up from Godmusic",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from God Music <support@godmusicapp.com> to immanuellourdu@gmail.com about: OTP for Sign Up from Godmusic",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "ENT_support@godmusicapp.com",
-      "label": "support@godmusicapp.com",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "mail_61_0eb262",
-      "label": "Email: Add a mobile number to complete your account",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from \"Amazon.com\" <store-news@amazon.com> to immanuellourdu@gmail.com about: Add a mobile number to complete your account",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "ENT_store-news@amazon.com",
-      "label": "store-news@amazon.com",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "mail_62_c0e5be",
-      "label": "Email: Einstein In Bollywood Confirmation",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from Zoom Webinar <no-reply@zoom.us> to immanuellourdu@gmail.com about: Einstein In Bollywood Confirmation",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "ENT_no-reply@zoom.us",
-      "label": "no-reply@zoom.us",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "ENT_please submit",
-      "label": "please submit",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "mail_63_98582c",
-      "label": "Email: The Michelle Obama Podcast is here.",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: The Michelle Obama Podcast is here.",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "mail_67_d2cf53",
-      "label": "Email: New music from artists you love, with Chris Tomlin on your Release Radar now",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: New music from artists you love, with Chris Tomlin on your Release Radar now",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "mail_70_0773ee",
-      "label": "Email: Google Verification Code",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from Google <noreply@google.com> to immanuellourdu@gmail.com about: Google Verification Code",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "ENT_noreply@google.com",
-      "label": "noreply@google.com",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "card_20260922_082812_535",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "mail_72_6326e6",
-      "label": "Email: \ud83c\udf0e Immanuel, your July update",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from Google Maps Timeline <noreply-maps-timeline@google.com> to immanuellourdu@gmail.com about: \ud83c\udf0e Immanuel, your July update",
-      "hero_image": null,
-      "val": 6
-    },
     {
       "id": "mail_74_317b6f",
       "label": "Email: Security alert",
@@ -2996,294 +2837,168 @@
       "domain": "Communication",
       "priority": "medium",
       "val": 8
+    },
+    {
+      "id": "mail_240_1118f2",
+      "label": "Email: Activate user account",
+      "domain": "Communication",
+      "priority": "medium",
+      "summary": "Email from admin@globaldata.com to vtu24334@veltech.edu.in about: Activate user account",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_admin@globaldata.com",
+      "label": "admin@globaldata.com",
+      "domain": "Communication",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "mail_241_289f09",
+      "label": "Email: Company Profile Sample Report",
+      "domain": "Communication",
+      "priority": "medium",
+      "summary": "Email from Neha Sahni <nsahni@interact.globaldata.com> to vtu24334@veltech.edu.in about: Company Profile Sample Report",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_nsahni@interact.globaldata.com",
+      "label": "nsahni@interact.globaldata.com",
+      "domain": "Communication",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "mail_247_8d714a",
+      "label": "Email: TRAINING AND INTERNSHIP",
+      "domain": "Communication",
+      "priority": "medium",
+      "summary": "Email from BLEND VIDYA EDTECH <samara@blendvidya.com> to vtu24334@veltech.edu.in about: TRAINING AND INTERNSHIP",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_samara@blendvidya.com",
+      "label": "samara@blendvidya.com",
+      "domain": "Communication",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "mail_249_8d714a",
+      "label": "Email: TRAINING AND INTERNSHIP",
+      "domain": "Communication",
+      "priority": "medium",
+      "summary": "Email from pavan07@blendvidya.in to vtu24334@veltech.edu.in about: TRAINING AND INTERNSHIP",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "ENT_pavan07@blendvidya.in",
+      "label": "pavan07@blendvidya.in",
+      "domain": "Communication",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "card_20260922_110040_468",
+      "label": "Github",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] [GitHub] Sudo email verification code - lmariaimmanuel@gmail.com - Gmail: Activity on chrome.exe: [GitHub] Sudo email verification code - lmariaimmanuel@gmail.com - Gmail - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110040_468.webp",
+      "val": 10
+    },
+    {
+      "id": "ENT_gmail",
+      "label": "Gmail",
+      "domain": "Technology",
+      "priority": "high",
+      "val": 8
+    },
+    {
+      "id": "card_20260922_110044_574",
+      "label": "Github",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] [GitHub] Sudo email verification code - lmariaimmanuel@gmail.com - Gmail: Activity on chrome.exe: [GitHub] Sudo email verification code - lmariaimmanuel@gmail.com - Gmail - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_110049_582",
+      "label": "Confirm access",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Confirm access: Activity on chrome.exe: Confirm access - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110049_582.webp",
+      "val": 6
+    },
+    {
+      "id": "ENT_confirm",
+      "label": "Confirm",
+      "domain": "General",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "card_20260922_110054_797",
+      "label": "General",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] General: Activity on chrome.exe: General - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_110059_968",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_110105_249",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_110110_267",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_110115_465",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_110130_743",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
     }
   ],
   "edges": [
-    {
-      "source": "card_20260922_105258_073",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105258_073",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105303_640",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105303_640",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105303_640",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105303_640",
-      "target": "ENT_iron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105303_640",
-      "target": "ENT_workshop",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105308_901",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105308_901",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105308_901",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105308_901",
-      "target": "ENT_iron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105308_901",
-      "target": "ENT_workshop",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105314_382",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105314_382",
-      "target": "ENT_friday",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105314_382",
-      "target": "ENT_stark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105314_382",
-      "target": "ENT_jarvis",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105314_382",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105319_228",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105319_228",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105319_228",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105319_228",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105319_228",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105324_484",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105324_484",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105324_484",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105324_484",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105324_484",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105329_384",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105329_384",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105329_384",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105329_384",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105329_384",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105334_696",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105334_696",
-      "target": "ENT_friday",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105334_696",
-      "target": "ENT_stark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105334_696",
-      "target": "ENT_jarvis",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105334_696",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105339_733",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105339_733",
-      "target": "ENT_friday",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105339_733",
-      "target": "ENT_stark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105339_733",
-      "target": "ENT_jarvis",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105339_733",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105344_871",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105344_871",
-      "target": "ENT_friday",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105344_871",
-      "target": "ENT_stark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105344_871",
-      "target": "ENT_jarvis",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105344_871",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105350_180",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105350_180",
-      "target": "ENT_friday",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105350_180",
-      "target": "ENT_stark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105350_180",
-      "target": "ENT_jarvis",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105350_180",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105355_255",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105355_255",
-      "target": "ENT_friday",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105355_255",
-      "target": "ENT_stark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105355_255",
-      "target": "ENT_jarvis",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105355_255",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
     {
       "source": "DOMAIN_TECHNOLOGY",
       "target": "card_20260922_105400_486",
@@ -5497,6 +5212,291 @@
     {
       "source": "mail_239_3e5e29",
       "target": "ENT_payment",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_COMMUNICATION",
+      "target": "mail_240_1118f2",
+      "label": "contains"
+    },
+    {
+      "source": "mail_240_1118f2",
+      "target": "ENT_admin@globaldata.com",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_240_1118f2",
+      "target": "ENT_vtu24334@veltech.edu.in",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_COMMUNICATION",
+      "target": "mail_241_289f09",
+      "label": "contains"
+    },
+    {
+      "source": "mail_241_289f09",
+      "target": "ENT_nsahni@interact.globaldata.com",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_241_289f09",
+      "target": "ENT_vtu24334@veltech.edu.in",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_COMMUNICATION",
+      "target": "mail_247_8d714a",
+      "label": "contains"
+    },
+    {
+      "source": "mail_247_8d714a",
+      "target": "ENT_samara@blendvidya.com",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_247_8d714a",
+      "target": "ENT_vtu24334@veltech.edu.in",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_247_8d714a",
+      "target": "ENT_interview",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_COMMUNICATION",
+      "target": "mail_249_8d714a",
+      "label": "contains"
+    },
+    {
+      "source": "mail_249_8d714a",
+      "target": "ENT_pavan07@blendvidya.in",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_249_8d714a",
+      "target": "ENT_vtu24334@veltech.edu.in",
+      "label": "mentions"
+    },
+    {
+      "source": "mail_249_8d714a",
+      "target": "ENT_interview",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_110040_468",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110040_468",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110040_468",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110040_468",
+      "target": "ENT_code",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110040_468",
+      "target": "ENT_gmail",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_110044_574",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110044_574",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110044_574",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110044_574",
+      "target": "ENT_code",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110044_574",
+      "target": "ENT_gmail",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110049_582",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110049_582",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110049_582",
+      "target": "ENT_confirm",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110049_582",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110054_797",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110054_797",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110054_797",
+      "target": "ENT_general",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110054_797",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_110059_968",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110059_968",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110059_968",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110059_968",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110059_968",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_110105_249",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110105_249",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110105_249",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110105_249",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110105_249",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_110110_267",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110110_267",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110110_267",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110110_267",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110110_267",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_110115_465",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110115_465",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110115_465",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110115_465",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110115_465",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_110130_743",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110130_743",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110130_743",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110130_743",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110130_743",
+      "target": "ENT_ai",
       "label": "mentions"
     }
   ]

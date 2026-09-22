@@ -1,0 +1,29 @@
+{
+  "id": "mail_241_289f09",
+  "timestamp": "2024-01-19T06:52:54+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Company Profile Sample Report",
+  "topic": "Email: Company Profile Sample Report",
+  "summary": "Email from Neha Sahni <nsahni@interact.globaldata.com> to vtu24334@veltech.edu.in about: Company Profile Sample Report",
+  "key_pointers": [
+    "From: Neha Sahni <nsahni@interact.globaldata.com>",
+    "Received: Fri, 19 Jan 2024 06:52:54 GMT"
+  ],
+  "entities": [
+    "nsahni@interact.globaldata.com",
+    "vtu24334@veltech.edu.in"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "interact.globaldata.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:nsahni@interact.globaldata.com",
+  "raw_ocr_excerpt": "Dear immanuel,\n\nThank you for your interest in HCL Technologies Ltd - Company Profile (https://d377b-04.eu1.hubspotlinks.com/Ctc/2O+113/d377b-04/VWHHsX8tJzzVW5Dg6ct7xflqTW4dVnpw58szgHN6L2ZsF3pyd0W95jsWP6lZ3pRW2J4HBx2wtFwWW3zts-H1sL2jYW7j_8jz49xB7ZVX9nmV5CWgkGW4M8xFJ2BYvv7W4j8TsK8s8v9yW4LCB4k2bXkDBW3Y90x571w9hrN73X1TRv7HdTW93nvXj1-1HBZW8Hl-sL3bqzHsW5X2Kvk3Nhl7nN4lngJNf-TLWW2W3KgQ61ZSY6N2Wp3w2NLgnkW2LpCKH4x-c32W5_Js563GWN7hW1V_6QH5V8J_VW58JwBx6dg7vKW794Dcv9dmz-mW5CMnH23g526MW1kBGzZ8H1JygW5BnBHr2V3PQrW1Y7YSn10f6BYW5CPgXp5Z93lpW6h60ZF49TTwfW44SgKk2YfRQpW1Jd3N18LdwpNW7p-rfJ3mQ0-lW8lM8t31cqTKvdR6M-s04 ) .\n\nPlease click here to view a sample report (https://d377b-04.eu1.hubspotlinks.com/Ctc/2O+113/d377b-04/VWHHsX8tJzzVW5Dg6ct7xflqTW4dVnpw58szgHN6L2ZqT5n4LbW5BWr2F6lZ3lbW1TYHXM4gJ0lrW6qdfpP6XfDXlVxb0jz75b7K4W2wrLLW3K24YrW1zR_NR2qtPbBW15VM_Q8lKhYqW6WCmL02qrbNYW3hPn3420GvQpW8zZH_j2VBsjxW745dKS8KqYQwW7CW0ty4814V3W2CV5N82gYrFgW39hhPV2g24BCW4GYX881ljTJ2W56X8cl28lyfmW2XDPG48cYzNMW72kDQp7n6Cg1W5xFZtW7g1XK3W764kxG51YjHNW7pbNz75RGXQVW4kmq7x3y4_9jW1sbXwN8Gh2S8W5VBrmZ3zpzVRW3Pw7wN90-zQmVb-2TF5CjtP5W6mdCrD627z24W6SQpNf4C6HmbW6RjlSr1G3JnpW5XKjbJ7kDGnnVYw6h83DcwSHW8-dRZ61zCqXTW15pYWY5nJ0HtW11f0Wy5XC196W5CsKX-93k_Cyf60X0-W04 ) .\n\n​​If you are happy with the depth of intelligence offered in the report, click here to order your a copy of HCL Technologies Ltd - Company Profile (https://d377b-04.eu1.hubspotlinks.com/Ctc/2O+113/d377b-04/VWHHsX8tJzzVW5Dg6ct7xflqTW4dVnpw58szgHN6L2ZsF3pyd0W95jsWP6lZ3pRW2J4H",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}
