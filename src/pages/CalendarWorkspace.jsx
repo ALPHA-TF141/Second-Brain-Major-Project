@@ -19,12 +19,6 @@ const RANGES = [
   { id: 'month', label: 'Next 30 days', daysBack: 1, daysAhead: 30 }
 ];
 
-const SUGGESTED_ACCOUNTS = [
-  'immanuellourdu@gmail.com',
-  'lmariaimmanuel@gmail.com',
-  'vtu24334@veltech.edu.in'
-];
-
 function dayKey(value) {
   if (!value) return 'unknown';
   const date = new Date(value);
@@ -71,11 +65,12 @@ export default function CalendarWorkspace() {
 
   async function loadStatus() {
     try {
-      const res = await apiFetch(`${apiClient.baseUrl}/api/google/status`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/calendar/sources`);
       if (res.ok) {
         const data = await res.json();
-        setStatus(data);
-        if (!accountId && data.accounts?.length) setAccountId(data.accounts[0].id);
+        const list = Array.isArray(data) ? data : [];
+        setStatus({ configured: true, accounts: list });
+        if (!accountId && list.length) setAccountId(list[0].id);
       }
     } catch {
       setError('Backend unreachable.');
@@ -89,8 +84,8 @@ export default function CalendarWorkspace() {
     const config = RANGES.find((r) => r.id === range) || RANGES[1];
     try {
       const res = await apiFetch(
-        `${apiClient.baseUrl}/api/google/calendar/events` +
-        `?account_id=${encodeURIComponent(account.id)}` +
+        `${apiClient.baseUrl}/api/calendar/source-events` +
+        `?source_id=${encodeURIComponent(account.id)}` +
         `&days_ahead=${config.daysAhead}&days_back=${config.daysBack}`
       );
       const data = await res.json();
@@ -111,19 +106,8 @@ export default function CalendarWorkspace() {
   useEffect(() => { loadStatus(); }, []);
   useEffect(() => { loadEvents(); }, [account?.id, range]);
 
-  async function connect(email) {
-    try {
-      const res = await apiFetch(`${apiClient.baseUrl}/api/google/connect`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, services: ['calendar'] })
-      });
-      const data = await res.json();
-      if (res.ok && data.auth_url) await openInBrowser(data.auth_url);
-      else setError(data.detail || 'Could not start Google sign-in.');
-    } catch {
-      setError('Could not start Google sign-in.');
-    }
+  function goConnect() {
+    navigate('/integrations');
   }
 
   // Group events by day for a readable agenda.
@@ -152,35 +136,22 @@ export default function CalendarWorkspace() {
           <div>
             <h2 className="text-sm font-bold uppercase tracking-wider font-mono text-white">Calendar Not Connected</h2>
             <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-              {status.configured
-                ? 'No Google account is linked, so there are no real events to display. Connect one to load your actual schedule.'
-                : 'Google OAuth is not configured yet. Add your Client ID and Secret to backend/.env (see GOOGLE_SETUP.md), then connect an account.'}
+              No calendar source is connected, so there are no real events to display.
+              Add one on the Integrations page - the quickest way is your calendar's
+              private iCal address, which needs no Google Cloud project at all.
             </p>
           </div>
 
-          {status.configured ? (
-            <div className="space-y-2">
-              {SUGGESTED_ACCOUNTS.map((email) => (
-                <button
-                  key={email}
-                  type="button"
-                  onClick={() => connect(email)}
-                  className="w-full rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-2.5 text-xs font-semibold text-cyan-200 hover:bg-cyan-500/20 transition"
-                >
-                  Connect {email}
-                </button>
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-xl border border-white/10 bg-black/30 p-3 text-left">
-              <p className="text-[11px] font-mono text-slate-400 mb-1.5">backend/.env</p>
-              <pre className="text-[11px] font-mono text-cyan-300 whitespace-pre-wrap break-all">{`GOOGLE_CLIENT_ID=...\nGOOGLE_CLIENT_SECRET=...`}</pre>
-            </div>
-          )}
-
-          <button type="button" onClick={() => navigate('/integrations')} className="text-[11px] text-cyan-400 hover:underline">
-            Open Integrations →
+          <button
+            type="button"
+            onClick={goConnect}
+            className="w-full rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-2.5 text-xs font-semibold text-cyan-200 hover:bg-cyan-500/20 transition"
+          >
+            Add a calendar source →
           </button>
+          <p className="text-[10px] text-slate-500">
+            Private iCal address, or Google OAuth - both read-only.
+          </p>
         </div>
       </div>
     );
@@ -224,6 +195,9 @@ export default function CalendarWorkspace() {
             >
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
               {a.email}
+              <span className="rounded bg-white/5 px-1 py-0.5 text-[9px] font-mono text-slate-500">
+                {a.provider === 'ical' ? 'ICS' : 'OAUTH'}
+              </span>
             </button>
           ))}
           <div className="ml-auto flex gap-1">

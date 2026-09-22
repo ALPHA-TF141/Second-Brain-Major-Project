@@ -23,7 +23,7 @@ if (-not (Test-Path $py)) { $py = "python" }
 
 function Step($n, $title) {
   Write-Host ""
-  Write-Host "[$n/8] $title" -ForegroundColor Cyan
+  Write-Host "[$n/10] $title" -ForegroundColor Cyan
 }
 
 $failed = $false
@@ -77,13 +77,22 @@ if (-not $failed) {
 }
 
 if (-not $failed) {
-  Step 8 "Backend endpoint sweep (boots backend, probes every GET route for 5xx)"
+  Step 8 "Mail + Calendar test (fake IMAP server + iCal parser)"
+  Push-Location backend
+  & $backendPy test_mail_calendar.py
+  $mrc = $LASTEXITCODE
+  Pop-Location
+  if ($mrc -ne 0) { $failed = $true }
+}
+
+if (-not $failed) {
+  Step 9 "Backend endpoint sweep (boots backend, probes every GET route for 5xx)"
   & $py backend\verify_backend_endpoints.py
   if ($LASTEXITCODE -ne 0) { $failed = $true }
 }
 
 if (-not $failed) {
-  Step 9 "Browser route smoke test (real Chromium)"
+  Step 10 "Browser route smoke test (real Chromium)"
   if (Test-Path "node_modules\playwright") {
     node scripts\smoke_test.mjs
     if ($LASTEXITCODE -ne 0) { $failed = $true }

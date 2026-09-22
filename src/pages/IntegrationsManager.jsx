@@ -1,16 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  AlertTriangle,
-  CheckCircle2,
-  ExternalLink,
-  Loader2,
-  Link2,
-  Mail,
-  Calendar,
-  Trash2,
-  RefreshCw,
-  ShieldCheck,
-  Info
+  AlertTriangle, Calendar, CheckCircle2, ChevronDown, ExternalLink, Info,
+  KeyRound, Link2, Loader2, Mail, RefreshCw, ShieldCheck, Trash2, Zap
 } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch, openInBrowser } from '../services/apiClient.js';
@@ -18,38 +9,60 @@ import { apiFetch, openInBrowser } from '../services/apiClient.js';
 /**
  * IntegrationsManager
  * ---------------------------------------------------------------------------
- * REAL Google integration. No mock accounts, no fake "Connected" badges.
- *
- * If Google credentials are not configured the page says exactly that and links
- * to the setup steps, instead of pretending a connection exists.
+ * Two honest ways to connect real mail and calendar data:
+
+ *   MAIL     Gmail App Password over IMAP
+ *              - no Google Cloud project, no verification, no expiry, free
+ *              - works for personal Gmail accounts
+ *   MAIL     Google OAuth  (secondary)
+ *              - required for Workspace/college accounts since May 2025
+ *              - needs a Client ID/Secret and, to publish, Google verification
+ *   CALENDAR Private iCal address (ICS)
+ *              - no OAuth at all, read-only, free, never expires
+
+ * Nothing here is simulated. If something is not connected it says so.
  */
-const SUGGESTED_ACCOUNTS = [
-  'immanuellourdu@gmail.com',
-  'lmariaimmanuel@gmail.com',
-  'vtu24334@veltech.edu.in'
+const ACCOUNTS = [
+  { email: 'immanuellourdu@gmail.com', kind: 'personal' },
+  { email: 'lmariaimmanuel@gmail.com', kind: 'personal' },
+  { email: 'vtu24334@veltech.edu.in', kind: 'workspace' }
 ];
 
 export default function IntegrationsManager() {
   const { apiClient } = useBackend();
 
-  const [google, setGoogle] = useState({ configured: false, accounts: [], account_count: 0, setup_help: '' });
+  const [mailAccounts, setMailAccounts] = useState([]);
+  const [calendarSources, setCalendarSources] = useState([]);
+  const [google, setGoogle] = useState({ configured: false, accounts: [] });
   const [local, setLocal] = useState({});
-  const [pendingEmail, setPendingEmail] = useState('');
+
+  const [imapEmail, setImapEmail] = useState('');
+  const [imapPassword, setImapPassword] = useState('');
+  const [imapLabel, setImapLabel] = useState('');
   const [busy, setBusy] = useState('');
   const [notice, setNotice] = useState(null);
+  const [showImapHelp, setShowImapHelp] = useState(false);
+
+  const [icsUrl, setIcsUrl] = useState('');
+  const [icsLabel, setIcsLabel] = useState('');
+  const [showIcsHelp, setShowIcsHelp] = useState(false);
+
   const pollRef = useRef(null);
 
-  const accounts = google.accounts || [];
-  const connectedEmails = accounts.map((a) => (a.email || '').toLowerCase());
+  const mailEmails = mailAccounts.map((a) => (a.email || '').toLowerCase());
 
   async function loadAll() {
     try {
-      const [gRes, lRes] = await Promise.all([
+      const [mailRes, calRes, googRes, localRes] = await Promise.all([
+        apiFetch(`${apiClient.baseUrl}/api/mail/accounts`),
+        apiFetch(`${apiClient.baseUrl}/api/calendar/sources`),
         apiFetch(`${apiClient.baseUrl}/api/google/status`),
         apiFetch(`${apiClient.baseUrl}/api/os/integrations`)
       ]);
-      if (gRes.ok) setGoogle(await gRes.json());
-      if (lRes.ok) setLocal(await lRes.json());
+      if (mailRes.ok) setMailAccounts(await mailRes.json());
+      if (calRes.ok) setCalendarSources(await calRes.json());
+      if (googRes.ok) setGoogle(await googRes.json());
+      if (localRes.ok) setLocal(await localRes.json());
     } catch {
       setNotice({ type: 'error', text: 'Could not reach the backend. Is it running?' });
     }
@@ -60,66 +73,54 @@ export default function IntegrationsManager() {
     return () => clearInterval(pollRef.current);
   }, []);
 
-  // After sending the user to Google we poll for the account to appear, because
-  // the browser tab is where the flow actually completes.
-  function startPolling(expectedEmail) {
+  function pollFor(expectedEmail) {
     clearInterval(pollRef.current);
     let attempts = 0;
     pollRef.current = setInterval(async () => {
       attempts += 1;
-      await loadAll();
-      const found = expectedEmail
-        ? connectedEmails.includes(expectedEmail.toLowerCase())
-        : true;
-      if (found && attempts > 1) {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/mail/accounts`);
+      const list = res.ok ? await res.json() : [];
+      if (list.some((a) => (a.email || '').toLowerCase() === expectedEmail.toLowerCase())) {
         clearInterval(pollRef.current);
-        setNotice({ type: 'success', text: `${expectedEmail || 'Account'} connected.` });
-        setPendingEmail('');
+        await loadAll();
+        setNotice({ type: 'success', text: `${expectedEmail} connected.` });
       }
-      if (attempts > 60) {
-        clearInterval(pollRef.current);
-        setPendingEmail('');
-      }
+      if (attempts > 60) clearInterval(pollRef.current);
     }, 2000);
   }
 
-  async function connect(email) {
-    const target = (email || pendingEmail || '').trim();
-    if (!target) {
-      setNotice({ type: 'error', text: 'Enter the email address you want to connect.' });
-      return;
-    }
+  /* ---------------------------------------------------- IMAP connect */
+  async function connectImap(email) {
+    const address = (email || imapEmail).trim();
+    const password = imapPassword.replace(/\s/g, '');
 
-    setBusy(target);
-    setNotice(null);
+    if (!address) { setNotice({ type: 'error', text: 'Enter the email address.' }); return; }
+    if (!password) { setNotice({ type: 'error', text: 'Enter the 16-character App Password.' }); return; }
+
+    setBusy(address);
+    setNotice({ type: 'info', text: `Signing in to ${address} to verify the password…` });
     try {
-      const res = await apiFetch(`${apiClient.baseUrl}/api/google/connect`, {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/mail/imap/connect`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: target, services: ['gmail', 'calendar'] })
+        body: JSON.stringify({ email: address, app_password: password, label: imapLabel })
       });
       const data = await res.json();
 
       if (!res.ok) {
-        setNotice({ type: 'error', text: data.detail || 'Could not start the Google sign-in flow.' });
+        setNotice({ type: 'error', text: data.detail || 'Could not connect that account.' });
         return;
       }
 
-      const opened = await openInBrowser(data.auth_url);
-      if (!opened.ok) {
-        setNotice({
-          type: 'error',
-          text: `Could not open your browser (${opened.error || 'blocked'}). Open this URL manually: ${data.auth_url}`
-        });
-        return;
-      }
-
-      setPendingEmail(target);
       setNotice({
-        type: 'info',
-        text: `Approve access for ${target} in the browser tab that just opened. This page updates automatically.`
+        type: 'success',
+        text: `${address} connected. ${data.verified?.total_messages ?? 0} messages, ` +
+              `${data.verified?.unread ?? 0} unread.`
       });
-      startPolling(target);
+      setImapPassword('');
+      setImapEmail('');
+      setImapLabel('');
+      await loadAll();
     } catch (err) {
       setNotice({ type: 'error', text: String(err.message || err) });
     } finally {
@@ -127,11 +128,68 @@ export default function IntegrationsManager() {
     }
   }
 
+  /* --------------------------------------------------- Calendar feed */
+  async function addFeed() {
+    if (!icsUrl.trim()) { setNotice({ type: 'error', text: 'Paste the calendar iCal address.' }); return; }
+    setBusy('ics');
+    setNotice({ type: 'info', text: 'Checking that address is a real calendar…' });
+    try {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/calendar/feed`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: icsUrl.trim(), label: icsLabel })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setNotice({ type: 'error', text: data.detail || 'Could not read that calendar.' });
+        return;
+      }
+      setNotice({
+        type: 'success',
+        text: `Calendar connected - ${data.source?.stats?.parsed_events ?? 0} events found.`
+      });
+      setIcsUrl('');
+      setIcsLabel('');
+      await loadAll();
+    } catch (err) {
+      setNotice({ type: 'error', text: String(err.message || err) });
+    } finally {
+      setBusy('');
+    }
+  }
+
+  /* ------------------------------------------------------ Google OAuth */
+  async function connectGoogle(email) {
+    setBusy(email);
+    setNotice(null);
+    try {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/google/connect`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, services: ['gmail', 'calendar'] })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setNotice({ type: 'error', text: data.detail || 'Could not start Google sign-in.' });
+        return;
+      }
+      const opened = await openInBrowser(data.auth_url);
+      if (!opened.ok) {
+        setNotice({ type: 'error', text: `Could not open your browser: ${data.auth_url}` });
+        return;
+      }
+      setNotice({ type: 'info', text: `Approve access for ${email} in the browser tab, then come back.` });
+      pollFor(email);
+    } finally {
+      setBusy('');
+    }
+  }
+
   async function disconnect(account) {
-    if (!window.confirm(`Disconnect ${account.email}? Jarvis will forget the access token.`)) return;
+    if (!window.confirm(`Disconnect ${account.email}?`)) return;
     setBusy(account.id);
     try {
-      const res = await apiFetch(`${apiClient.baseUrl}/api/google/accounts/${account.id}`, { method: 'DELETE' });
+      const res = await apiFetch(`${apiClient.baseUrl}/api/mail/accounts/${account.id}`, { method: 'DELETE' });
       if (res.ok) {
         setNotice({ type: 'success', text: `${account.email} disconnected.` });
         await loadAll();
@@ -143,15 +201,33 @@ export default function IntegrationsManager() {
     }
   }
 
-  const noticeStyles = {
+  async function removeFeed(source) {
+    if (!window.confirm(`Remove "${source.name}"?`)) return;
+    setBusy(source.id);
+    try {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/calendar/feed/${source.id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setNotice({ type: 'success', text: 'Calendar removed.' });
+        await loadAll();
+      }
+    } finally {
+      setBusy('');
+    }
+  }
+
+  const noticeStyle = {
     success: 'border-emerald-400/30 bg-emerald-500/10 text-emerald-200',
     error: 'border-red-400/30 bg-red-500/10 text-red-200',
     info: 'border-cyan-400/30 bg-cyan-500/10 text-cyan-100'
   };
 
+  const icalSources = calendarSources.filter((s) => s.provider === 'ical');
+  const oauthCalendarSources = calendarSources.filter((s) => s.provider === 'google');
+
   return (
     <div className="flex h-full w-full flex-col bg-[#111318] p-6 text-slate-100 font-sans select-none overflow-y-auto thin-scrollbar">
       <div className="mx-auto w-full max-w-5xl space-y-6">
+
         {/* Header */}
         <div className="border-b border-white/10 pb-4 flex items-start justify-between gap-4">
           <div>
@@ -162,21 +238,20 @@ export default function IntegrationsManager() {
               </h2>
             </div>
             <p className="text-xs text-slate-400 mt-0.5">
-              Real OAuth connections. Nothing here is simulated - if an account is not linked it stays unlinked.
+              Real connections only. Nothing here is simulated or seeded.
             </p>
           </div>
           <button
             type="button"
             onClick={loadAll}
-            className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 transition shrink-0"
+            className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300 hover:bg-white/10 shrink-0"
           >
             <RefreshCw size={12} /> Refresh
           </button>
         </div>
 
-        {/* Notice */}
         {notice && (
-          <div className={`rounded-xl border px-4 py-3 text-xs leading-relaxed flex items-start gap-2 ${noticeStyles[notice.type] || noticeStyles.info}`}>
+          <div className={`rounded-xl border px-4 py-3 text-xs leading-relaxed flex items-start gap-2 ${noticeStyle[notice.type]}`}>
             {notice.type === 'error' ? <AlertTriangle size={14} className="mt-0.5 shrink-0" />
               : notice.type === 'success' ? <CheckCircle2 size={14} className="mt-0.5 shrink-0" />
                 : <Loader2 size={14} className="mt-0.5 shrink-0 animate-spin" />}
@@ -184,64 +259,38 @@ export default function IntegrationsManager() {
           </div>
         )}
 
-        {/* Not configured */}
-        {!google.configured && (
-          <div className="rounded-2xl border border-amber-400/30 bg-amber-500/5 p-5 space-y-3">
-            <div className="flex items-center gap-2 text-amber-300">
-              <AlertTriangle size={16} />
-              <h3 className="text-sm font-bold uppercase tracking-wider font-mono">Google is not configured yet</h3>
-            </div>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              Connecting Gmail and Calendar needs OAuth credentials from your own Google Cloud project.
-              This is a one-time, ~5 minute setup - Google requires it so that no third party (including
-              me) ever handles your password.
-            </p>
-            <div className="rounded-xl border border-white/10 bg-black/30 p-3">
-              <p className="text-[11px] font-mono text-slate-400 mb-1.5">Add to backend/.env :</p>
-              <pre className="text-[11px] font-mono text-cyan-300 whitespace-pre-wrap break-all">{`GOOGLE_CLIENT_ID=your-id.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=your-secret`}</pre>
-              <p className="text-[11px] font-mono text-slate-500 mt-2">
-                Redirect URI to register: <span className="text-amber-300">{google.redirect_uri}</span>
-              </p>
-            </div>
-            <p className="text-xs text-slate-400">
-              Full walkthrough: open <span className="font-mono text-cyan-300">GOOGLE_SETUP.md</span> in the project root.
-            </p>
-          </div>
-        )}
-
-        {/* Google accounts */}
-        <div className="space-y-3">
+        {/* ==================== MAIL ==================== */}
+        <section className="space-y-3">
           <div className="flex items-center gap-2">
-            <Mail size={14} className="text-red-400" />
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
-              Google Accounts - Gmail &amp; Calendar
-            </h3>
+            <Mail size={14} className="text-cyan-400" />
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">Mail</h3>
             <span className={`ml-auto rounded px-2 py-0.5 text-[10px] font-mono font-bold ${
-              accounts.length ? 'bg-emerald-400/10 text-emerald-300' : 'bg-slate-500/10 text-slate-400'
+              mailAccounts.length ? 'bg-emerald-400/10 text-emerald-300' : 'bg-slate-500/10 text-slate-400'
             }`}>
-              {accounts.length ? `${accounts.length} CONNECTED` : 'NONE CONNECTED'}
+              {mailAccounts.length ? `${mailAccounts.length} CONNECTED` : 'NONE CONNECTED'}
             </span>
           </div>
 
-          {/* Connected accounts */}
-          {accounts.map((account) => (
+          {mailAccounts.map((account) => (
             <div key={account.id} className="rounded-2xl border border-emerald-400/20 bg-[#0f1422] p-4 flex items-center gap-3">
-              {account.picture
-                ? <img src={account.picture} alt="" className="h-9 w-9 rounded-full border border-white/10" />
-                : <div className="h-9 w-9 rounded-full bg-emerald-400/10 border border-emerald-400/20 flex items-center justify-center">
-                    <Mail size={14} className="text-emerald-300" />
-                  </div>}
+              <div className="h-9 w-9 shrink-0 rounded-full bg-emerald-400/10 border border-emerald-400/20 flex items-center justify-center">
+                <Mail size={14} className="text-emerald-300" />
+              </div>
               <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <p className="text-sm font-semibold text-white truncate">{account.email}</p>
                   <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />
+                  <span className="rounded bg-white/5 border border-white/10 px-1.5 py-0.5 text-[9px] font-mono text-slate-400">
+                    {account.provider_label}
+                  </span>
                 </div>
-                <p className="text-[11px] text-slate-400 truncate">
-                  {account.name || 'Google account'} · {account.services?.join(', ') || 'gmail, calendar'}
-                </p>
+                {account.stats?.checked_at && (
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    {account.stats.total_messages ?? 0} messages · {account.stats.unread ?? 0} unread
+                  </p>
+                )}
                 {account.status === 'error' && (
-                  <p className="text-[11px] text-red-300 mt-0.5">Token problem - reconnect this account.</p>
+                  <p className="text-[11px] text-red-300 mt-0.5 break-all">{account.error || 'Credentials rejected.'}</p>
                 )}
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
@@ -261,64 +310,268 @@ GOOGLE_CLIENT_SECRET=your-secret`}</pre>
             </div>
           ))}
 
-          {/* Connect flow */}
-          {google.configured && (
-            <div className="rounded-2xl border border-white/10 bg-[#0f1422] p-4 space-y-3">
-              <p className="text-xs text-slate-300">
-                Connect an account. Your browser opens Google's consent screen, then this page updates itself.
-              </p>
+          {/* IMAP connect - the recommended path */}
+          <div className="rounded-2xl border border-cyan-400/20 bg-[#0f1422] p-4 space-y-3">
+            <div className="flex items-start gap-2">
+              <Zap size={14} className="mt-0.5 text-cyan-300 shrink-0" />
+              <div>
+                <p className="text-xs font-bold text-white">Connect with a Gmail App Password</p>
+                <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                  Recommended. No Google Cloud project, no OAuth consent screen, no verification,
+                  no 7-day expiry, no fee. Works for personal Gmail accounts.
+                </p>
+              </div>
+            </div>
 
-              <div className="flex flex-wrap gap-2">
-                {SUGGESTED_ACCOUNTS.map((email) => {
-                  const done = connectedEmails.includes(email.toLowerCase());
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {ACCOUNTS.map(({ email, kind }) => {
+                const done = mailEmails.includes(email);
+                return (
+                  <button
+                    key={email}
+                    type="button"
+                    disabled={done || !!busy}
+                    onClick={() => { setImapEmail(email); setImapLabel(kind === 'workspace' ? 'College' : 'Personal'); }}
+                    className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-left text-[11px] font-semibold transition ${
+                      done
+                        ? 'border-emerald-400/20 bg-emerald-500/10 text-emerald-300'
+                        : 'border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 disabled:opacity-40'
+                    }`}
+                  >
+                    {done ? <CheckCircle2 size={12} /> : <KeyRound size={12} />}
+                    <span className="truncate">{email}</span>
+                    {kind === 'workspace' && !done && (
+                      <span className="ml-auto shrink-0 rounded bg-amber-400/10 px-1.5 py-0.5 text-[9px] text-amber-300">
+                        may need OAuth
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="space-y-2 pt-1 border-t border-white/5">
+              <input
+                value={imapEmail}
+                onChange={(e) => setImapEmail(e.target.value)}
+                placeholder="Gmail address"
+                className="w-full rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-xs outline-none focus:border-cyan-400/40"
+              />
+              <input
+                type="password"
+                value={imapPassword}
+                onChange={(e) => setImapPassword(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') connectImap(); }}
+                placeholder="16-character App Password (spaces are fine)"
+                className="w-full rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-xs outline-none focus:border-cyan-400/40"
+              />
+              <div className="flex gap-2">
+                <input
+                  value={imapLabel}
+                  onChange={(e) => setImapLabel(e.target.value)}
+                  placeholder="Label (optional)"
+                  className="min-w-0 flex-1 rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-xs outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => connectImap()}
+                  disabled={!imapEmail.trim() || !imapPassword.trim() || !!busy}
+                  className="flex items-center gap-1.5 rounded-lg bg-cyan-400 px-4 py-2 text-xs font-bold text-slate-950 disabled:opacity-40"
+                >
+                  {busy ? <Loader2 size={12} className="animate-spin" /> : <KeyRound size={12} />}
+                  Connect
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowImapHelp((v) => !v)}
+              className="flex items-center gap-1 text-[11px] text-cyan-400 hover:underline"
+            >
+              <ChevronDown size={11} className={showImapHelp ? 'rotate-180 transition' : 'transition'} />
+              How do I get an App Password?
+            </button>
+            {showImapHelp && (
+              <ol className="ml-4 list-decimal space-y-1 text-[11px] text-slate-400 leading-relaxed">
+                <li>Go to <span className="font-mono text-cyan-300">myaccount.google.com/security</span></li>
+                <li>Turn on <b className="text-slate-300">2-Step Verification</b> if it is off (required)</li>
+                <li>Open <span className="font-mono text-cyan-300">myaccount.google.com/apppasswords</span></li>
+                <li>Name it <span className="font-mono">Jarvis</span> and click Create</li>
+                <li>Copy the 16 characters Google shows and paste them above</li>
+              </ol>
+            )}
+          </div>
+
+          {/* Google OAuth - secondary */}
+          <div className="rounded-2xl border border-white/10 bg-[#0f1422] p-4 space-y-2">
+            <div className="flex items-start gap-2">
+              <Info size={14} className="mt-0.5 text-slate-400 shrink-0" />
+              <div className="min-w-0">
+                <p className="text-xs font-bold text-white">Or connect with Google OAuth</p>
+                <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                  Needed for Workspace (college) accounts, which stopped accepting App Passwords in
+                  May 2025. Requires a free Google Cloud project - see{' '}
+                  <span className="font-mono text-cyan-300">GOOGLE_SETUP.md</span>.
+                  {!google.configured && ' Not configured yet.'}
+                </p>
+              </div>
+            </div>
+            {google.configured ? (
+              <div className="flex flex-wrap gap-2 pt-1">
+                {ACCOUNTS.map(({ email }) => {
+                  const done = (google.accounts || []).some(
+                    (a) => (a.email || '').toLowerCase() === email.toLowerCase());
                   return (
                     <button
                       key={email}
                       type="button"
-                      disabled={done || busy === email || !!pendingEmail}
-                      onClick={() => connect(email)}
-                      className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold transition ${
+                      disabled={done || !!busy}
+                      onClick={() => connectGoogle(email)}
+                      className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[11px] font-semibold transition ${
                         done
-                          ? 'border-emerald-400/20 bg-emerald-500/10 text-emerald-300 cursor-default'
-                          : 'border-cyan-400/30 bg-cyan-500/10 text-cyan-200 hover:bg-cyan-500/20 disabled:opacity-40'
+                          ? 'border-emerald-400/20 bg-emerald-500/10 text-emerald-300'
+                          : 'border-white/10 bg-white/5 text-slate-300 hover:bg-white/10 disabled:opacity-40'
                       }`}
                     >
-                      {busy === email ? <Loader2 size={12} className="animate-spin" />
-                        : done ? <CheckCircle2 size={12} /> : <ExternalLink size={12} />}
+                      {done ? <CheckCircle2 size={11} /> : <ExternalLink size={11} />}
                       {email}
                     </button>
                   );
                 })}
               </div>
+            ) : (
+              <div className="rounded-lg border border-white/10 bg-black/30 p-2.5">
+                <pre className="text-[10px] font-mono text-cyan-300 whitespace-pre-wrap break-all">{`GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...`}</pre>
+              </div>
+            )}
+          </div>
+        </section>
 
-              <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-white/5">
-                <input
-                  value={pendingEmail}
-                  onChange={(e) => setPendingEmail(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === 'Enter') connect(); }}
-                  placeholder="or type another Google address..."
-                  className="min-w-0 flex-1 rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-xs outline-none focus:border-cyan-400/40"
-                />
-                <button
-                  type="button"
-                  onClick={() => connect()}
-                  disabled={!pendingEmail.trim() || !!busy}
-                  className="rounded-lg bg-cyan-400 px-4 py-2 text-xs font-bold text-slate-950 disabled:opacity-40"
-                >
-                  Connect
-                </button>
+        {/* ==================== CALENDAR ==================== */}
+        <section className="space-y-3">
+          <div className="flex items-center gap-2">
+            <Calendar size={14} className="text-amber-400" />
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">Calendar</h3>
+            <span className={`ml-auto rounded px-2 py-0.5 text-[10px] font-mono font-bold ${
+              calendarSources.length ? 'bg-emerald-400/10 text-emerald-300' : 'bg-slate-500/10 text-slate-400'
+            }`}>
+              {calendarSources.length ? `${calendarSources.length} CONNECTED` : 'NONE CONNECTED'}
+            </span>
+          </div>
+
+          {icalSources.map((source) => (
+            <div key={source.id} className="rounded-2xl border border-emerald-400/20 bg-[#0f1422] p-4 flex items-center gap-3">
+              <div className="h-9 w-9 shrink-0 rounded-full bg-amber-400/10 border border-amber-400/20 flex items-center justify-center">
+                <Calendar size={14} className="text-amber-300" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="text-sm font-semibold text-white truncate">{source.name}</p>
+                  <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />
+                  <span className="rounded bg-white/5 border border-white/10 px-1.5 py-0.5 text-[9px] font-mono text-slate-400">
+                    iCal
+                  </span>
+                </div>
+                {source.stats && (
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    {source.stats.parsed_events ?? 0} events in this calendar
+                  </p>
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={() => removeFeed(source)}
+                disabled={busy === source.id}
+                className="rounded-lg border border-red-400/20 bg-red-500/10 p-2 text-red-300 hover:bg-red-500/20 transition disabled:opacity-40 shrink-0"
+                title="Remove"
+              >
+                {busy === source.id ? <Loader2 size={13} className="animate-spin" /> : <Trash2 size={13} />}
+              </button>
+            </div>
+          ))}
+
+          {oauthCalendarSources.map((source) => (
+            <div key={source.id} className="rounded-2xl border border-emerald-400/20 bg-[#0f1422] p-4 flex items-center gap-3">
+              <Calendar size={14} className="text-amber-300 shrink-0" />
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-semibold text-white truncate">{source.email}</p>
+                <p className="text-[11px] text-slate-500">Live via Google OAuth</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => disconnect(source)}
+                disabled={busy === source.id}
+                className="rounded-lg border border-red-400/20 bg-red-500/10 p-2 text-red-300 hover:bg-red-500/20 transition disabled:opacity-40 shrink-0"
+              >
+                <Trash2 size={13} />
+              </button>
+            </div>
+          ))}
+
+          <div className="rounded-2xl border border-amber-400/20 bg-[#0f1422] p-4 space-y-3">
+            <div className="flex items-start gap-2">
+              <Zap size={14} className="mt-0.5 text-amber-300 shrink-0" />
+              <div>
+                <p className="text-xs font-bold text-white">Add a calendar by private iCal address</p>
+                <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                  Recommended. Read-only, no OAuth, no expiry, and it works even for calendars
+                  Google would not let a third-party app touch.
+                </p>
               </div>
             </div>
-          )}
-        </div>
 
-        {/* Local services (honest reporting) */}
-        <div className="space-y-3">
+            <input
+              value={icsUrl}
+              onChange={(e) => setIcsUrl(e.target.value)}
+              placeholder="https://calendar.google.com/calendar/ical/…/private-…/basic.ics"
+              className="w-full rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-[11px] font-mono outline-none focus:border-amber-400/40"
+            />
+            <div className="flex gap-2">
+              <input
+                value={icsLabel}
+                onChange={(e) => setIcsLabel(e.target.value)}
+                placeholder="Label, e.g. College"
+                className="min-w-0 flex-1 rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-xs outline-none"
+              />
+              <button
+                type="button"
+                onClick={addFeed}
+                disabled={!icsUrl.trim() || !!busy}
+                className="flex items-center gap-1.5 rounded-lg bg-amber-400 px-4 py-2 text-xs font-bold text-slate-950 disabled:opacity-40"
+              >
+                {busy === 'ics' ? <Loader2 size={12} className="animate-spin" /> : <Calendar size={12} />}
+                Add
+              </button>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowIcsHelp((v) => !v)}
+              className="flex items-center gap-1 text-[11px] text-amber-400 hover:underline"
+            >
+              <ChevronDown size={11} className={showIcsHelp ? 'rotate-180 transition' : 'transition'} />
+              Where do I find this address?
+            </button>
+            {showIcsHelp && (
+              <ol className="ml-4 list-decimal space-y-1 text-[11px] text-slate-400 leading-relaxed">
+                <li>Open <span className="font-mono text-amber-300">calendar.google.com</span></li>
+                <li>Click the gear icon → <b className="text-slate-300">Settings</b></li>
+                <li>In the left list, click the calendar you want under <b className="text-slate-300">Settings for my calendars</b></li>
+                <li>Scroll to <b className="text-slate-300">Integrate calendar</b></li>
+                <li>Copy <b className="text-slate-300">Secret address in iCal format</b> and paste it above</li>
+                <li>Repeat for each account (switch Google account first)</li>
+              </ol>
+            )}
+          </div>
+        </section>
+
+        {/* ==================== LOCAL ==================== */}
+        <section className="space-y-3">
           <div className="flex items-center gap-2">
             <Info size={14} className="text-slate-400" />
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
-              Local Services
-            </h3>
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">Local Services</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {['github', 'ollama', 'scraper'].map((key) => {
@@ -339,13 +592,13 @@ GOOGLE_CLIENT_SECRET=your-secret`}</pre>
               );
             })}
           </div>
-        </div>
+        </section>
 
         <p className="text-[11px] text-slate-500 leading-relaxed border-t border-white/5 pt-4">
-          <ShieldCheck size={11} className="inline mb-0.5" /> Jarvis requests read-only access
-          (<span className="font-mono">gmail.readonly</span>, <span className="font-mono">calendar.readonly</span>).
-          It cannot send, delete, or modify anything. Tokens are encrypted on disk under{' '}
-          <span className="font-mono">backend/data/</span>, which is git-ignored and never synced to your vault.
+          <ShieldCheck size={11} className="inline mb-0.5" /> Everything here is read-only: Jarvis can
+          read mail and calendars but never send, delete, or modify. Credentials are encrypted on disk
+          under <span className="font-mono">backend/data/</span>, which is git-ignored and never part of
+          the vault sync to GitHub.
         </p>
       </div>
     </div>

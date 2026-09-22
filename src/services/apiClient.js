@@ -256,5 +256,39 @@ export const apiClient = {
     request(`/api/google/calendar/events?account_id=${encodeURIComponent(accountId)}` +
             `&days_ahead=${daysAhead}&days_back=${daysBack}`),
   calendarList: (accountId) =>
-    request(`/api/google/calendar/calendars?account_id=${encodeURIComponent(accountId)}`)
+    request(`/api/google/calendar/calendars?account_id=${encodeURIComponent(accountId)}`),
+
+  // ---- Unified mail + calendar sources -----------------------------------
+  // These abstract over BOTH providers (Google OAuth and IMAP app-password /
+  // iCal feed), so the UI does not care how an account was connected.
+  mailAccounts: () => request('/api/mail/accounts'),
+  mailMessages: (accountId, folder = 'inbox', q = '', limit = 30) => {
+    const params = new URLSearchParams({
+      account_id: accountId, folder, limit: String(limit)
+    });
+    if (q) params.set('q', q);
+    return request(`/api/mail/messages?${params.toString()}`);
+  },
+  mailMessage: (accountId, messageId, folder = 'inbox') =>
+    request(`/api/mail/message/${encodeURIComponent(messageId)}` +
+            `?account_id=${encodeURIComponent(accountId)}&folder=${encodeURIComponent(folder)}`),
+  connectImap: (email, appPassword, label = '') =>
+    request('/api/mail/imap/connect', {
+      method: 'POST',
+      body: JSON.stringify({ email, app_password: appPassword, label })
+    }),
+  disconnectMail: (accountId) =>
+    request(`/api/mail/accounts/${encodeURIComponent(accountId)}`, { method: 'DELETE' }),
+
+  calendarSources: () => request('/api/calendar/sources'),
+  addCalendarFeed: (url, label = '', accountEmail = '') =>
+    request('/api/calendar/feed', {
+      method: 'POST',
+      body: JSON.stringify({ url, label, account_email: accountEmail })
+    }),
+  calendarSourceEvents: (sourceId, daysAhead = 7, daysBack = 1) =>
+    request(`/api/calendar/source-events?source_id=${encodeURIComponent(sourceId)}` +
+            `&days_ahead=${daysAhead}&days_back=${daysBack}`),
+  removeCalendarFeed: (sourceId) =>
+    request(`/api/calendar/feed/${encodeURIComponent(sourceId)}`, { method: 'DELETE' })
 };

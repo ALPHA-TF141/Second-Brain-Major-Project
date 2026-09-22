@@ -118,6 +118,30 @@ const CONNECTED_PAYLOADS = {
       { id: 'gacct_2', email: 'vtu24334@veltech.edu.in', name: 'Immanuel L', picture: '', services: ['gmail'], scopes: [], status: 'connected' }
     ]
   },
+  '/api/mail/accounts': [
+    { id: 'imap_abc123', email: 'immanuellourdu@gmail.com', name: 'Personal', provider: 'imap',
+      provider_label: 'IMAP + App Password', services: ['gmail'], scopes: [], status: 'connected',
+      stats: { total_messages: 4210, unread: 37, checked_at: '2026-09-22T10:00:00Z' } },
+    { id: 'gacct_1', email: 'vtu24334@veltech.edu.in', name: 'College', provider: 'google',
+      provider_label: 'Google OAuth', services: ['gmail', 'calendar'], scopes: [], status: 'connected' }
+  ],
+  '/api/calendar/sources': [
+    { id: 'ics_xyz789', email: 'College', name: 'College Calendar', provider: 'ical',
+      provider_label: 'iCal secret address', kind: 'snapshot', status: 'connected',
+      stats: { parsed_events: 214, in_window: 6 } },
+    { id: 'gacct_1', email: 'vtu24334@veltech.edu.in', name: 'College', provider: 'google',
+      provider_label: 'Google OAuth', kind: 'live', status: 'connected' }
+  ],
+  '/api/calendar/source-events': {
+    count: 2,
+    events: [
+      { id: 'e1', summary: 'AI Project Review', start: '2026-09-23T10:00:00+05:30',
+        end: '2026-09-23T11:00:00+05:30', all_day: false, location: 'Lab 3',
+        attendees: ['a@b.c'], html_link: '' },
+      { id: 'e2', summary: 'Holiday', start: '2026-09-25', end: '2026-09-26',
+        all_day: true, attendees: [] }
+    ]
+  },
   '/api/google/accounts': [
     { id: 'gacct_1', email: 'immanuellourdu@gmail.com', name: 'Immanuel', services: ['gmail', 'calendar'], scopes: [], status: 'connected' }
   ],
@@ -150,6 +174,8 @@ const offlineFetch = async (url) => {
     '/api/os/integrations': [],
     '/api/os/search': { results: [] },
     '/api/google/status': { configured: false, accounts: [], account_count: 0, setup_help: '' },
+    '/api/mail/accounts': [],
+    '/api/calendar/sources': [],
     '/api/google/accounts': [],
     '/api/google/gmail/messages': { messages: [], count: 0 },
     '/api/google/calendar/events': { events: [], count: 0 },

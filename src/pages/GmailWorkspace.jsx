@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useBackend } from '../context/BackendContext.jsx';
-import { apiFetch, openInBrowser } from '../services/apiClient.js';
+import { apiFetch } from '../services/apiClient.js';
 
 /**
  * GmailWorkspace - real Gmail.
@@ -63,11 +63,13 @@ export default function GmailWorkspace() {
 
   async function loadStatus() {
     try {
-      const res = await apiFetch(`${apiClient.baseUrl}/api/google/status`);
+      // Unified: returns Google OAuth accounts AND IMAP accounts together.
+      const res = await apiFetch(`${apiClient.baseUrl}/api/mail/accounts`);
       if (res.ok) {
         const data = await res.json();
-        setStatus(data);
-        if (!accountId && data.accounts?.length) setAccountId(data.accounts[0].id);
+        const list = Array.isArray(data) ? data : [];
+        setStatus({ configured: true, accounts: list });
+        if (!accountId && list.length) setAccountId(list[0].id);
       }
     } catch {
       setError('Backend unreachable.');
@@ -80,11 +82,14 @@ export default function GmailWorkspace() {
     setError('');
     setSelected(null);
     try {
-      const query = search.trim() || FOLDERS.find((f) => f.id === folder)?.query || 'in:inbox';
-      const res = await apiFetch(
-        `${apiClient.baseUrl}/api/google/gmail/messages` +
-        `?account_id=${encodeURIComponent(account.id)}&limit=30&q=${encodeURIComponent(query)}`
-      );
+      const query = search.trim();
+      const params = new URLSearchParams({
+        account_id: account.id,
+        folder,
+        limit: '30'
+      });
+      if (query) params.set('q', query);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/mail/messages?${params.toString()}`);
       const data = await res.json();
       if (!res.ok) {
         setError(data.detail || 'Could not read this mailbox.');
@@ -110,7 +115,8 @@ export default function GmailWorkspace() {
     setBodyLoading(true);
     try {
       const res = await apiFetch(
-        `${apiClient.baseUrl}/api/google/gmail/message/${message.id}?account_id=${encodeURIComponent(account.id)}`
+        `${apiClient.baseUrl}/api/mail/message/${encodeURIComponent(message.id)}` +
+        `?account_id=${encodeURIComponent(account.id)}&folder=${encodeURIComponent(folder)}`
       );
       const data = await res.json();
       if (res.ok) setSelected(data);
@@ -169,19 +175,10 @@ export default function GmailWorkspace() {
     }
   }
 
-  async function connect(email) {
-    try {
-      const res = await apiFetch(`${apiClient.baseUrl}/api/google/connect`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, services: ['gmail'] })
-      });
-      const data = await res.json();
-      if (res.ok && data.auth_url) await openInBrowser(data.auth_url);
-      else setError(data.detail || 'Could not start Google sign-in.');
-    } catch {
-      setError('Could not start Google sign-in.');
-    }
+  function goConnect() {
+    // Connecting now offers two routes (IMAP app password, or Google OAuth),
+    // so the Integrations page owns that choice.
+    navigate('/integrations');
   }
 
   /* ------------------------------------------------------------------ *
@@ -197,39 +194,22 @@ export default function GmailWorkspace() {
           <div>
             <h2 className="text-sm font-bold uppercase tracking-wider font-mono text-white">Gmail Not Connected</h2>
             <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-              {status.configured
-                ? 'No Google account is linked yet, so there is nothing real to show here. Connect one to load your actual inbox.'
-                : 'Google OAuth is not configured yet. Add your Client ID and Secret to backend/.env (see GOOGLE_SETUP.md), then connect an account.'}
+              No mail account is connected yet, so there is nothing real to show here.
+              Connect one on the Integrations page - you can use a Gmail App Password
+              (no Google Cloud project, no verification) or Google OAuth.
             </p>
           </div>
 
-          {status.configured ? (
-            <div className="space-y-2">
-              {['immanuellourdu@gmail.com', 'lmariaimmanuel@gmail.com', 'vtu24334@veltech.edu.in'].map((email) => (
-                <button
-                  key={email}
-                  type="button"
-                  onClick={() => connect(email)}
-                  className="w-full rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-2.5 text-xs font-semibold text-cyan-200 hover:bg-cyan-500/20 transition"
-                >
-                  Connect {email}
-                </button>
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-xl border border-white/10 bg-black/30 p-3 text-left">
-              <p className="text-[11px] font-mono text-slate-400 mb-1.5">backend/.env</p>
-              <pre className="text-[11px] font-mono text-cyan-300 whitespace-pre-wrap break-all">{`GOOGLE_CLIENT_ID=...\nGOOGLE_CLIENT_SECRET=...`}</pre>
-            </div>
-          )}
-
           <button
             type="button"
-            onClick={() => navigate('/integrations')}
-            className="text-[11px] text-cyan-400 hover:underline"
+            onClick={goConnect}
+            className="w-full rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-2.5 text-xs font-semibold text-cyan-200 hover:bg-cyan-500/20 transition"
           >
-            Open Integrations →
+            Connect a mail account →
           </button>
+          <p className="text-[10px] text-slate-500">
+            Gmail App Password or Google OAuth - both work, neither is simulated.
+          </p>
         </div>
       </div>
     );
@@ -253,6 +233,9 @@ export default function GmailWorkspace() {
           >
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
             {a.email}
+            <span className="rounded bg-white/5 px-1 py-0.5 text-[9px] font-mono text-slate-500">
+              {a.provider === 'imap' ? 'IMAP' : 'OAUTH'}
+            </span>
           </button>
         ))}
         <button

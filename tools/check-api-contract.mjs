@@ -91,7 +91,8 @@ const frontendFiles = walk(SRC, (f) => /\.(jsx?|tsx?)$/.test(f));
 const calls = []; // { url, method, file, line }
 
 const CALL_SITE = /(apiFetch\(|fetch\(|apiClient\.[a-zA-Z]+\(|axios\.[a-zA-Z]+\(|\.open\(\s*['"]\w+['"]\s*,)/g;
-const URL_IN_TEXT = /\/api\/[A-Za-z0-9_\-/.${}]*/g;
+// () allowed too: urls are often built with ${encodeURIComponent(id)} inline
+const URL_IN_TEXT = /\/api\/[A-Za-z0-9_\-/.${}()]*/g;
 
 /** Blank out comments (preserving offsets) so doc text is never scanned. */
 function stripComments(src) {
