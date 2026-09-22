@@ -1,0 +1,29 @@
+{
+  "id": "mail_192_eb66e7",
+  "timestamp": "2023-12-20T13:10:10+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Invitation For IBM, Microsoft Training and Internship Program",
+  "topic": "Email: Invitation For IBM, Microsoft Training and Internship Program",
+  "summary": "Email from nuka umasri <nuka.umasri@teachnook.com> to vtu24334@veltech.edu.in about: Invitation For IBM, Microsoft Training and Internship Program",
+  "key_pointers": [
+    "From: nuka umasri <nuka.umasri@teachnook.com>",
+    "Received: Wed, 20 Dec 2023 18:40:10 +0530"
+  ],
+  "entities": [
+    "nuka.umasri@teachnook.com",
+    "vtu24334@veltech.edu.in"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "teachnook.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:nuka.umasri@teachnook.com",
+  "raw_ocr_excerpt": "As mentioned above, Teachnook in collaboration with IBM is organizing a 2\nMonth Training + Internship program designed by IBM. We are enrolling only\nLIMITED STUDENTS for the program.\n\n*Interested students fill the form, if you get shortlisted you will be\ngetting a call from our HR Team.*\n\n*G Form : **https://forms.gle/ZVjfUuoe2URTFrif9\n<https://forms.gle/ZVjfUuoe2URTFrif9>*\n\n*📚 Training Program:- *Our comprehensive and immersive training program is\ncurated by industry professionals with over* 10 years *of work experience.\nThe program spans across *25-30 modules*, providing more than *60 hours* of\nengaging content. We ensure that students have a solid foundation by\noffering prerequisite classes, making them industry-ready.\n\n*⚙️ Industrial Internship:- *To complement the training, students will gain\nvaluable practical experience through *10+ live projects*. These projects\npresent real-world challenges, allowing you to apply the skills learned\nduring the training. The internship's pinnacle is the *capstone project*,\nintegrated into the final week, where you will have the chance to showcase\nall your acquired skills and knowledge.\nAvailable courses ( Charges applicable ) :\n✅Python with data science.\n✅Data Visualization with R.\n✅Deep learning with TensorFlow.\n✅Data Analysis with Python.\n✅Internet of Things.\n\nAfter Completion of program the student shall receive a :\n✅ Program completion certificate issued by IBM.\n✅ Co-Branded Internship certificate.\n✅ Letter of Recommendation from\n✅",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

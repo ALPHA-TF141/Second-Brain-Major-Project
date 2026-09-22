@@ -115,3 +115,9 @@
 - [Communication: Email: Failed production deployment on team 'ALPHA-TF141's projects'](communication/email__failed_production_deployment_on_team__alpha_tf141_s_projects.md) — *Updated 2026-09-22*
 - [Communication: Email: Credly account created](communication/email__credly_account_created.md) — *Updated 2026-09-22*
 - [Communication: Email: Welcome to Your New Class, Maria Immanuel](communication/email__welcome_to_your_new_class__maria_immanuel.md) — *Updated 2026-09-22*
+- [Communication: Email: Final Call To Apply [Training and Internship program campaign, Wipro Certification]](communication/email__final_call_to_apply__training_and_internship_program_campaign__wipro_certification.md) — *Updated 2026-09-22*
+- [Communication: Email: 📢Industrial Training and Internship Program](communication/email___industrial_training_and_internship_program.md) — *Updated 2026-09-22*
+- [Communication: Email: Invitation For IBM, Microsoft Training and Internship Program](communication/email__invitation_for_ibm__microsoft_training_and_internship_program.md) — *Updated 2026-09-22*
+- [Communication: Email: TRAINING AND INTERNSHIP](communication/email__training_and_internship.md) — *Updated 2026-09-22*
+- [Communication: Email: Final Call To Apply Training and Internship program](communication/email__final_call_to_apply_training_and_internship_program.md) — *Updated 2026-09-22*
+- [Communication: Email: !!!!!FINAL CALL!!!!!! IBM, Microsoft Training and Internship Program](communication/email_______final_call_______ibm__microsoft_training_and_internship_program.md) — *Updated 2026-09-22*
