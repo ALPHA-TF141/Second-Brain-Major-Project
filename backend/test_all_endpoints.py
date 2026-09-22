@@ -103,8 +103,56 @@ resp = client.get("/api/graph/briefing/today")
 assert resp.status_code == 200, f"Expected 200, got {resp.status_code}"
 briefing = resp.json()
 assert "spoken_script" in briefing and "date" in briefing
-print(f"  --> [PASS] /api/graph/briefing/today: Script generated ({len(briefing['spoken_script'])} chars)")
-print(f"      Spoken preview: \"{briefing['spoken_script'][:90]}...\"")
+
+# ---------------------------------------------------------------------------
+# This endpoint ALWAYS returns 200 - if the LLM is unreachable it silently
+# falls back to a canned sentence. A test that only checks the status code
+# therefore passes while Jarvis is effectively offline. That is exactly what
+# hid the "model 'qwen2.5:3b' not found" problem from this suite.
+#
+# So we inspect the text: if it is one of the known offline fallbacks, report a
+# WARN with the real cause instead of a green PASS.
+# ---------------------------------------------------------------------------
+script = briefing.get("spoken_script", "")
+FALLBACK_MARKERS = (
+    "I do not have enough indexed memory context",
+    "Local language model unavailable",
+    "This is the local keyword fallback",
+    "Local model offline",
+    "This is the local fallback response",
+)
+degraded = any(marker in script for marker in FALLBACK_MARKERS)
+
+if degraded:
+    # Find out WHY, so the message is actionable rather than just "it failed"
+    reason = "the local language model did not answer"
+    try:
+        import httpx
+
+        from app.config import settings
+
+        base = (settings.openai_base_url or "").rstrip("/")
+        if base.endswith("/v1"):
+            base = base[:-3]
+        tags = httpx.get(f"{base}/api/tags", timeout=5.0)
+        installed = [m.get("name", "") for m in tags.json().get("models", [])]
+        if not installed:
+            reason = f"Ollama is running but has NO models installed -> run: ollama pull {settings.openai_model}"
+        elif settings.openai_model not in installed:
+            reason = (f"configured model '{settings.openai_model}' is not installed "
+                      f"(installed: {', '.join(installed)}) -> run: ollama pull {settings.openai_model}")
+        else:
+            reason = f"'{settings.openai_model}' is installed but the request failed - check the backend log"
+    except Exception as exc:
+        reason = f"Ollama is not reachable at {getattr(settings, 'openai_base_url', '?')} ({type(exc).__name__}) - is it running?"
+
+    print(f"  --> [WARN] /api/graph/briefing/today: DEGRADED - cached fallback text ({len(script)} chars)")
+    print(f"      Reason : {reason}")
+    print("      Note   : the endpoint works, but Jarvis is not generating real answers.")
+else:
+    print(f"  --> [PASS] /api/graph/briefing/today: LIVE LLM generated the script ({len(script)} chars)")
+
+print(f"      Spoken preview: \"{script[:90]}...\"")
 
 # 9. Test Deliverables Engine
 print("\n[TEST 9] Testing /api/graph/deliverables...")

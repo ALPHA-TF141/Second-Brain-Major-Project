@@ -196,6 +196,39 @@ wrong problem entirely.
 **Action on your side:** run `ollama list`. If `qwen2.5:3b` is absent, either
 `ollama pull qwen2.5:3b`, or leave it — Jarvis will now use whichever model you do have.
 
+### 3.8 A test that passed while Jarvis was dead
+
+Your previous run showed this, correctly labelled as a pass:
+
+```
+[TEST 8] Testing /api/graph/briefing/today...
+  --> [PASS] /api/graph/briefing/today: Script generated (157 chars)
+      Spoken preview: "I do not have enough indexed memory context to answer that yet..."
+```
+
+That "PASS" was worthless. `/api/graph/briefing/today` **always** returns 200 — if the LLM
+is unreachable it silently substitutes canned text — so the test could not tell the
+difference between Jarvis thinking and Jarvis being offline. It is precisely why the
+missing `qwen2.5:3b` model went unnoticed until the log was read by hand.
+
+**Fixed.** TEST 8 now inspects the returned script and separates the two cases:
+
+```
+--> [WARN] /api/graph/briefing/today: DEGRADED - cached fallback text (267 chars)
+    Reason : Ollama is not reachable at http://localhost:11434/v1 (ConnectError) - is it running?
+    Note   : the endpoint works, but Jarvis is not generating real answers.
+```
+
+or, when a model answers:
+
+```
+--> [PASS] /api/graph/briefing/today: LIVE LLM generated the script (209 chars)
+```
+
+The reason line is actionable: it distinguishes *Ollama down*, *Ollama running with no
+models*, *configured model missing* (listing what is installed), and *installed but the
+request failed*. Both branches verified against a stub Ollama server.
+
 ---
 
 ## 4. Permanent error-check system
@@ -249,6 +282,7 @@ Non-zero exit → `verify-jarvis` would have blocked it. This bug cannot ship ag
 8. Live API sweep tool ........ 71 GET endpoints probed, 0 crashing
 9. Fresh venv from requirements boots OK, 124 routes
 10. LLM model auto-detection ... 5/5 scenarios correct (incl. your missing-model case)
+11. TEST 8 honesty ............. WARN+DEGRADED when the LLM is down, PASS when it is live
 ```
 
 The 13 remaining 4xx are correct behaviour, not bugs: `401` on the four routes that
