@@ -168,3 +168,4 @@
 - [Communication: Email: Activate user account](communication/email__activate_user_account.md) — *Updated 2026-09-22*
 - [Communication: Email: Company Profile Sample Report](communication/email__company_profile_sample_report.md) — *Updated 2026-09-22*
 - [General: Confirm access](general/confirm_access.md) — *Updated 2026-09-22*
+- [General: Second-Brain-Major-Project/memory_vault/image](general/second_brain_major_project_memory_vault_image.md) — *Updated 2026-09-22*
