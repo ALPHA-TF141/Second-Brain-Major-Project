@@ -230,11 +230,34 @@ def check_backend_modules() -> bool:
 URL_CHARS = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/_-{}$.+*:=")
 
 
+def strip_comments(text: str) -> str:
+    """
+    Remove JavaScript comments before scanning for API calls.
+
+    Defect this fixes: a documentation comment reading "... reads real state from
+    /api/research/*" was scanned as though it were a call, producing a fabricated
+    route that no backend could serve. Prose is not code.
+
+    Line comments are only stripped when not preceded by ':' so that the '//' in
+    'https://' survives. Newlines are preserved so offsets stay meaningful.
+    """
+    text = re.sub(r"/\*.*?\*/", lambda m: re.sub(r"[^\n]", " ", m.group(0)), text, flags=re.S)
+    text = re.sub(r"(^|[^:'\"`\\])//[^\n]*", lambda m: m.group(1) + m.group(0)[len(m.group(1)):], text, flags=re.M)
+    text = re.sub(r"(?m)^\s*//.*$", "", text)
+    # JSDoc continuation lines (" * text"), which are comment bodies even when the
+    # opening /* sits far above. Safe to strip because a JavaScript statement
+    # cannot begin with '*'; removing them cannot hide a real call.
+    text = re.sub(r"(?m)^\s*\*.*$", "", text)
+    return text
+
+
 def extract_api_calls(text: str):
     """Scan for '/api/...' tokens with a simple character scanner.
 
     Returns (kind, url) where kind is 'exact' or 'concat' (URL continues with +).
+    Comments are stripped first: a URL in prose is not a URL in code.
     """
+    text = strip_comments(text)
     found: list[tuple[str, str]] = []
     for m in re.finditer(r"/api/", text):
         start = m.start()
@@ -272,8 +295,11 @@ def check_frontend_api_calls() -> bool:
     def seg_ok(a: str, b: str) -> bool:
         if a == b:
             return True
-        # any dynamic marker on either side counts as a wildcard segment
-        for marker in ("{}", "{", "}", "$"):
+        # any dynamic marker on either side counts as a wildcard segment.
+        # '*' belongs here: it is an allowed URL character, so a token containing
+        # it reaches this function, and without it '*' was compared literally
+        # against a real segment and failed.
+        for marker in ("{}", "{", "}", "$", "*"):
             if marker in a or marker in b:
                 return True
         return False
