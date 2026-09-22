@@ -28,7 +28,7 @@ def main():
         leftMargin=MARGIN_X, rightMargin=MARGIN_X,
         topMargin=MARGIN_TOP, bottomMargin=MARGIN_BOTTOM,
         title="SecondBrain — Complete Engineering Record",
-        author="Maria Immanuel L",
+        author="Dr. P S Anu Rakhi; Maria Immanuel L; Vigneshwaran S",
         subject="Conception, architecture, deviations, defects and research contribution",
     )
 

@@ -26,8 +26,8 @@ from reportlab.platypus import (
 TITLE = ("SecondBrain: An Adaptive Temporal Personal Knowledge Graph with "
          "Memory Consolidation and Contradiction-Aware Retrieval-Augmented Generation")
 
-AUTHOR = "Immanuel L"
-AFFILIATION = "Department of Computer Science and Engineering"
+AUTHOR = "Dr. P S Anu Rakhi; Maria Immanuel L; Vigneshwaran S"
+AFFILIATION = "School of Computing"
 AFFILIATION2 = "Vel Tech Rangarajan Dr. Sagunthala R&amp;D Institute of Science and Technology"
 EMAIL = "vtu24334@veltech.edu.in"
 
@@ -110,7 +110,8 @@ def main():
 
     # ---------------------------------------------------------------- title
     story.append(Paragraph(TITLE, S["title"]))
-    story.append(Paragraph(AUTHOR, S["author"]))
+    story.append(Paragraph("Dr. P S Anu Rakhi (Assistant Professor) &nbsp;·&nbsp; "
+                           "Maria Immanuel L &nbsp;·&nbsp; Vigneshwaran S", S["author"]))
     story.append(Paragraph(f"{AFFILIATION}<br/>{AFFILIATION2}", S["affil"]))
     story.append(Paragraph(EMAIL, S["affil"]))
     story.append(Spacer(1, 10))
@@ -549,8 +550,8 @@ def main():
     # ------------------------------------------------------- ACKNOWLEDGMENT
     story.append(Paragraph("ACKNOWLEDGMENT", S["h"]))
     story.append(Paragraph(
-        "The author thanks the faculty of the Department of Computer Science and Engineering for "
-        "guidance, and acknowledges the open-source projects on which this system is built, in "
+        "The authors thank Dr. P S Anu Rakhi, Assistant Professor, School of Computing, for "
+        "supervision and guidance, and acknowledges the open-source projects on which this system is built, in "
         "particular FastAPI, SQLAlchemy, sentence-transformers and openWakeWord.", S["body"]))
 
     # ---------------------------------------------------------- REFERENCES

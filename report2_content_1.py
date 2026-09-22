@@ -3,7 +3,7 @@ from datetime import datetime
 
 from reportlab.platypus import PageBreak, Paragraph, Spacer
 
-from report_builder_base import BODY_W, B, P, S, Section, Sub, callout, code, table
+from report_builder_base import BODY_W, B, P, S, Section, Sub, callout, code, esc, table
 
 W = BODY_W
 
@@ -28,15 +28,16 @@ def build():
     meta = [
         ["Project", "SecondBrain \u2014 an autonomous personal cognitive knowledge system"],
         ["Repository", "github.com/ALPHA-TF141/Second-Brain-Major-Project"],
-        ["Author", "Maria Immanuel L"],
+        ["Supervisor", "Dr. P S Anu Rakhi, Assistant Professor, School of Computing"],
+        ["Authors", "Maria Immanuel L (vtu24334) \u00b7 Vigneshwaran S (vtu24372)"],
         ["Programme", "B.Tech, Computer Science and Engineering"],
         ["Institution", "Vel Tech Rangarajan Dr. Sagunthala R&D Institute of Science and Technology"],
         ["Compiled", datetime.now().strftime("%d %B %Y")],
-        ["Volume structure", "Seven volumes plus six appendices"],
+        ["Volume structure", "Eight volumes plus four appendices"],
         ["Source of truth", "231 Git commits; every figure in this report was read from the "
                             "repository or from measured benchmark output"],
     ]
-    f.extend(table([[Paragraph(f"<b>{k}</b>", S["tabc"]), Paragraph(v, S["tabc"])] for k, v in meta],
+    f.extend(table([[Paragraph(f"<b>{k}</b>", S["tabc"]), Paragraph(esc(v), S["tabc"])] for k, v in meta],
                    [105, W - 105], header=False))
     f.append(PageBreak())
 
@@ -52,7 +53,7 @@ def build():
         "be understood from its source code alone: the code shows what was built, never why, and "
         "never what was tried first and discarded. Second, an engineering project is judged on "
         "judgement rather than on adherence, and judgement is only visible in the deviations. Third, "
-        "and most practically, the author needed a document that a supervisor or examiner could read "
+        "and most practically, the authors needed a document that a supervisor or examiner could read "
         "and understand the whole system from, without reading 17,000 lines of Python."))
     f.append(P(
         "Throughout, a distinction is maintained between three things that are easy to confuse. "
@@ -63,7 +64,7 @@ def build():
     f.extend(callout(
         "On the honesty of this record",
         "Twenty-seven defects are documented here, including one in which a verification test deleted "
-        "123 of the author's genuine memory cards. That incident is recorded in full, with its cause "
+        "123 of the authors' genuine memory cards. That incident is recorded in full, with its cause "
         "and its fix, because a defect register that omits the worst defect is not a defect register. "
         "The same principle applies to the research results: the headline finding is a negative one, "
         "and it is reported as such."))
@@ -362,7 +363,7 @@ def build():
         caption="Table 4 \u2014 The author's constraints and their direct architectural consequences. "
                 "Constraint 9 is the one that most changed the project."))
     f.extend(callout(
-        "On the relationship between author and implementation",
+        "On the relationship between the authors and the implementation",
         "Nine of the thirteen documented deviations were driven by a constraint in this table. The "
         "author's role was consistently to supply the <i>requirement and the judgement</i> \u2014 what "
         "the system must do, what would be unacceptable, and when a result was not convincing \u2014 "

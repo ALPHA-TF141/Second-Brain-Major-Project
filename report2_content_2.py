@@ -13,7 +13,7 @@ def build():
     f.append(Section("Volume III \u2014 Build Chronology"))
     f.append(Spacer(1, 4))
     f.append(P(
-        "Eight phases. For each: what the author asked for, what was built, the reasoning behind the "
+        "Eight phases. For each: what the authors asked for, what was built, the reasoning behind the "
         "approach, and \u2014 deliberately \u2014 what went wrong. The failures are included because "
         "the defects of each phase reveal what was not yet understood, and several of them directly "
         "motivated the phase that followed."))
@@ -72,7 +72,7 @@ def build():
           "A deliverable generator producing documents from memory.",
           "An ambient command overlay bound to a global shortcut."],
          "The author's instruction contained a generalisable principle: replace a recurring cost with "
-         "a one-off engineering effort. The paid services were the obvious path and the author "
+         "a one-off engineering effort. The paid services were the obvious path and the authors "
          "rejected them; the replacement was built. The same reasoning was later applied without "
          "prompting to mail and calendar, where it avoided a recurring verification cost entirely "
          "(deviation D7). Performance work here also demonstrated that the bottleneck was "
@@ -90,7 +90,7 @@ def build():
          "the reference, and do not hide any of the functionality.",
          ["Three successive interface rebuilds in one day.",
           "The first transformed the shell into a graph-oriented workspace matching a reference "
-          "screenshot the author supplied.",
+          "screenshot the authors supplied.",
           "The second removed the project sidebars entirely and introduced a living holographic core "
           "that tracks the mouse, with an ambient voice intercom.",
           "The third produced the definitive fifteen-tab operating-system shell with a universal "
@@ -99,7 +99,7 @@ def build():
           "desktop.",
           "Procedural audio for interface feedback."],
          "The iterative rebuilds were convergence, not indecision. The requirement could not be "
-         "specified in advance because the author could not articulate the difference between a "
+         "specified in advance because the authors could not articulate the difference between a "
          "dashboard and an assistant without seeing the alternatives. The first attempt established "
          "that the visual language was wrong; the second established that removing navigation "
          "entirely makes functionality unfindable; the third reconciled both. This is a general "
@@ -109,7 +109,7 @@ def build():
           "was added in response, which displayed the exact cause and became a permanent safety net.",
           "Making a window genuinely transparent on Windows required simultaneous changes at three "
           "layers \u2014 the Electron window flags, the document-root CSS, and the body background. "
-          "Changing any one alone produced the dark rectangle the author reported.",
+          "Changing any one alone produced the dark rectangle the authors reported.",
           "The auto-launch registration pointed at the bare runtime executable in development mode, "
           "so a Windows boot produced a raw framework splash screen rather than the application."]),
 
@@ -157,7 +157,7 @@ def build():
           "An ingestion agent reading new mail read-only and turning each message into a memory, a "
           "task, a notification and \u2014 where a deadline is detected \u2014 a spoken alert."],
          "This phase contains the project's most consequential decision, and it came directly from "
-         "the author's question. Investigating why a commercial assistant appears to connect "
+         "the authors' question. Investigating why a commercial assistant appears to connect "
          "'directly' revealed that it does not: it performs the same consent flow, and appears "
          "effortless only because the vendor has absorbed the cost of a mandatory third-party "
          "security assessment that runs to several hundred dollars annually with re-certification "
@@ -170,7 +170,7 @@ def build():
           "them for managed domains in May 2025 and the institution may block third-party access "
           "regardless. Documented honestly rather than worked around; the system was designed to "
           "function with any subset of accounts connected.",
-          "The ingestion test initially registered the author's real address, which later caused a "
+          "The ingestion test initially registered the authors' real address, which later caused a "
           "serious incident described in Volume VI.",
           "An error-mapping defect caused six endpoints to report an upstream failure when the real "
           "problem was a non-existent identifier."]),
@@ -226,7 +226,7 @@ def build():
           "note mentioning 'notes' as a logical contradiction.",
           "The benchmark was not reproducible between runs because derived state from a previous run "
           "perturbed the following one.",
-          "The mail-ingestion test was discovered to have deleted 123 of the author's genuine memory "
+          "The mail-ingestion test was discovered to have deleted 123 of the authors' genuine memory "
           "cards. Caught before commit, restored from version control, and the test made "
           "structurally incapable of touching unmarked data."]),
     ]
@@ -678,7 +678,7 @@ def build():
    Reading an inbox is a RESTRICTED scope. This single fact determined the
    project's entire mail strategy (deviation D7).""",
                   "The scope tiering that made the Google API route uneconomic for a single-user "
-                  "application, and which the author's question about a commercial assistant "
+                  "application, and which the authors' question about a commercial assistant "
                   "surfaced."))
     f.append(P(
         "<b>App passwords</b> are an older mechanism: once two-factor authentication is enabled, the "
@@ -847,7 +847,7 @@ def build():
          "Doing this also exposed three false positives in the checkers themselves."],
         ["Destructive operations must prove ownership",
          "A cleanup routine must be able to demonstrate that what it is deleting is its own.",
-         "A test deleted 123 of the author's real memory cards because it could not distinguish its "
+         "A test deleted 123 of the authors' real memory cards because it could not distinguish its "
          "own artefacts from genuine data."],
         ["Centralise cross-cutting concerns",
          "Duplicated plumbing drifts, and the drift is invisible.",

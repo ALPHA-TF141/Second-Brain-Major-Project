@@ -55,14 +55,14 @@ def build():
         ("D6", "Modality",
          "Answer questions in the interface.",
          "Added speech in and out, a transparent floating orb, and proactive spoken announcements.",
-         "Derived from the author's reference videos once analysed for substance rather than "
+         "Derived from the authors' reference videos once analysed for substance rather than "
          "appearance: the defining characteristic of the reference assistant is that it speaks "
          "first."),
 
         ("D7", "Account connectivity",
          "Connect accounts through OAuth and publish the application.",
          "Added a credential-free path using IMAP and calendar feeds, and made it the default.",
-         "Researching the author's question about a commercial assistant revealed that reading an "
+         "Researching the authors' question about a commercial assistant revealed that reading an "
          "inbox requires a restricted scope, and publishing one requires an annual third-party "
          "security assessment costing several hundred dollars. For a single-user application the "
          "cost is indefensible, and staying unverified forces weekly reconnection of every account."),
@@ -123,7 +123,7 @@ def build():
         "work) prevented a paper from describing software that did not exist, and produced the "
         "project's most interesting finding \u2014 that the anticipated improvement was absent while "
         "a different, unmeasured property had changed substantially. Both deviations were triggered "
-        "by a direct question from the author challenging an assumption."))
+        "by a direct question from the authors challenging an assumption."))
     f.append(PageBreak())
 
     # ============================================================= VOLUME VI
@@ -159,7 +159,7 @@ def build():
          "A clean installation refused to complete",
          "A linting package declared a peer requirement for a major version contradicting the pinned "
          "version. Versions aligned.",
-         "A build that works only on the author's machine is not a build."],
+         "A build that works only on the authors' machine is not a build."],
     ], [78, 108, 150, W - 336], caption="Table 18 \u2014 Dependency defects."))
 
     # ---- Class 2
@@ -292,7 +292,7 @@ def build():
          "A turn the model never answers leaves the microphone paused indefinitely; and the "
          "text-to-speech completion event is not guaranteed in Electron when the window is hidden. "
          "Two watchdogs added.",
-         "Write the test for the failure you have not seen yet. It found both before the author did."],
+         "Write the test for the failure you have not seen yet. It found both before the authors did."],
         ["D21 A wake event could hide the assistant",
          "Not observed; found by reading the code",
          "The wake handler called a function that toggles window visibility rather than one that "
@@ -315,8 +315,8 @@ def build():
          "run; determinism now asserted.",
          "A benchmark that is not deterministic cannot support a claim made from it."],
         ["D23 The test deleted real user data",
-         "123 of the author's genuine memory cards were removed",
-         "The mail-ingestion test registered the author's real address, so its generated artefacts "
+         "123 of the authors' genuine memory cards were removed",
+         "The mail-ingestion test registered the authors' real address, so its generated artefacts "
          "were indistinguishable from genuine ones and its cleanup could not tell them apart. Files "
          "restored from version control; the test now uses a non-existent address and its cleanup "
          "refuses to delete anything not carrying the test marker, reporting what it protected.",
@@ -560,7 +560,7 @@ def build():
     f.append(Sub("34. Data safety"))
     f.append(P(
         "The project's most serious defect was caused by the verification process rather than by the "
-        "application: a test that registered the author's real address could not distinguish its own "
+        "application: a test that registered the authors' real address could not distinguish its own "
         "artefacts from genuine data, and deleted 123 real memory cards. The fix was structural "
         "rather than local, and the principle it produced is now applied to every destructive "
         "operation:"))
@@ -606,7 +606,7 @@ def build():
          "State what was measured even when it contradicts the expectation",
          "Produced the project's most interesting finding and its most defensible claim"],
         ["Document the incident",
-         "Record the serious defects in full, including the ones the author would rather omit",
+         "Record the serious defects in full, including the ones the authors would rather omit",
          "A defect register that omits the worst defect is not a defect register"],
     ], [104, 158, W - 262],
         caption="Table 29 \u2014 The development practices that emerged, none of which were planned "

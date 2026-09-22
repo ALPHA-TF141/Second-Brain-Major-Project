@@ -26,7 +26,7 @@ def main():
         leftMargin=MARGIN_X, rightMargin=MARGIN_X,
         topMargin=MARGIN_TOP, bottomMargin=MARGIN_BOTTOM,
         title="SecondBrain Development Report",
-        author="Maria Immanuel L",
+        author="Dr. P S Anu Rakhi; Maria Immanuel L; Vigneshwaran S",
         subject="Complete development report: conception, architecture, deviations, defects, research",
     )
 

@@ -5,7 +5,7 @@ from reportlab.lib.units import mm
 from reportlab.platypus import PageBreak, Paragraph, Spacer
 from reportlab.platypus.tableofcontents import TableOfContents
 
-from report_builder_base import ACCENT, BODY_W, B, P, S, Section, Sub, callout, code, table
+from report_builder_base import ACCENT, BODY_W, B, P, S, Section, Sub, callout, code, esc, table
 
 W = BODY_W
 
@@ -29,7 +29,8 @@ def build():
     cover = [
         ["Project", "SecondBrain \u2014 Autonomous Personal Cognitive Knowledge Synthesizer"],
         ["Repository", "github.com/ALPHA-TF141/Second-Brain-Major-Project"],
-        ["Author", "Maria Immanuel L, B.Tech Computer Science and Engineering"],
+        ["Supervisor", "Dr. P S Anu Rakhi, Assistant Professor, School of Computing"],
+        ["Authors", "Maria Immanuel L \u00b7 Vigneshwaran S, B.Tech Computer Science and Engineering"],
         ["Institution", "Vel Tech Rangarajan Dr. Sagunthala R&D Institute of Science and Technology"],
         ["Report compiled", datetime_stamp()],
         ["Code volume", "17,149 lines Python \u00b7 12,449 lines JavaScript/JSX"],
@@ -37,7 +38,7 @@ def build():
         ["Commits", "231 total (69 substantive, 162 automated vault synchronisations)"],
         ["Verification", "15 automated gates \u00b7 8 test suites \u00b7 0 server errors across every route"],
     ]
-    t = table([[Paragraph(f"<b>{k}</b>", S["tabc"]), Paragraph(v, S["tabc"])] for k, v in cover],
+    t = table([[Paragraph(f"<b>{k}</b>", S["tabc"]), Paragraph(esc(v), S["tabc"])] for k, v in cover],
               [95, W - 95], header=False)
     f.extend(t)
     f.append(PageBreak())
@@ -57,7 +58,7 @@ def build():
         "self-improving wiki, maintains a knowledge graph, answers questions over the accumulated "
         "memory with a local language model, speaks and listens, and exposes all of this through a "
         "fifteen-tab desktop interface with a transparent floating assistant orb. It runs entirely on "
-        "the author's laptop, with no paid API and no data leaving the machine."))
+        "the authors' laptop, with no paid API and no data leaving the machine."))
     f.append(P(
         "The most significant development was not the accumulation of features but the recognition of "
         "a class of failure that conventional evaluation does not measure. A personal memory store "
@@ -447,7 +448,7 @@ def build():
     f.append(P(
         "<b>Reasoning.</b> The user's instruction contained a generalisable principle: <i>replace a "
         "recurring cost with a one-off engineering effort.</i> The scraping stack initially used paid "
-        "APIs because that is the obvious path; the author identified it as unacceptable and the "
+        "APIs because that is the obvious path; the authors identified it as unacceptable and the "
         "replacement was built. The same reasoning was later applied, unprompted, to mail and "
         "calendar, where it saved a recurring Google verification cost \u2014 see Part V, deviation 7."))
     f.append(P(
@@ -471,23 +472,23 @@ def build():
     f.append(P(
         "<b>What was built.</b> Three successive interface rebuilds in a single day, which is itself "
         "instructive. The first transformed the application shell into an Obsidian-style workspace to "
-        "match a screenshot the author supplied. The second removed the project sidebars entirely and "
+        "match a screenshot the authors supplied. The second removed the project sidebars entirely and "
         "introduced a living holographic core that tracks the mouse and provides an ambient voice "
         "intercom. The third produced the definitive fifteen-tab operating-system shell with a "
         "universal command terminal, and a transparent always-on-top golden orb window that floats in "
         "the bottom-right corner of the desktop."))
     f.append(P(
-        "<b>Reasoning.</b> The iterative rebuilds were not indecision; they were the author converging "
+        "<b>Reasoning.</b> The iterative rebuilds were not indecision; they were the authors converging "
         "on a requirement that could not be specified in advance. The first attempt established that "
         "the visual language was wrong. The second established that removing navigation entirely made "
         "functionality unfindable. The third reconciled both: persistent visible navigation with a "
-        "command centre, which is what the author had wanted all along but could not articulate "
+        "command centre, which is what the authors had wanted all along but could not articulate "
         "without seeing the alternatives."))
     f.append(P(
         "The orb deserves specific note. Making a window genuinely transparent on Windows required "
         "simultaneous changes at three layers: Electron's window flags, the CSS on the document root, "
         "and the body background. Changing any one alone produced the characteristic dark rectangle "
-        "the author reported. This is a recurring pattern in cross-layer work: <i>when a visual defect "
+        "the authors reported. This is a recurring pattern in cross-layer work: <i>when a visual defect "
         "survives a fix, the fix is usually correct but incomplete across layers.</i>"))
     f.append(P(
         "<b>What went wrong.</b> The interface rebuilds broke the application twice. First, a missing "
@@ -503,7 +504,7 @@ def build():
         "<b>What was built.</b> Not features but instrumentation. Two full audits were performed, and "
         "the difference between them is the most important methodological lesson in this report."))
     f.append(P(
-        "The <b>first audit</b> fixed the error the author could see \u2014 a missing React import "
+        "The <b>first audit</b> fixed the error the authors could see \u2014 a missing React import "
         "that crashed a page \u2014 and found one more instance of the same class of defect waiting to "
         "be triggered. It added a linter to catch undefined identifiers, and several static checks."))
     f.append(P(
@@ -540,7 +541,7 @@ def build():
         "requires a Google Cloud project, a consent screen, or verification."))
     f.append(P(
         "<b>Reasoning.</b> This phase contains the most consequential decision in the project, and it "
-        "came directly from the author's question about Grok. Investigating that question revealed "
+        "came directly from the authors' question about Grok. Investigating that question revealed "
         "that reading a Gmail inbox requires a scope Google classifies as <i>restricted</i>, and that "
         "publishing an application using it requires a third-party security assessment costing roughly "
         "US$540\u2013$1,800 annually with re-certification every year. For an application with exactly "
@@ -631,7 +632,7 @@ def build():
         "modelling error that caused the exact failure the paper is about, and a substring-matching bug "
         "that flagged any note mentioning \u201cnotes\u201d as a logical contradiction. Both are "
         "recorded in Part VI. Additionally, a defect in the earlier mail-ingestion test was discovered "
-        "to have deleted 123 of the author's genuine memory cards; this was caught before committing, "
+        "to have deleted 123 of the authors' genuine memory cards; this was caught before committing, "
         "restored from version control, and the test was made structurally incapable of touching "
         "unmarked data. That incident is recorded in full because it is the most serious defect of the "
         "project and the lesson it carries is not a technical one."))

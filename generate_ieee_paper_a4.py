@@ -34,9 +34,18 @@ COPYRIGHT = "XXX-X-XXXX-XXXX-X/XX/$XX.00 ©20XX IEEE"
 TITLE = ("SecondBrain: An Adaptive Temporal Personal Knowledge Graph with "
          "Memory Consolidation and Contradiction-Aware Retrieval-Augmented Generation")
 
-# Author block. The first entry is the submitting author.
-# >>> REPLACE the placeholder e-mails for authors 2 and 3 before submitting. <<<
+# Author block, in required order: supervisor first, then the two student authors.
 AUTHORS = [
+    {
+        # Supervisor listed first, per the institutional convention used in the
+        # reference paper supplied by the author.
+        "name": "Dr. P S Anu Rakhi",
+        "role": "Assistant Professor",
+        "dept": "School of Computing",
+        "org": "Vel Tech Rangarajan Dr. Sagunthala R&D\nInstitute of Science and Technology",
+        "city": "Chennai, India",
+        "email": "anurakhips@veltech.edu.in",
+    },
     {
         "name": "Maria Immanuel L",
         "role": "",
@@ -46,20 +55,12 @@ AUTHORS = [
         "email": "vtu24334@veltech.edu.in",
     },
     {
-        "name": "Karmugilan S",
+        "name": "Vigneshwaran S",
         "role": "",
         "dept": "School of Computing",
         "org": "Vel Tech Rangarajan Dr. Sagunthala R&D\nInstitute of Science and Technology",
         "city": "Chennai, India",
-        "email": "REPLACE-ME@veltech.edu.in",
-    },
-    {
-        "name": "Srikanth M",
-        "role": "",
-        "dept": "School of Computing",
-        "org": "Vel Tech Rangarajan Dr. Sagunthala R&D\nInstitute of Science and Technology",
-        "city": "Chennai, India",
-        "email": "REPLACE-ME@veltech.edu.in",
+        "email": "vtu24372@veltech.edu.in",
     },
 ]
 
@@ -151,6 +152,19 @@ def h1(number: str, text: str, S) -> Paragraph:
     return Paragraph(f"{label}{small_caps(text)}", S["h1"])
 
 
+def _xml(text: str) -> str:
+    """
+    Escape a plain string for use inside a reportlab Paragraph.
+
+    Only & is escaped, and only when it is not already part of an entity, so the
+    intentional <br/> markup that authors may include continues to work.
+    Without this, "R&D" renders as "R&D;" because the parser treats "&D;" as a
+    malformed entity reference.
+    """
+    import re
+    return re.sub(r"&(?!#?\w+;)", "&amp;", text)
+
+
 def build_author_table(S):
     """
     Three centred author columns spanning the FULL page width.
@@ -163,16 +177,18 @@ def build_author_table(S):
     author_col_w = (PAGE_W - 2 * MARGIN_X) / float(len(AUTHORS))
     cells = []
     for index, author in enumerate(AUTHORS, start=1):
-        name = author["name"]
-        if index == 1 and author.get("role"):
-            name = f"{author['role']} {name}"
-        block = [
-            Paragraph(name, S["author_name"]),
+        block = [Paragraph(author["name"], S["author_name"])]
+        # The role goes on its own line beneath the name, not prefixed to it.
+        # Prefixing produced "Assistant Professor Dr. P S Anu Rakhi", which reads
+        # as though the title were part of the name.
+        if author.get("role"):
+            block.append(Paragraph(author["role"], S["author_affil"]))
+        block.extend([
             Paragraph(author["dept"], S["author_affil"]),
-            Paragraph(author["org"].replace("\n", "<br/>"), S["author_affil"]),
-            Paragraph(author["city"], S["author_affil"]),
-            Paragraph(author["email"], S["author_email"]),
-        ]
+            Paragraph(_xml(author["org"]).replace("\n", "<br/>"), S["author_affil"]),
+            Paragraph(_xml(author["city"]), S["author_affil"]),
+            Paragraph(_xml(author["email"]), S["author_email"]),
+        ])
         inner = Table([[b] for b in block], colWidths=[author_col_w])
         inner.setStyle(TableStyle([
             ("LEFTPADDING", (0, 0), (-1, -1), 0),
@@ -706,9 +722,10 @@ def main():
     # ----------------------------------------------------- ACKNOWLEDGMENT
     story.append(h1("", "Acknowledgment", S))
     story.append(Paragraph(
-        "The authors thank the faculty of the School of Computing for guidance, and acknowledge the "
-        "open-source projects on which this system is built, in particular FastAPI, SQLAlchemy and "
-        "sentence-transformers.", S["body"]))
+        "The authors thank Dr. P S Anu Rakhi, Assistant Professor, School of Computing, for "
+        "supervision and guidance throughout this work, and acknowledge the open-source projects on "
+        "which the system is built, in particular FastAPI, SQLAlchemy and sentence-transformers.",
+        S["body"]))
 
     # -------------------------------------------------------- REFERENCES
     story.append(h1("", "References", S))
@@ -753,7 +770,7 @@ def main():
         OUT, pagesize=A4,
         leftMargin=MARGIN_X, rightMargin=MARGIN_X,
         topMargin=MARGIN_TOP, bottomMargin=MARGIN_BOTTOM,
-        title=TITLE, author=", ".join(a["name"] for a in AUTHORS),
+        title=TITLE, author="; ".join(a["name"] for a in AUTHORS),
         subject="IEEE Conference Paper")
 
     # page 1: full-width head frame + two columns; later pages: two columns.
@@ -792,9 +809,6 @@ def main():
     print(f"     corpus : {corpus['memories']} memories, {corpus.get('conflicts', 0)} conflicts")
     print(f"     MRR    : vanilla {v['mrr']:.3f} | hybrid {hy['mrr']:.3f} | adaptive {ad['mrr']:.3f}")
     print(f"     stale@1: {v['stale_top1_rate']:.3f} -> {ad['stale_top1_rate']:.3f}")
-    if any("REPLACE-ME" in a["email"] for a in AUTHORS):
-        print("\n  [!] Placeholder e-mails remain for authors 2 and 3 - edit AUTHORS at the top of "
-              "this script before submitting.")
 
 
 if __name__ == "__main__":

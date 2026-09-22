@@ -129,6 +129,18 @@ def code(text, caption=None):
     return out
 
 
+def esc(text: str) -> str:
+    """
+    Escape a bare ampersand for reportlab's mini-markup.
+
+    "R&D" renders as "R&D;" because the parser reads "&D;" as a malformed entity.
+    Only bare ampersands are escaped, so intentional markup such as <b> and <i>
+    in table cells continues to work.
+    """
+    import re
+    return re.sub(r"&(?!#?\w+;)", "&amp;", str(text))
+
+
 def table(rows, widths, caption=None, header=True):
     data = []
     for r_index, row in enumerate(rows):
@@ -137,7 +149,8 @@ def table(rows, widths, caption=None, header=True):
             if isinstance(cell, Paragraph):
                 line.append(cell)
             else:
-                line.append(Paragraph(str(cell), S["tabh"] if (header and r_index == 0) else S["tabc"]))
+                line.append(Paragraph(esc(cell),
+                                      S["tabh"] if (header and r_index == 0) else S["tabc"]))
         data.append(line)
     t = Table(data, colWidths=widths, hAlign="CENTER", repeatRows=1 if header else 0)
     style = [

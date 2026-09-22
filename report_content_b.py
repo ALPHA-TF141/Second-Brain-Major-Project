@@ -651,8 +651,8 @@ def build():
          "Derived state cleared at the start of each run; determinism now asserted by the suite. "
          "Lesson: <i>a benchmark that is not deterministic cannot support a claim made from it.</i>"],
         ["Test deleted real user data",
-         "123 of the author's genuine memory cards were removed",
-         "The mail-ingestion test registered the author's real email address, so its generated "
+         "123 of the authors' genuine memory cards were removed",
+         "The mail-ingestion test registered the authors' real email address, so its generated "
          "artefacts were indistinguishable from genuine ones and its cleanup could not tell them "
          "apart.",
          "Restored from version control. The test now uses a non-existent address and its cleanup "
@@ -931,7 +931,7 @@ def build():
     f.append(Sub("Closing assessment"))
     f.append(P(
         "The system does what the original brief asked. It captures continuously, stores durably, "
-        "answers in plain language, speaks and listens, and runs entirely on the author's machine "
+        "answers in plain language, speaks and listens, and runs entirely on the authors' machine "
         "without a paid service. It also does something the original brief did not anticipate: it "
         "identifies and addresses a class of failure specific to personal memory that general-purpose "
         "retrieval evaluation does not measure."))
