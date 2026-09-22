@@ -1,133 +1,6 @@
 {
-  "updated_at": "2026-09-22T10:49:51.216799Z",
+  "updated_at": "2026-09-22T10:50:58.908389Z",
   "nodes": [
-    {
-      "id": "card_20260922_082041_126",
-      "label": "Hidden by privacy rule",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Hidden by privacy rule: Activity on excluded: Hidden by privacy rule",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082046_312",
-      "label": "Hidden by privacy rule",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Hidden by privacy rule: Activity on excluded: Hidden by privacy rule",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082050_829",
-      "label": "Code",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] start-jarvis.bat - Second Brain: Activity on Code.exe: start-jarvis.bat - Second Brain - Visual Studio Code",
-      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_082050_829.webp",
-      "val": 10
-    },
-    {
-      "id": "card_20260922_082056_134",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082101_674",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082106_658",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082111_746",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082116_549",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "DOMAIN_COMMUNICATION",
-      "label": "Communication",
-      "domain": "Communication",
-      "priority": "high",
-      "val": 15
-    },
-    {
-      "id": "mail_1_702841",
-      "label": "Email: Finish setting up your new Google Account",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from Google Community Team <googlecommunityteam-noreply@google.com> to immanuellourdu@gmail.com about: Finish setting up your new Google Account",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "ENT_googlecommunityteam-noreply@google.com",
-      "label": "googlecommunityteam-noreply@google.com",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "ENT_immanuellourdu@gmail.com",
-      "label": "immanuellourdu@gmail.com",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "mail_2_8400ae",
-      "label": "Email: \ud83c\udf0e You recently turned on Location History",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from Google Location History <location-history-noreply@google.com> to immanuellourdu@gmail.com about: \ud83c\udf0e You recently turned on Location History",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "ENT_location-history-noreply@google.com",
-      "label": "location-history-noreply@google.com",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "mail_3_edd96a",
-      "label": "Email: Verify your email address",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from Microsoft account team\r\n\t<account-security-noreply@accountprotection.microsoft.com> to immanuellourdu@gmail.com about: Verify your email address",
-      "hero_image": null,
-      "val": 6
-    },
     {
       "id": "ENT_account-security-noreply@accountprotection.microsoft.com",
       "label": "account-security-noreply@accountprotection.microsoft.com",
@@ -2960,329 +2833,140 @@
       "summary": "[Technology] (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany: Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
       "hero_image": null,
       "val": 6
+    },
+    {
+      "id": "card_20260922_104956_975",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany: Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105001_770",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany: Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105007_267",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany: Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105012_241",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany: Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105017_459",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany: Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105022_676",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany: Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105028_123",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany: Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105033_729",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany: Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105038_457",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany: Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105043_280",
+      "label": "jarvis and tony stark all clips together - Go",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] jarvis and tony stark all clips together - Google Search: Activity on chrome.exe: jarvis and tony stark all clips together - Google Search - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105048_407",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] Iron Man 2 | Welcome home sir (Workshop scene): Activity on chrome.exe: Iron Man 2 | Welcome home sir (Workshop scene) - YouTube - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_105048_407.webp",
+      "val": 6
+    },
+    {
+      "id": "ENT_iron",
+      "label": "Iron",
+      "domain": "Technology",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "ENT_workshop",
+      "label": "Workshop",
+      "domain": "Technology",
+      "priority": "medium",
+      "val": 8
+    },
+    {
+      "id": "card_20260922_105053_697",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) Iron Man 2 | Welcome home sir (Workshop scene): Activity on chrome.exe: (3055) Iron Man 2 | Welcome home sir (Workshop scene) - YouTube - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_105053_697.webp",
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105058_866",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) Iron Man 2 | Welcome home sir (Workshop scene): Activity on chrome.exe: (3055) Iron Man 2 | Welcome home sir (Workshop scene) - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
     }
   ],
   "edges": [
-    {
-      "source": "mail_74_317b6f",
-      "target": "ENT_immanuellourdu@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_COMMUNICATION",
-      "target": "mail_75_d8315a",
-      "label": "contains"
-    },
-    {
-      "source": "mail_75_d8315a",
-      "target": "ENT_no-reply@spotify.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_75_d8315a",
-      "target": "ENT_immanuellourdu@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_082816_928",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_082816_928",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082816_928",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082816_928",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082816_928",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_082822_176",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_082822_176",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082822_176",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082822_176",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082822_176",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_COMMUNICATION",
-      "target": "mail_51_d41142",
-      "label": "contains"
-    },
-    {
-      "source": "mail_51_d41142",
-      "target": "ENT_noreply@github.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_51_d41142",
-      "target": "ENT_lmariaimmanuel@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_51_d41142",
-      "target": "ENT_verification",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_COMMUNICATION",
-      "target": "mail_52_258105",
-      "label": "contains"
-    },
-    {
-      "source": "mail_52_258105",
-      "target": "ENT_notifications@vercel.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_52_258105",
-      "target": "ENT_lmariaimmanuel@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_COMMUNICATION",
-      "target": "mail_55_d41142",
-      "label": "contains"
-    },
-    {
-      "source": "mail_55_d41142",
-      "target": "ENT_noreply@github.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_55_d41142",
-      "target": "ENT_lmariaimmanuel@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_55_d41142",
-      "target": "ENT_verification",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_COMMUNICATION",
-      "target": "mail_58_4dc17f",
-      "label": "contains"
-    },
-    {
-      "source": "mail_58_4dc17f",
-      "target": "ENT_admin@credly.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_58_4dc17f",
-      "target": "ENT_lmariaimmanuel@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_COMMUNICATION",
-      "target": "mail_59_892698",
-      "label": "contains"
-    },
-    {
-      "source": "mail_59_892698",
-      "target": "ENT_noreply@netacad.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_59_892698",
-      "target": "ENT_lmariaimmanuel@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_COMMUNICATION",
-      "target": "mail_72_6a4e2b",
-      "label": "contains"
-    },
-    {
-      "source": "mail_72_6a4e2b",
-      "target": "ENT_no-reply@leetcode.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_72_6a4e2b",
-      "target": "ENT_lmariaimmanuel@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_082827_905",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_082827_905",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082827_905",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082827_905",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082827_905",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_082832_305",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_082832_305",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082832_305",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082832_305",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082832_305",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_082837_097",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_082837_097",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082837_097",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082837_097",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082837_097",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_082842_710",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_082842_710",
-      "target": "ENT_whatsapp",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082842_710",
-      "target": "ENT_root",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082842_710",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_082848_246",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_082848_246",
-      "target": "ENT_whatsapp",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082848_246",
-      "target": "ENT_root",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082848_246",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_082853_289",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_082853_289",
-      "target": "ENT_whatsapp",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082853_289",
-      "target": "ENT_root",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082853_289",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_082858_911",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_082858_911",
-      "target": "ENT_whatsapp",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_082858_911",
-      "target": "ENT_root",
-      "label": "mentions"
-    },
     {
       "source": "card_20260922_082858_911",
       "target": "ENT_activity",
@@ -5461,6 +5145,326 @@
     {
       "source": "card_20260922_104951_171",
       "target": "ENT_paul",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_104956_975",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_104956_975",
+      "target": "ENT_jarvis",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_104956_975",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_104956_975",
+      "target": "ENT_robert",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_104956_975",
+      "target": "ENT_paul",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105001_770",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105001_770",
+      "target": "ENT_jarvis",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105001_770",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105001_770",
+      "target": "ENT_robert",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105001_770",
+      "target": "ENT_paul",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105007_267",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105007_267",
+      "target": "ENT_jarvis",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105007_267",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105007_267",
+      "target": "ENT_robert",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105007_267",
+      "target": "ENT_paul",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105012_241",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105012_241",
+      "target": "ENT_jarvis",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105012_241",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105012_241",
+      "target": "ENT_robert",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105012_241",
+      "target": "ENT_paul",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105017_459",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105017_459",
+      "target": "ENT_jarvis",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105017_459",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105017_459",
+      "target": "ENT_robert",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105017_459",
+      "target": "ENT_paul",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105022_676",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105022_676",
+      "target": "ENT_jarvis",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105022_676",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105022_676",
+      "target": "ENT_robert",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105022_676",
+      "target": "ENT_paul",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105028_123",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105028_123",
+      "target": "ENT_jarvis",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105028_123",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105028_123",
+      "target": "ENT_robert",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105028_123",
+      "target": "ENT_paul",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105033_729",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105033_729",
+      "target": "ENT_jarvis",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105033_729",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105033_729",
+      "target": "ENT_robert",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105033_729",
+      "target": "ENT_paul",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105038_457",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105038_457",
+      "target": "ENT_jarvis",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105038_457",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105038_457",
+      "target": "ENT_robert",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105038_457",
+      "target": "ENT_paul",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_105043_280",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105043_280",
+      "target": "ENT_search",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105043_280",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105043_280",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105048_407",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105048_407",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105048_407",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105048_407",
+      "target": "ENT_iron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105048_407",
+      "target": "ENT_workshop",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105053_697",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105053_697",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105053_697",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105053_697",
+      "target": "ENT_iron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105053_697",
+      "target": "ENT_workshop",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105058_866",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105058_866",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105058_866",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105058_866",
+      "target": "ENT_iron",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105058_866",
+      "target": "ENT_workshop",
       "label": "mentions"
     }
   ]
