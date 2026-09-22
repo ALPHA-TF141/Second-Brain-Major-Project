@@ -1,0 +1,33 @@
+{
+  "id": "card_20260922_065154_167",
+  "timestamp": "2026-09-22T06:51:54.167443Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "Audience – Google Auth Platform – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "topic": "Cloud",
+  "summary": "[Technology] Audience – Google Auth Platform – Jarvis Second Brain – Google Cloud console: Activity on chrome.exe: Audience – Google Auth Platform – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Audience – Google Auth Platform – Jarvis Second Brain – Google Cloud console - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Jarvis",
+    "Audience",
+    "Platform",
+    "Second",
+    "Auth",
+    "Brain",
+    "Activity"
+  ],
+  "tags": [
+    "cloud",
+    "chrome",
+    "technology"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Audience – Google Auth Platform – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 53.55
+}
