@@ -1,0 +1,28 @@
+{
+  "id": "card_20260922_064420_472",
+  "timestamp": "2026-09-22T06:44:20.472526Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Sign in - Google Accounts - Google Chrome",
+  "topic": "Sign in - Google Accounts",
+  "summary": "[General] Sign in - Google Accounts: Activity on chrome.exe: Sign in - Google Accounts - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Sign in - Google Accounts - Google Chrome"
+  ],
+  "entities": [
+    "Accounts",
+    "Sign",
+    "Google",
+    "Activity"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Sign in - Google Accounts - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_064420_472.webp",
+  "hero_image_info_score": 31.95
+}

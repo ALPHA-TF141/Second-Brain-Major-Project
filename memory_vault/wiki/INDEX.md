@@ -44,3 +44,5 @@
 - [General: Weekly Feedback Form - Basics of Food and Nut](general/weekly_feedback_form___basics_of_food_and_nut.md) — *Updated 2026-09-22*
 - [General: Progress: Basics of Food and Nutrition | SWAY](general/progress__basics_of_food_and_nutrition___sway.md) — *Updated 2026-09-22*
 - [Technology: Cloud](technology/cloud.md) — *Updated 2026-09-22*
+- [General: Sign in - Google Accounts](general/sign_in___google_accounts.md) — *Updated 2026-09-22*
+- [General: 2-Step Verification](general/2_step_verification.md) — *Updated 2026-09-22*
