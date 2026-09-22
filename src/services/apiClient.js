@@ -292,6 +292,18 @@ export const apiClient = {
     request(`/api/os/notifications/${id}/read`, { method: 'POST' }),
   clearNotifications: () => request('/api/os/notifications', { method: 'DELETE' }),
 
+  // ---- Hands-free: wake word + proactive voice ---------------------------
+  proactiveStatus: () => request('/api/proactive/status'),
+  testWakeWord: () => request('/api/proactive/wake/test', { method: 'POST' }),
+  announce: (text, priority = 'high', force = true) =>
+    request('/api/proactive/announce', {
+      method: 'POST',
+      body: JSON.stringify({ text, priority, source: 'manual', force })
+    }),
+  proactiveHistory: (limit = 50) => request(`/api/proactive/history?limit=${limit}`),
+  pauseVoice: () => request('/api/proactive/pause', { method: 'POST' }),
+  resumeVoice: () => request('/api/proactive/resume', { method: 'POST' }),
+
   calendarSources: () => request('/api/calendar/sources'),
   addCalendarFeed: (url, label = '', accountEmail = '') =>
     request('/api/calendar/feed', {

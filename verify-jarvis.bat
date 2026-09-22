@@ -23,32 +23,32 @@ echo   JARVIS OS - FULL ERROR CHECK
 echo ============================================================
 
 echo.
-echo [1/12] ESLint (undefined vars / bad JSX) ...
+echo [1/14] ESLint (undefined vars / bad JSX) ...
 call npm run lint
 if errorlevel 1 goto :failed
 
 echo.
-echo [2/12] Static health check (imports, routes, API wiring) ...
+echo [2/14] Static health check (imports, routes, API wiring) ...
 "%PY%" scripts\health_check.py
 if errorlevel 1 goto :failed
 
 echo.
-echo [3/12] API contract (UI calls ^<^-^> backend routes) ...
+echo [3/14] API contract (UI calls ^<^-^> backend routes) ...
 call npm run check:api
 if errorlevel 1 goto :failed
 
 echo.
-echo [4/12] Route render smoke test (all 18 routes) ...
+echo [4/14] Route render smoke test (all 18 routes) ...
 call npm run smoke
 if errorlevel 1 goto :failed
 
 echo.
-echo [5/12] Production build ...
+echo [5/14] Production build ...
 call npm run build
 if errorlevel 1 goto :failed
 
 echo.
-echo [6/12] Backend test suites ...
+echo [6/14] Backend test suites ...
 pushd backend
 "%PY%" test_all_endpoints.py
 set BACKEND_RC=%errorlevel%
@@ -56,7 +56,7 @@ popd
 if not "%BACKEND_RC%"=="0" goto :failed
 
 echo.
-echo [7/12] Google integration test (offline fake-Google suite) ...
+echo [7/14] Google integration test (offline fake-Google suite) ...
 pushd backend
 "%PY%" test_google_integration.py
 set GOOGLE_RC=%errorlevel%
@@ -64,7 +64,7 @@ popd
 if not "%GOOGLE_RC%"=="0" goto :failed
 
 echo.
-echo [8/12] Mail + Calendar test (fake IMAP + iCal parser) ...
+echo [8/14] Mail + Calendar test (fake IMAP + iCal parser) ...
 pushd backend
 "%PY%" test_mail_calendar.py
 set MAIL_RC=%errorlevel%
@@ -72,7 +72,7 @@ popd
 if not "%MAIL_RC%"=="0" goto :failed
 
 echo.
-echo [9/12] Mail -^> memory ingestion test (fake IMAP + RAG proof) ...
+echo [9/14] Mail -^> memory ingestion test (fake IMAP + RAG proof) ...
 pushd backend
 "%PY%" test_mail_ingestion.py
 set INGEST_RC=%errorlevel%
@@ -80,17 +80,30 @@ popd
 if not "%INGEST_RC%"=="0" goto :failed
 
 echo.
-echo [10/12] Orb voice loop (mic re-arm, TTS watchdog, wake word) ...
+echo [10/14] Orb voice loop (mic re-arm, TTS watchdog, wake word) ...
 call npm run test:orb
 if errorlevel 1 goto :failed
 
 echo.
-echo [11/12] Backend endpoint sweep (every GET route) ...
+echo [11/14] Wake word + proactive voice (policy + real model) ...
+pushd backend
+"%PY%" test_proactive_voice.py
+set PV_RC=%errorlevel%
+popd
+if not "%PV_RC%"=="0" goto :failed
+
+echo.
+echo [12/14] Hands-free UI wiring (wake -^> orb, speak -^> voice) ...
+call npm run test:proactive
+if errorlevel 1 goto :failed
+
+echo.
+echo [13/14] Backend endpoint sweep (every GET route) ...
 "%PY%" backend\verify_backend_endpoints.py
 if errorlevel 1 goto :failed
 
 echo.
-echo [12/12] Browser route smoke test ...
+echo [14/14] Browser route smoke test ...
 if not exist "node_modules\playwright" (
     echo       Playwright not installed - skipping.
     echo       To enable it run:  npm run smoke:setup

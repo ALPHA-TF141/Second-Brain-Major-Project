@@ -35,6 +35,63 @@ export default function AppLayout() {
   const location = useLocation();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const lastNotified = useRef(null);
+  const lastWakedAt = useRef(null);
+  const lastSpokenAt = useRef(null);
+
+  /**
+   * Hands-free: the backend raises `wake` when it hears "Hey Jarvis".
+   * Bring the orb up so there is a face attached to the assistant that just
+   * answered you. `revealOrb` always shows; `showOrb` would toggle it away if
+   * it happened to already be visible.
+   */
+  useEffect(() => {
+    const latest = (liveEvents || [])[0];
+    if (!latest || latest.type !== 'wake') return;
+    if (lastWakedAt.current === latest.timestamp) return;
+    lastWakedAt.current = latest.timestamp;
+
+    const bridge = typeof window !== 'undefined' ? window.secondBrain : null;
+    if (bridge?.revealOrb) {
+      bridge.revealOrb();
+    } else if (bridge?.showOrb) {
+      bridge.showOrb();
+    }
+  }, [liveEvents]);
+
+  /**
+   * Proactive voice: the backend decides WHAT is worth saying (priority gate,
+   * quiet hours, cooldown, dedupe) and sends `speak`. The renderer only has to
+   * open its mouth, so the policy lives in one place.
+   */
+  useEffect(() => {
+    const latest = (liveEvents || [])[0];
+    if (!latest || latest.type !== 'speak' || !latest.text) return;
+    if (lastSpokenAt.current === latest.timestamp) return;
+    lastSpokenAt.current = latest.timestamp;
+
+    // A face for the voice.
+    const bridge = typeof window !== 'undefined' ? window.secondBrain : null;
+    if (latest.show_orb) {
+      bridge?.revealOrb?.();
+    }
+
+    try {
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(latest.text);
+        utterance.rate = 1.02;
+        utterance.pitch = 1.0;
+        const voices = window.speechSynthesis.getVoices();
+        const natural = voices.find(
+          (v) => v.lang?.includes('en-GB') || v.name?.includes('Natural') || v.name?.includes('George')
+        );
+        if (natural) utterance.voice = natural;
+        window.speechSynthesis.speak(utterance);
+      }
+    } catch {
+      // Speech is a nicety; never let it break the shell.
+    }
+  }, [liveEvents]);
 
   /**
    * Surface mail-ingestion alerts as real OS notifications.

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  AlertTriangle, Brain, Calendar, CheckCircle2, ChevronDown, ExternalLink, Info,
-  KeyRound, Link2, Loader2, Mail, RefreshCw, ShieldCheck, Trash2, Zap
+  AlertTriangle, Brain, Calendar, CheckCircle2, ChevronDown, Ear, ExternalLink, Info,
+  KeyRound, Link2, Loader2, Mail, Mic, RefreshCw, ShieldCheck, Trash2, Volume2, Zap
 } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { apiFetch, openInBrowser } from '../services/apiClient.js';
@@ -54,22 +54,28 @@ export default function IntegrationsManager() {
   const [syncResult, setSyncResult] = useState(null);
   const [syncing, setSyncing] = useState(false);
 
+  // Hands-free
+  const [voice, setVoice] = useState(null);
+  const [voiceBusy, setVoiceBusy] = useState('');
+
   const mailEmails = mailAccounts.map((a) => (a.email || '').toLowerCase());
 
   async function loadAll() {
     try {
-      const [mailRes, calRes, googRes, localRes, syncRes] = await Promise.all([
+      const [mailRes, calRes, googRes, localRes, syncRes, voiceRes] = await Promise.all([
         apiFetch(`${apiClient.baseUrl}/api/mail/accounts`),
         apiFetch(`${apiClient.baseUrl}/api/calendar/sources`),
         apiFetch(`${apiClient.baseUrl}/api/google/status`),
         apiFetch(`${apiClient.baseUrl}/api/os/integrations`),
-        apiFetch(`${apiClient.baseUrl}/api/mail/sync/status`)
+        apiFetch(`${apiClient.baseUrl}/api/mail/sync/status`),
+        apiFetch(`${apiClient.baseUrl}/api/proactive/status`)
       ]);
       if (mailRes.ok) setMailAccounts(await mailRes.json());
       if (calRes.ok) setCalendarSources(await calRes.json());
       if (googRes.ok) setGoogle(await googRes.json());
       if (localRes.ok) setLocal(await localRes.json());
       if (syncRes.ok) setSyncStatus(await syncRes.json());
+      if (voiceRes.ok) setVoice(await voiceRes.json());
     } catch {
       setNotice({ type: 'error', text: 'Could not reach the backend. Is it running?' });
     }
@@ -205,6 +211,54 @@ export default function IntegrationsManager() {
       }
     } finally {
       setBusy('');
+    }
+  }
+
+  async function testWake() {
+    setVoiceBusy('wake');
+    try {
+      await apiFetch(`${apiClient.baseUrl}/api/proactive/wake/test`, { method: 'POST' });
+      setNotice({ type: 'success', text: 'Wake event fired - the orb should have appeared.' });
+    } catch {
+      setNotice({ type: 'error', text: 'Could not fire the wake event.' });
+    } finally {
+      setVoiceBusy('');
+    }
+  }
+
+  async function testSpeak() {
+    setVoiceBusy('speak');
+    try {
+      await apiFetch(`${apiClient.baseUrl}/api/proactive/announce`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: 'Sir, this is a proactive announcement. Your systems are nominal.',
+          priority: 'high',
+          source: 'manual',
+          force: true
+        })
+      });
+      setNotice({ type: 'success', text: 'Spoken. If you heard nothing, check your system volume.' });
+    } catch {
+      setNotice({ type: 'error', text: 'Could not speak.' });
+    } finally {
+      setVoiceBusy('');
+    }
+  }
+
+  async function toggleVoicePaused() {
+    const paused = voice?.voice?.enabled === false;
+    setVoiceBusy('pause');
+    try {
+      await apiFetch(`${apiClient.baseUrl}/api/proactive/${paused ? 'resume' : 'pause'}`, { method: 'POST' });
+      await loadAll();
+      setNotice({
+        type: 'success',
+        text: paused ? 'Proactive voice resumed.' : 'Proactive voice paused - Jarvis will stay quiet.'
+      });
+    } finally {
+      setVoiceBusy('');
     }
   }
 
@@ -570,6 +624,108 @@ GOOGLE_CLIENT_SECRET=...`}</pre>
                   the wiki. Tune the interval in <span className="font-mono">backend/.env</span>{' '}
                   (<span className="font-mono">MAIL_SYNC_INTERVAL_MINUTES</span>).
                 </span>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ==================== HANDS-FREE ==================== */}
+        {voice && (
+          <section className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Mic size={14} className="text-amber-400" />
+              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+                Hands-Free
+              </h3>
+              <span className={`ml-auto rounded px-2 py-0.5 text-[10px] font-mono font-bold ${
+                voice.wake_word?.running ? 'bg-emerald-400/10 text-emerald-300' : 'bg-amber-400/10 text-amber-300'
+              }`}>
+                {voice.wake_word?.running ? `"${voice.wake_word.model}" ACTIVE` : 'HOTKEY ONLY'}
+              </span>
+            </div>
+
+            <div className="rounded-2xl border border-amber-400/20 bg-[#0f1422] p-4 space-y-3">
+              {/* Wake word */}
+              <div className="flex items-start gap-2">
+                <Ear size={13} className="mt-0.5 text-amber-300 shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold text-white">Wake word — say &quot;Hey Jarvis&quot;</p>
+                  {voice.wake_word?.running ? (
+                    <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                      Listening locally on this machine. No audio leaves your PC.
+                      {voice.wake_word.detections > 0 && ` Detected ${voice.wake_word.detections} time(s).`}
+                    </p>
+                  ) : (
+                    <div className="mt-1 space-y-1">
+                      <p className="text-[11px] text-slate-400 leading-relaxed">
+                        {voice.wake_word?.available
+                          ? `Not running. ${voice.wake_word.last_error || 'Press Alt+J to summon Jarvis.'}`
+                          : 'Needs two optional packages to listen offline:'}
+                      </p>
+                      {!voice.wake_word?.available && (
+                        <div className="rounded-lg border border-white/10 bg-black/30 p-2.5">
+                          <pre className="text-[10px] font-mono text-cyan-300 whitespace-pre-wrap break-all">{'backend/.venv/Scripts/python.exe -m pip install openwakeword sounddevice'}</pre>
+                          <p className="text-[10px] text-slate-500 mt-1">
+                            Then restart. Alt+J keeps working either way.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Proactive voice */}
+              <div className="flex items-start gap-2 pt-3 border-t border-white/5">
+                <Volume2 size={13} className="mt-0.5 text-amber-300 shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold text-white">Speaks first</p>
+                  <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                    Deadlines found in your mail are announced aloud, not just filed.
+                    Only at <span className="font-mono text-amber-300">{voice.voice?.min_priority}</span> or above
+                    {voice.voice?.quiet_hours ? `, silent during ${voice.voice.quiet_hours}` : ''}.
+                    {voice.voice?.in_quiet_hours && ' (Currently within quiet hours.)'}
+                  </p>
+                  {voice.voice?.spoken_count > 0 && voice.voice?.last_spoken && (
+                    <p className="text-[10px] text-slate-500 mt-1 italic">
+                      Last said: &quot;{voice.voice.last_spoken.text.slice(0, 90)}&quot;
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Controls */}
+              <div className="flex flex-wrap gap-2 pt-3 border-t border-white/5">
+                <button
+                  type="button"
+                  onClick={testWake}
+                  disabled={!!voiceBusy}
+                  className="flex items-center gap-1.5 rounded-lg border border-amber-400/30 bg-amber-500/10 px-3 py-1.5 text-[11px] font-semibold text-amber-200 hover:bg-amber-500/20 disabled:opacity-40"
+                >
+                  {voiceBusy === 'wake' ? <Loader2 size={11} className="animate-spin" /> : <Ear size={11} />}
+                  Test wake
+                </button>
+                <button
+                  type="button"
+                  onClick={testSpeak}
+                  disabled={!!voiceBusy}
+                  className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-semibold text-slate-300 hover:bg-white/10 disabled:opacity-40"
+                >
+                  {voiceBusy === 'speak' ? <Loader2 size={11} className="animate-spin" /> : <Volume2 size={11} />}
+                  Test voice
+                </button>
+                <button
+                  type="button"
+                  onClick={toggleVoicePaused}
+                  disabled={!!voiceBusy}
+                  className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[11px] font-semibold disabled:opacity-40 ${
+                    voice.voice?.enabled === false
+                      ? 'border-emerald-400/30 bg-emerald-500/10 text-emerald-200'
+                      : 'border-white/10 bg-white/5 text-slate-300 hover:bg-white/10'
+                  }`}
+                >
+                  {voice.voice?.enabled === false ? 'Resume speaking' : 'Pause speaking'}
+                </button>
               </div>
             </div>
           </section>
