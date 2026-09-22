@@ -62,7 +62,18 @@ class GoogleNotConfigured(RuntimeError):
 
 
 class GoogleAuthError(RuntimeError):
-    pass
+    """Something went wrong talking to Google (bad token, network, 5xx)."""
+
+
+class AccountNotFound(GoogleAuthError):
+    """
+    The requested account id is not in the token store.
+
+    This is a CLIENT error, not an upstream failure: the caller asked for an
+    account that does not exist (or was disconnected). It must map to 404, not
+    502 - 502 means "the service in front of us misbehaved", which would send
+    the user hunting for a Google problem that is not there.
+    """
 
 
 # --------------------------------------------------------------------- helpers
@@ -163,7 +174,7 @@ async def refresh_access_token(account_id: str) -> str:
 
     record = google_token_store.get_secret(account_id)
     if not record:
-        raise GoogleAuthError("Account not found - it may have been disconnected.")
+        raise AccountNotFound("Account not found - it may have been disconnected.")
 
     refresh_token = record.get("refresh_token")
     if not refresh_token:
@@ -428,6 +439,7 @@ google_client = {
     "fetch_userinfo": fetch_userinfo,
     "refresh_access_token": refresh_access_token,
     "revoke_account": revoke_account,
+    "AccountNotFound": AccountNotFound,
     "gmail_profile": gmail_profile,
     "gmail_list_messages": gmail_list_messages,
     "gmail_get_message": gmail_get_message,

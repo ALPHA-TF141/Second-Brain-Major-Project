@@ -32,7 +32,7 @@ from app.auth.dependencies import get_current_user
 from app.config import settings
 from app.database.session import get_db
 from app.integrations import google_oauth
-from app.integrations.google_oauth import GoogleAuthError, GoogleNotConfigured
+from app.integrations.google_oauth import AccountNotFound, GoogleAuthError, GoogleNotConfigured
 from app.integrations.token_store import TokenStoreUnavailable, google_token_store
 from app.models.user import User
 
@@ -44,12 +44,31 @@ class ConnectPayload(BaseModel):
     services: Optional[List[str]] = None
 
 
+def _require_account(account_id: str, label: str = "Account") -> None:
+    """
+    Fail with 404 before touching Google if the id is unknown.
+
+    Without this the response code depended on whether Google was configured at
+    all - 400 when it was not, 404 when it was - which is not a property of the
+    request being made.
+    """
+    if not google_token_store.get_secret(account_id):
+        raise HTTPException(
+            status_code=404,
+            detail=f"{label} not found - it may have been disconnected.",
+        )
+
+
 def _raise_http(exc: Exception) -> None:
     """Map an integration error onto the right HTTP status."""
     if isinstance(exc, GoogleNotConfigured):
         raise HTTPException(status_code=400, detail=str(exc))
     if isinstance(exc, TokenStoreUnavailable):
         raise HTTPException(status_code=500, detail=str(exc))
+    if isinstance(exc, AccountNotFound):
+        # Order matters: this subclasses GoogleAuthError. A missing account is
+        # the CALLER's mistake -> 404.
+        raise HTTPException(status_code=404, detail=str(exc))
     if isinstance(exc, GoogleAuthError):
         # 502: the failure is on Google's side / the credential, not our logic.
         raise HTTPException(status_code=502, detail=str(exc))
@@ -248,6 +267,7 @@ async def gmail_messages(
     limit: int = Query(default=25, ge=1, le=100),
     _user: User = Depends(get_current_user),
 ):
+    _require_account(account_id, "Mail account")
     messages = await _ahandle(google_oauth.gmail_list_messages(account_id, q, limit))
     google_token_store.touch(account_id)
     return {"account_id": account_id, "query": q, "count": len(messages), "messages": messages}
@@ -259,11 +279,13 @@ async def gmail_message(
     account_id: str = Query(...),
     _user: User = Depends(get_current_user),
 ):
+    _require_account(account_id, "Mail account")
     return await _ahandle(google_oauth.gmail_get_message(account_id, message_id))
 
 
 @router.get("/gmail/profile")
 async def gmail_profile(account_id: str = Query(...), _user: User = Depends(get_current_user)):
+    _require_account(account_id, "Mail account")
     return await _ahandle(google_oauth.gmail_profile(account_id))
 
 
@@ -277,6 +299,7 @@ async def calendar_events(
     limit: int = Query(default=50, ge=1, le=250),
     _user: User = Depends(get_current_user),
 ):
+    _require_account(account_id, "Calendar account")
     events = await _ahandle(
         google_oauth.calendar_events(account_id, days_ahead, days_back, calendar_id, limit)
     )
@@ -286,4 +309,5 @@ async def calendar_events(
 
 @router.get("/calendar/calendars")
 async def calendar_calendars(account_id: str = Query(...), _user: User = Depends(get_current_user)):
+    _require_account(account_id, "Calendar account")
     return await _ahandle(google_oauth.calendar_list_calendars(account_id))

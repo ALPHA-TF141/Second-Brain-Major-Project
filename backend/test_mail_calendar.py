@@ -505,6 +505,12 @@ def main():
         r = api.get("/api/mail/messages?account_id=imap_missing")
         check("unauthenticated mail route -> 401", r.status_code == 401)
 
+        r = api.get("/api/mail/messages?account_id=imap_missing", headers=headers)
+        check("unknown imap account -> 404", r.status_code == 404, f"got {r.status_code}")
+        r = api.get("/api/calendar/source-events?source_id=1", headers=headers)
+        check("unknown calendar source -> 404", r.status_code == 404,
+              f"got {r.status_code}: {r.text[:100]}")
+
         # calendar feed
         r = api.post("/api/calendar/feed", headers=headers, json={
             "url": f"http://127.0.0.1:{ics_port}/good", "label": "College Calendar"})

@@ -291,7 +291,10 @@ def main():
     store.update_account(account_id, {"refresh_token": "REVOKED_TOKEN"})
     google_oauth._access_tokens.clear()
     r = client.get(f"/api/google/gmail/messages?account_id={account_id}", headers=headers)
-    check("returns 502 (not a 500 crash)", r.status_code == 502, f"got {r.status_code}")
+    check("a REVOKED upstream token -> 502 (genuine upstream failure, not 500)",
+          r.status_code == 502, f"got {r.status_code}")
+    check("the two failure kinds are distinguishable: 404 vs 502",
+          r.status_code != 404, "a bad credential must not look like a missing account")
     check("explains invalid_grant and the 7-day testing rule",
           "invalid_grant" in r.text and "Testing" in r.text, r.text[:200])
     store.update_account(account_id, {"refresh_token": FAKE_REFRESH_TOKEN})  # restore
@@ -299,7 +302,10 @@ def main():
     # ---- 10. unknown account -------------------------------------------
     print("\n[10] unknown account")
     r = client.get("/api/google/gmail/messages?account_id=gacct_missing", headers=headers)
-    check("unknown account is rejected cleanly", r.status_code == 502, f"got {r.status_code}")
+    check("unknown account -> 404 (a client mistake, not an upstream failure)",
+          r.status_code == 404, f"got {r.status_code}: {r.text[:120]}")
+    check("and it does NOT masquerade as a gateway error", r.status_code != 502,
+          "502 would send the user hunting for a Google problem that does not exist")
 
     # ---- 11. auth is required on data routes ----------------------------
     print("\n[11] routes require the app JWT")

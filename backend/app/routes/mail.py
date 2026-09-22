@@ -34,7 +34,7 @@ from sqlalchemy.orm import Session
 from app.auth.dependencies import get_current_user
 from app.database.session import get_db
 from app.integrations import google_oauth
-from app.integrations.google_oauth import GoogleAuthError, GoogleNotConfigured
+from app.integrations.google_oauth import AccountNotFound, GoogleAuthError, GoogleNotConfigured
 from app.integrations.ical_calendar import CalendarFeedError, fetch_feed
 from app.integrations.imap_mail import ImapError, GmailImapClient
 from app.integrations.local_store import EncryptedStore, StoreUnavailable
@@ -73,6 +73,8 @@ def _google_error(exc: Exception) -> HTTPException:
     """
     if isinstance(exc, GoogleNotConfigured):
         return HTTPException(status_code=400, detail=str(exc))
+    if isinstance(exc, AccountNotFound):
+        return HTTPException(status_code=404, detail=str(exc))
     return HTTPException(status_code=502, detail=str(exc))
 
 
@@ -219,9 +221,16 @@ async def mail_messages(
             "query": q, "count": len(messages), "messages": messages,
         }
 
+    # Resolve the account locally FIRST. Otherwise an unknown id reaches Google,
+    # and the status code ends up depending on whether Google happens to be
+    # configured (400) or not (404) - which is not a property of the request.
+    # A missing account is always 404, and we never call the provider for one.
+    if not google_token_store.get_secret(account_id):
+        raise HTTPException(status_code=404, detail="Mail account not found - it may have been disconnected.")
+
     try:
         messages = await google_oauth.gmail_list_messages(account_id, q, limit)
-    except (GoogleAuthError, GoogleNotConfigured) as exc:
+    except (AccountNotFound, GoogleAuthError, GoogleNotConfigured) as exc:
         raise _google_error(exc)
     google_token_store.touch(account_id)
     return {
@@ -247,9 +256,12 @@ async def mail_message(
         except Exception as exc:
             raise HTTPException(status_code=502, detail=_friendly(exc))
 
+    if not google_token_store.get_secret(account_id):
+        raise HTTPException(status_code=404, detail="Mail account not found")
+
     try:
         return await google_oauth.gmail_get_message(account_id, message_id)
-    except (GoogleAuthError, GoogleNotConfigured) as exc:
+    except (AccountNotFound, GoogleAuthError, GoogleNotConfigured) as exc:
         raise _google_error(exc)
 
 
@@ -339,9 +351,15 @@ async def calendar_source_events(
         return {"source_id": source_id, "provider": "ical", "count": len(result["events"]),
                 "events": result["events"]}
 
+    if not google_token_store.get_secret(source_id):
+        raise HTTPException(
+            status_code=404,
+            detail="Calendar source not found. Use /api/calendar/sources to list the connected ones.",
+        )
+
     try:
         events = await google_oauth.calendar_events(source_id, days_ahead, days_back, "primary", limit)
-    except (GoogleAuthError, GoogleNotConfigured) as exc:
+    except (AccountNotFound, GoogleAuthError, GoogleNotConfigured) as exc:
         raise _google_error(exc)
     google_token_store.touch(source_id)
     return {"source_id": source_id, "provider": "google", "count": len(events), "events": events}

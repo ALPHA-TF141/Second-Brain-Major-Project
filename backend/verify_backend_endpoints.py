@@ -196,7 +196,9 @@ def main():
     print("\n================ LIVE ENDPOINT SWEEP ================")
 
     if server_err:
-        print(f"\n--- 5xx SERVER ERRORS / CRASHES ({len(server_err)}) ---")
+        print(f"\n--- 5xx SERVER / GATEWAY ERRORS ({len(server_err)}) ---")
+        print("    500 = our bug. 502 = an upstream service (Google/IMAP) failed.")
+        print("    A missing account id should be 404, never 502.")
         for line in server_err:
             print(" ", line)
 
