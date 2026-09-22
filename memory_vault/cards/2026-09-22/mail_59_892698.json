@@ -1,0 +1,29 @@
+{
+  "id": "mail_59_892698",
+  "timestamp": "2026-01-11T07:29:51+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Welcome to Your New Class, Maria Immanuel",
+  "topic": "Email: Welcome to Your New Class, Maria Immanuel",
+  "summary": "Email from Cisco Networking Academy <noreply@netacad.com> to lmariaimmanuel@gmail.com about: Welcome to Your New Class, Maria Immanuel",
+  "key_pointers": [
+    "From: Cisco Networking Academy <noreply@netacad.com>",
+    "Received: Sun, 11 Jan 2026 07:29:51 +0000"
+  ],
+  "entities": [
+    "noreply@netacad.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "netacad.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:noreply@netacad.com",
+  "raw_ocr_excerpt": "Course Enrollment    /* Linked Styles */ body { padding: 0 !important; margin: 0 !important; display: block !important; min-width: 100% !important; width: 100% !important; background: #eeeeee; -webkit-text-size-adjust: none; } a { color: #000001; text-decoration: none; } p { padding: 0 !important; margin: 0 !important; } img { -ms-interpolation-mode: bicubic; /* Allow smoother rendering of resized image in Internet Explorer */ } .mcnPreviewText { display: none !important; } .text-footer2 a { color: #ffffff; } /* Mobile styles */ @media only screen and (max-device-width: 480px), only screen and (max-width: 480px) { .mobile-shell { width: 100% !important; min-width: 100% !important; } .m-center { text-align: center !important; } .m-left { text-align: left !important; margin-right: auto !important; } .center { margin: 0 auto !important; } .content2 { padding: 8px 15px 12px !important; } .t-left { float: left !important; margin-right: 30px !important; } .t-left-2 { float: left !important; } .td { width: 100% !important; min-width: 100% !important; } .content { padding: 30px 15px !important; } .section { padding: 30px 15px 0px !important; } .m-br-15 { height: 15px !important; } .mpb5 { padding-bottom: 5px !important; } .mpb15 { padding-bottom: 15px !important; } .mpb20 { padding-bottom: 20px !important; } .mpb30 { padding-bottom: 30px !important; } .m-padder { padding: 0px 15px !important; } .m-padder2 { padding-left: 15px !important; padding-right: 15px !important; } .p70 { paddi",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -102,3 +102,16 @@
 
  account](communication/email___github__a_third_party_github_application_has_been_added_to_your___account.md) — *Updated 2026-09-22*
 - [General: Google Account](general/google_account.md) — *Updated 2026-09-22*
+- [Communication: Email: Premium Duo. 1 plan, 2 accounts. One month free.](communication/email__premium_duo__1_plan__2_accounts__one_month_free.md) — *Updated 2026-09-22*
+- [Communication: Email: Verify your new Amazon account](communication/email__verify_your_new_amazon_account.md) — *Updated 2026-09-22*
+- [Communication: Email: OTP for Sign Up from Godmusic](communication/email__otp_for_sign_up_from_godmusic.md) — *Updated 2026-09-22*
+- [Communication: Email: Add a mobile number to complete your account](communication/email__add_a_mobile_number_to_complete_your_account.md) — *Updated 2026-09-22*
+- [Communication: Email: Einstein In Bollywood Confirmation](communication/email__einstein_in_bollywood_confirmation.md) — *Updated 2026-09-22*
+- [Communication: Email: The Michelle Obama Podcast is here.](communication/email__the_michelle_obama_podcast_is_here.md) — *Updated 2026-09-22*
+- [Communication: Email: New music from artists you love, with Chris Tomlin on your Release Radar now](communication/email__new_music_from_artists_you_love__with_chris_tomlin_on_your_release_radar_now.md) — *Updated 2026-09-22*
+- [Communication: Email: Google Verification Code](communication/email__google_verification_code.md) — *Updated 2026-09-22*
+- [Communication: Email: 🌎 Immanuel, your July update](communication/email____immanuel__your_july_update.md) — *Updated 2026-09-22*
+- [Communication: Email: New music from artists you love, with Benny Joshua on your Release Radar now](communication/email__new_music_from_artists_you_love__with_benny_joshua_on_your_release_radar_now.md) — *Updated 2026-09-22*
+- [Communication: Email: Failed production deployment on team 'ALPHA-TF141's projects'](communication/email__failed_production_deployment_on_team__alpha_tf141_s_projects.md) — *Updated 2026-09-22*
+- [Communication: Email: Credly account created](communication/email__credly_account_created.md) — *Updated 2026-09-22*
+- [Communication: Email: Welcome to Your New Class, Maria Immanuel](communication/email__welcome_to_your_new_class__maria_immanuel.md) — *Updated 2026-09-22*

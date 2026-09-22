@@ -1,0 +1,29 @@
+{
+  "id": "mail_67_d2cf53",
+  "timestamp": "2020-07-31T20:25:46+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "New music from artists you love, with Chris Tomlin on your Release Radar now",
+  "topic": "Email: New music from artists you love, with Chris Tomlin on your Release Radar now",
+  "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: New music from artists you love, with Chris Tomlin on your Release Radar now",
+  "key_pointers": [
+    "From: \"Spotify\" <no-reply@spotify.com>",
+    "Received: Fri, 31 Jul 2020 20:25:46 +0000 (UTC)"
+  ],
+  "entities": [
+    "no-reply@spotify.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "spotify.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@spotify.com",
+  "raw_ocr_excerpt": "https://open.spotify.com https://message-editor.scdn.co/newsletters/e10a099d3422d8a76bc30170f00b20ee.jpg        Your Release Radar is here: Fresh tracks by your favorite artists, including Chris Tomlin, on a personalized playlist that we update just for you every Friday. Listen to it now on Spotify.   \n\n-------------\n\nGet Spotify for:\n  *  ()\n  *  ()\n  *  ()\n  * Other ()\n\nThis message was sent to immanuellourdu@gmail.com.\n\nIf you don't want to receive these emails from Spotify in the future, you can edit your profile ( https://www.spotify.com/accounts/profile ) or unsubscribe ( https://www.spotify.com/account/unsubscribe?t=BcGJDYAgDADAVViARKAFHKfliRiCGkDD9t4NxudMbrefv97a9WzmWCZwEu0aJS95V1q19CHnHWmkLjwb6zgTaFYOI4bgXQ4eosUNgSACMZqkfg%3D%3D&a=unsubscribe ).\n\n  * Terms of Use ()\n  * Privacy Policy ()\n  * Contact Us ()\n\nSpotify AB, Regeringsgatan 19, 111 53, Stockholm, Sweden",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mail_54_7f7ca1",
+  "timestamp": "2020-07-24T13:55:36+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Verify your new Amazon account",
+  "topic": "Email: Verify your new Amazon account",
+  "summary": "Email from \"Amazon.com\" <account-update@amazon.com> to immanuellourdu@gmail.com about: Verify your new Amazon account",
+  "key_pointers": [
+    "Action: Action: Verify your new Amazon account",
+    "From: \"Amazon.com\" <account-update@amazon.com>",
+    "Received: Fri, 24 Jul 2020 13:55:36 +0000"
+  ],
+  "entities": [
+    "account-update@amazon.com",
+    "immanuellourdu@gmail.com",
+    "verification"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "amazon.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:account-update@amazon.com",
+  "raw_ocr_excerpt": "body {\n    margin:0;\n    color:#333;\n}\n\na {\n    text-decoration:none;\n    color:#006699;\n}\n\np {\n    margin:0px;\n}\n\nimg {\n    border:0;\n    margin:0;\n}\n\n/* container */\n#container {\n    width:540px;\n    margin:0 auto;\n}\n\n#content {\n    width:500px;\n    margin:0 20px;\n}\n\n/* header */\n#header {\n    border-bottom:1px solid #eaeaea;\n    padding-top:10px;\n    padding-left:0px;\n    padding-right:0px;\n    padding-bottom:10px;\n}\n\n#title p{\n    font-size:20px;\n    font-family: \"arial\", \"sans-serif\";\n}\n\n#amazonLogo{\n    width:107px;\n    height:31px;\n}\n\n/* verification msg */\n#verificationMsg {\n    padding-left:0;\n    padding-top:9px;\n    padding-bottom:9px;\n}\n\n#verificationMsg p {\n    font-size:14px;\n    font-family: \"arial\", \"sans-serif\";\n}\n\n#verificationMsg .otp {\n    font-size:18px;\n    font-weight:bold;\n    padding-top:18px;\n}\n\n/* account security */\n#accountSecurity {\n    padding-left:0;\n    padding-top:9px;\n    padding-bottom:9px;\n}\n\n#accountSecurity p {\n    font-size:14px;\n    font-family: \"arial\", \"sans-serif\";\n}\n\n/* closing */\n#closing {\n    padding-left:0;\n    padding-top:9px;\n    padding-bottom:9px;\n}\n\n#closing p {\n    font-size:14px;\n    font-family: \"arial\", \"sans-serif\";\n}\n\n     \n      \n   \n    \n   \n     \n     \n       \n         \n           \n           \n             \n               \n                 \n                 \n                   \n                    \n                    Verify your new Amazon account  \n                 \n                 \n               \n            ",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

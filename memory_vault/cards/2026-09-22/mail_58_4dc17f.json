@@ -1,0 +1,29 @@
+{
+  "id": "mail_58_4dc17f",
+  "timestamp": "2026-01-11T07:25:04+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Credly account created",
+  "topic": "Email: Credly account created",
+  "summary": "Email from Credly <admin@credly.com> to lmariaimmanuel@gmail.com about: Credly account created",
+  "key_pointers": [
+    "From: Credly <admin@credly.com>",
+    "Received: Sun, 11 Jan 2026 07:25:04 +0000 (UTC)"
+  ],
+  "entities": [
+    "admin@credly.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "credly.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:admin@credly.com",
+  "raw_ocr_excerpt": "You have a new Credly account\n\nThis is a confirmation that a Credly account was recently created for this email address.\n\nDidn't create an account? Please contact us at https://support.credly.com.\n\n  --\n  <a href=\"https://www.credly.com\">Credly</a> is a badging platform that works with credible organizations to recognize, manage and share professional achievements.  Credly is the world’s leading digital credential service provider.\n\nIf you prefer not to receive emails like this from Credly, you may <a href=\"https://www.credly.com/email_preferences/v2:cUZjR2E0YWxCTW0rQ2M4ZThYYmloSllrdDFjeTUrZ3AyM3dhSzQyZVVyQmFCUT09LS1MVlFjeXVqTERiYUV1ZDhKLS1ucjBZbDlReDRPWVFtQVhWM2huY2VRPT0/edit\">unsubscribe</a>.\n\n<a href=\"https://www.credly.com/earner/settings/account\">Manage</a> your email notification preferences.",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}
