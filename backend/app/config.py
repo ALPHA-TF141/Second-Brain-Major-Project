@@ -46,6 +46,23 @@ class Settings(BaseSettings):
     # Also write each email into the GitHub-backed memory vault + wiki + graph.
     mail_store_in_vault: bool = True
 
+    # --- Hands-free: local wake word ("Hey Jarvis") -------------------------
+    # 100% offline via openWakeWord. Optional: without the packages the app
+    # still runs and Alt+J works, the status endpoint just explains why.
+    wake_word_enabled: bool = True
+    wake_word_model: str = "hey_jarvis"
+    wake_word_threshold: float = 0.5
+    wake_word_debounce_seconds: float = 2.5
+
+    # --- Proactive voice: Jarvis speaks first -------------------------------
+    voice_announce_enabled: bool = True
+    # Only say things at or above this level: low | normal | high | critical
+    voice_announce_min_priority: str = "high"
+    # "23:00-07:00" silences announcements; critical bypasses it.
+    voice_quiet_hours: str = "23:00-07:00"
+    voice_announce_cooldown_seconds: int = 90
+    voice_announce_dedupe_minutes: int = 30
+
     @property
     def google_configured(self) -> bool:
         return bool(self.google_client_id.strip() and self.google_client_secret.strip())

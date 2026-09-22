@@ -119,17 +119,37 @@ function createOrbWindow() {
   return orbWindow;
 }
 
+/**
+ * Ensure the orb is VISIBLE and awake.
+ *
+ * Distinct from the Alt+J toggle on purpose: this is called when something
+ * wants the user's attention (wake word detected, proactive announcement).
+ * Using the toggle here would HIDE the orb whenever it happened to already be
+ * on screen - the opposite of the intent.
+ */
+function revealOrbWindow() {
+  if (!orbWindow || orbWindow.isDestroyed()) {
+    createOrbWindow();
+  }
+  if (!orbWindow) return;
+
+  if (!orbWindow.isVisible()) {
+    orbWindow.show();
+  }
+  orbWindow.focus();
+  orbWindow.webContents.send('jarvis:wake');
+}
+
 function toggleOrbWindow() {
   if (!orbWindow || orbWindow.isDestroyed()) {
     createOrbWindow();
   }
+  if (!orbWindow) return;
 
   if (orbWindow.isVisible()) {
     orbWindow.hide();
   } else {
-    orbWindow.show();
-    orbWindow.focus();
-    orbWindow.webContents.send('jarvis:wake');
+    revealOrbWindow();
   }
 }
 
@@ -270,6 +290,11 @@ ipcMain.on('orb:hide', () => {
 
 ipcMain.on('orb:show', () => {
   toggleOrbWindow();
+});
+
+// Always reveal (never toggle). Used by the wake word and proactive voice.
+ipcMain.on('orb:reveal', () => {
+  revealOrbWindow();
 });
 
 ipcMain.on('orb:show-main', () => {

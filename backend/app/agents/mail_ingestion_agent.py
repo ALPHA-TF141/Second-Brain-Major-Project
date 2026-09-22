@@ -542,6 +542,17 @@ class MailIngestionAgent:
                     f"{summary['actions']} action item(s) detected, {summary['skipped_bulk']} bulk skipped",
                 )
 
+                # Only speak when something actually needs attention - a plain
+                # "3 newsletters arrived" announcement would be noise.
+                if not summary["actions"] and summary["ingested"] >= 5:
+                    from app.agents.proactive_voice import proactive_voice
+
+                    proactive_voice.announce(
+                        f"Sir, {summary['ingested']} new emails have been filed into memory.",
+                        priority="normal",
+                        source="mail_digest",
+                    )
+
                 loop = asyncio.get_event_loop()
                 if loop.is_running():
                     loop.create_task(manager.broadcast({
@@ -774,6 +785,32 @@ class MailIngestionAgent:
                 })
         except Exception as exc:
             print(f"[MailIngest] Notification failed: {exc}")
+
+        # Say it, do not just file it. This is the "Jarvis speaks first" half:
+        # a deadline found in your mail is announced aloud, and the orb comes up.
+        try:
+            from app.agents.proactive_voice import proactive_voice
+
+            for action in actions:
+                sender = self._extract_email(message.get("from", "")) or "someone"
+                kind = action.get("kind", "action")
+                due = action.get("due_date")
+
+                if kind == "deadline" and due:
+                    line = (f"Sir, {action['title'].split(':', 1)[-1].strip()} - "
+                            f"from {sender}, due {due}.")
+                elif kind == "deadline":
+                    line = f"Sir, {action['title'].split(':', 1)[-1].strip()} - from {sender}."
+                else:
+                    line = f"Sir, new action item from {sender}: {action['title'].split(':', 1)[-1].strip()}."
+
+                proactive_voice.announce(
+                    line,
+                    priority=action.get("priority", "high"),
+                    source="mail",
+                )
+        except Exception as exc:
+            print(f"[MailIngest] Proactive announce failed: {exc}")
 
     def _notify_important(self, message: Dict[str, Any], address: str, actions: List[Dict[str, Any]]):
         try:

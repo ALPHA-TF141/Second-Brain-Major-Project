@@ -181,6 +181,10 @@ const offlineFetch = async (url) => {
     '/api/mail/accounts': [],
     '/api/calendar/sources': [],
     '/api/os/notifications': [],
+    '/api/proactive/status': {
+      wake_word: { enabled: true, running: false, available: false, missing_packages: ['openwakeword'], model: 'hey_jarvis', threshold: 0.5, detections: 0, last_error: '', detail: 'dependencies missing', install_hint: 'pip install openwakeword sounddevice', recent_scores: [] },
+      voice: { enabled: true, min_priority: 'high', quiet_hours: '23:00-07:00', in_quiet_hours: false, spoken_count: 0, skipped_count: 0, last_spoken: null, broadcaster_ready: true }
+    },
     '/api/mail/sync/status': { enabled: false, interval_minutes: 10, folders: ['inbox'], limit_per_run: 25, skip_bulk: true, is_syncing: false, stats: {} },
     '/api/google/accounts': [],
     '/api/google/gmail/messages': { messages: [], count: 0 },

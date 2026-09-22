@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from app.audio_streaming.voice_stream import router as voice_stream_router
 from app.config import settings
 from app.database.init_db import init_database
-from app.routes import activities, auth, capture, chat, google, graph, health, mail, memory, ocr, os_router, semantic, sessions, settings as settings_routes, social, timeline, voice
+from app.routes import activities, auth, capture, chat, google, graph, health, mail, memory, ocr, os_router, proactive, semantic, sessions, settings as settings_routes, social, timeline, voice
 from app.routes.graph import initialize_neo4j
 from app.services.ocr_service import ocr_processor
 from app.streaming.chat_stream import router as chat_stream_router
@@ -43,6 +43,7 @@ app.include_router(social.router)
 app.include_router(os_router.router)
 app.include_router(google.router)
 app.include_router(mail.router)
+app.include_router(proactive.router)
 app.include_router(websocket_router)
 app.include_router(chat_stream_router)
 app.include_router(voice_stream_router)
@@ -106,6 +107,28 @@ async def on_startup():
             await asyncio.sleep(max(1, settings.mail_sync_interval_minutes) * 60)
 
     asyncio.create_task(_mail_sync_loop())
+
+    # --- Hands-free: local wake word + proactive voice ---------------------
+    from app.services.wake_service import capture_loop, start_wake_word, wire_proactive_voice
+
+    # Capture THIS loop before any worker thread needs to broadcast into it.
+    capture_loop()
+    wire_proactive_voice()
+
+    wake_result = start_wake_word()
+    if wake_result.get("started"):
+        print(f"[Wake] Listening for '{settings.wake_word_model}' "
+              f"(threshold {settings.wake_word_threshold}). Say it to summon Jarvis.")
+    else:
+        print(f"[Wake] Wake word not active: {wake_result.get('reason')}")
+        if settings.wake_word_enabled:
+            print("[Wake] Alt+J still works. To enable hands-free: "
+                  "pip install openwakeword sounddevice")
+
+    if settings.voice_announce_enabled:
+        quiet = settings.voice_quiet_hours or "off"
+        print(f"[Voice] Proactive announcements on (min priority "
+              f"'{settings.voice_announce_min_priority}', quiet hours {quiet}).")
 
     # --- Google integration status (Gmail + Calendar) ---
     if settings.google_configured:

@@ -22,6 +22,7 @@
     "smoke:setup": "npm install --no-save playwright && npx playwright install chromium",
     "start": "electron .",
     "test:orb": "node tools/test-orb-voice.mjs",
+    "test:proactive": "node tools/test-proactive-ui.mjs",
     "verify:backend": "python backend/verify_backend_endpoints.py"
   },
   "build": {

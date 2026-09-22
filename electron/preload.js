@@ -7,6 +7,9 @@ contextBridge.exposeInMainWorld('secondBrain', {
   close: () => ipcRenderer.send('window:close'),
   hideOrb: () => ipcRenderer.send('orb:hide'),
   showOrb: () => ipcRenderer.send('orb:show'),
+  // Always bring the orb up (never toggles it away) - used by wake-word and
+  // proactive announcements.
+  revealOrb: () => ipcRenderer.send('orb:reveal'),
   showMain: () => ipcRenderer.send('orb:show-main'),
   onCaptureCommand: (callback) => {
     ipcRenderer.on('jarvis:capture', (_event, command) => callback(command));
