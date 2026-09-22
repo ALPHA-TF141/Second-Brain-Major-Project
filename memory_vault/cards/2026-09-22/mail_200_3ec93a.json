@@ -1,0 +1,29 @@
+{
+  "id": "mail_200_3ec93a",
+  "timestamp": "2026-02-03T14:59:25+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "ProPeers: Webinar Registration Confirmation",
+  "topic": "Email: ProPeers: Webinar Registration Confirmation",
+  "summary": "Email from ProPeers <no-reply@propeers.in> to lmariaimmanuel@gmail.com about: ProPeers: Webinar Registration Confirmation",
+  "key_pointers": [
+    "From: ProPeers <no-reply@propeers.in>",
+    "Received: Tue, 3 Feb 2026 14:59:25 +0000"
+  ],
+  "entities": [
+    "no-reply@propeers.in",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "propeers.in",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@propeers.in",
+  "raw_ocr_excerpt": "This is the body",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

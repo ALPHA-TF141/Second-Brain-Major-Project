@@ -1,0 +1,29 @@
+{
+  "id": "mail_192_83d5f7",
+  "timestamp": "2026-02-03T09:33:03+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "FREE Webinar to Crack 40LPA Job",
+  "topic": "Email: FREE Webinar to Crack 40LPA Job",
+  "summary": "Email from Senior-Software Engineer <no-reply@propeers.in> to lmariaimmanuel@gmail.com about: FREE Webinar to Crack 40LPA Job",
+  "key_pointers": [
+    "From: Senior-Software Engineer <no-reply@propeers.in>",
+    "Received: Tue, 3 Feb 2026 09:33:03 +0000"
+  ],
+  "entities": [
+    "no-reply@propeers.in",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "propeers.in",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@propeers.in",
+  "raw_ocr_excerpt": "This is the body",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

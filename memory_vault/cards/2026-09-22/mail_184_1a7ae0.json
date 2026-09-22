@@ -1,0 +1,29 @@
+{
+  "id": "mail_184_1a7ae0",
+  "timestamp": "2026-02-01T23:07:09+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Bonus reputation points awarded by the Cisco Learning Network",
+  "topic": "Email: Bonus reputation points awarded by the Cisco Learning Network",
+  "summary": "Email from Cisco Learning Network <learningnetwork-noreply@cisco.com> to lmariaimmanuel@gmail.com about: Bonus reputation points awarded by the Cisco Learning Network",
+  "key_pointers": [
+    "From: Cisco Learning Network <learningnetwork-noreply@cisco.com>",
+    "Received: Sun, 1 Feb 2026 23:07:09 +0000 (GMT)"
+  ],
+  "entities": [
+    "learningnetwork-noreply@cisco.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "cisco.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:learningnetwork-noreply@cisco.com",
+  "raw_ocr_excerpt": "#tdviewbtn{\n      width:90pt;\n      height:25pt;\n      background-color: #2A94D6;\n      border-radius: 5px;\n      text-align:center;\n      }\n\n     \n    \n    \n       \n          \n             &nbsp; \n             \n                \n                   \n                      \n                          &nbsp;  \n                      \n                   \n                \n             \n             \n                \n                   \n                      \n                      \n                   \n                \n             \n             &nbsp; \n             \n                \n                   \n                      \n                         \n                            \n                               \n                                  \n                                     \n                                        \n                                           \n                                              \n                                                 \n                                                    \n                                                       \n                                                          \n                                                             \n                                                                \n                                                                   \n                                                                      &nbsp; \n                                                                   \n                         ",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

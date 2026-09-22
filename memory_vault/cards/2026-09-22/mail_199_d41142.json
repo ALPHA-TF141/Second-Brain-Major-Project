@@ -1,0 +1,31 @@
+{
+  "id": "mail_199_d41142",
+  "timestamp": "2026-02-03T14:54:10+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "[GitHub] Sudo email verification code",
+  "topic": "Email: [GitHub] Sudo email verification code",
+  "summary": "Email from GitHub <noreply@github.com> to lmariaimmanuel@gmail.com about: [GitHub] Sudo email verification code",
+  "key_pointers": [
+    "Action: Action: Sudo email verification code",
+    "From: GitHub <noreply@github.com>",
+    "Received: Tue, 03 Feb 2026 06:54:10 -0800"
+  ],
+  "entities": [
+    "noreply@github.com",
+    "lmariaimmanuel@gmail.com",
+    "verification"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "github.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:noreply@github.com",
+  "raw_ocr_excerpt": "Hey, ALPHA-TF141!\n\nHere is your GitHub sudo authentication code: 91729628\nThis code is valid for 15 minutes and can only be used once.\n\nPlease don't share this code with anyone: we'll never ask for it on the phone or via email.\nThanks,\nThe GitHub Team",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

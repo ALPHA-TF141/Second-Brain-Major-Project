@@ -1,0 +1,29 @@
+{
+  "id": "mail_156_63e787",
+  "timestamp": "2020-09-09T01:33:13+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Log in to Spotify",
+  "topic": "Email: Log in to Spotify",
+  "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: Log in to Spotify",
+  "key_pointers": [
+    "From: \"Spotify\" <no-reply@spotify.com>",
+    "Received: Wed, 09 Sep 2020 01:33:13 +0000 (UTC)"
+  ],
+  "entities": [
+    "no-reply@spotify.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "spotify.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@spotify.com",
+  "raw_ocr_excerpt": "Welcome back\n\nTap the button below from your mobile device to finish logging in to Spotify.\n\nGO TO SPOTIFY ( https://accounts.spotify.com/login/ott/music#token=prYXaNfHTMG6o_jLgvVUlg&passwordToken=1SANmU9JShSz91Ntq1xLFA&username=tb5qje796w8ovls2un3hy3cbe&continue=https%3A%2F%2Fwww.spotify.com%2Fpassword-reset%2Fmagic-tlink%2F%3Ftoken%3D1SANmU9JShSz91Ntq1xLFA )\n\nThis link is valid for 4 hours.\n\nDon’t know why you’re getting this email?\n\nWe sent this email to help you log in to your Spotify account. \n\nIf you didn’t try to log in to your account or request this email, don’t worry, your email address may have been entered by mistake. You can simply ignore or delete this email, and use your existing password to log in.\n\nHappy listening!\n\nThe team at Spotify\n\n-------------\n\nGet Spotify for:\n  * iPhone (https://itunes.apple.com/app/spotify-music/id324684580)\n  * iPad (https://itunes.apple.com/app/spotify-music/id324684580)\n  * Android (https://play.google.com/store/apps/details?id=com.spotify.music)\n  * Other (https://www.spotify.com/download/)\n\nThis message was sent to immanuellourdu@gmail.com.\nIf you don't want to receive these emails from Spotify in the future, you can edit your profile ( https://www.spotify.com/accounts/profile ) or unsubscribe (  ).\n\n  * Terms of Use https://www.spotify.com/legal/end-user-agreement/\n  * Privacy Policy https://www.spotify.com/legal/privacy-policy/\n  * Contact Us https://www.spotify.com/about-us/contact/\n\nSpotify AB, Regeringsgatan 19, 111 53, St",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

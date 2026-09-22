@@ -1,0 +1,31 @@
+{
+  "id": "mail_155_a88c7c",
+  "timestamp": "2020-09-08T17:25:51+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "2 more days to go…",
+  "topic": "Email: 2 more days to go…",
+  "summary": "Email from \"The Learning App\" <happylearning@byjuslearning.com> to immanuellourdu@gmail.com about: 2 more days to go…",
+  "key_pointers": [
+    "Action: Action: 2 more days to go…",
+    "From: \"The Learning App\" <happylearning@byjuslearning.com>",
+    "Received: Tue, 08 Sep 2020 17:25:51 +0000 (UTC)"
+  ],
+  "entities": [
+    "happylearning@byjuslearning.com",
+    "immanuellourdu@gmail.com",
+    "exam"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "byjuslearning.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:happylearning@byjuslearning.com",
+  "raw_ocr_excerpt": "'Hear it from the Toppers'  - Hacks to ace board exams\n\n#KeepLearning\n\nIf you wish to opt out of all type of emails, click Unsubscribe<http://click.byjuslearnathome.in/t/em/24692/5/09b3fe07-829e-4c96-b6ff-d98cf7ba473c >",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}
