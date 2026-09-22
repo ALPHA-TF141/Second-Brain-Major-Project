@@ -1,0 +1,27 @@
+{
+  "id": "card_20260922_111907_857",
+  "timestamp": "2026-09-22T11:19:07.857470Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "chatgbt - Google Search - Google Chrome",
+  "topic": "chatgbt - Google Search",
+  "summary": "[General] chatgbt - Google Search: Activity on chrome.exe: chatgbt - Google Search - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: chatgbt - Google Search - Google Chrome"
+  ],
+  "entities": [
+    "Search",
+    "Google",
+    "Activity"
+  ],
+  "tags": [
+    "general",
+    "chrome"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: chatgbt - Google Search - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_111907_857.webp",
+  "hero_image_info_score": 31.5
+}

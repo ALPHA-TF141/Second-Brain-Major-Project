@@ -207,3 +207,7 @@
 - [Communication: Email: INTERNSHIP AT BLEND VIDYA EdTech](communication/email__internship_at_blend_vidya_edtech.md) — *Updated 2026-09-22*
 - [Communication: Email: IBM, Microsoft Internship and Training Program](communication/email__ibm__microsoft_internship_and_training_program.md) — *Updated 2026-09-22*
 - [Communication: Email: INFO_VELTECH STUDENTS](communication/email__info_veltech_students.md) — *Updated 2026-09-22*
+- [General: ChatGPT](general/chatgpt.md) — *Updated 2026-09-22*
+- [General: Google Chrome](general/google_chrome.md) — *Updated 2026-09-22*
+- [General: chatgbt - Google Search](general/chatgbt___google_search.md) — *Updated 2026-09-22*
+- [General: Second Brain Topics](general/second_brain_topics.md) — *Updated 2026-09-22*

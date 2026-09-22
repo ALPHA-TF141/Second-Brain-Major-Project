@@ -1,0 +1,26 @@
+{
+  "id": "card_20260922_111902_661",
+  "timestamp": "2026-09-22T11:19:02.661601Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Google Chrome",
+  "topic": "Google Chrome",
+  "summary": "[General] Google Chrome: Activity on chrome.exe: Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Activity"
+  ],
+  "tags": [
+    "general",
+    "chrome"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_111902_661.webp",
+  "hero_image_info_score": 29.25
+}
