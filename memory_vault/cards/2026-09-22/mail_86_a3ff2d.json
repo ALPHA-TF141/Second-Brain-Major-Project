@@ -1,0 +1,29 @@
+{
+  "id": "mail_86_a3ff2d",
+  "timestamp": "2020-08-12T12:16:33+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Amazon security alert: Sign-in from new device detected",
+  "topic": "Email: Amazon security alert: Sign-in from new device detected",
+  "summary": "Email from Amazon <account-update@amazon.com> to immanuellourdu@gmail.com about: Amazon security alert: Sign-in from new device detected",
+  "key_pointers": [
+    "From: Amazon <account-update@amazon.com>",
+    "Received: Wed, 12 Aug 2020 12:16:33 +0000"
+  ],
+  "entities": [
+    "account-update@amazon.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "amazon.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:account-update@amazon.com",
+  "raw_ocr_excerpt": "body {\n            margin:0;\n            color:#333;\n        }\n\n        a {\n            text-decoration:none;\n            color:#006699;\n        }\n\n        p {\n            margin:0px;\n        }\n\n        img {\n            border:0;\n            margin:0;\n            text-align: center;\n        }\n\n        #title p{\n            font-size:15px;\n            font-family: \"Amazon Ember\", Arial, sans-serif;\n        }\n\n     \n      \n \n  \n \n     \n         \n             \n                 \n                     \n                     \n                         \n                             \n                                 \n                                     \n                                         \n                                     \n                                      Sign-in from new device detected  \n                                 \n                             \n                         \n                     \n\n                     \n                         \n                             We detected a sign-in to your account from a new device. \n                         \n                     \n\n                     \n                         \n                             \n                                 \n                                     \n                                        When:\n                                     \n                                     \n                                        Aug 12, 2020 05:46 PM India Standard Time\n                                     \n     ",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

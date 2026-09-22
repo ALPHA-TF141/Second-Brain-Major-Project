@@ -1,0 +1,27 @@
+{
+  "id": "card_20260922_104848_856",
+  "timestamp": "2026-09-22T10:48:48.856551Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "jarvis and tony stark relationship - Google Search - Google Chrome",
+  "topic": "jarvis and tony stark relationship - Google S",
+  "summary": "[General] jarvis and tony stark relationship - Google Search: Activity on chrome.exe: jarvis and tony stark relationship - Google Search - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: jarvis and tony stark relationship - Google Search - Google Chrome"
+  ],
+  "entities": [
+    "Search",
+    "Activity",
+    "Google"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: jarvis and tony stark relationship - Google Search - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_104848_856.webp",
+  "hero_image_info_score": 33.3
+}

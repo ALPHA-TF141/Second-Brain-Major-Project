@@ -1,0 +1,29 @@
+{
+  "id": "mail_99_76093e",
+  "timestamp": "2020-08-16T09:08:54+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "🤩 Immanuel, unlock tips and new features.",
+  "topic": "Email: 🤩 Immanuel, unlock tips and new features.",
+  "summary": "Email from Google News <news-noreply@google.com> to immanuellourdu@gmail.com about: 🤩 Immanuel, unlock tips and new features.",
+  "key_pointers": [
+    "From: Google News <news-noreply@google.com>",
+    "Received: Sun, 16 Aug 2020 02:08:54 -0700"
+  ],
+  "entities": [
+    "news-noreply@google.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "google.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:news-noreply@google.com",
+  "raw_ocr_excerpt": "Google News\n\nWelcome to your personalized news.\n  \nOpt in for Google News emails to customize your experience and stay up to  \ndate on the latest features.\n\nKeep Me Updated  \n<https://www.google.com/appserve/mkt/directoptin/AD-FnEyQGysWtayiImIv5be_xzJGoWd39hF_S8heHj0Dht9CUYUJdn6rWgH14TLJzzH68t1SP6k4KFNwitBTmELz19Lai74EOX99u7H4X1NIGQ?hl=en>\n\nNews For You\n\nFollow sources and topics you're interested in and see more stories about  \nthem in For You.\n\nYour Local News\n\nGet closer to what's happening in the communities you follow.\n\nFull Coverage\n\nGet a more complete picture of news stories from a variety of sources with  \nFull Coverage.\n\n© 2020 Google LLC 1600 Amphitheatre Parkway, Mountain View, CA 94043\n\nYou're getting this email because you recently downloaded the Google News  \napp or used news.google.com",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

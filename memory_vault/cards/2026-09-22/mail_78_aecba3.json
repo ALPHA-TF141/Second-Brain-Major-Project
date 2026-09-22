@@ -1,0 +1,31 @@
+{
+  "id": "mail_78_aecba3",
+  "timestamp": "2026-01-16T05:36:33+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Inside the world's biggest student hackathon [Free 80-minute\r\n documentary]",
+  "topic": "Email: Inside the world's biggest student hackathon [Free 80-minute\r\n documentary]",
+  "summary": "Email from Quincy Larson <quincy@freecodecamp.org> to lmariaimmanuel@gmail.com about: Inside the world's biggest student hackathon [Free 80-minute\r\n documentary]",
+  "key_pointers": [
+    "Action: Action: Inside the world's biggest student hackathon [Free 80-minute\r\n documentary]",
+    "From: Quincy Larson <quincy@freecodecamp.org>",
+    "Received: Fri, 16 Jan 2026 05:36:33 +0000"
+  ],
+  "entities": [
+    "quincy@freecodecamp.org",
+    "lmariaimmanuel@gmail.com",
+    "interview"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "freecodecamp.org",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:quincy@freecodecamp.org",
+  "raw_ocr_excerpt": "Here are this week's five freeCodeCamp resources that are worth your time:\n\n1. I spent three days at the San Francisco Palace of Fine Arts recording a documentary about the world's largest collegiate hackathon. More than 3,000 student developers participated in this year's UC Berkeley Cal Hacks hackathon. Over the course of 36 hours, they built a broad array of projects, then demo'd them to judges from industry. I now present to you the finished documentary. I hope you find it both enjoyable and inspiring. (80-minute documentary): https://www.freecodecamp.org/news/inside-cal-hacks-2025-36-hours-at-the-worlds-largest-collegiate-hackathon/\n\n2. freeCodeCamp also published a new course on building your own custom Kubernetes operators and controllers from scratch. You'll learn everything from the internal architecture of Informers and Caches to advanced concepts like Finalizers and Idempotency. If you're interested in DevOps, this is the course for you. (6 hour YouTube course): https://www.freecodecamp.org/news/build-your-own-kubernetes-operators-with-go-and-kubebuilder/\n\n3. On this week's podcast, I interview a corporate lawyer who learned programming at age 37 then ultimately got a job as a software engineer at Google. He talks about his journey and how he leveraged freeCodeCamp's coursework. He also talks about how the coding part of the job is getting easier with LLM tools, which makes other aspects like critical thinking all the more important. (1 hour watch or listen in your",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

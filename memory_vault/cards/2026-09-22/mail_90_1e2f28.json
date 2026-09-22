@@ -1,0 +1,31 @@
+{
+  "id": "mail_90_1e2f28",
+  "timestamp": "2026-01-19T14:00:33+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Action needed on your Facebook account",
+  "topic": "Email: Action needed on your Facebook account",
+  "summary": "Email from \"Facebook\" <security@facebookmail.com> to lmariaimmanuel@gmail.com about: Action needed on your Facebook account",
+  "key_pointers": [
+    "Deadline: Deadline: Action needed on your Facebook account",
+    "From: \"Facebook\" <security@facebookmail.com>",
+    "Received: Mon, 19 Jan 2026 06:00:33 -0800"
+  ],
+  "entities": [
+    "security@facebookmail.com",
+    "lmariaimmanuel@gmail.com",
+    "deadline"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "facebookmail.com",
+    "deadline"
+  ],
+  "source_url_or_ref": "mailto:security@facebookmail.com",
+  "raw_ocr_excerpt": "Hi Maria,\n\nMaria, you have 180 days to take action.\n\nHi Maria,Your Facebook account has been suspended. This is because your account, or activity on it, doesn't follow our Community Standards on account integrity.If you think that we've suspended your account by mistake, you'll have 180 days to appeal our decision. If you miss this deadline, your account will be permanently disabled.\n\n[https://www.facebook.com/login/] \n\nMaria Immanuel\n\nYou can learn more about why we suspend accounts by visiting the Community Standards.\n\nThanks,The Facebook team\n\nThanks,\nThe Facebook team\n\n========================================\nThis message was sent to lmariaimmanuel@gmail.com at your request.\nMeta Platforms, Inc., Attention: Community Support, 1 Meta Way, Menlo Park, CA 94025",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

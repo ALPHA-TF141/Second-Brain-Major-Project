@@ -121,3 +121,18 @@
 - [Communication: Email: TRAINING AND INTERNSHIP](communication/email__training_and_internship.md) — *Updated 2026-09-22*
 - [Communication: Email: Final Call To Apply Training and Internship program](communication/email__final_call_to_apply_training_and_internship_program.md) — *Updated 2026-09-22*
 - [Communication: Email: !!!!!FINAL CALL!!!!!! IBM, Microsoft Training and Internship Program](communication/email_______final_call_______ibm__microsoft_training_and_internship_program.md) — *Updated 2026-09-22*
+- [Communication: Email: Amazon security alert: Sign-in from new device detected](communication/email__amazon_security_alert__sign_in_from_new_device_detected.md) — *Updated 2026-09-22*
+- [Communication: Email: Hi Immanuel, Welcome to BYJU'S](communication/email__hi_immanuel__welcome_to_byju_s.md) — *Updated 2026-09-22*
+- [Communication: Email: Hi Immanuel, let's start learning with BYJU'S](communication/email__hi_immanuel__let_s_start_learning_with_byju_s.md) — *Updated 2026-09-22*
+- [Communication: Email: India's best teachers are waiting for you in class!](communication/email__india_s_best_teachers_are_waiting_for_you_in_class.md) — *Updated 2026-09-22*
+- [Communication: Email: 🤩 Immanuel, unlock tips and new features.](communication/email____immanuel__unlock_tips_and_new_features.md) — *Updated 2026-09-22*
+- [Communication: Email: Launching BYJU'S Classes: Best online tuitions for your child!](communication/email__launching_byju_s_classes__best_online_tuitions_for_your_child.md) — *Updated 2026-09-22*
+- [Communication: Email: Re: I am sharing 'Document (1)' with you](communication/email__re__i_am_sharing__document__1___with_you.md) — *Updated 2026-09-22*
+- [Communication: Email: Inside the world's biggest student hackathon [Free 80-minute
+
+ documentary]](communication/email__inside_the_world_s_biggest_student_hackathon__free_80_minute___documentary.md) — *Updated 2026-09-22*
+- [Communication: Email: Registration Confirmation: PwC AC India: Advisory Launchpad -
+
+ Orientation Session](communication/email__registration_confirmation__pwc_ac_india__advisory_launchpad_____orientation_session.md) — *Updated 2026-09-22*
+- [Communication: Email: Action needed on your Facebook account](communication/email__action_needed_on_your_facebook_account.md) — *Updated 2026-09-22*
+- [General: jarvis and tony stark relationship - Google S](general/jarvis_and_tony_stark_relationship___google_s.md) — *Updated 2026-09-22*
