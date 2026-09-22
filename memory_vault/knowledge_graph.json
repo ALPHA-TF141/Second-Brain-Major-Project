@@ -1,13 +1,6 @@
 {
-  "updated_at": "2026-09-22T06:56:17.370542Z",
+  "updated_at": "2026-09-22T06:56:22.204551Z",
   "nodes": [
-    {
-      "id": "ENT_brain",
-      "label": "Brain",
-      "domain": "Technology",
-      "priority": "medium",
-      "val": 8
-    },
     {
       "id": "card_20260922_062839_717",
       "label": "Electron",
@@ -3062,34 +3055,18 @@
       "summary": "[Technology] start-jarvis.bat - Second Brain: Activity on Code.exe: start-jarvis.bat - Second Brain - Visual Studio Code",
       "hero_image": null,
       "val": 10
+    },
+    {
+      "id": "card_20260922_065622_196",
+      "label": "Code",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] start-jarvis.bat - Second Brain: Activity on Code.exe: start-jarvis.bat - Second Brain - Visual Studio Code",
+      "hero_image": null,
+      "val": 10
     }
   ],
   "edges": [
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_064710_553",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_064710_553",
-      "target": "ENT_services",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_064710_553",
-      "target": "ENT_jarvis",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_064710_553",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_064710_553",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
     {
       "source": "DOMAIN_TECHNOLOGY",
       "target": "card_20260922_064715_867",
@@ -5562,6 +5539,31 @@
     },
     {
       "source": "card_20260922_065617_360",
+      "target": "ENT_brain",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_065622_196",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_065622_196",
+      "target": "ENT_studio",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_065622_196",
+      "target": "ENT_visual",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_065622_196",
+      "target": "ENT_code",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_065622_196",
       "target": "ENT_brain",
       "label": "mentions"
     }
