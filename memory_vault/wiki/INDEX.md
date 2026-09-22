@@ -49,3 +49,19 @@
 - [Geopolitics: Security](geopolitics/security.md) — *Updated 2026-09-22*
 - [General: Snipping Tool Confirmation Banner](general/snipping_tool_confirmation_banner.md) — *Updated 2026-09-22*
 - [General: Hidden by privacy rule](general/hidden_by_privacy_rule.md) — *Updated 2026-09-22*
+- [Communication: Email: Finish setting up your new Google Account](communication/email__finish_setting_up_your_new_google_account.md) — *Updated 2026-09-22*
+- [Communication: Email: 🌎 You recently turned on Location History](communication/email____you_recently_turned_on_location_history.md) — *Updated 2026-09-22*
+- [Communication: Email: Verify your email address](communication/email__verify_your_email_address.md) — *Updated 2026-09-22*
+- [Communication: Email: Your Office files are safe with OneDrive](communication/email__your_office_files_are_safe_with_onedrive.md) — *Updated 2026-09-22*
+- [Communication: Email: Security alert](communication/email__security_alert.md) — *Updated 2026-09-22*
+- [Communication: Email: Immanuel, your new Casper L20 doesn't have the latest Google apps](communication/email__immanuel__your_new_casper_l20_doesn_t_have_the_latest_google_apps.md) — *Updated 2026-09-22*
+- [Communication: Email: Set the password to your Times account](communication/email__set_the_password_to_your_times_account.md) — *Updated 2026-09-22*
+- [Communication: Email: Thank you for setting your New York Times password](communication/email__thank_you_for_setting_your_new_york_times_password.md) — *Updated 2026-09-22*
+- [Communication: Email: Let’s get your apps back, Immanuel](communication/email__let_s_get_your_apps_back__immanuel.md) — *Updated 2026-09-22*
+- [Communication: Email: Confirm your account](communication/email__confirm_your_account.md) — *Updated 2026-09-22*
+- [Communication: Email: New login to Spotify](communication/email__new_login_to_spotify.md) — *Updated 2026-09-22*
+- [Communication: Email: Registration Verification](communication/email__registration_verification.md) — *Updated 2026-09-22*
+- [Communication: Email: Verify Email Address for Discord](communication/email__verify_email_address_for_discord.md) — *Updated 2026-09-22*
+- [Communication: Email: Update to your primary contact](communication/email__update_to_your_primary_contact.md) — *Updated 2026-09-22*
+- [Communication: Email: 🌎 Immanuel, your June update](communication/email____immanuel__your_june_update.md) — *Updated 2026-09-22*
+- [Communication: Email: Premium Duo, two accounts together. One month free.](communication/email__premium_duo__two_accounts_together__one_month_free.md) — *Updated 2026-09-22*

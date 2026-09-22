@@ -1,0 +1,29 @@
+{
+  "id": "mail_13_0850a5",
+  "timestamp": "2020-06-29T07:48:29+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Confirm your account",
+  "topic": "Email: Confirm your account",
+  "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: Confirm your account",
+  "key_pointers": [
+    "From: \"Spotify\" <no-reply@spotify.com>",
+    "Received: Mon, 29 Jun 2020 07:48:29 +0000 (UTC)"
+  ],
+  "entities": [
+    "no-reply@spotify.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "spotify.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@spotify.com",
+  "raw_ocr_excerpt": "Spotify \n\nWELCOME TO\n\nSPOTIFY.\n\nCONFIRM YOUR ACCOUNT ( https://wl.spotify.com/ls/click?upn=JZiJIhGDPKi-2FAPlXLxJCWE-2BAN3sa6HFIADThv-2BSHQtZClTkEUwMXp5G-2BsOG8oNln3mXyz7gziNuHGPqhx9sHn6s2pxKvHVaZCZBsq5sMyShgXA4ZelBahgQYJOOn3Pbkyx8X7-2BHYuvOGzwcEA22A7IcDZn6XSO2FqWnYsckP3b6RVIamhV73AC2oTE1Gj9LxHFIHKZITqPzxk94xYv11osH2oH-2Bwe3Wu9dr8v1bvmirnMFwipOiIe8F5wydPfVBbb3NejhcxA1ZHVbhGNEJAt0TvD6Wp-2BVkcGrSVvjbAyUg-3DQ1XQ_v12URl19nfex9HuvDXYCoR9-2B85OSICI3w7l9rIvW7q6TUExVuRw54QbRMjVZAw3kEx5eY09nM-2FFysdQbpha-2FM8EqJ5iGg-2BLSRO3AEl3yzZY3rrU-2BnidDhEnba59J1LPz6Er0i59HwAGIpJ3RMO1ATffuavoozKxOaE7cTXIsMLwi2gKdcm-2B9D1C8QXjOqu8-2BXhgNXrhKcszT-2B8e9Lqjr3gxi2pk9-2FPO7AIU-2BPQEbJKMJUIKiCNNAsdYUVpyRJ0zK4n69A40QeyZ0rdHLFjJxyAjYNd-2FyVLPae2VBfOjlzYs-3D )\n\n# \nConfirm your account \n\nKeep your account secure.\n\nConfirm below and enjoy the music and podcasts you love.\n\nConfirm your account https://wl.spotify.com/ls/click?upn=JZiJIhGDPKi-2FAPlXLxJCWE-2BAN3sa6HFIADThv-2BSHQtZClTkEUwMXp5G-2BsOG8oNln3mXyz7gziNuHGPqhx9sHn6s2pxKvHVaZCZBsq5sMyShgXA4ZelBahgQYJOOn3Pbkyx8X7-2BHYuvOGzwcEA22A7IcDZn6XSO2FqWnYsckP3b6RVIamhV73AC2oTE1Gj9LxHFIHKZITqPzxk94xYv11osH2oH-2Bwe3Wu9dr8v1bvmirnMFwipOiIe8F5wydPfVBbb3NejhcxA1ZHVbhGNEJAt0TvD6Wp-2BVkcGrSVvjbAyUg-3D72CK_v12URl19nfex9HuvDXYCoR9-2B85OSICI3w7l9rIvW7q6TUExVuRw54QbRMjVZAw3kEx5eY09nM-2FFysdQbpha-2FM8Kbx07oJMyQhtffgvbIFIWY0tAEq-2F-2BzEu-2BMV-2FzmmH1YR3-2BM5OWVlbvS4MohLcbJrcUfeIy4-2BUpfJtYP-2BrhYa3m5NPYBR2nDqVoveWe9bMjmsvsiV9sOuWgZzmzutnI1bvcIKpeHcmEI8mJSNytzamNgixEbegxCIxOF-2F",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

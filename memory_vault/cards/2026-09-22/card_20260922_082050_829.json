@@ -1,0 +1,30 @@
+{
+  "id": "card_20260922_082050_829",
+  "timestamp": "2026-09-22T08:20:50.829436Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "Code.exe",
+  "window_title": "start-jarvis.bat - Second Brain - Visual Studio Code",
+  "topic": "Code",
+  "summary": "[Technology] start-jarvis.bat - Second Brain: Activity on Code.exe: start-jarvis.bat - Second Brain - Visual Studio Code",
+  "key_pointers": [
+    "Activity on Code.exe: start-jarvis.bat - Second Brain - Visual Studio Code"
+  ],
+  "entities": [
+    "Brain",
+    "Visual",
+    "Second",
+    "Code",
+    "Activity",
+    "Studio"
+  ],
+  "tags": [
+    "code",
+    "technology"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on Code.exe: start-jarvis.bat - Second Brain - Visual Studio Code",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_082050_829.webp",
+  "hero_image_info_score": 49.95
+}

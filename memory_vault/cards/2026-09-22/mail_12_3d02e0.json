@@ -1,0 +1,29 @@
+{
+  "id": "mail_12_3d02e0",
+  "timestamp": "2020-06-21T15:13:33+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Let’s get your apps back, Immanuel",
+  "topic": "Email: Let’s get your apps back, Immanuel",
+  "summary": "Email from Google Play <welcome-googleplay-noreply@google.com> to immanuellourdu@gmail.com about: Let’s get your apps back, Immanuel",
+  "key_pointers": [
+    "From: Google Play <welcome-googleplay-noreply@google.com>",
+    "Received: Sun, 21 Jun 2020 08:13:33 -0700"
+  ],
+  "entities": [
+    "welcome-googleplay-noreply@google.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "google.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:welcome-googleplay-noreply@google.com",
+  "raw_ocr_excerpt": "<https://www.google.com/appserve/mkt/p/AD-FnEzt1TqRyss7NLDd2EGU24gjfDsIsDYFKG18jhSIPidvuGLpd9Plw8tpR-YA3x7XuuFj0kwIKS-587k-KxyA-2GESHlWlQ3ImZT0sKLINa-_VISGz6OUzCNcbp9e82yAakd6bmDxMrZEET0Z0OVWVU2HHiGKm3MpHBaNP6mMgxsT4AiWZJ3Zg5ZjBHNGwdij1qn3tkrCCzcPSPisQVn0X2EUTxDmFy3Vtnu0TdvfXAlj8Fy10qJo_cGo-KFe3volEwwVwS8bt60Y7DO1SFXwNANZqLYuzWnW7j4uVi8i-8ZuRLZQfo_tp-KNF-n48LqdPTQsMo1ThcMuY7IpltnmHN4YQyb7lD_QxbSYgIc8gyPmxTCE4VMVa9hZE8d8udGhx4f5R4Pz9J1R3o6WdjtJa1fGaRSNoaNuwzF6Yc7yCtnOA93fMseAOLbAe4qtvoEytEOMeblodR6fvQNDlmGu_Zu_AA7a9fm2vxLHSJBsduFvZmZqd987Nc_nsOPgv4wylwPyLvLpC0K-o5yOSWCGWtzu_YLxa2DkXN62v5T8uqBXaMft44sYL5z2PKH5___gWINNmBZlzaqPFnFw0L8STOCl4P8aDZkfiDSt>\n\n   \n<https://www.google.com/appserve/mkt/p/AD-FnEz2w60j6mJipAw_AmdrRFUbCfOUkjn3h2y_I71Opwk9wMNHeNHw95TnmgZE5QNxkOBhaYntWlDpJgjJqCZ-cglF4MhY6qCXHjAqfX2zwCBycyDqpqx0pEi1axu04v5ogRCeQBcScDHM-jjrpAT6Qre6C-QD8sVLc32I_gtZftWu_lUxUswZAMj9S2dlTvNwIt4DTGdeBHKEjraavj4r2jBRjMBxkyQ3QwoYiCG80yX1J8wwAU9-IkvQMSg5snz-1KEnhbfdkAhpvnT952kdFLVTfdDl19gWNCbpECpu3vxd0_yVrzDVT8oukj18bwiFXmYAyGqkpEvR4w_S5nKeHY4oZc3-MKwhWDcSp-H347O3cAdBLY_shgfeSNJCP6pgg_5b5m0aR42i5s7JETCON5sJLnvCB2OEz8Fo3ghkkEg3ozFS3pe_6a4gELCWR2frLgz4_i13D2ngq57DbiSOV0-yOyx7wBijWQzIUDP-K4y_2SYVaYwFeW80fPf5_HiMQzVRmy_ATUSBvXAWTzR0HWGYthWaAOgQUMZ3Ckqs8xqT-0XjWgKZg6OfE5e8kGITndJU30K48VNqlpzEB-yGndlf3gcLL_vY68W7gaJmICQcEKdsS6sRKoyClIzoK_OiIqjVwHjKJ0gkZwtvRzg1ETkoHJInqF1BRRYG6hmtew>\n\nNew device with your same apps  \n<https://www.google.com/appserve/mkt/p/AD-FnEwu6gNHk_aXL6stk9KhE3HY685iqEgVi7",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}
