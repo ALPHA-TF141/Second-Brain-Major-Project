@@ -233,5 +233,8 @@
 - [Communication: Email: Maria Immanuel: your job alert for Software Developer in Chennai,
 
  Tamil Nadu, India has been created](communication/email__maria_immanuel__your_job_alert_for_software_developer_in_chennai____tamil_nadu__india_has_been_created.md) — *Updated 2026-09-22*
-- [Communication: Email: [GitHub] A first-party GitHub OAuth application has been added to
+- [Communication: Email: [GitHub] A first-party GitHub OAuth application has been added to
+
  your account](communication/email___github__a_first_party_github_oauth_application_has_been_added_to___your_account.md) — *Updated 2026-09-22*
+- [General: Snipping Tool](general/snipping_tool.md) — *Updated 2026-09-22*
+- [General: Save As](general/save_as.md) — *Updated 2026-09-22*

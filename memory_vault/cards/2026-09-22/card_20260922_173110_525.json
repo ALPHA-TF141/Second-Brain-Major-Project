@@ -1,0 +1,28 @@
+{
+  "id": "card_20260922_173110_525",
+  "timestamp": "2026-09-22T17:31:10.525062Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "SnippingTool.exe",
+  "window_title": "Snipping Tool",
+  "topic": "Snipping Tool",
+  "summary": "[General] Snipping Tool: Activity on SnippingTool.exe: Snipping Tool",
+  "key_pointers": [
+    "Activity on SnippingTool.exe: Snipping Tool"
+  ],
+  "entities": [
+    "Activity",
+    "Tool",
+    "SnippingTool",
+    "Snipping"
+  ],
+  "tags": [
+    "snippingtool",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on SnippingTool.exe: Snipping Tool",
+  "hero_image": null,
+  "hero_image_info_score": 29.25
+}
