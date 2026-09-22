@@ -345,3 +345,17 @@
 **Identified Concepts & Entities:** `Activity`, `Hidden`
 
 ---
+
+### Synthesized Entry: Hidden by privacy rule (2026-09-22 17:31 UTC)
+- **Source Application:** `excluded`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** [General] Hidden by privacy rule: Activity on excluded: Hidden by privacy rule
+
+#### Key Takeaways & Evidence:
+- Activity on excluded: Hidden by privacy rule
+
+**Identified Concepts & Entities:** `Activity`, `Hidden`
+
+![Hero Visual Evidence](../../memory_vault/images/2026-09-22/hero_card_20260922_173120_856.webp)
+
+---
