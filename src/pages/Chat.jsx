@@ -115,7 +115,8 @@ function Chat() {
   }, []);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Guard: not available in every engine/webview context
+    bottomRef.current?.scrollIntoView?.({ behavior: 'smooth' });
   }, [messages, isTyping]);
 
   return (

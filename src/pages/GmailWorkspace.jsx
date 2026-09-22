@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Mail, Inbox, Star, Send, FileEdit, Search, Sparkles, CheckSquare, Clock, ArrowRight, ShieldCheck, RefreshCw, Plus } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function GmailWorkspace() {
   const { apiClient } = useBackend();
@@ -49,7 +50,7 @@ export default function GmailWorkspace() {
 
   function convertEmailToTask(email) {
     if (!email.aiExtractedTask) return;
-    fetch(`${apiClient.baseUrl}/api/os/tasks`, {
+    apiFetch(`${apiClient.baseUrl}/api/os/tasks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CheckSquare, Circle, CheckCircle2, Clock, Plus, Sparkles, Filter, Trash2, Calendar, AlertCircle } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function TasksWorkspace() {
   const { apiClient } = useBackend();
@@ -13,7 +14,7 @@ export default function TasksWorkspace() {
 
   async function loadTasks() {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/tasks`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/tasks`);
       if (res.ok) {
         const data = await res.json();
         setTasks(data);
@@ -31,7 +32,7 @@ export default function TasksWorkspace() {
     const nextStatus = currentStatus === 'completed' ? 'pending' : 'completed';
     setTasks(prev => prev.map(t => t.id === taskId ? { ...t, status: nextStatus } : t));
     try {
-      await fetch(`${apiClient.baseUrl}/api/os/tasks/${taskId}`, {
+      await apiFetch(`${apiClient.baseUrl}/api/os/tasks/${taskId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: nextStatus })
@@ -46,7 +47,7 @@ export default function TasksWorkspace() {
     if (!newTaskTitle.trim()) return;
     setIsAdding(true);
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/tasks`, {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -67,7 +68,7 @@ export default function TasksWorkspace() {
 
   async function handleDelete(taskId) {
     setTasks(prev => prev.filter(t => t.id !== taskId));
-    await fetch(`${apiClient.baseUrl}/api/os/tasks/${taskId}`, { method: 'DELETE' });
+    await apiFetch(`${apiClient.baseUrl}/api/os/tasks/${taskId}`, { method: 'DELETE' });
   }
 
   const filteredTasks = tasks.filter(t => {

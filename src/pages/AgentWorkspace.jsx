@@ -40,7 +40,8 @@ export default function AgentWorkspace() {
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Guard: not available in every engine/webview context
+    scrollRef.current?.scrollIntoView?.({ behavior: 'smooth' });
   }, [messages, currentToolState]);
 
   async function handleSend(e) {

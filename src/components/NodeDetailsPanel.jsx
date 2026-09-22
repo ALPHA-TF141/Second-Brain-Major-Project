@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/node-details.css';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function NodeDetailsPanel({ node, onClose }) {
   const [details, setDetails] = useState(null);
@@ -17,7 +18,7 @@ export default function NodeDetailsPanel({ node, onClose }) {
   const fetchNodeDetails = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/graph/nodes/${node.id}`, {
+      const res = await apiFetch(`/api/graph/nodes/${node.id}`, {
         headers: { 'Authorization': `Bearer ${sessionStorage.getItem('token')}` }
       });
       const data = await res.json();

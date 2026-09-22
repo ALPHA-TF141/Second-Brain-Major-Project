@@ -5,9 +5,12 @@ REM ===========================================================================
 REM  Runs every automated check against the project and reports failures:
 REM    1. ESLint        - undefined components/variables (the "blank screen" bugs)
 REM    2. Health check  - imports, routes, API paths, preload bridge, python syntax
-REM    3. Build         - production bundle must compile
-REM    4. Backend tests - 11 live test suites
-REM    5. Browser smoke - loads all 18 routes in a real Chromium (needs Playwright)
+REM    3. API contract  - every UI call must match a real backend route
+REM    4. Render smoke  - all 18 routes render + mount (no browser download needed)
+REM    5. Build         - production bundle must compile
+REM    6. Backend tests - 11 live test suites
+REM    7. Endpoint sweep- boots the backend and probes every GET route for 5xx
+REM    8. Browser smoke - loads all 18 routes in real Chromium (optional)
 REM ===========================================================================
 setlocal
 cd /d "%~dp0"
@@ -20,22 +23,32 @@ echo   JARVIS OS - FULL ERROR CHECK
 echo ============================================================
 
 echo.
-echo [1/5] ESLint (undefined vars / bad JSX) ...
+echo [1/8] ESLint (undefined vars / bad JSX) ...
 call npm run lint
 if errorlevel 1 goto :failed
 
 echo.
-echo [2/5] Static health check (imports, routes, API wiring) ...
+echo [2/8] Static health check (imports, routes, API wiring) ...
 "%PY%" scripts\health_check.py
 if errorlevel 1 goto :failed
 
 echo.
-echo [3/5] Production build ...
+echo [3/8] API contract (UI calls ^<^-^> backend routes) ...
+call npm run check:api
+if errorlevel 1 goto :failed
+
+echo.
+echo [4/8] Route render smoke test (all 18 routes) ...
+call npm run smoke
+if errorlevel 1 goto :failed
+
+echo.
+echo [5/8] Production build ...
 call npm run build
 if errorlevel 1 goto :failed
 
 echo.
-echo [4/5] Backend test suites ...
+echo [6/8] Backend test suites ...
 pushd backend
 "%PY%" test_all_endpoints.py
 set BACKEND_RC=%errorlevel%
@@ -43,7 +56,12 @@ popd
 if not "%BACKEND_RC%"=="0" goto :failed
 
 echo.
-echo [5/5] Browser route smoke test ...
+echo [7/8] Backend endpoint sweep (every GET route) ...
+"%PY%" backend\verify_backend_endpoints.py
+if errorlevel 1 goto :failed
+
+echo.
+echo [8/8] Browser route smoke test ...
 if not exist "node_modules\playwright" (
     echo       Playwright not installed - skipping.
     echo       To enable it run:  npm run smoke:setup

@@ -40,6 +40,10 @@ export default function NeuralBrain3D({
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    // Canvas 2D can be unavailable (missing/blacklisted GPU, software rendering
+    // disabled, headless contexts). Bail out cleanly instead of crashing the
+    // whole React tree into the red JARVIS diagnostic screen.
+    if (!ctx) return undefined;
     let animationFrameId;
 
     // Generate 3D Brain Point Cloud (Dual Hemisphere Architecture)

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Folder, FileText, Image as ImageIcon, Search, Download, ExternalLink, HardDrive, RefreshCw } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
+import { apiFetch, readList } from '../services/apiClient.js';
 
 export default function FilesWorkspace() {
   const { apiClient } = useBackend();
@@ -10,8 +11,8 @@ export default function FilesWorkspace() {
 
   async function loadFiles() {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/graph/vault/cards?limit=30`);
-      if (res.ok) setCards(await res.json());
+      const res = await apiFetch(`${apiClient.baseUrl}/api/graph/vault/cards?limit=30`);
+      if (res.ok) setCards(await readList(res));
     } catch {
       //
     }
@@ -21,7 +22,7 @@ export default function FilesWorkspace() {
     loadFiles();
   }, []);
 
-  const heroCaptures = cards.filter(c => c.hero_image);
+  const heroCaptures = (Array.isArray(cards) ? cards : []).filter(c => c.hero_image);
 
   return (
     <div className="flex h-full w-full flex-col bg-[#111318] p-6 text-slate-100 font-sans select-none overflow-y-auto thin-scrollbar">

@@ -27,6 +27,7 @@ import LivingJarvisCore from '../components/LivingJarvisCore.jsx';
 import { useBackend } from '../context/BackendContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import { soundEffects } from '../services/soundEffects.js';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function HomeOS() {
   const { apiClient, username } = useBackend();
@@ -42,8 +43,8 @@ export default function HomeOS() {
   async function loadHomeIntel() {
     try {
       const [intRes, bRes] = await Promise.all([
-        fetch(`${apiClient.baseUrl}/api/os/intelligence`),
-        fetch(`${apiClient.baseUrl}/api/graph/briefing/today`)
+        apiFetch(`${apiClient.baseUrl}/api/os/intelligence`),
+        apiFetch(`${apiClient.baseUrl}/api/graph/briefing/today`)
       ]);
       if (intRes.ok) setIntel(await intRes.json());
       if (bRes.ok) setBriefing(await bRes.json());

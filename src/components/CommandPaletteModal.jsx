@@ -16,6 +16,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function CommandPaletteModal() {
   const { apiClient } = useBackend();
@@ -48,7 +49,7 @@ export default function CommandPaletteModal() {
     const timer = setTimeout(async () => {
       setIsSearching(true);
       try {
-        const res = await fetch(`${apiClient.baseUrl}/api/os/search?q=${encodeURIComponent(query.trim())}`);
+        const res = await apiFetch(`${apiClient.baseUrl}/api/os/search?q=${encodeURIComponent(query.trim())}`);
         if (res.ok) {
           const data = await res.json();
           setResults(data.results || []);

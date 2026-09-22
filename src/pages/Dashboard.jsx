@@ -46,6 +46,7 @@ import SocialIngestionHub from '../components/SocialIngestionHub.jsx';
 import { soundEffects } from '../services/soundEffects.js';
 import { useBackend } from '../context/BackendContext.jsx';
 import { createVoiceSocket } from '../services/voiceSocket.js';
+import { apiFetch } from '../services/apiClient.js';
 
 const SpeechRecognition = typeof window !== 'undefined'
   ? (window.SpeechRecognition || window.webkitSpeechRecognition)
@@ -143,12 +144,12 @@ export default function Dashboard() {
       const baseUrl = apiClient?.baseUrl || 'http://127.0.0.1:8000';
       try {
         const [gRes, cRes, wRes, dRes, insRes, bRes] = await Promise.all([
-          fetch(`${baseUrl}/api/graph/vault`).catch(() => null),
-          fetch(`${baseUrl}/api/graph/vault/cards?limit=12`).catch(() => null),
-          fetch(`${baseUrl}/api/graph/vault/wiki`).catch(() => null),
-          fetch(`${baseUrl}/api/graph/deliverables`).catch(() => null),
-          fetch(`${baseUrl}/api/graph/insights/recent`).catch(() => null),
-          fetch(`${baseUrl}/api/graph/briefing/today`).catch(() => null),
+          apiFetch(`${baseUrl}/api/graph/vault`).catch(() => null),
+          apiFetch(`${baseUrl}/api/graph/vault/cards?limit=12`).catch(() => null),
+          apiFetch(`${baseUrl}/api/graph/vault/wiki`).catch(() => null),
+          apiFetch(`${baseUrl}/api/graph/deliverables`).catch(() => null),
+          apiFetch(`${baseUrl}/api/graph/insights/recent`).catch(() => null),
+          apiFetch(`${baseUrl}/api/graph/briefing/today`).catch(() => null),
         ]);
 
         if (active) {
@@ -314,7 +315,7 @@ export default function Dashboard() {
     setJarvisReply('Scanning monitor optic telemetry, Sir...');
     const baseUrl = apiClient?.baseUrl || 'http://127.0.0.1:8000';
     try {
-      const res = await fetch(`${baseUrl}/api/graph/vision/analyze-screen`, {
+      const res = await apiFetch(`${baseUrl}/api/graph/vision/analyze-screen`, {
         method: 'POST'
       });
       if (res.ok) {
@@ -352,7 +353,7 @@ export default function Dashboard() {
     if (!art?.path) return;
     const baseUrl = apiClient?.baseUrl || 'http://127.0.0.1:8000';
     try {
-      const res = await fetch(`${baseUrl}/api/graph/vault/wiki/article?path=${encodeURIComponent(art.path)}`);
+      const res = await apiFetch(`${baseUrl}/api/graph/vault/wiki/article?path=${encodeURIComponent(art.path)}`);
       if (res.ok) {
         const data = await res.json();
         setSelectedWikiDoc({ ...art, content: data?.content || 'Empty article' });

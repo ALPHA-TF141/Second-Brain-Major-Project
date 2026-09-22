@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link2, ShieldCheck, CheckCircle2, AlertCircle, RefreshCw, Key, ExternalLink, Cpu, GitBranch, Globe, Mail, Calendar } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function IntegrationsManager() {
   const { apiClient } = useBackend();
@@ -10,7 +11,7 @@ export default function IntegrationsManager() {
 
   async function loadIntegrations() {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/integrations`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/integrations`);
       if (res.ok) {
         const data = await res.json();
         setIntegrations(data);
@@ -31,7 +32,7 @@ export default function IntegrationsManager() {
     }
 
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/integrations/${key}`, {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/integrations/${key}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

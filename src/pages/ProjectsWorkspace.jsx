@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Rocket, CheckSquare, FileText, Folder, Mail, Network, Sparkles, Clock, ArrowRight, Layers } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { useNavigate } from 'react-router-dom';
+import { apiFetch, readList } from '../services/apiClient.js';
 
 export default function ProjectsWorkspace() {
   const { apiClient } = useBackend();
@@ -13,9 +14,9 @@ export default function ProjectsWorkspace() {
 
   async function loadProjects() {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/projects`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/projects`);
       if (res.ok) {
-        const data = await res.json();
+        const data = await readList(res);
         setProjects(data);
       }
     } catch {
@@ -25,7 +26,7 @@ export default function ProjectsWorkspace() {
 
   async function loadDetail(id) {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/projects/${id}`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/projects/${id}`);
       if (res.ok) {
         const data = await res.json();
         setProjectDetail(data);
@@ -94,7 +95,7 @@ export default function ProjectsWorkspace() {
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <span className="text-[10px] font-mono text-purple-400 uppercase tracking-wider font-bold">
-                    Project Workspace · {projectDetail.status.toUpperCase()}
+                    Project Workspace · {(projectDetail.status || 'active').toUpperCase()}
                   </span>
                   <h2 className="text-xl font-bold text-white mt-0.5">{projectDetail.name}</h2>
                   <p className="text-xs text-slate-400 mt-1 max-w-2xl">{projectDetail.description}</p>
@@ -176,7 +177,7 @@ export default function ProjectsWorkspace() {
                     <div key={t.id} className="flex items-center justify-between rounded-xl border border-white/5 bg-black/40 p-3 text-xs">
                       <div>
                         <span className="font-semibold text-white block">{t.title}</span>
-                        <span className="text-[10px] text-slate-500 font-mono">Priority: {t.priority.toUpperCase()} · Due: {t.due_date}</span>
+                        <span className="text-[10px] text-slate-500 font-mono">Priority: {(t.priority || 'medium').toUpperCase()} · Due: {t.due_date || 'No due date'}</span>
                       </div>
                       <span className="text-[10px] text-emerald-400 uppercase font-mono font-bold">● {t.status}</span>
                     </div>

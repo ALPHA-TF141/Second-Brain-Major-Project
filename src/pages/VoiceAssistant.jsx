@@ -56,7 +56,12 @@ function VoiceAssistant() {
   async function loadVoiceMeta() {
     if (!apiClient.getToken()) return;
     apiClient.voiceStatus().then(setVoiceStatus).catch(() => setVoiceStatus({}));
-    apiClient.fetchVoicePreferences().then(setPreferences).catch(() => {});
+    // Merge over the defaults instead of replacing: a partial API response
+    // would set fields to undefined and turn controlled inputs uncontrolled.
+    apiClient
+      .fetchVoicePreferences()
+      .then((data) => setPreferences((current) => ({ ...current, ...(data || {}) })))
+      .catch(() => {});
   }
 
   async function connectSocket() {
@@ -195,7 +200,7 @@ function VoiceAssistant() {
   async function savePreferences() {
     await ensureLogin();
     const next = await apiClient.updateVoicePreferences(preferences);
-    setPreferences(next);
+    setPreferences((current) => ({ ...current, ...(next || {}) }));
   }
 
   async function sendManualTranscript() {

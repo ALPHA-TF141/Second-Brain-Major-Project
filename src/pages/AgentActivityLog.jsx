@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Activity, CheckCircle2, Clock, AlertTriangle, RefreshCw, Zap } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function AgentActivityLog() {
   const { apiClient } = useBackend();
@@ -9,7 +10,7 @@ export default function AgentActivityLog() {
 
   async function loadActivities() {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/activity`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/activity`);
       if (res.ok) {
         const data = await res.json();
         setActivities(data);

@@ -3,6 +3,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 
 from app.auth.security import create_access_token, verify_password
+from app.config import settings
 from app.models.session import UserSession
 from app.models.user import User
 

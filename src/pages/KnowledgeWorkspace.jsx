@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BookOpen, Layers, Network, Search, ExternalLink, Image as ImageIcon, Sparkles, Plus, FileText, ChevronRight } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
 import { useNavigate } from 'react-router-dom';
+import { apiFetch, readList } from '../services/apiClient.js';
 
 export default function KnowledgeWorkspace() {
   const { apiClient } = useBackend();
@@ -16,11 +17,11 @@ export default function KnowledgeWorkspace() {
   async function loadKnowledge() {
     try {
       const [wRes, cRes] = await Promise.all([
-        fetch(`${apiClient.baseUrl}/api/graph/vault/wiki`),
-        fetch(`${apiClient.baseUrl}/api/graph/vault/cards?limit=25`)
+        apiFetch(`${apiClient.baseUrl}/api/graph/vault/wiki`),
+        apiFetch(`${apiClient.baseUrl}/api/graph/vault/cards?limit=25`)
       ]);
-      if (wRes.ok) setWikiArticles(await wRes.json());
-      if (cRes.ok) setVaultCards(await cRes.json());
+      if (wRes.ok) setWikiArticles(await readList(wRes));
+      if (cRes.ok) setVaultCards(await readList(cRes));
     } catch {
       //
     }
@@ -32,7 +33,7 @@ export default function KnowledgeWorkspace() {
 
   async function openArticle(art) {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/graph/vault/wiki/article?path=${encodeURIComponent(art.path)}`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/graph/vault/wiki/article?path=${encodeURIComponent(art.path)}`);
       if (res.ok) {
         const data = await res.json();
         setSelectedDoc({ ...art, content: data.content });
@@ -42,7 +43,7 @@ export default function KnowledgeWorkspace() {
     }
   }
 
-  const filteredWiki = wikiArticles.filter(a => search ? a.title.toLowerCase().includes(search.toLowerCase()) || a.domain.toLowerCase().includes(search.toLowerCase()) : true);
+  const filteredWiki = (Array.isArray(wikiArticles) ? wikiArticles : []).filter(a => search ? a.title.toLowerCase().includes(search.toLowerCase()) || a.domain.toLowerCase().includes(search.toLowerCase()) : true);
   const filteredCards = vaultCards.filter(c => search ? (c.topic || c.window_title).toLowerCase().includes(search.toLowerCase()) : true);
 
   return (

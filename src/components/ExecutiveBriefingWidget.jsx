@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Volume2, VolumeX, Sparkles, Play, Pause, Compass, CheckCircle2, RefreshCw } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function ExecutiveBriefingWidget() {
   const { apiClient } = useBackend();
@@ -11,7 +12,7 @@ export default function ExecutiveBriefingWidget() {
   async function loadBriefing() {
     setIsLoading(true);
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/graph/briefing/today`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/graph/briefing/today`);
       if (res.ok) {
         const data = await res.json();
         setBriefing(data);

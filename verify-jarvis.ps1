@@ -2,8 +2,18 @@
   JARVIS OS - FULL ERROR CHECK (PowerShell)
   =========================================
   Usage:  .\verify-jarvis.ps1
-  Runs ESLint, static health check, production build, backend suites and the
-  browser route smoke test. Stops at the first failure with a clear message.
+
+  Runs every automated check and stops at the first failure:
+
+    1. ESLint                  - undefined vars / unimported JSX components (the
+                                 "blank screen / red diagnostic" crash class)
+    2. Static health check     - imports resolve, API wiring, python syntax
+    3. API contract            - every URL the UI calls must exist on the backend
+    4. Route render smoke      - renders AND mounts all 18 routes (no browser needed)
+    5. Production build        - the bundle must compile
+    6. Backend test suites     - 11 live functional suites
+    7. Backend endpoint sweep  - boots the backend and calls every GET route
+    8. Browser smoke test      - optional, loads all 18 routes in real Chromium
 #>
 $ErrorActionPreference = 'Continue'
 Set-Location $PSScriptRoot
@@ -13,7 +23,7 @@ if (-not (Test-Path $py)) { $py = "python" }
 
 function Step($n, $title) {
   Write-Host ""
-  Write-Host "[$n/5] $title" -ForegroundColor Cyan
+  Write-Host "[$n/8] $title" -ForegroundColor Cyan
 }
 
 $failed = $false
@@ -29,13 +39,25 @@ if (-not $failed) {
 }
 
 if (-not $failed) {
-  Step 3 "Production build"
+  Step 3 "API contract (UI calls <-> backend routes)"
+  npm run check:api
+  if ($LASTEXITCODE -ne 0) { $failed = $true }
+}
+
+if (-not $failed) {
+  Step 4 "Route render smoke test (all 18 routes render + mount)"
+  npm run smoke
+  if ($LASTEXITCODE -ne 0) { $failed = $true }
+}
+
+if (-not $failed) {
+  Step 5 "Production build"
   npm run build
   if ($LASTEXITCODE -ne 0) { $failed = $true }
 }
 
 if (-not $failed) {
-  Step 4 "Backend test suites"
+  Step 6 "Backend test suites"
   Push-Location backend
   $backendPy = ".venv\Scripts\python.exe"
   if (-not (Test-Path $backendPy)) { $backendPy = "python" }
@@ -46,7 +68,13 @@ if (-not $failed) {
 }
 
 if (-not $failed) {
-  Step 5 "Browser route smoke test"
+  Step 7 "Backend endpoint sweep (boots backend, probes every GET route for 5xx)"
+  & $py backend\verify_backend_endpoints.py
+  if ($LASTEXITCODE -ne 0) { $failed = $true }
+}
+
+if (-not $failed) {
+  Step 8 "Browser route smoke test (real Chromium)"
   if (Test-Path "node_modules\playwright") {
     node scripts\smoke_test.mjs
     if ($LASTEXITCODE -ne 0) { $failed = $true }

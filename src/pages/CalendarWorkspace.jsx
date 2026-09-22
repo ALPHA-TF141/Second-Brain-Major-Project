@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Calendar as CalIcon, Clock, Plus, Sparkles, MapPin, CheckCircle2, ChevronRight } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function CalendarWorkspace() {
   const { apiClient } = useBackend();
@@ -11,7 +12,7 @@ export default function CalendarWorkspace() {
 
   async function loadEvents() {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/calendar`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/calendar`);
       if (res.ok) {
         const data = await res.json();
         setEvents(data);
@@ -30,7 +31,7 @@ export default function CalendarWorkspace() {
     if (!newTitle.trim()) return;
     setIsAdding(true);
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/calendar`, {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/calendar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

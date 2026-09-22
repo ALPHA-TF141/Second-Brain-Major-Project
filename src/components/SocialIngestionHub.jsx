@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Globe, Key, Link as LinkIcon, RefreshCw, Send, Sparkles, Youtube, Twitter, Instagram, CheckCircle2, AlertCircle, ShieldCheck, UserCheck } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function SocialIngestionHub({ onIngested }) {
   const { apiClient } = useBackend();
@@ -15,7 +16,7 @@ export default function SocialIngestionHub({ onIngested }) {
 
   async function loadStatus() {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/social/status`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/social/status`);
       if (res.ok) {
         const data = await res.json();
         setStatus(data);
@@ -35,7 +36,7 @@ export default function SocialIngestionHub({ onIngested }) {
     setIsIngesting(true);
     setResultMessage(null);
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/social/ingest-url`, {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/social/ingest-url`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: url.trim(), user_notes: notes.trim() })
@@ -63,7 +64,7 @@ export default function SocialIngestionHub({ onIngested }) {
   async function connectAccount(platform) {
     setIsSavingAccount(true);
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/social/connect-account`, {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/social/connect-account`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -144,20 +144,58 @@ def get_nodes(
 
 @router.get("/nodes/{node_id}")
 def get_node_detail(
-    node_id: int,
+    node_id: str,
     db: Session = Depends(get_db),
     _user: User = Depends(get_current_user)
 ):
     """Get node details with relationships"""
     try:
-        node = db.query(GraphNode).filter(GraphNode.id == node_id).first()
+        # ---- 1. SQLite graph (integer ids) ----
+        node = None
+        if str(node_id).isdigit():
+            node = db.query(GraphNode).filter(GraphNode.id == int(node_id)).first()
 
         if not node:
+            # ---- 2. Memory Vault JSON graph (string card ids) ----
+            # /api/graph/nodes returns these string ids when the SQLite graph is
+            # still empty, so the detail endpoint must understand them too.
+            import json as _json
+
+            from app.agents.vault_agent import vault_agent
+
+            if vault_agent.graph_file.exists():
+                data = _json.loads(vault_agent.graph_file.read_text(encoding="utf-8"))
+                vault_nodes = {str(n.get("id")): n for n in data.get("nodes", [])}
+                vnode = vault_nodes.get(str(node_id))
+
+                if vnode:
+                    edges = data.get("edges", [])
+                    return {
+                        "id": vnode.get("id"),
+                        "name": vnode.get("label", vnode.get("id")),
+                        "type": vnode.get("domain", "concept"),
+                        "description": vnode.get("summary", ""),
+                        "importance": 0.95 if vnode.get("priority") == "high" else 0.75,
+                        "frequency": 1,
+                        "created_at": vnode.get("created_at"),
+                        "last_seen": vnode.get("last_seen"),
+                        "incoming_edges": [{
+                            "source_id": e.get("source"),
+                            "relationship_type": e.get("label", "related"),
+                            "strength": e.get("weight", 1.0)
+                        } for e in edges if str(e.get("target")) == str(node_id)],
+                        "outgoing_edges": [{
+                            "target_id": e.get("target"),
+                            "relationship_type": e.get("label", "related"),
+                            "strength": e.get("weight", 1.0)
+                        } for e in edges if str(e.get("source")) == str(node_id)]
+                    }
+
             raise HTTPException(status_code=404, detail="Node not found")
 
         # Get incoming and outgoing edges
-        incoming = db.query(GraphEdge).filter(GraphEdge.target_node_id == node_id).all()
-        outgoing = db.query(GraphEdge).filter(GraphEdge.source_node_id == node_id).all()
+        incoming = db.query(GraphEdge).filter(GraphEdge.target_node_id == node.id).all()
+        outgoing = db.query(GraphEdge).filter(GraphEdge.source_node_id == node.id).all()
 
         return {
             "id": node.id,

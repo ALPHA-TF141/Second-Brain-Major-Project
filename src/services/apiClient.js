@@ -31,6 +31,54 @@ async function request(path, options = {}) {
   return response.json();
 }
 
+/** Parse a JSON response without throwing on a malformed body. */
+export async function readJson(res, fallback = null) {
+  try {
+    return await res.json();
+  } catch {
+    return fallback;
+  }
+}
+
+/**
+ * Read an endpoint that should return an array.
+ * Returns [] for anything unexpected so `.map()` / `.filter()` can never crash
+ * a page. Accepts bare arrays and { items: [...] } / { results: [...] } envelopes.
+ */
+export async function readList(res) {
+  const data = await readJson(res, []);
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.items)) return data.items;
+  if (Array.isArray(data?.results)) return data.results;
+  return [];
+}
+
+/**
+ * Authenticated fetch.
+ * ---------------------------------------------------------------------------
+ * Several screens called the backend with a RAW `fetch()`, which does NOT
+ * attach the JWT. Every one of those requests came back 401, so those panels
+ * silently rendered empty while looking perfectly fine.
+ *
+ * Use this instead of `fetch()` for every call to our own backend. Accepts a
+ * full URL (`${apiClient.baseUrl}/api/...`) or a bare path (`/api/...`), and
+ * does NOT throw on non-2xx - callers keep using `res.ok`.
+ */
+export async function apiFetch(url, options = {}) {
+  const token = getToken();
+  const target = /^https?:\/\//i.test(url) ? url : `${API_BASE_URL}${url}`;
+
+  const headers = { ...(options.headers || {}) };
+  if (token && !headers.Authorization) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  if (options.body && !headers['Content-Type']) {
+    headers['Content-Type'] = 'application/json';
+  }
+
+  return fetch(target, { ...options, headers });
+}
+
 export const apiClient = {
   baseUrl: API_BASE_URL,
   tokenKey: TOKEN_KEY,

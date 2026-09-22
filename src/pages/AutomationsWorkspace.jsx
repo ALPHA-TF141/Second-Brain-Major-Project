@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Bot, Play, Pause, Plus, Sparkles, RefreshCw, Clock, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function AutomationsWorkspace() {
   const { apiClient } = useBackend();
@@ -11,7 +12,7 @@ export default function AutomationsWorkspace() {
 
   async function loadAutomations() {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/automations`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/automations`);
       if (res.ok) {
         const data = await res.json();
         setAutomations(data);
@@ -27,7 +28,7 @@ export default function AutomationsWorkspace() {
 
   async function toggleStatus(autoId) {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/automations/${autoId}/toggle`, { method: 'POST' });
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/automations/${autoId}/toggle`, { method: 'POST' });
       if (res.ok) await loadAutomations();
     } catch {
       //
@@ -37,7 +38,7 @@ export default function AutomationsWorkspace() {
   async function runNow(autoId) {
     setRunningId(autoId);
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/automations/${autoId}/run`, { method: 'POST' });
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/automations/${autoId}/run`, { method: 'POST' });
       if (res.ok) {
         await loadAutomations();
         alert('✓ Automation workflow executed successfully!');
@@ -53,7 +54,7 @@ export default function AutomationsWorkspace() {
     setIsSynthesizing(true);
     try {
       // Create structured automation workflow
-      await fetch(`${apiClient.baseUrl}/api/os/automations`, {
+      await apiFetch(`${apiClient.baseUrl}/api/os/automations`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

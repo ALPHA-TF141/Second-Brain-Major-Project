@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Bell, Clock, Plus, CheckCircle2, Circle, RefreshCw, Repeat } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function RemindersWorkspace() {
   const { apiClient } = useBackend();
@@ -12,7 +13,7 @@ export default function RemindersWorkspace() {
 
   async function loadReminders() {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/reminders`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/reminders`);
       if (res.ok) {
         const data = await res.json();
         setReminders(data);
@@ -29,7 +30,7 @@ export default function RemindersWorkspace() {
   async function handleToggle(id) {
     setReminders(prev => prev.map(r => r.id === id ? { ...r, status: r.status === 'active' ? 'completed' : 'active' } : r));
     try {
-      await fetch(`${apiClient.baseUrl}/api/os/reminders/${id}/toggle`, { method: 'PUT' });
+      await apiFetch(`${apiClient.baseUrl}/api/os/reminders/${id}/toggle`, { method: 'PUT' });
     } catch {
       //
     }
@@ -40,7 +41,7 @@ export default function RemindersWorkspace() {
     if (!text.trim()) return;
     setIsAdding(true);
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/os/reminders`, {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/reminders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

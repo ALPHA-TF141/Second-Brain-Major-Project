@@ -14,10 +14,13 @@
     "start": "electron .",
     "lint": "eslint src electron --max-warnings=999",
     "lint:fix": "eslint src electron --fix",
-    "check": "npm run lint && npm run build",
-    "smoke": "node scripts/smoke_test.mjs",
+    "check": "npm run lint && npm run check:api && npm run smoke && npm run build",
+    "smoke": "node tools/smoke-render.mjs",
     "health:check": "python scripts/health_check.py",
-    "smoke:setup": "npm install --no-save playwright && npx playwright install chromium"
+    "smoke:setup": "npm install --no-save playwright && npx playwright install chromium",
+    "check:api": "node tools/check-api-contract.mjs",
+    "smoke:browser": "node scripts/smoke_test.mjs",
+    "verify:backend": "python backend/verify_backend_endpoints.py"
   },
   "build": {
     "appId": "com.secondbrain.jarvis",
@@ -51,7 +54,7 @@
     "reactflow": "^11.11.4"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
+    "@eslint/js": "^9.39.5",
     "@vitejs/plugin-react": "^5.0.0",
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.1.0",
@@ -60,6 +63,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.12.0",
+    "jsdom": "^29.1.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
     "vite": "^6.0.3",

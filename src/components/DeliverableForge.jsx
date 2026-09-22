@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BookOpen, Copy, Check, Download, FileText, Layers, RefreshCw, Sparkles, Terminal, Wrench } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
+import { apiFetch } from '../services/apiClient.js';
 
 export default function DeliverableForge() {
   const { apiClient } = useBackend();
@@ -14,7 +15,7 @@ export default function DeliverableForge() {
 
   async function loadDeliverables() {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/graph/deliverables`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/graph/deliverables`);
       if (res.ok) {
         const data = await res.json();
         setDeliverables(data);
@@ -32,7 +33,7 @@ export default function DeliverableForge() {
     if (!topic.trim()) return;
     setIsForging(true);
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/graph/deliverables/generate`, {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/graph/deliverables/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -55,7 +56,7 @@ export default function DeliverableForge() {
 
   async function openExistingDoc(item) {
     try {
-      const res = await fetch(`${apiClient.baseUrl}/api/graph/deliverables/content?filename=${encodeURIComponent(item.filename)}`);
+      const res = await apiFetch(`${apiClient.baseUrl}/api/graph/deliverables/content?filename=${encodeURIComponent(item.filename)}`);
       if (res.ok) {
         const data = await res.json();
         setActiveDoc({ ...item, content: data.content });
