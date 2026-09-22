@@ -1,0 +1,29 @@
+{
+  "id": "mail_50_e32c77",
+  "timestamp": "2026-01-09T14:23:59+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "[GitHub] A third-party GitHub Application has been added to your\r\n account",
+  "topic": "Email: [GitHub] A third-party GitHub Application has been added to your\r\n account",
+  "summary": "Email from GitHub <noreply@github.com> to lmariaimmanuel@gmail.com about: [GitHub] A third-party GitHub Application has been added to your\r\n account",
+  "key_pointers": [
+    "From: GitHub <noreply@github.com>",
+    "Received: Fri, 09 Jan 2026 06:23:59 -0800"
+  ],
+  "entities": [
+    "noreply@github.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "github.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:noreply@github.com",
+  "raw_ocr_excerpt": "Hey ALPHA-TF141!\n\nA third-party GitHub Application (Vercel) with the following permissions:\n\n  - View your email addresses\n\nWas recently authorized to access your account.\n\nVisit https://github.com/settings/connections/applications/Iv1.9d7d662ea00b8481 for more information.\n\nTo see this and other security events for your account, visit https://github.com/settings/security-log\n\nIf you run into problems, please contact support by visiting https://github.com/contact\n\nThanks,\nThe GitHub Team",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

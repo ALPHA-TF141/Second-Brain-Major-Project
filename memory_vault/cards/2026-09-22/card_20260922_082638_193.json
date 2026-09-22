@@ -1,0 +1,28 @@
+{
+  "id": "card_20260922_082638_193",
+  "timestamp": "2026-09-22T08:26:38.193419Z",
+  "domain": "Geopolitics",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "Security - Google Chrome",
+  "topic": "Security",
+  "summary": "[Geopolitics] Security: Activity on chrome.exe: Security - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Security - Google Chrome"
+  ],
+  "entities": [
+    "Security",
+    "Google",
+    "Activity"
+  ],
+  "tags": [
+    "security",
+    "chrome",
+    "geopolitics"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Security - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 48.15
+}

@@ -94,3 +94,11 @@
 - [Communication: Email: Welcome to your Unity ID](communication/email__welcome_to_your_unity_id.md) — *Updated 2026-09-22*
 - [Communication: Email: [GitHub] Please verify your email address.](communication/email___github__please_verify_your_email_address.md) — *Updated 2026-09-22*
 - [Communication: Email: Surprise Immanuel with a Laptop!](communication/email__surprise_immanuel_with_a_laptop.md) — *Updated 2026-09-22*
+- [Communication: Email: immanuel_ml, Join Your First Contest and Win 200 LeetCoins!](communication/email__immanuel_ml__join_your_first_contest_and_win_200_leetcoins.md) — *Updated 2026-09-22*
+- [Communication: Email: Learn the math that powers AI systems [Free full-length book for
+
+ non-mathematicians]](communication/email__learn_the_math_that_powers_ai_systems__free_full_length_book_for___non_mathematicians.md) — *Updated 2026-09-22*
+- [Communication: Email: [GitHub] A third-party GitHub Application has been added to your
+
+ account](communication/email___github__a_third_party_github_application_has_been_added_to_your___account.md) — *Updated 2026-09-22*
+- [General: Google Account](general/google_account.md) — *Updated 2026-09-22*
