@@ -1,0 +1,31 @@
+{
+  "id": "mail_130_c9d078",
+  "timestamp": "2026-01-25T18:24:13+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "You’re officially a Kaggler. Now what?",
+  "topic": "Email: You’re officially a Kaggler. Now what?",
+  "summary": "Email from Kaggle <noreply@kaggle.com> to lmariaimmanuel@gmail.com about: You’re officially a Kaggler. Now what?",
+  "key_pointers": [
+    "Deadline: Deadline: You’re officially a Kaggler. Now what?",
+    "From: Kaggle <noreply@kaggle.com>",
+    "Received: Sun, 25 Jan 2026 10:24:13 -0800"
+  ],
+  "entities": [
+    "noreply@kaggle.com",
+    "lmariaimmanuel@gmail.com",
+    "deadline"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "kaggle.com",
+    "deadline"
+  ],
+  "source_url_or_ref": "mailto:noreply@kaggle.com",
+  "raw_ocr_excerpt": "Kaggle\n\nHi immanuelml,\n\nYou're now part of the world's largest data science community. Welcome,  \nwe're glad you're here!\n\nWhether you're new to machine learning or a renowned expert, we want to  \nsupport you with powerful tools and resources to help you grow as a data  \nscientist.\n\nSo, where's the best place to start?\n\nWe highly recommend trying out our popular Titanic competition. You'll be  \nchallenged to predict which passengers survived the infamous 1912 shipwreck.\n\nGet Started Here\n\nIt's a quick way to get a strong grasp of how our platform works. You'll  \nbecome more familiar with how our notebooks (online coding environment with  \nno cost GPUs), open datasets, and open pretrained models work together to  \nhelp you build data science projects.\n\nYour agreement with Kaggle\n\nAbout your Kaggle Account\n\nA Kaggle Account allows you to access a range of Kaggle services, such as  \nnotebooks, datasets, and machine learning competitions.\n\nTerms of Use\n\nThe Kaggle Terms of Use help to define the relationship between you and  \nKaggle. They describe what you can expect from using Kaggle services and  \nwhat we expect from you. Kaggle services are provided by and you have a  \ncontract with:\n\nKaggle Inc.\n1600 Amphitheatre Parkway\nMountain View, California 94043\nUnited States of America\nsupport@kaggle.com\n\nYou can use your Kaggle Account for an unlimited time. That means that the  \ncontract doesn't end automatically, but you can terminate it when you want.\n\nRight of withdrawal\n\nIf you'",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,29 @@
+{
+  "id": "mail_127_b3161c",
+  "timestamp": "2026-01-25T15:50:45+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Tata Elxsi TELIPORT Season 3 | Important Update",
+  "topic": "Email: Tata Elxsi TELIPORT Season 3 | Important Update",
+  "summary": "Email from Grad Partners <admin@gradpartners.in> to lmariaimmanuel@gmail.com about: Tata Elxsi TELIPORT Season 3 | Important Update",
+  "key_pointers": [
+    "From: Grad Partners <admin@gradpartners.in>",
+    "Received: Sun, 25 Jan 2026 15:50:45 +0000"
+  ],
+  "entities": [
+    "admin@gradpartners.in",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "gradpartners.in",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:admin@gradpartners.in",
+  "raw_ocr_excerpt": "Test",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

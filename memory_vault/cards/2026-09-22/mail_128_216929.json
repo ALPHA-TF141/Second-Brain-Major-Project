@@ -1,0 +1,29 @@
+{
+  "id": "mail_128_216929",
+  "timestamp": "2026-01-25T18:14:02+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Registration Successful | Weekly Case Challenge",
+  "topic": "Email: Registration Successful | Weekly Case Challenge",
+  "summary": "Email from Unstop <noreply@emails.unstop.com> to lmariaimmanuel@gmail.com about: Registration Successful | Weekly Case Challenge",
+  "key_pointers": [
+    "From: Unstop <noreply@emails.unstop.com>",
+    "Received: Sun, 25 Jan 2026 18:14:02 +0000"
+  ],
+  "entities": [
+    "noreply@emails.unstop.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "emails.unstop.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:noreply@emails.unstop.com",
+  "raw_ocr_excerpt": "<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n    <title>Festival Registration Successful</title>\n    <meta name=\"author\" content=\"\" content=\"\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <meta name=\"x-apple-disable-message-reformatting\">\n    <style type=\"text/css\">\n        @import  url(\"https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap\");\n\n        body {\n            width: auto;\n            background-color: #ffffff;\n            margin: 0 auto;\n            padding: 0;\n            font-size: 14px;\n            -webkit-text-size-adjust: 100% !important;\n            -ms-text-size-adjust: 100% !important;\n            -webkit-font-smoothing: antialiased;\n            font-family: \"Inter\", sans-serif;\n        }\n\n        h1,\n        h2,\n        h3,\n        h4,\n        h5,\n        h6,\n        p,\n        span,\n        a,\n        strong,\n        div,\n        td {\n            color:#1c1c1c;\n            font-family: \"Inter\", sans-serif;\n        }\n\n        img {\n            border: 0 !important;\n            outline: none !important;\n            display: block;\n        }\n\n        a {\n            text-decoration: none;\n            color: #0073e6;\n        }\n\n        .h_text_color:hover {\n            color: #0073e6 !important;\n            text-decoration: underline !important;\n        }\n\n        .footer_",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

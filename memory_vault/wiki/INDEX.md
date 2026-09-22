@@ -170,3 +170,8 @@
 - [General: Confirm access](general/confirm_access.md) — *Updated 2026-09-22*
 - [General: Second-Brain-Major-Project/memory_vault/image](general/second_brain_major_project_memory_vault_image.md) — *Updated 2026-09-22*
 - [General: Inbox (1,193) - lmariaimmanuel@gmail.com - Gm](general/inbox__1_193____lmariaimmanuel_gmail_com___gm.md) — *Updated 2026-09-22*
+- [Communication: Email: Do sci-fi movies get their science right?](communication/email__do_sci_fi_movies_get_their_science_right.md) — *Updated 2026-09-22*
+- [Communication: Email: Tata Elxsi TELIPORT Season 3 | Important Update](communication/email__tata_elxsi_teliport_season_3___important_update.md) — *Updated 2026-09-22*
+- [Communication: Email: Registration Successful | Weekly Case Challenge](communication/email__registration_successful___weekly_case_challenge.md) — *Updated 2026-09-22*
+- [Communication: Email: Welcome! Discover more of your Acer ID benefits](communication/email__welcome__discover_more_of_your_acer_id_benefits.md) — *Updated 2026-09-22*
+- [Communication: Email: You’re officially a Kaggler. Now what?](communication/email__you_re_officially_a_kaggler__now_what.md) — *Updated 2026-09-22*
