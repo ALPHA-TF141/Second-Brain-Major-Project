@@ -1,102 +1,6 @@
 {
-  "updated_at": "2026-09-22T11:04:53.531688Z",
+  "updated_at": "2026-09-22T11:05:55.972333Z",
   "nodes": [
-    {
-      "id": "ENT_nuka.umasri@teachnook.com",
-      "label": "nuka.umasri@teachnook.com",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "mail_194_3c4845",
-      "label": "Email: Final Call To Apply [Training and Internship program campaign, Wipro Certification]",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from Payal Choudhary <payal@corizo.in> to vtu24334@veltech.edu.in about: Final Call To Apply [Training and Internship program campaign, Wipro Certification]",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "ENT_payal@corizo.in",
-      "label": "payal@corizo.in",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "mail_195_8d714a",
-      "label": "Email: TRAINING AND INTERNSHIP",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from vamsi05@blendvidya.in to vtu24334@veltech.edu.in about: TRAINING AND INTERNSHIP",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "ENT_vamsi05@blendvidya.in",
-      "label": "vamsi05@blendvidya.in",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "mail_198_bd6813",
-      "label": "Email: Final Call To Apply Training and Internship program",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from 321910305031 gitam <321910305031@gitam.in> to vtu24334@veltech.edu.in about: Final Call To Apply Training and Internship program",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "ENT_321910305031@gitam.in",
-      "label": "321910305031@gitam.in",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "mail_199_3c4845",
-      "label": "Email: Final Call To Apply [Training and Internship program campaign, Wipro Certification]",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from Payal Chaudhary <payalchaudhary@corizo.co> to vtu24334@veltech.edu.in about: Final Call To Apply [Training and Internship program campaign, Wipro Certification]",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "ENT_payalchaudhary@corizo.co",
-      "label": "payalchaudhary@corizo.co",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "card_20260922_082936_248",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "mail_202_0a474e",
-      "label": "Email: !!!!!FINAL CALL!!!!!! IBM, Microsoft Training and Internship Program",
-      "domain": "Communication",
-      "priority": "medium",
-      "summary": "Email from Thatte Bhargavi <thatte.bhargavi@teachnook.com> to vtu24334@veltech.edu.in about: !!!!!FINAL CALL!!!!!! IBM, Microsoft Training and Internship Program",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "ENT_thatte.bhargavi@teachnook.com",
-      "label": "thatte.bhargavi@teachnook.com",
-      "domain": "Communication",
-      "priority": "medium",
-      "val": 8
-    },
     {
       "id": "mail_203_3c4845",
       "label": "Email: Final Call To Apply [Training and Internship program campaign, Wipro Certification]",
@@ -3014,309 +2918,117 @@
       "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22 at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22 at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
       "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110453_210.webp",
       "val": 6
+    },
+    {
+      "id": "card_20260922_110458_484",
+      "label": "Second-Brain-Major-Project/memory_vault/image",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_062608_266.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_062608_266.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110458_484.webp",
+      "val": 6
+    },
+    {
+      "id": "card_20260922_110503_863",
+      "label": "Second-Brain-Major-Project/memory_vault/image",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_063031_124.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_063031_124.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110503_863.webp",
+      "val": 6
+    },
+    {
+      "id": "card_20260922_110508_919",
+      "label": "Second-Brain-Major-Project/memory_vault/image",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_063829_808.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_063829_808.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110508_919.webp",
+      "val": 6
+    },
+    {
+      "id": "card_20260922_110514_077",
+      "label": "Second-Brain-Major-Project/memory_vault/image",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_064134_927.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_064134_927.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110514_077.webp",
+      "val": 6
+    },
+    {
+      "id": "card_20260922_110519_277",
+      "label": "Second-Brain-Major-Project/memory_vault/image",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_064258_222.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_064258_222.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110519_277.webp",
+      "val": 6
+    },
+    {
+      "id": "card_20260922_110524_502",
+      "label": "Second-Brain-Major-Project/memory_vault/image",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_064640_133.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_064640_133.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110524_502.webp",
+      "val": 6
+    },
+    {
+      "id": "card_20260922_110529_886",
+      "label": "Second-Brain-Major-Project/memory_vault/image",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_064904_010.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_064904_010.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110529_886.webp",
+      "val": 6
+    },
+    {
+      "id": "card_20260922_110535_023",
+      "label": "Second-Brain-Major-Project/memory_vault/image",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_105048_407.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_105048_407.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110535_023.webp",
+      "val": 6
+    },
+    {
+      "id": "card_20260922_110540_094",
+      "label": "Second-Brain-Major-Project/memory_vault/image",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_105048_407.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_105048_407.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_110545_345",
+      "label": "Second-Brain-Major-Project/memory_vault/image",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_110211_977.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_110211_977.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110545_345.webp",
+      "val": 6
+    },
+    {
+      "id": "card_20260922_110550_469",
+      "label": "Second-Brain-Major-Project/memory_vault/image",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_110049_582.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_110049_582.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110550_469.webp",
+      "val": 6
+    },
+    {
+      "id": "card_20260922_110555_700",
+      "label": "Second-Brain-Major-Project/memory_vault/image",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_110040_468.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-22/hero_card_20260922_110040_468.webp at main \u00b7 ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110555_700.webp",
+      "val": 6
     }
   ],
   "edges": [
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105706_790",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105706_790",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105706_790",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105706_790",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105706_790",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105711_976",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105711_976",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105711_976",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105711_976",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105711_976",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105717_078",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105717_078",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105717_078",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105717_078",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105717_078",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105722_220",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105722_220",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105722_220",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105722_220",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105722_220",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105727_506",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105727_506",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105727_506",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105727_506",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105727_506",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105732_474",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105732_474",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105732_474",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105732_474",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105732_474",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105737_644",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105737_644",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105737_644",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105737_644",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105737_644",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105742_725",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105742_725",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105742_725",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105742_725",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105742_725",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105747_880",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105747_880",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105747_880",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105747_880",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105747_880",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105753_283",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105753_283",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105753_283",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105753_283",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105753_283",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105758_366",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105758_366",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105758_366",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105758_366",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105758_366",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_105803_488",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_105803_488",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105803_488",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105803_488",
-      "target": "ENT_benchmark",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_105803_488",
-      "target": "ENT_ai",
-      "label": "mentions"
-    },
     {
       "source": "DOMAIN_TECHNOLOGY",
       "target": "card_20260922_105808_633",
@@ -5514,6 +5226,306 @@
     },
     {
       "source": "card_20260922_110453_210",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110458_484",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110458_484",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110458_484",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110458_484",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110458_484",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110503_863",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110503_863",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110503_863",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110503_863",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110503_863",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110508_919",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110508_919",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110508_919",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110508_919",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110508_919",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110514_077",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110514_077",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110514_077",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110514_077",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110514_077",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110519_277",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110519_277",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110519_277",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110519_277",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110519_277",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110524_502",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110524_502",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110524_502",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110524_502",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110524_502",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110529_886",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110529_886",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110529_886",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110529_886",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110529_886",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110535_023",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110535_023",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110535_023",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110535_023",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110535_023",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110540_094",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110540_094",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110540_094",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110540_094",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110540_094",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110545_345",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110545_345",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110545_345",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110545_345",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110545_345",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110550_469",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110550_469",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110550_469",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110550_469",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110550_469",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_110555_700",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_110555_700",
+      "target": "ENT_second-brain-major-project",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110555_700",
+      "target": "ENT_alpha-tf141",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110555_700",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_110555_700",
       "target": "ENT_google",
       "label": "mentions"
     }
