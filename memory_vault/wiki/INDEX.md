@@ -34,3 +34,5 @@
 - [General: Find and Replace](general/find_and_replace.md) — *Updated 2026-09-21*
 - [General: SoC_Batch Details_2027YoP-Training Schedule-2](general/soc_batch_details_2027yop_training_schedule_2.md) — *Updated 2026-09-21*
 - [General: This PC - File Explorer](general/this_pc___file_explorer.md) — *Updated 2026-09-21*
+- [General: Inbox (1,189) - lmariaimmanuel@gmail.com - Gm](general/inbox__1_189____lmariaimmanuel_gmail_com___gm.md) — *Updated 2026-09-22*
+- [General: Inbox (3,670) - vtu24334@veltech.edu.in - Vel](general/inbox__3_670____vtu24334_veltech_edu_in___vel.md) — *Updated 2026-09-22*
