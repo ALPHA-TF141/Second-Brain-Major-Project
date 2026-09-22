@@ -1,0 +1,29 @@
+{
+  "id": "card_20260922_082423_178",
+  "timestamp": "2026-09-22T08:24:23.178088Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Google Calendar - Week of September 20, 2026 - Google Chrome",
+  "topic": "Google Calendar - Week of September 20, 2026",
+  "summary": "[General] Google Calendar - Week of September 20, 2026: Activity on chrome.exe: Google Calendar - Week of September 20, 2026 - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Google Calendar - Week of September 20, 2026 - Google Chrome"
+  ],
+  "entities": [
+    "Activity",
+    "Week",
+    "Google",
+    "Calendar",
+    "September"
+  ],
+  "tags": [
+    "general",
+    "chrome"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Google Calendar - Week of September 20, 2026 - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_082423_178.webp",
+  "hero_image_info_score": 33.3
+}

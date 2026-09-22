@@ -85,3 +85,5 @@
 - [General: Google Calendar - Tuesday, September 22, 2026](general/google_calendar___tuesday__september_22__2026.md) — *Updated 2026-09-22*
 - [General: Google Calendar - General settings](general/google_calendar___general_settings.md) — *Updated 2026-09-22*
 - [General: Google Calendar - Calendar settings for Imman](general/google_calendar___calendar_settings_for_imman.md) — *Updated 2026-09-22*
+- [General: Google Calendar - Week of September 20, 2026](general/google_calendar___week_of_september_20__2026.md) — *Updated 2026-09-22*
+- [General: Google Calendar - Calendar settings for Maria](general/google_calendar___calendar_settings_for_maria.md) — *Updated 2026-09-22*
