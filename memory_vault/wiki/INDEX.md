@@ -87,3 +87,10 @@
 - [General: Google Calendar - Calendar settings for Imman](general/google_calendar___calendar_settings_for_imman.md) — *Updated 2026-09-22*
 - [General: Google Calendar - Week of September 20, 2026](general/google_calendar___week_of_september_20__2026.md) — *Updated 2026-09-22*
 - [General: Google Calendar - Calendar settings for Maria](general/google_calendar___calendar_settings_for_maria.md) — *Updated 2026-09-22*
+- [General: Vel Tech Rangarajan Dr.Sagunthala R & D Insti](general/vel_tech_rangarajan_dr_sagunthala_r___d_insti.md) — *Updated 2026-09-22*
+- [Communication: Email: Premium Duo. The party for two, one month free.](communication/email__premium_duo__the_party_for_two__one_month_free.md) — *Updated 2026-09-22*
+- [Communication: Email: Double the benefits with Premium Duo. One month free.](communication/email__double_the_benefits_with_premium_duo__one_month_free.md) — *Updated 2026-09-22*
+- [Communication: Email: Immanuel, log into Facebook with one click](communication/email__immanuel__log_into_facebook_with_one_click.md) — *Updated 2026-09-22*
+- [Communication: Email: Welcome to your Unity ID](communication/email__welcome_to_your_unity_id.md) — *Updated 2026-09-22*
+- [Communication: Email: [GitHub] Please verify your email address.](communication/email___github__please_verify_your_email_address.md) — *Updated 2026-09-22*
+- [Communication: Email: Surprise Immanuel with a Laptop!](communication/email__surprise_immanuel_with_a_laptop.md) — *Updated 2026-09-22*

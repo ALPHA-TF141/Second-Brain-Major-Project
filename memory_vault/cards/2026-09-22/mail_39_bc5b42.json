@@ -1,0 +1,29 @@
+{
+  "id": "mail_39_bc5b42",
+  "timestamp": "2020-07-20T01:54:58+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Immanuel, log into Facebook with one click",
+  "topic": "Email: Immanuel, log into Facebook with one click",
+  "summary": "Email from \"Facebook\" <security@facebookmail.com> to immanuellourdu@gmail.com about: Immanuel, log into Facebook with one click",
+  "key_pointers": [
+    "From: \"Facebook\" <security@facebookmail.com>",
+    "Received: Sun, 19 Jul 2020 18:54:58 -0700"
+  ],
+  "entities": [
+    "security@facebookmail.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "facebookmail.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:security@facebookmail.com",
+  "raw_ocr_excerpt": "Hi Immanuel,\n\nHi Immanuel,We noticed you're having trouble logging into your account. If you need help, click the button below and we'll log you in.  Log In With One Click  \n\nWhy did you receive this email?\nThere was an unsuccessful login attempt on your account. If this wasn't you, let us know.\n\nThanks,\nThe Facebook Team\n\n========================================\nThis message was sent to immanuellourdu@gmail.com at your request.\nFacebook, Inc., Attention: Community Support, 1 Facebook Way, Menlo Park, CA 94025",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

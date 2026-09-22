@@ -1,0 +1,29 @@
+{
+  "id": "mail_40_004c8a",
+  "timestamp": "2020-07-20T08:56:54+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Welcome to your Unity ID",
+  "topic": "Email: Welcome to your Unity ID",
+  "summary": "Email from Unity Technologies <accounts@unity3d.com> to immanuellourdu@gmail.com about: Welcome to your Unity ID",
+  "key_pointers": [
+    "From: Unity Technologies <accounts@unity3d.com>",
+    "Received: Mon, 20 Jul 2020 08:56:54 +0000 (UTC)"
+  ],
+  "entities": [
+    "accounts@unity3d.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "unity3d.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:accounts@unity3d.com",
+  "raw_ocr_excerpt": "Dear Immanuel Lourdu, \n\nWelcome, and thank you for creating a Unity ID. Please go to support.unity3d.com to get help with any questions about your Unity ID, account, organizations, and subscriptions. \n\nSincerely, \nThe Unity Team",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,29 @@
+{
+  "id": "mail_28_e9b946",
+  "timestamp": "2020-07-12T05:30:00+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Premium Duo. The party for two, one month free.",
+  "topic": "Email: Premium Duo. The party for two, one month free.",
+  "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: Premium Duo. The party for two, one month free.",
+  "key_pointers": [
+    "From: \"Spotify\" <no-reply@spotify.com>",
+    "Received: Sun, 12 Jul 2020 05:30:00 +0000 (UTC)"
+  ],
+  "entities": [
+    "no-reply@spotify.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "spotify.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@spotify.com",
+  "raw_ocr_excerpt": "Introducing Premium Duo. The plan for two. https://www.spotify.com/duo/?utm_source=Spotify_premiumupsell&utm_medium=house_email&utm_campaign=2020q3_premiumbusiness_APAC_IN_Duo_Wave2&utm_content=zz_in_apac_email_Email_Banners_trialeligible_picnic\n\nFinally, a plan tailor-made for both of you.Two separate Premium accounts with all the Premium perks,  for ₹149/month only.  Try one month free.\n\nStart your free trial ( https://www.spotify.com/duo/?utm_source=Spotify_premiumupsell&utm_medium=house_email&utm_campaign=2020q3_premiumbusiness_APAC_IN_Duo_Wave2&utm_content=zz_in_apac_email_Email_Banners_trialeligible_picnic )\n\nCredit cards only. \n\n₹149/month after. Open only to users who haven't already tried Premium. For two people who reside at the same address. Terms and conditions apply.\n ( https://www.spotify.com/in/legal/end-user-agreement )\n\n-------------\n\nGet Spotify for:\n  * iPhone (https://itunes.apple.com/app/spotify-music/id324684580)\n  * iPad (https://itunes.apple.com/app/spotify-music/id324684580)\n  * Android (https://play.google.com/store/apps/details?id=com.spotify.music)\n  * Other (https://www.spotify.com/download/)\n\nThis message was sent to immanuellourdu@gmail.com.\nIf you don't want to receive these emails from Spotify in the future, you can edit your profile ( https://www.spotify.com/accounts/profile ) or unsubscribe ( https://www.spotify.com/account/unsubscribe?t=DcdZCoAgFADAq3QBwQVfehx9CxWhlJZ4%2B5q%2F6dlfB68RRqjv2exT3DYdZl5K7btMVXg0lQqpKsJ3W4hMAgFNkJxma8UGkxE8%2Fov",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}
