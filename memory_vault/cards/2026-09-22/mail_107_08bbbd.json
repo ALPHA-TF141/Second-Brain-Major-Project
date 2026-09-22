@@ -1,0 +1,29 @@
+{
+  "id": "mail_107_08bbbd",
+  "timestamp": "2020-08-19T03:30:00+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Unlock Premium. Free for one month.",
+  "topic": "Email: Unlock Premium. Free for one month.",
+  "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: Unlock Premium. Free for one month.",
+  "key_pointers": [
+    "From: \"Spotify\" <no-reply@spotify.com>",
+    "Received: Wed, 19 Aug 2020 03:30:00 +0000 (UTC)"
+  ],
+  "entities": [
+    "no-reply@spotify.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "spotify.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@spotify.com",
+  "raw_ocr_excerpt": "TRY PREMIUM FREE https://www.spotify.com/premium?utm_source=Spotify_premiumupsell&utm_medium=house_email&utm_campaign=2020q2_premium_productGeneric_lifecycle_offerTrial_term1M&utm_content=zz_en_world_email_lifecycle_nurturing_reeducation_premiumtease_ali&checkout=false&splot=kcZK3sy3QeSVTxR-L-mnHA\n\nWith Spotify, you’re getting access to tons of songs, personalized playlists made for you, and unlimited skips on any device. \nBut when you step into Premium, you get all that and then some. \n\nIt’s a whole new way to listen. The best part? Upgrade now, and you get 1 month free.\n\nTRY PREMIUM FREE ( https://www.spotify.com/premium?utm_source=Spotify_premiumupsell&utm_medium=house_email&utm_campaign=2020q2_premium_productGeneric_lifecycle_offerTrial_term1M&utm_content=zz_en_world_email_lifecycle_nurturing_reeducation_premiumtease_ali&checkout=false&splot=kcZK3sy3QeSVTxR-L-mnHA )\n\nApplicable on credit cards only. Monthly subscription fee applies after. Terms and conditions apply. Open only to users who haven't already tried Premium.\n\n___________________________________\n\nOr, signup for a prepaid plan, ₹13 onwards. Available as daily, weekly, monthly and annual plans through Paytm, UPI, debit cards and credit cards.\n\nPrepaid Options https://promo.spotify.com/in/?utm_source=Spotify_premiumupsell&utm_medium=house_email&utm_campaign=2020q2_premium_productGeneric_lifecycle_offerTrial_term1M&utm_content=zz_en_world_email_lifecycle_nurturing_generic_2_prepaid\n\nGo Premium ( https://promo.spotif",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mail_123_9a5b77",
+  "timestamp": "2026-01-25T08:36:07+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Email ID Verification",
+  "topic": "Email: Email ID Verification",
+  "summary": "Email from passport.admin@passportindia.gov.in to lmariaimmanuel@gmail.com about: Email ID Verification",
+  "key_pointers": [
+    "Deadline: Deadline: Email ID Verification",
+    "From: passport.admin@passportindia.gov.in",
+    "Received: Sun, 25 Jan 2026 14:06:07 +0530 (IST)"
+  ],
+  "entities": [
+    "passport.admin@passportindia.gov.in",
+    "lmariaimmanuel@gmail.com",
+    "expires"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "passportindia.gov.in",
+    "deadline"
+  ],
+  "source_url_or_ref": "mailto:passport.admin@passportindia.gov.in",
+  "raw_ocr_excerpt": "Dear Applicant,    Congratulations! You have been registered successfully on Passport Seva!!    Please go through the below mentioned points before proceeding with your account activation:   1. The password of the registered User Id expires after every 90 days. Please make a note of your Date of Birth and Hint Question/Answer entered at the time of registration. You can reset your account password by clicking the 'Having trouble Logging in ?' link available at the Passport Seva Login screen.   2. Please ensure that the details entered in the Online Application Form are correct before making Online Payment (if applicable) and scheduling an appointment.   3. You can refer to the FAQs (Frequently Asked Questions) section on the Passport Seva Home Page that covers the various possible scenarios (like Fee Payment) related to the passport issuance.   4. For any clarification, you may contact our Toll Free Number: 1800-258-1800, which is available 24X7 assisting in 17 languages.   5. You can track the status of your application by clicking the 'Track Application Status' button under the 'Apply' section on Passport Seva Home Page.   6. To know about Passport Seva activities, you can browse through 'Passport Patrika' link available at the Media Corner section on Passport Seva Home Page.   OTP for Email verification:  7567 .   Please do not share with anyone.     Best regards,   Passport Seva Communications Team  Note: This is a system generated e-mail, please do not reply to it.  \n   ",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mail_235_924799",
+  "timestamp": "2024-01-18T03:08:15+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Security alert",
+  "topic": "Email: Security alert",
+  "summary": "Email from Google <no-reply@accounts.google.com> to vtu24334@veltech.edu.in about: Security alert",
+  "key_pointers": [
+    "Action: Action: Security alert",
+    "From: Google <no-reply@accounts.google.com>",
+    "Received: Thu, 18 Jan 2024 03:08:15 GMT"
+  ],
+  "entities": [
+    "no-reply@accounts.google.com",
+    "vtu24334@veltech.edu.in",
+    "verification"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "accounts.google.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:no-reply@accounts.google.com",
+  "raw_ocr_excerpt": "[image: Google]\nRecovery email was changed for\n\nvtu24334@veltech.edu.in\nIf you changed your recovery email, use the verification code sent to the\nnew email address to finish the process. If you didn't change it, check and\nsecure your account.\nCheck activity\n<https://accounts.google.com/AccountChooser?Email=vtu24334@veltech.edu.in&continue=https://myaccount.google.com/alert/nt/1705547295839?rfn%3D2%26rfnc%3D1%26eid%3D-2074630330746354726%26et%3D0%26anexp%3D-changed_pending_verification>\nYou can also see security activity at\nhttps://myaccount.google.com/notifications\nYou received this email to let you know about important changes to your\nGoogle Account and services.\n© 2024 Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

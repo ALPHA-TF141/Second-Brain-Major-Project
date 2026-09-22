@@ -1,0 +1,29 @@
+{
+  "id": "mail_111_079795",
+  "timestamp": "2020-08-21T06:29:41+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Microsoft account security code",
+  "topic": "Email: Microsoft account security code",
+  "summary": "Email from Microsoft account team\r\n\t<account-security-noreply@accountprotection.microsoft.com> to immanuellourdu@gmail.com about: Microsoft account security code",
+  "key_pointers": [
+    "From: Microsoft account team\r\n\t<account-security-noreply@accountprotection.microsoft.com>",
+    "Received: Thu, 20 Aug 2020 23:29:41 -0700"
+  ],
+  "entities": [
+    "account-security-noreply@accountprotection.microsoft.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "accountprotection.microsoft.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:account-security-noreply@accountprotection.microsoft.com",
+  "raw_ocr_excerpt": "Please use the following security code for the Microsoft account Im*****@gmail.com.\n\nSecurity code: 5197333\n\n                If you don't recognize the Microsoft account Im*****@gmail.com, you can click https://account.live.com/dp?ft=DTJs8h4DYpmxK39hH4pc*dN6Slwut1mmv0VAJsiQ137Q*r348iGziqLu9opKiwEQwoF7hQX1W8YOhLTX2kIFquX7c8w5c5RimGGZwFYiHPmDoMPFNM87F6*UTtDU9lMgt6WssHy22XfElabK3qECLfX1ofAnNg6zhoxMDvjJbrRP2KwNKtfg1OzdCF4xlWe*J!3dInWaj9biFymruca1T7yFmefQIMg4oRhWua04v2kMBBMKGEMEKK*kviXJFI71!qw8bDuzUX*3bMlxveg3B8DMJtgHjkMkwAGpPG9plDn9QVfNxtVdqkM47mqjiQYItg%24%24 to remove your email address from that account.\n            \n\nThanks,\nThe Microsoft account team",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

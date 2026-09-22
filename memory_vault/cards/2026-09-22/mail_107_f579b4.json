@@ -1,0 +1,31 @@
+{
+  "id": "mail_107_f579b4",
+  "timestamp": "2026-01-23T03:41:16+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Welcome to Grad Partners",
+  "topic": "Email: Welcome to Grad Partners",
+  "summary": "Email from Grad Partners <admin@gradpartners.in> to lmariaimmanuel@gmail.com about: Welcome to Grad Partners",
+  "key_pointers": [
+    "Action: Action: Welcome to Grad Partners",
+    "From: Grad Partners <admin@gradpartners.in>",
+    "Received: Fri, 23 Jan 2026 03:41:16 +0000"
+  ],
+  "entities": [
+    "admin@gradpartners.in",
+    "lmariaimmanuel@gmail.com",
+    "workshop"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "gradpartners.in",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:admin@gradpartners.in",
+  "raw_ocr_excerpt": "96 \n       \n     \n     \n     \n \n \n     \n     \n       \n       \n       \n          \n        \n      \n         \n        *{font-family: 'Inter', sans-serif !important;}\n          table, td { color: #000000; } @media only screen and (min-width: 620px) {\n      .u-row {\n        width: 900px !important;\n      }\n      .u-row .u-col {\n        vertical-align: top;\n      }\n    \n      .u-row .u-col-33p33 {\n        width: 199.98px !important;\n      }\n    \n      .u-row .u-col-50 {\n        width: 300px !important;\n      }\n    \n      .u-row .u-col-66p67 {\n        width: 400.02px !important;\n      }\n    \n      .u-row .u-col-100 {\n        width: 900px !important;\n      }\n    \n    }\n    \n    @media (max-width: 620px) {\n      .u-row-container {\n        max-width: 100% !important;\n        padding-left: 0px !important;\n        padding-right: 0px !important;\n      }\n      .u-row .u-col {\n        min-width: 400px !important;\n        max-width: 100% !important;\n        display: block !important;\n      }\n      .u-row {\n        width: calc(100% - 40px) !important;\n      }\n      .u-col {\n        width: 100% !important;\n      }\n      .u-col > div {\n        margin: 0 auto;\n      }\n    }\n    body {\n      margin: 0;\n      padding: 0;\n    }\n    \n    table,\n    tr,\n    td {\n      vertical-align: top;\n      border-collapse: collapse;\n    }\n    \n    .ie-container table,\n    .mso-container table {\n      table-layout: fixed;\n    }\n    \n    * {\n      line-height: inherit;\n    }\n    \n    a[x-apple-data-detectors='true",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

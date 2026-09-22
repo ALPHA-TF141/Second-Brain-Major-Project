@@ -144,3 +144,24 @@
 - [Communication: Email: ***NATIONAL LEVEL TRAINING AND INTERNSHIP CAMPAIGN*** Inbox](communication/email_____national_level_training_and_internship_campaign____inbox.md) — *Updated 2026-09-22*
 - [Communication: Email: FINAL CALL [TRAINING AND INTERNSHIP CAMPAIGN]](communication/email__final_call__training_and_internship_campaign.md) — *Updated 2026-09-22*
 - [Communication: Email: Annual reminder about YouTube’s Terms of Service, Community Guidelines and Privacy Policy](communication/email__annual_reminder_about_youtube_s_terms_of_service__community_guidelines_and_privacy_policy.md) — *Updated 2026-09-22*
+- [Technology: Github](technology/github.md) — *Updated 2026-09-22*
+- [Communication: Email: Know why BYJU'S Classes is better than regular tuitions](communication/email__know_why_byju_s_classes_is_better_than_regular_tuitions.md) — *Updated 2026-09-22*
+- [Communication: Email: BYJU'S Classes: The only classes your child needs after school!](communication/email__byju_s_classes__the_only_classes_your_child_needs_after_school.md) — *Updated 2026-09-22*
+- [Communication: Email: Unlock Premium. Free for one month.](communication/email__unlock_premium__free_for_one_month.md) — *Updated 2026-09-22*
+- [Communication: Email: Every lesson is personalised for Immanuel](communication/email__every_lesson_is_personalised_for_immanuel.md) — *Updated 2026-09-22*
+- [Communication: Email: Microsoft account unusual sign-in activity](communication/email__microsoft_account_unusual_sign_in_activity.md) — *Updated 2026-09-22*
+- [Communication: Email: Microsoft account security code](communication/email__microsoft_account_security_code.md) — *Updated 2026-09-22*
+- [Communication: Email: Personalised mentoring for Immanuel at every step!](communication/email__personalised_mentoring_for_immanuel_at_every_step.md) — *Updated 2026-09-22*
+- [Communication: Email: Hear from 1000s of students why they love BYJU'S - The Learning App!](communication/email__hear_from_1000s_of_students_why_they_love_byju_s___the_learning_app.md) — *Updated 2026-09-22*
+- [Communication: Email: Shah Rukh Khan has a special message for you!](communication/email__shah_rukh_khan_has_a_special_message_for_you.md) — *Updated 2026-09-22*
+- [Communication: Email: Reply: I am sharing 'Document (8)' with you](communication/email__reply__i_am_sharing__document__8___with_you.md) — *Updated 2026-09-22*
+- [General: General](general/general.md) — *Updated 2026-09-22*
+- [Communication: Email: Learn Dynamic Programming with Python [Free 2-hour course on Data
+
+ Structures & Algorithms]](communication/email__learn_dynamic_programming_with_python__free_2_hour_course_on_data___structures___algorithms.md) — *Updated 2026-09-22*
+- [Communication: Email: Welcome to Grad Partners](communication/email__welcome_to_grad_partners.md) — *Updated 2026-09-22*
+- [Communication: Email: Please verify your email | Grad Partners](communication/email__please_verify_your_email___grad_partners.md) — *Updated 2026-09-22*
+- [Communication: Email: Registration Submitted | Tata Elxsi TELIPORT Season 3](communication/email__registration_submitted___tata_elxsi_teliport_season_3.md) — *Updated 2026-09-22*
+- [Communication: Email: Email ID Verification](communication/email__email_id_verification.md) — *Updated 2026-09-22*
+- [Communication: Email: Account Activation](communication/email__account_activation.md) — *Updated 2026-09-22*
+- [Communication: Email: VTU24334-Vel Tech - Online Payment Acknowledgement.Academic-Fee](communication/email__vtu24334_vel_tech___online_payment_acknowledgement_academic_fee.md) — *Updated 2026-09-22*

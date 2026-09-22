@@ -1,0 +1,31 @@
+{
+  "id": "mail_124_ae2d79",
+  "timestamp": "2026-01-25T08:36:35+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Account Activation",
+  "topic": "Email: Account Activation",
+  "summary": "Email from passport.admin@passportindia.gov.in to lmariaimmanuel@gmail.com about: Account Activation",
+  "key_pointers": [
+    "Action: Action: Account Activation",
+    "From: passport.admin@passportindia.gov.in",
+    "Received: Sun, 25 Jan 2026 14:06:35 +0530 (IST)"
+  ],
+  "entities": [
+    "passport.admin@passportindia.gov.in",
+    "lmariaimmanuel@gmail.com",
+    "request you to"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "passportindia.gov.in",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:passport.admin@passportindia.gov.in",
+  "raw_ocr_excerpt": "Dear Applicant,      Congratulations! Your registered account has been activated successfully!!    Please login to the Passport Seva website using the Login Id: LMARIAIMMANUEL@GMAIL.COM   Your password will expire after 90 days from the date of registration. You can use the 'Having Trouble Logging in' link on Passport Seva Login screen to reset your password.   Since this information is highly confidential, we request you to not share your password with anyone.  To know about Passport Seva activities, you can browse through 'Passport Patrika' link available at the Media Corner section on Passport Seva Home Page. Alternately, you can click the link below:   http://issuu.com/passportpatrika    Thank you for registering with Passport Seva.   Best regards,   Passport Seva Communications Team  Note: This is a system generated e-mail, please do not reply to it.  \n      ===============================================================  This message has been analyzed by Passport Security.",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

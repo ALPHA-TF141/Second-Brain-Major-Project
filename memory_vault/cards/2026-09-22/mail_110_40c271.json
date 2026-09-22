@@ -1,0 +1,29 @@
+{
+  "id": "mail_110_40c271",
+  "timestamp": "2020-08-21T06:27:27+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Microsoft account unusual sign-in activity",
+  "topic": "Email: Microsoft account unusual sign-in activity",
+  "summary": "Email from Microsoft account team\r\n\t<account-security-noreply@accountprotection.microsoft.com> to immanuellourdu@gmail.com about: Microsoft account unusual sign-in activity",
+  "key_pointers": [
+    "From: Microsoft account team\r\n\t<account-security-noreply@accountprotection.microsoft.com>",
+    "Received: Thu, 20 Aug 2020 23:27:27 -0700"
+  ],
+  "entities": [
+    "account-security-noreply@accountprotection.microsoft.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "accountprotection.microsoft.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:account-security-noreply@accountprotection.microsoft.com",
+  "raw_ocr_excerpt": "We detected something unusual about a recent sign-in to the Microsoft account im*****@gmail.com.\n\nSign-in details\nCountry/region: India\nIP address: 27.62.143.153\nDate: 8/21/2020 6:27 AM (GMT)\nPlatform: Android\nBrowser: Android\n\nPlease go to your recent activity page to let us know whether or not this was you. If this wasn't you, we'll help you secure your account. If this was you, we'll trust similar activity in the future. \n\nReview recent activity https://account.microsoft.com/activity.\n\nTo opt out or change where you receive security notifications, click here https://account.live.com/SecurityNotifications/Update.\n\nThanks,\nThe Microsoft account team",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

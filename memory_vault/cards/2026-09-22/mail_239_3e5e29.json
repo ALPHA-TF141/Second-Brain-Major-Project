@@ -1,0 +1,31 @@
+{
+  "id": "mail_239_3e5e29",
+  "timestamp": "2024-01-19T04:42:52+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "VTU24334-Vel Tech - Online Payment Acknowledgement.Academic-Fee",
+  "topic": "Email: VTU24334-Vel Tech - Online Payment Acknowledgement.Academic-Fee",
+  "summary": "Email from Veltech Avadi <doNot-Reply@veltech.edu.in> to vtu24334@veltech.edu.in about: VTU24334-Vel Tech - Online Payment Acknowledgement.Academic-Fee",
+  "key_pointers": [
+    "Action: Action: VTU24334-Vel Tech - Online Payment Acknowledgement.Academic-Fee - due 2024-01-19",
+    "From: Veltech Avadi <doNot-Reply@veltech.edu.in>",
+    "Received: Fri, 19 Jan 2024 10:12:52 +0530"
+  ],
+  "entities": [
+    "donot-reply@veltech.edu.in",
+    "vtu24334@veltech.edu.in",
+    "payment"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "veltech.edu.in",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:donot-reply@veltech.edu.in",
+  "raw_ocr_excerpt": "Vel Tech Rangarajan Dr. Sagunthala R&D Institute of Science and Technology \n \n\n \n\n \n  \n  \n  \n  \n  \n  \n   \n \n   \n \n\n \n  \n  \n  \n\n  \n \n \n  Dear MARIA IMMANUEL L, \n\n Greetings from Vel Tech Rangarajan Dr. Sagunthala R&D Institute of Science and Technology!!  \nStudent Details : ID No. : VTU24334 Name of the Student : MARIA IMMANUEL L Degree : B.Tech Programme : Computer Science & Engineering  Receipt Details : Receipt. No. : 74041 Payment For : Academic Fee - Winter Semester - 2023-2024 TotalPaidAmount : 77500 Amount In Words : SEVENTY SEVEN THOUSAND FIVE HUNDRED Only  Online Payment Details : Transaction ID(Paytm) : 20240119010800000955045818007432863 Order ID (Vel Tech) : VTU24334_01192024101105 Transaction Amount INR : 77500 Date & Time : 2024-01-19 10:11:06.0 Bank Ref. No. : 401985998802 Payment Status : TXN_SUCCESS     \n   \n   \n  \n  \n \n\n   \n\n  \n \n\n   \n \n\n \n  \n \n \n  \n  \nDISCLAIMER :  You are receiving this email because you have registered your E-mail ID with Vel Tech Rangarajan Dr. Sagunthala R&D Institute of Science and Technology.\n    \n \n   \n  \n   \n \n\n \n \n \n \n \n Connect with us \n\n &copy; 2024 Vel Tech Rangarajan Dr. Sagunthala R&D Institute of Science and Technology",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}
