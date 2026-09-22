@@ -14,6 +14,7 @@ import ProjectsWorkspace from '../pages/ProjectsWorkspace.jsx';
 import AutomationsWorkspace from '../pages/AutomationsWorkspace.jsx';
 import AgentActivityLog from '../pages/AgentActivityLog.jsx';
 import IntegrationsManager from '../pages/IntegrationsManager.jsx';
+import MemoryLab from '../pages/MemoryLab.jsx';
 import VoiceAssistant from '../pages/VoiceAssistant.jsx';
 import Settings from '../pages/Settings.jsx';
 import JarvisHoloOrb from '../pages/JarvisHoloOrb.jsx';
@@ -65,6 +66,9 @@ export default function AppRoutes() {
 
         {/* 13. Agent Activity Audit Log */}
         <Route path="/activity" element={<AgentActivityLog />} />
+
+        {/* 14b. Memory Lab - the research layer demonstration */}
+        <Route path="/memory-lab" element={<MemoryLab />} />
 
         {/* 14. Integrations Manager */}
         <Route path="/integrations" element={<IntegrationsManager />} />

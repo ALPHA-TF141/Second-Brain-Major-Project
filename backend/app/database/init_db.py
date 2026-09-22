@@ -8,6 +8,15 @@ from app.models.graph import ConceptCluster, GraphEdge, GraphMetadata, GraphNode
 from app.models.memory import Memory, MemoryRelationship, MemoryTag, SearchIndex, SessionSummary
 from app.models.ocr import DetectedTopic, ExtractedText, OCRMetadata, ProcessedSession, SemanticChunk
 from app.models.semantic import EmbeddingJob, MemoryCluster, SearchHistory, SemanticRelationship, VectorMemory
+from app.models.research import (
+    ForgottenMemory,
+    KnowledgeGap,
+    MemoryConflict,
+    MemoryConsolidation,
+    MemoryScore,
+    ResearchRun,
+    TemporalFact,
+)
 from app.models.session import UserSession
 from app.models.setting import Setting
 from app.models.timeline_event import TimelineEvent

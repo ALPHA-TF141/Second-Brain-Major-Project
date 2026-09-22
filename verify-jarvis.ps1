@@ -23,7 +23,7 @@ if (-not (Test-Path $py)) { $py = "python" }
 
 function Step($n, $title) {
   Write-Host ""
-  Write-Host "[$n/14] $title" -ForegroundColor Cyan
+  Write-Host "[$n/15] $title" -ForegroundColor Cyan
 }
 
 $failed = $false
@@ -116,13 +116,22 @@ if (-not $failed) {
 }
 
 if (-not $failed) {
-  Step 13 "Backend endpoint sweep (boots backend, probes every GET route for 5xx)"
+  Step 13 "Research layer (7 paper contributions + PersonalBrain-Bench)"
+  Push-Location backend
+  & $backendPy test_research_layer.py
+  $rlRc = $LASTEXITCODE
+  Pop-Location
+  if ($rlRc -ne 0) { $failed = $true }
+}
+
+if (-not $failed) {
+  Step 14 "Backend endpoint sweep (boots backend, probes every GET route for 5xx)"
   & $py backend\verify_backend_endpoints.py
   if ($LASTEXITCODE -ne 0) { $failed = $true }
 }
 
 if (-not $failed) {
-  Step 14 "Browser route smoke test (real Chromium)"
+  Step 15 "Browser route smoke test (real Chromium)"
   if (Test-Path "node_modules\playwright") {
     node scripts\smoke_test.mjs
     if ($LASTEXITCODE -ne 0) { $failed = $true }

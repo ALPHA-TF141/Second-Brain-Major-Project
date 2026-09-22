@@ -181,6 +181,13 @@ const offlineFetch = async (url) => {
     '/api/mail/accounts': [],
     '/api/calendar/sources': [],
     '/api/os/notifications': [],
+    '/api/research/overview': { memories_total: 0, scored: 0, temporal_facts: 0, open_facts: 0, superseded_facts: 0, conflicts: 0, consolidations: 0, gaps: 0, forgotten: 0 },
+    '/api/research/scores': [],
+    '/api/research/temporal': { current: [], history: [] },
+    '/api/research/conflicts': { total: 0, by_type: {}, unresolved: 0, conflicts: [] },
+    '/api/research/gaps': { gaps: 0, concepts_examined: 0, items: [] },
+    '/api/research/forgotten': { forgotten_count: 0, total_memories: 0, entries: [] },
+    '/api/research/runs': [],
     '/api/proactive/status': {
       wake_word: { enabled: true, running: false, available: false, missing_packages: ['openwakeword'], model: 'hey_jarvis', threshold: 0.5, detections: 0, last_error: '', detail: 'dependencies missing', install_hint: 'pip install openwakeword sounddevice', recent_scores: [] },
       voice: { enabled: true, min_priority: 'high', quiet_hours: '23:00-07:00', in_quiet_hours: false, spoken_count: 0, skipped_count: 0, last_spoken: null, broadcaster_ready: true }
@@ -257,6 +264,7 @@ const ROUTES = [
   ['/automations', 'Automations'],
   ['/activity', 'Agent Activity Audit Log'],
   ['/integrations', 'Integrations Manager'],
+  ['/memory-lab', 'Memory Lab (research layer)'],
   ['/voice', 'Voice Companion'],
   ['/settings', 'Settings'],
   ['/jarvis-orb', 'Floating Holographic Orb']

@@ -28,6 +28,13 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 PASS, FAIL = "[PASS]", "[FAIL]"
 failures = []
+
+# The mailbox this test registers. Deliberately NOT a real address: an earlier
+# version used the user's own account, which made test-generated vault cards
+# indistinguishable from genuine ones - and the cleanup pass then deleted the
+# user's real mail cards. Every artefact this test creates now carries this
+# marker, and cleanup refuses to touch anything without it.
+TEST_ADDRESS = "imap-test-harness@example.invalid"
 SERVER_LOG = {"fetch": [], "select": []}
 
 
@@ -46,7 +53,7 @@ def raw(subject, sender, body, extra_headers="", date=None):
     date = date or "Tue, 22 Sep 2026 09:00:00 +0530"
     return (
         f"From: {sender}\r\n"
-        f"To: vtu24334@veltech.edu.in\r\n"
+        f"To: {TEST_ADDRESS}\r\n"
         f"Subject: {subject}\r\n"
         f"Date: {date}\r\n"
         f"Message-ID: <{abs(hash(subject))}@mail.gmail.com>\r\n"
@@ -294,9 +301,10 @@ def main():
         headers = {"Authorization": f"Bearer {token}"}
 
         r = api.post("/api/mail/imap/connect", headers=headers, json={
-            "email": "vtu24334@veltech.edu.in", "app_password": "abcd efgh ijkl mnop",
+            "email": TEST_ADDRESS, "app_password": "abcd efgh ijkl mnop",
             "label": "College"})
         check("account connected", r.status_code == 200, r.text[:200])
+        check("the test uses a non-real address", TEST_ADDRESS.endswith(".invalid"))
         account_id = r.json()["account"]["id"]
 
         # ---- first sync ------------------------------------------------------
@@ -323,8 +331,8 @@ def main():
 
             deadline_memory = next((m for m in memories if "deadline" in m.title.lower()), None)
             check("email body stored", deadline_memory and "review committee" in deadline_memory.content)
-            check("memory attributed to the account",
-                  deadline_memory and deadline_memory.app_source == "vtu24334@veltech.edu.in")
+            check("memory attributed to the test account",
+                  deadline_memory and deadline_memory.app_source == TEST_ADDRESS)
             check("source_type tagged as email",
                   deadline_memory and deadline_memory.source_type == "email")
 
@@ -489,12 +497,30 @@ def main():
     from pathlib import Path as _Path
 
     removed_cards = 0
+    skipped_cards = 0
     for card in _Path("../memory_vault/cards").glob("*/mail_*.json"):
+        try:
+            payload = card.read_text(encoding="utf-8")
+        except Exception:
+            continue
+        # SAFETY: only delete artefacts this test created. A real mail card does
+        # not mention the test marker, so it is left alone no matter what.
+        if TEST_ADDRESS not in payload:
+            skipped_cards += 1
+            continue
         card.unlink()
         removed_cards += 1
 
     removed_wiki = 0
+    skipped_wiki = 0
     for article in _Path("../memory_vault/wiki").rglob("email__*.md"):
+        try:
+            body = article.read_text(encoding="utf-8")
+        except Exception:
+            continue
+        if TEST_ADDRESS not in body and "example.invalid" not in body:
+            skipped_wiki += 1
+            continue
         article.unlink()
         removed_wiki += 1
 
@@ -529,6 +555,9 @@ def main():
 
     print(f"\n      (cleaned up {removed_cards} test vault cards, {removed_wiki} test wiki articles, "
           f"restored graph + wiki index)")
+    if skipped_cards or skipped_wiki:
+        print(f"      PROTECTED {skipped_cards} real vault card(s) and {skipped_wiki} real wiki "
+              f"article(s) - they did not carry the test marker")
 
     print("\n" + "=" * 74)
     if failures:

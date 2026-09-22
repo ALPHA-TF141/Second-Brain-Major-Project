@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import {
   Activity,
+  FlaskConical,
   Bell,
   BookOpen,
   Bot,
@@ -190,6 +191,7 @@ export default function AppLayout() {
     { label: 'Files', path: '/files', icon: Folder },
     { label: 'Projects', path: '/projects', icon: Rocket },
     { label: 'Automations', path: '/automations', icon: Zap },
+    { label: 'Memory Lab', path: '/memory-lab', icon: FlaskConical },
     { label: 'Agent Activity', path: '/activity', icon: Activity },
     { label: 'Integrations', path: '/integrations', icon: Link2 },
     { label: 'Settings', path: '/settings', icon: Settings },

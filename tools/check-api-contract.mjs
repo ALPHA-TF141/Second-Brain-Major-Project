@@ -38,9 +38,14 @@ function walk(dir, filter, acc = []) {
 
 /** Normalise a url so literal params and template params compare equal. */
 function normalize(url) {
-  let u = url.split('?')[0].split('#')[0];
-  u = u.replace(/\$\{[^}]*\}/g, '{}');       // ${id}   -> {}
-  u = u.replace(/\{[^}]+\}/g, '{}');          // {id}    -> {}
+  // ORDER MATTERS. Query strings must be stripped AFTER template expressions
+  // are collapsed, otherwise a ternary inside ${...} - as in
+  // `${base}/api/proactive/${paused ? 'resume' : 'pause'}` - is cut at its '?'
+  // and the URL is mangled into a false 404.
+  let u = url.trim().replace(/[`'"],?$/, '');
+  u = u.replace(/\$\{[^}]*\}/g, '{}');       // ${id}       -> {}
+  u = u.replace(/\{[^}]+\}/g, '{}');          // {id}        -> {}
+  u = u.split('?')[0].split('#')[0];
   u = u.replace(/\/+$/, '');                  // trailing slash
   if (u === '') u = '/';
   return u;
@@ -92,7 +97,10 @@ const calls = []; // { url, method, file, line }
 
 const CALL_SITE = /(apiFetch\(|fetch\(|apiClient\.[a-zA-Z]+\(|axios\.[a-zA-Z]+\(|\.open\(\s*['"]\w+['"]\s*,)/g;
 // () allowed too: urls are often built with ${encodeURIComponent(id)} inline
-const URL_IN_TEXT = /\/api\/[A-Za-z0-9_\-/.${}()]*/g;
+// Allow ternaries and quotes inside ${...} so
+// `${base}/api/proactive/${paused ? 'resume' : 'pause'}` is captured whole
+// instead of being truncated at the '?'.
+const URL_IN_TEXT = /\/api\/[A-Za-z0-9_\-/.${}()?:'" ]*/g;
 
 /** Blank out comments (preserving offsets) so doc text is never scanned. */
 function stripComments(src) {
@@ -131,7 +139,31 @@ for (const file of frontendFiles) {
       else if (/POST/.test(options.slice(0, 140))) method = 'POST';
     }
 
-    calls.push({ url: normalize(url), method, file: rel, line: lineNo });
+    // Expand ternaries inside template expressions into one candidate per
+    // branch, so `${base}/api/proactive/${paused ? 'resume' : 'pause'}` is
+    // checked against BOTH /api/proactive/resume and /api/proactive/pause.
+    // Collapsing it to a placeholder would report a false 404; skipping it
+    // would hide a real one.
+    const variants = [url];
+    const ternary = /\$\{[^{}]*?\?\s*['"]([^'"]+)['"]\s*:\s*['"]([^'"]+)['"][^{}]*\}/;
+    let guard = 0;
+    while (guard < 4) {
+      guard += 1;
+      let expanded = false;
+      for (const base of [...variants]) {
+        const match = base.match(ternary);
+        if (!match) continue;
+        variants.splice(variants.indexOf(base), 1,
+          base.replace(match[0], match[1]),
+          base.replace(match[0], match[2]));
+        expanded = true;
+      }
+      if (!expanded) break;
+    }
+
+    for (const variant of variants) {
+      calls.push({ url: normalize(variant), method, file: rel, line: lineNo });
+    }
   }
 }
 
