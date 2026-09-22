@@ -115,9 +115,7 @@ SAMPLE = {
 }
 
 
-def main():
-    server = start_server()
-
+def main(server):
     # ---------------------------------------------------------------- login
     status, text, _ = call("POST", "/api/auth/login",
                            body={"username": USERNAME, "password": PASSWORD,
@@ -245,5 +243,68 @@ def main():
     return 0
 
 
+def shutdown(server) -> None:
+    """
+    Stop what startup started, WHILE the interpreter is still healthy.
+
+    Why this is not optional: this script runs uvicorn in a daemon thread inside
+    its own process. The app's startup handler then opens a microphone stream
+    (wake word -> sounddevice/PortAudio + onnxruntime) and, when
+    sentence-transformers is installed, loads ~90MB of torch weights in a
+    background thread. Simply returning from main() hands all of that to
+    interpreter finalization, which unloads native libraries out from under
+    threads still parked inside them. On Windows that ends the process with an
+    access violation - AFTER the verdict has been printed.
+
+    The symptom is thoroughly confusing, and was reported from the project
+    laptop: "RESULT: PASS - no server errors on any GET route." on screen,
+    followed by PowerShell reporting a non-zero exit code, so the verification
+    chain stopped with "CHECK FAILED - scroll up for the [FAIL] lines" and no
+    [FAIL] line anywhere to scroll up to.
+
+    So: close the microphone first, give the ASGI app its shutdown, and only
+    then let the caller exit. Nothing here may change the verdict - a failure to
+    stop cleanly is reported, not turned into a test failure.
+    """
+    # 1. the microphone + the wake-word model session
+    try:
+        from app.services.wake_service import stop_wake_word
+
+        stop_wake_word()
+        print("  (wake-word listener stopped; microphone released)")
+    except Exception as exc:
+        print(f"  (wake word was not running: {type(exc).__name__})")
+
+    # 2. uvicorn: stop serving and run the app's shutdown path
+    try:
+        server.should_exit = True
+        for _ in range(50):                 # up to ~5s, then exit anyway
+            if not server.started:
+                break
+            time.sleep(0.1)
+    except Exception as exc:
+        print(f"  (uvicorn shutdown: {type(exc).__name__}: {exc})")
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    server = start_server()
+    # Defaults to FAIL: if the sweep itself raises, the exit code must not claim
+    # an all-clear just because main() never returned a verdict.
+    code = 1
+    try:
+        code = main(server)
+    except Exception:
+        traceback.print_exc()
+        print("\nRESULT: FAIL - the sweep itself crashed before it could judge "
+              "the routes.\n")
+    finally:
+        print("--- shutting down the probe server ---")
+        shutdown(server)
+        sys.stdout.flush()
+        sys.stderr.flush()
+        # os._exit, deliberately: it skips interpreter finalization, which is
+        # where the crash described in shutdown() lives. Output is already
+        # flushed, and the verdict above is the authority on pass/fail, so
+        # nothing is lost by not running atexit handlers or joining the threads
+        # the app left behind.
+        os._exit(code)
