@@ -1,0 +1,31 @@
+{
+  "id": "card_20260922_063921_025",
+  "timestamp": "2026-09-22T06:39:21.025858Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+  "topic": "Course: Basics of Food and Nutrition | SWAYAM",
+  "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome"
+  ],
+  "entities": [
+    "Course",
+    "Google",
+    "Basics",
+    "Nutrition",
+    "Food",
+    "SWAYAM",
+    "Activity"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 33.3
+}

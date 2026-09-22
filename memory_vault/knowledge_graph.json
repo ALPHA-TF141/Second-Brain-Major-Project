@@ -1,110 +1,6 @@
 {
-  "updated_at": "2026-09-22T06:39:00.730995Z",
+  "updated_at": "2026-09-22T06:40:02.151538Z",
   "nodes": [
-    {
-      "id": "ENT_soc_batch",
-      "label": "SoC_Batch",
-      "domain": "General",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "ENT_details_2027yop-training",
-      "label": "Details_2027YoP-Training",
-      "domain": "General",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "card_20260921_053745_909",
-      "label": "Find and Replace",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Find and Replace: Activity on EXCEL.EXE: Find and Replace",
-      "hero_image": "memory_vault/images/2026-09-21/hero_card_20260921_053745_909.webp",
-      "val": 6
-    },
-    {
-      "id": "card_20260921_053751_012",
-      "label": "SoC_Batch Details_2027YoP-Training Schedule-2",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_053801_258",
-      "label": "Find and Replace",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Find and Replace: Activity on EXCEL.EXE: Find and Replace",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_053806_579",
-      "label": "SoC_Batch Details_2027YoP-Training Schedule-2",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_053811_625",
-      "label": "SoC_Batch Details_2027YoP-Training Schedule-2",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_053817_018",
-      "label": "SoC_Batch Details_2027YoP-Training Schedule-2",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_053821_942",
-      "label": "SoC_Batch Details_2027YoP-Training Schedule-2",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] SoC_Batch Details_2027YoP-Training Schedule-21.09.26  -  Protected View - Excel: Activity on EXCEL.EXE: SoC_Batch Details_2027YoP-Training Schedule-21.09.26 - Protected View - Excel...",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260921_053827_107",
-      "label": "Ai",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
-      "hero_image": null,
-      "val": 10
-    },
-    {
-      "id": "card_20260921_053832_224",
-      "label": "Ai",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
-      "hero_image": null,
-      "val": 10
-    },
-    {
-      "id": "card_20260921_053837_390",
-      "label": "Ai",
-      "domain": "Technology",
-      "priority": "high",
-      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
-      "hero_image": null,
-      "val": 10
-    },
     {
       "id": "card_20260921_053842_740",
       "label": "Ai",
@@ -3072,309 +2968,117 @@
       "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
       "hero_image": null,
       "val": 6
+    },
+    {
+      "id": "card_20260922_063905_748",
+      "label": "Course: Basics of Food and Nutrition | SWAYAM",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_063910_791",
+      "label": "Course: Basics of Food and Nutrition | SWAYAM",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_063915_882",
+      "label": "Course: Basics of Food and Nutrition | SWAYAM",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_063921_025",
+      "label": "Course: Basics of Food and Nutrition | SWAYAM",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_063926_182",
+      "label": "Course: Basics of Food and Nutrition | SWAYAM",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_063931_400",
+      "label": "Course: Basics of Food and Nutrition | SWAYAM",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_063936_472",
+      "label": "Course: Basics of Food and Nutrition | SWAYAM",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_063941_560",
+      "label": "Course: Basics of Food and Nutrition | SWAYAM",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_063946_715",
+      "label": "Course: Basics of Food and Nutrition | SWAYAM",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_063951_758",
+      "label": "Course: Basics of Food and Nutrition | SWAYAM",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_063956_958",
+      "label": "Course: Basics of Food and Nutrition | SWAYAM",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_064002_122",
+      "label": "Course: Basics of Food and Nutrition | SWAYAM",
+      "domain": "General",
+      "priority": "medium",
+      "summary": "[General] Course: Basics of Food and Nutrition | SWAYAM: Activity on chrome.exe: Course: Basics of Food and Nutrition | SWAYAM - Google Chrome",
+      "hero_image": null,
+      "val": 6
     }
   ],
   "edges": [
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_062958_776",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_062958_776",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_062958_776",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_062958_776",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_062958_776",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_063004_041",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_063004_041",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063004_041",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063004_041",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063004_041",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_063009_034",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_063009_034",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063009_034",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063009_034",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063009_034",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_063014_192",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_063014_192",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063014_192",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063014_192",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063014_192",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_063019_396",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_063019_396",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063019_396",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_063025_423",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_063025_423",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063025_423",
-      "target": "ENT_inbox",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063025_423",
-      "target": "ENT_gmail",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063025_423",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_063031_124",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_063031_124",
-      "target": "ENT_science",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063031_124",
-      "target": "ENT_technology",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063031_124",
-      "target": "ENT_inbox",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063031_124",
-      "target": "ENT_institute",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_063035_482",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_063035_482",
-      "target": "ENT_science",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063035_482",
-      "target": "ENT_technology",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063035_482",
-      "target": "ENT_inbox",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063035_482",
-      "target": "ENT_institute",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_063040_300",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_063040_300",
-      "target": "ENT_science",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063040_300",
-      "target": "ENT_technology",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063040_300",
-      "target": "ENT_inbox",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063040_300",
-      "target": "ENT_institute",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_063045_391",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_063045_391",
-      "target": "ENT_science",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063045_391",
-      "target": "ENT_technology",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063045_391",
-      "target": "ENT_inbox",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063045_391",
-      "target": "ENT_institute",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_063050_515",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_063050_515",
-      "target": "ENT_science",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063050_515",
-      "target": "ENT_technology",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063050_515",
-      "target": "ENT_search",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063050_515",
-      "target": "ENT_institute",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_063055_702",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_063055_702",
-      "target": "ENT_science",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063055_702",
-      "target": "ENT_technology",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063055_702",
-      "target": "ENT_search",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_063055_702",
-      "target": "ENT_institute",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_063101_291",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_063101_291",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
     {
       "source": "card_20260922_063101_291",
       "target": "ENT_brain",
@@ -5572,6 +5276,306 @@
     },
     {
       "source": "card_20260922_063900_699",
+      "target": "ENT_nutrition",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_063905_748",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_063905_748",
+      "target": "ENT_course",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063905_748",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063905_748",
+      "target": "ENT_basics",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063905_748",
+      "target": "ENT_nutrition",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_063910_791",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_063910_791",
+      "target": "ENT_course",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063910_791",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063910_791",
+      "target": "ENT_basics",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063910_791",
+      "target": "ENT_nutrition",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_063915_882",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_063915_882",
+      "target": "ENT_course",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063915_882",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063915_882",
+      "target": "ENT_basics",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063915_882",
+      "target": "ENT_nutrition",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_063921_025",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_063921_025",
+      "target": "ENT_course",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063921_025",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063921_025",
+      "target": "ENT_basics",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063921_025",
+      "target": "ENT_nutrition",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_063926_182",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_063926_182",
+      "target": "ENT_course",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063926_182",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063926_182",
+      "target": "ENT_basics",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063926_182",
+      "target": "ENT_nutrition",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_063931_400",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_063931_400",
+      "target": "ENT_course",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063931_400",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063931_400",
+      "target": "ENT_basics",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063931_400",
+      "target": "ENT_nutrition",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_063936_472",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_063936_472",
+      "target": "ENT_course",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063936_472",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063936_472",
+      "target": "ENT_basics",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063936_472",
+      "target": "ENT_nutrition",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_063941_560",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_063941_560",
+      "target": "ENT_course",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063941_560",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063941_560",
+      "target": "ENT_basics",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063941_560",
+      "target": "ENT_nutrition",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_063946_715",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_063946_715",
+      "target": "ENT_course",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063946_715",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063946_715",
+      "target": "ENT_basics",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063946_715",
+      "target": "ENT_nutrition",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_063951_758",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_063951_758",
+      "target": "ENT_course",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063951_758",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063951_758",
+      "target": "ENT_basics",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063951_758",
+      "target": "ENT_nutrition",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_063956_958",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_063956_958",
+      "target": "ENT_course",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063956_958",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063956_958",
+      "target": "ENT_basics",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_063956_958",
+      "target": "ENT_nutrition",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_GENERAL",
+      "target": "card_20260922_064002_122",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_064002_122",
+      "target": "ENT_course",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_064002_122",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_064002_122",
+      "target": "ENT_basics",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_064002_122",
       "target": "ENT_nutrition",
       "label": "mentions"
     }
