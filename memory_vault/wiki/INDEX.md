@@ -226,5 +226,7 @@
 
  2026?"](communication/email__webinar_reminder___how_to_switch_to_top_product_based_companies_in___2026.md) — *Updated 2026-09-22*
 - [Communication: Email: Last Day for MAANG Bootcamp](communication/email__last_day_for_maang_bootcamp.md) — *Updated 2026-09-22*
-- [Communication: Email: Learn Computer Science from a Harvard Professor [Free 25-hour
+- [Communication: Email: Learn Computer Science from a Harvard Professor [Free 25-hour
+
  Python course]](communication/email__learn_computer_science_from_a_harvard_professor__free_25_hour___python_course.md) — *Updated 2026-09-22*
+- [General: Recording toolbar](general/recording_toolbar.md) — *Updated 2026-09-22*
