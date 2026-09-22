@@ -175,3 +175,23 @@
 - [Communication: Email: Registration Successful | Weekly Case Challenge](communication/email__registration_successful___weekly_case_challenge.md) — *Updated 2026-09-22*
 - [Communication: Email: Welcome! Discover more of your Acer ID benefits](communication/email__welcome__discover_more_of_your_acer_id_benefits.md) — *Updated 2026-09-22*
 - [Communication: Email: You’re officially a Kaggler. Now what?](communication/email__you_re_officially_a_kaggler__now_what.md) — *Updated 2026-09-22*
+- [Communication: Email: Opportunity For Training & Internship](communication/email__opportunity_for_training___internship.md) — *Updated 2026-09-22*
+- [Communication: Email: VTU24334  WinterSemester Registration - AY 2023-2024](communication/email__vtu24334__wintersemester_registration___ay_2023_2024.md) — *Updated 2026-09-22*
+- [Communication: Email: INVITATION FOR INTERNSHIP AND TRAINING PROGRAM](communication/email__invitation_for_internship_and_training_program.md) — *Updated 2026-09-22*
+- [Communication: Email: VTU24334  WinterSemester Registration - AY 2023-2024-Accepted](communication/email__vtu24334__wintersemester_registration___ay_2023_2024_accepted.md) — *Updated 2026-09-22*
+- [Communication: Email: Elevate Your Semester with Summer Internship Opportunities!](communication/email__elevate_your_semester_with_summer_internship_opportunities.md) — *Updated 2026-09-22*
+- [Communication: Email: National Level Training & Internship : Level Up Your Career](communication/email__national_level_training___internship___level_up_your_career.md) — *Updated 2026-09-22*
+- [Communication: Email: Madras Open Quiz | Rules for the Quiz](communication/email__madras_open_quiz___rules_for_the_quiz.md) — *Updated 2026-09-22*
+- [Communication: Email: Madras Quiz Game Code](communication/email__madras_quiz_game_code.md) — *Updated 2026-09-22*
+- [Communication: Email: Listening is easy](communication/email__listening_is_easy.md) — *Updated 2026-09-22*
+- [Communication: Email: A world of Premium, free for 1 month.](communication/email__a_world_of_premium__free_for_1_month.md) — *Updated 2026-09-22*
+- [Communication: Email: Learn Relational Database Design [Free 6-hour course on SQL and
+
+ RDBMS]](communication/email__learn_relational_database_design__free_6_hour_course_on_sql_and___rdbms.md) — *Updated 2026-09-22*
+- [Communication: Email: Welcome to ProPeers!](communication/email__welcome_to_propeers.md) — *Updated 2026-09-22*
+- [Communication: Email: Extra 30% OFF DSA Patterns Product — Last 2 Hrs to Grab!](communication/email__extra_30__off_dsa_patterns_product___last_2_hrs_to_grab.md) — *Updated 2026-09-22*
+- [Communication: Email: Welcome to GeeksforGeeks!](communication/email__welcome_to_geeksforgeeks.md) — *Updated 2026-09-22*
+- [Communication: Email: All Products at Lowest Price](communication/email__all_products_at_lowest_price.md) — *Updated 2026-09-22*
+- [Communication: Email: Tata Elxsi TELIPORT Season 3 | Important Update on Round 1 Results](communication/email__tata_elxsi_teliport_season_3___important_update_on_round_1_results.md) — *Updated 2026-09-22*
+- [Communication: Email: Activate Account](communication/email__activate_account.md) — *Updated 2026-09-22*
+- [Communication: Email: PRIME Deal for YOU](communication/email__prime_deal_for_you.md) — *Updated 2026-09-22*

@@ -1,0 +1,29 @@
+{
+  "id": "mail_131_f79f62",
+  "timestamp": "2020-08-30T06:03:21+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Madras Quiz Game Code",
+  "topic": "Email: Madras Quiz Game Code",
+  "summary": "Email from Sumanth Raman <contactsumanthraman@gmail.com> to immanuellourdu@gmail.com about: Madras Quiz Game Code",
+  "key_pointers": [
+    "From: Sumanth Raman <contactsumanthraman@gmail.com>",
+    "Received: Sun, 30 Aug 2020 11:33:21 +0530"
+  ],
+  "entities": [
+    "contactsumanthraman@gmail.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "gmail.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:contactsumanthraman@gmail.com",
+  "raw_ocr_excerpt": "Dear Participant,\n\nThank you for participating in the Madras Open Quiz 2020.\n\nPlease find below the link and game code to the prelims of the Madras Open\nQuiz 2020 hosted on the Quizizz application.  Pls enter the game code at 12\npm to join the quiz.\n\nGame Code: 927006\n\nThe following are the rules to be kept in mind for the prelims:\n\na. The prelims will consist of 40 questions. It will be entirely in\nMultiple Choice Questions (MCQs) format.\nb. Each question will have to be answered within 45 seconds.\nc. The scoring for each question will be based on the accuracy and the\nspeed at which it is answered. If the question is answered after 45\nseconds, your points will drastically reduce.\nd. Questions marked with asterisk (*) are starred questions for resolving\nties.\ne. The link will be open for participation between 12 to 12.40 pm (For 40\nminutes). The quiz will start at 12 noon.\nf. Participants are required to enter the exact mobile number used for\nregistration as their login ID in the Quizizz application.\nNO other number entered will be considered. There is NO need for the\ncountry code to be entered. NO names are to be entered.\nRemember, the number provided for registration (10 numbers for India or\nless for participants abroad will suffice) is only to be entered.\n\nHappy Quizzing!\n\nFor any queries, please mail us back on this E-Mail address -\nmadrasopenquiz1.madrasday@gmail.com / madrasopenquiz2020@snabquizzes.in.\n\nRegards\nTeam Madras Quiz",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

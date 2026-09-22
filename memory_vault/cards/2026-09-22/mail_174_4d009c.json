@@ -1,0 +1,31 @@
+{
+  "id": "mail_174_4d009c",
+  "timestamp": "2026-01-31T14:30:09+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Activate Account",
+  "topic": "Email: Activate Account",
+  "summary": "Email from \"Cisco.com\" <no-reply@mail-id.cisco.com> to lmariaimmanuel@gmail.com about: Activate Account",
+  "key_pointers": [
+    "Deadline: Deadline: Activate Account",
+    "From: \"Cisco.com\" <no-reply@mail-id.cisco.com>",
+    "Received: Sat, 31 Jan 2026 14:30:09 +0000 (UTC)"
+  ],
+  "entities": [
+    "no-reply@mail-id.cisco.com",
+    "lmariaimmanuel@gmail.com",
+    "expires"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "mail-id.cisco.com",
+    "deadline"
+  ],
+  "source_url_or_ref": "mailto:no-reply@mail-id.cisco.com",
+  "raw_ocr_excerpt": "-->\n            \n            \n            \n        \n            \n            \n                    \n                    \n                        \n                            \n                        \n                    \n                    \n                        \n                            Hi Maria Immanuel,\n                        \n                    \n                    \n                        \n                            Welcome to Cisco!\n                        \n                    \n                    \n                                            \n                            \n                                To finish setting up your account, enter the verification code.\n                            \n                        \n                                                            \n                    Reg source:  -->\n                    \n                    \n                        \n                            \n                            \n                                                                \n                                                                \n                                    \n                                        Verification code: 649312\n                                    \n                                \n                                                                                                \n                                    \n                                        Expires in 30 minutes\n                                    ",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

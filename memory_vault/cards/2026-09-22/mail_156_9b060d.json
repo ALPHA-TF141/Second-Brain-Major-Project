@@ -1,0 +1,31 @@
+{
+  "id": "mail_156_9b060d",
+  "timestamp": "2026-01-30T05:29:05+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Learn Relational Database Design [Free 6-hour course on SQL and\r\n RDBMS]",
+  "topic": "Email: Learn Relational Database Design [Free 6-hour course on SQL and\r\n RDBMS]",
+  "summary": "Email from Quincy Larson <quincy@freecodecamp.org> to lmariaimmanuel@gmail.com about: Learn Relational Database Design [Free 6-hour course on SQL and\r\n RDBMS]",
+  "key_pointers": [
+    "Action: Action: Learn Relational Database Design [Free 6-hour course on SQL and\r\n RDBMS]",
+    "From: Quincy Larson <quincy@freecodecamp.org>",
+    "Received: Fri, 30 Jan 2026 05:29:05 +0000"
+  ],
+  "entities": [
+    "quincy@freecodecamp.org",
+    "lmariaimmanuel@gmail.com",
+    "interview"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "freecodecamp.org",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:quincy@freecodecamp.org",
+  "raw_ocr_excerpt": "Here are this week's five freeCodeCamp resources that are worth your time:\n\n1. freeCodeCamp just published a comprehensive course on relational database design for beginners. You'll learn SQL fundamentals, entity-relationship modeling, normal forms, data types, indexing strategies, query optimization, and more. Database design is a key developer skill that isn't going away. This course will help you build a strong foundation in it. (6 hour YouTube course): https://www.freecodecamp.org/news/learn-relational-database-design/\n\n2. freeCodeCamp also published a Python machine learning course that will teach you how to train large neural networks using several Graphics Processing Units (GPUs) in parallel. You'll learn pipeline parallelism from scratch by applying three different approaches: naïve stop-and-wait, GPipe with micro-batching, and the interleaved 1F1B algorithm. (3 hour YouTube course): https://www.freecodecamp.org/news/build-pipeline-parallelism-from-scratch/\n\n3. On this week's freeCodeCamp podcast I interview Sumit Saha, a software engineer who runs a developer agency with clients throughout Asia. We talk about his observation that “the hunger for learning is dying.” He says people are increasingly drawn to shortcuts over taking the time to truly understand concepts. He shares his information diet, and his tips for expanding your skills. We also have a lightning round where he explains 5 key developer concepts through helpful analogies. (1 hour watch or listen in your ",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,29 @@
+{
+  "id": "mail_149_bb4814",
+  "timestamp": "2020-09-07T03:30:00+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "A world of Premium, free for 1 month.",
+  "topic": "Email: A world of Premium, free for 1 month.",
+  "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: A world of Premium, free for 1 month.",
+  "key_pointers": [
+    "From: \"Spotify\" <no-reply@spotify.com>",
+    "Received: Mon, 07 Sep 2020 03:30:00 +0000 (UTC)"
+  ],
+  "entities": [
+    "no-reply@spotify.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "spotify.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@spotify.com",
+  "raw_ocr_excerpt": "TRY PREMIUM FREE https://www.spotify.com/premium?utm_source=Spotify_premiumupsell&utm_medium=house_email&utm_campaign=2020q2_premium_productGeneric_lifecycle_offerTrial_term1M&utm_content=zz_en_world_email_lifecycle_nurturing_propintro_ali&checkout=false&splot=hvh9vRQyQjW1GfcrILF8Xw\n\nWith Family, Student, Duo, and Individual plans, there’s a world of Premium waiting just for you.\n\nGet a Family plan and add up to 6 accounts under 1 roof.If you’re in college or university, enjoy Premium Student at a discounted rate.Join Duo with one other listener, because music is better together. Treat yourself with the Individual plan.\n\nStep into Premium, get 1 month free. Win-win. \n\nTRY PREMIUM FREE ( https://www.spotify.com/premium?utm_source=Spotify_premiumupsell&utm_medium=house_email&utm_campaign=2020q2_premium_productGeneric_lifecycle_offerTrial_term1M&utm_content=zz_en_world_email_lifecycle_nurturing_propintro_ali&checkout=false&splot=hvh9vRQyQjW1GfcrILF8Xw )\n\nMonthly subscription fee applies after. Terms and conditions apply. Open only to users who haven't already tried Premium.\n\n-------------\n\nGet Spotify for:\n  * iPhone (https://itunes.apple.com/app/spotify-music/id324684580)\n  * iPad (https://itunes.apple.com/app/spotify-music/id324684580)\n  * Android (https://play.google.com/store/apps/details?id=com.spotify.music)\n  * Other (https://www.spotify.com/download/)\n\nThis message was sent to immanuellourdu@gmail.com.\nIf you don't want to receive these emails from Spotify in the future,",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

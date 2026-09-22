@@ -1,0 +1,31 @@
+{
+  "id": "mail_128_5a3f00",
+  "timestamp": "2020-08-29T14:37:54+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Madras Open Quiz | Rules for the Quiz",
+  "topic": "Email: Madras Open Quiz | Rules for the Quiz",
+  "summary": "Email from Madras Quiz <madrasopenquiz3.madrasday@gmail.com> to immanuellourdu@gmail.com about: Madras Open Quiz | Rules for the Quiz",
+  "key_pointers": [
+    "Deadline: Deadline: Madras Open Quiz | Rules for the Quiz - due 2026-09-27",
+    "From: Madras Quiz <madrasopenquiz3.madrasday@gmail.com>",
+    "Received: Sat, 29 Aug 2020 20:07:54 +0530"
+  ],
+  "entities": [
+    "madrasopenquiz3.madrasday@gmail.com",
+    "immanuellourdu@gmail.com",
+    "before the"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "gmail.com",
+    "deadline"
+  ],
+  "source_url_or_ref": "mailto:madrasopenquiz3.madrasday@gmail.com",
+  "raw_ocr_excerpt": "Dear Participant,\n\nThank you for registering for the Madras Open Quiz 2020.\n\nThe prelims will be conducted at 12 noon on 30th August 2020 (Sunday). The\nprelims will be conducted through the Quizizz Application.\n\nThe following are the rules to be kept in mind for the prelims:\n\na. The prelims will consist of 40 questions. It will be entirely in\nMultiple Choice Questions (MCQs) format.\n\nb. Each question will have to be answered within 45 seconds.\n\nc.\n*If 45 seconds have elapsed, and you have not answered the question, the\nnext question will automatically display. You will not be able to go back\nto the previous question.*\nd. Questions marked with asterisk (*) are starred questions for resolving\nties.\n\ne.\n*The link will be open for participation between 12 to 12.40 pm (For 40\nminutes).*\nf. Participants are required to enter the exact mobile number used for\nregistration as their login ID in the Quizizz application.\nNO other number entered will be considered. There is NO need for the\ncountry code to be entered. NO names are to be entered.\nRemember, the number provided for registration (10 numbers for India or\nless for participants abroad will suffice) is only to be entered.\n\ng. The Top 6 participants will be selected who will take part in the Finals\nover Google Meet. The Finals will begin at 3pm and will be streamed in the\nfollowing URL: https://www.livewebcast.in/madrasquiz\n\nh. The link for the prelims will be provided 1 hour before the start of the\nprelims to the registered E-Mail",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mail_266_7f8479",
+  "timestamp": "2024-01-26T11:07:14+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "INVITATION FOR INTERNSHIP AND TRAINING PROGRAM",
+  "topic": "Email: INVITATION FOR INTERNSHIP AND TRAINING PROGRAM",
+  "summary": "Email from META Course <metacourse6@gmail.com> to vtu24334@veltech.edu.in about: INVITATION FOR INTERNSHIP AND TRAINING PROGRAM",
+  "key_pointers": [
+    "Deadline: Deadline: INVITATION FOR INTERNSHIP AND TRAINING PROGRAM - due 2026-09-22",
+    "From: META Course <metacourse6@gmail.com>",
+    "Received: Fri, 26 Jan 2024 16:37:14 +0530"
+  ],
+  "entities": [
+    "metacourse6@gmail.com",
+    "vtu24334@veltech.edu.in",
+    "last date"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "gmail.com",
+    "deadline"
+  ],
+  "source_url_or_ref": "mailto:metacourse6@gmail.com",
+  "raw_ocr_excerpt": "[image: image.png]\nVel Tech Rangarajan Dr. Sagunthala R&D Institute of Science and Technology\nDear Students,\n\n*Greetings from Meta Course*\n\n*META COURSE IS ONE OF THE LEADING STUDY HUBS, PROVIDING TRAINING AND\nINTERNSHIP TO THE STUDENTS FOR LEARNING INDUSTRIAL KNOWLEDGE.*\n\n*AFTER COMPLETING THE TRAINING PROGRAM STUDENT CAN BE ELIGIBLE FOR\nINTERNSHIP.*\n\n*Stipend over Internship: 25K to 70K Based on Training Performance*\n\n*FILL THE GOOGLE FORM FOR APPLYING THE INTERNSHIP AT Meta Course.*\n\n*CLICK HERE FOR GOOGLE FORM\n<https://docs.google.com/forms/d/e/1FAIpQLSdzwmfCjgzxXVpv2GAaIrN0azkRAHDzaAh3eWE1Ah7L0fv4qw/viewform>*\n\n*AFTER FILLING The Google Form, for further information join WhatsApp Group*\n\nCLICK HERE TO JOIN THE WHATSAPP GROUP\n<https://chat.whatsapp.com/Kco2Lf0eY5SIUT9FDtWLuN>\n\n*Today is the last date for enrollment.*\n\n*After Completion of the program, the student shall receive a:*\n\n*[image: ✅] Program completion certificate issued by IBM.[image:\n✅] Co-Branded Internship certificate.[image: ✅] Letter of Recommendation\nfrom IBM.[image: ✅] Access to a growth community.*",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}
