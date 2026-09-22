@@ -1,0 +1,34 @@
+{
+  "id": "card_20260922_064649_897",
+  "timestamp": "2026-09-22T06:46:49.897826Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "Gmail API – APIs & Services – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "topic": "Cloud",
+  "summary": "[Technology] Gmail API – APIs & Services – Jarvis Second Brain – Google Cloud console: Activity on chrome.exe: Gmail API – APIs & Services – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Gmail API – APIs & Services – Jarvis Second Brain – Google Cloud console - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Services",
+    "Jarvis",
+    "Second",
+    "Gmail",
+    "Brain",
+    "Api",
+    "APIs"
+  ],
+  "tags": [
+    "api",
+    "cloud",
+    "chrome",
+    "technology"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Gmail API – APIs & Services – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 69.0
+}
