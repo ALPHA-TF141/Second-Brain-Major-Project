@@ -1,112 +1,6 @@
 {
-  "updated_at": "2026-09-22T10:56:20.483782Z",
+  "updated_at": "2026-09-22T10:57:22.256845Z",
   "nodes": [
-    {
-      "id": "card_20260922_082234_565",
-      "label": "Google Calendar - Calendar settings for Imman",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Google Calendar - Calendar settings for Immanuel Lourdu: Activity on chrome.exe: Google Calendar - Calendar settings for Immanuel Lourdu - Google Chrome",
-      "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_082234_565.webp",
-      "val": 6
-    },
-    {
-      "id": "ENT_lourdu",
-      "label": "Lourdu",
-      "domain": "General",
-      "priority": "medium",
-      "val": 8
-    },
-    {
-      "id": "card_20260922_082244_928",
-      "label": "Google Calendar - Calendar settings for Imman",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Google Calendar - Calendar settings for Immanuel Lourdu: Activity on chrome.exe: Google Calendar - Calendar settings for Immanuel Lourdu - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082250_351",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082255_403",
-      "label": "Google Calendar - Calendar settings for Imman",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Google Calendar - Calendar settings for Immanuel Lourdu: Activity on chrome.exe: Google Calendar - Calendar settings for Immanuel Lourdu - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082300_398",
-      "label": "Google Calendar - Calendar settings for Imman",
-      "domain": "General",
-      "priority": "medium",
-      "summary": "[General] Google Calendar - Calendar settings for Immanuel Lourdu: Activity on chrome.exe: Google Calendar - Calendar settings for Immanuel Lourdu - Google Chrome",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082306_242",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082311_113",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082316_217",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082321_416",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082326_526",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
-    {
-      "id": "card_20260922_082331_796",
-      "label": "Electron",
-      "domain": "Technology",
-      "priority": "medium",
-      "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
-      "hero_image": null,
-      "val": 6
-    },
     {
       "id": "card_20260922_082337_084",
       "label": "Electron",
@@ -3002,309 +2896,117 @@
       "summary": "[Technology] (3055) I Engineer Like Tony Stark! (Introducing the HoloMat): Activity on chrome.exe: (3055) I Engineer Like Tony Stark! (Introducing the HoloMat) - YouTube - Google Chrome",
       "hero_image": null,
       "val": 6
+    },
+    {
+      "id": "card_20260922_105625_549",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) I Engineer Like Tony Stark! (Introducing the HoloMat): Activity on chrome.exe: (3055) I Engineer Like Tony Stark! (Introducing the HoloMat) - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105630_971",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) I Engineer Like Tony Stark! (Introducing the HoloMat): Activity on chrome.exe: (3055) I Engineer Like Tony Stark! (Introducing the HoloMat) - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105635_850",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) I Engineer Like Tony Stark! (Introducing the HoloMat): Activity on chrome.exe: (3055) I Engineer Like Tony Stark! (Introducing the HoloMat) - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105641_186",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) I Engineer Like Tony Stark! (Introducing the HoloMat): Activity on chrome.exe: (3055) I Engineer Like Tony Stark! (Introducing the HoloMat) - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105646_387",
+      "label": "Web_Knowledge",
+      "domain": "Technology",
+      "priority": "medium",
+      "summary": "[Technology] (3055) I Engineer Like Tony Stark! (Introducing the HoloMat): Activity on chrome.exe: (3055) I Engineer Like Tony Stark! (Introducing the HoloMat) - YouTube - Google Chrome",
+      "hero_image": null,
+      "val": 6
+    },
+    {
+      "id": "card_20260922_105651_334",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_105656_644",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_105701_673",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_105706_790",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_105711_976",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_105717_078",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
+    },
+    {
+      "id": "card_20260922_105722_220",
+      "label": "Ai",
+      "domain": "Technology",
+      "priority": "high",
+      "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+      "hero_image": null,
+      "val": 10
     }
   ],
   "edges": [
-    {
-      "source": "card_20260922_104827_585",
-      "target": "ENT_brain",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104827_585",
-      "target": "ENT_electron",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_104832_685",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_104832_685",
-      "target": "ENT_second",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104832_685",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104832_685",
-      "target": "ENT_visual",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104832_685",
-      "target": "ENT_code",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_COMMUNICATION",
-      "target": "mail_77_231d8c",
-      "label": "contains"
-    },
-    {
-      "source": "mail_77_231d8c",
-      "target": "ENT_no-reply@leetcode.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_77_231d8c",
-      "target": "ENT_lmariaimmanuel@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_77_231d8c",
-      "target": "ENT_submission",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_COMMUNICATION",
-      "target": "mail_78_aecba3",
-      "label": "contains"
-    },
-    {
-      "source": "mail_78_aecba3",
-      "target": "ENT_quincy@freecodecamp.org",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_78_aecba3",
-      "target": "ENT_lmariaimmanuel@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_78_aecba3",
-      "target": "ENT_interview",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_104838_399",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_104838_399",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104838_399",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_COMMUNICATION",
-      "target": "mail_88_36b84c",
-      "label": "contains"
-    },
-    {
-      "source": "mail_88_36b84c",
-      "target": "ENT_donotreply@webcasts.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_88_36b84c",
-      "target": "ENT_lmariaimmanuel@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_COMMUNICATION",
-      "target": "mail_90_1e2f28",
-      "label": "contains"
-    },
-    {
-      "source": "mail_90_1e2f28",
-      "target": "ENT_security@facebookmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_90_1e2f28",
-      "target": "ENT_lmariaimmanuel@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_90_1e2f28",
-      "target": "ENT_deadline",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_COMMUNICATION",
-      "target": "mail_100_6a4e2b",
-      "label": "contains"
-    },
-    {
-      "source": "mail_100_6a4e2b",
-      "target": "ENT_no-reply@leetcode.com",
-      "label": "mentions"
-    },
-    {
-      "source": "mail_100_6a4e2b",
-      "target": "ENT_lmariaimmanuel@gmail.com",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_104843_638",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_104843_638",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104843_638",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_104848_856",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_104848_856",
-      "target": "ENT_search",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104848_856",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104848_856",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_104853_948",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_104853_948",
-      "target": "ENT_search",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104853_948",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104853_948",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_GENERAL",
-      "target": "card_20260922_104859_254",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_104859_254",
-      "target": "ENT_search",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104859_254",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104859_254",
-      "target": "ENT_google",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_104904_475",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_104904_475",
-      "target": "ENT_jarvis",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104904_475",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104904_475",
-      "target": "ENT_robert",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104904_475",
-      "target": "ENT_paul",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_104909_350",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_104909_350",
-      "target": "ENT_jarvis",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104909_350",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104909_350",
-      "target": "ENT_robert",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104909_350",
-      "target": "ENT_paul",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_104914_677",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_104914_677",
-      "target": "ENT_jarvis",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104914_677",
-      "target": "ENT_activity",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104914_677",
-      "target": "ENT_robert",
-      "label": "mentions"
-    },
-    {
-      "source": "card_20260922_104914_677",
-      "target": "ENT_paul",
-      "label": "mentions"
-    },
-    {
-      "source": "DOMAIN_TECHNOLOGY",
-      "target": "card_20260922_104919_891",
-      "label": "contains"
-    },
-    {
-      "source": "card_20260922_104919_891",
-      "target": "ENT_jarvis",
-      "label": "mentions"
-    },
     {
       "source": "card_20260922_104919_891",
       "target": "ENT_activity",
@@ -5503,6 +5205,306 @@
     {
       "source": "card_20260922_105620_418",
       "target": "ENT_engineer",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105625_549",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105625_549",
+      "target": "ENT_stark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105625_549",
+      "target": "ENT_like",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105625_549",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105625_549",
+      "target": "ENT_engineer",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105630_971",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105630_971",
+      "target": "ENT_stark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105630_971",
+      "target": "ENT_like",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105630_971",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105630_971",
+      "target": "ENT_engineer",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105635_850",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105635_850",
+      "target": "ENT_stark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105635_850",
+      "target": "ENT_like",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105635_850",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105635_850",
+      "target": "ENT_engineer",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105641_186",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105641_186",
+      "target": "ENT_stark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105641_186",
+      "target": "ENT_like",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105641_186",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105641_186",
+      "target": "ENT_engineer",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105646_387",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105646_387",
+      "target": "ENT_stark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105646_387",
+      "target": "ENT_like",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105646_387",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105646_387",
+      "target": "ENT_engineer",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105651_334",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105651_334",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105651_334",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105651_334",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105651_334",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105656_644",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105656_644",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105656_644",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105656_644",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105656_644",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105701_673",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105701_673",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105701_673",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105701_673",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105701_673",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105706_790",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105706_790",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105706_790",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105706_790",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105706_790",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105711_976",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105711_976",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105711_976",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105711_976",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105711_976",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105717_078",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105717_078",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105717_078",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105717_078",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105717_078",
+      "target": "ENT_ai",
+      "label": "mentions"
+    },
+    {
+      "source": "DOMAIN_TECHNOLOGY",
+      "target": "card_20260922_105722_220",
+      "label": "contains"
+    },
+    {
+      "source": "card_20260922_105722_220",
+      "target": "ENT_activity",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105722_220",
+      "target": "ENT_google",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105722_220",
+      "target": "ENT_benchmark",
+      "label": "mentions"
+    },
+    {
+      "source": "card_20260922_105722_220",
+      "target": "ENT_ai",
       "label": "mentions"
     }
   ]
