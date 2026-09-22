@@ -238,3 +238,8 @@
  your account](communication/email___github__a_first_party_github_oauth_application_has_been_added_to___your_account.md) — *Updated 2026-09-22*
 - [General: Snipping Tool](general/snipping_tool.md) — *Updated 2026-09-22*
 - [General: Save As](general/save_as.md) — *Updated 2026-09-22*
+- [Communication: Email: Learn the math that powers AI systems [Free full-length book for
+
+ non-mathematicians]](communication/email__learn_the_math_that_powers_ai_systems__free_full_length_book_for___non_mathematicians.md) — *Updated 2026-09-22*
+- [Communication: Email: [GitHub] A third-party GitHub Application has been added to your
+ account](communication/email___github__a_third_party_github_application_has_been_added_to_your___account.md) — *Updated 2026-09-22*

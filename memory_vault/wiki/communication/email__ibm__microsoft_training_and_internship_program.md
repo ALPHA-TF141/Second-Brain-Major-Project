@@ -89,3 +89,17 @@ Email from "anil ." <anil@teachnook.com> to vtu24334@veltech.edu.in about: IBM, 
 **Identified Concepts & Entities:** `vamshi.kurra@teachnook.com`, `vtu24334@veltech.edu.in`, `interview`
 
 ---
+
+### Synthesized Entry: IBM, Microsoft Training and Internship Program (2026-09-22 17:33 UTC)
+- **Source Application:** `gmail`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** Email from "anil ." <anil@teachnook.com> to vtu24334@veltech.edu.in about: IBM, Microsoft Training and Internship Program
+
+#### Key Takeaways & Evidence:
+- Action: Action: IBM, Microsoft Training and Internship Program
+- From: "anil ." <anil@teachnook.com>
+- Received: Wed, 3 Jan 2024 23:00:00 +0530
+
+**Identified Concepts & Entities:** `anil@teachnook.com`, `vtu24334@veltech.edu.in`, `interview`
+
+---

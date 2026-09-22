@@ -201,3 +201,17 @@ Email from Vikash CHaudhary <vikashchaudhary@corizo.co> to vtu24334@veltech.edu.
 **Identified Concepts & Entities:** `shaiksamiullah@corizo.in`, `vtu24334@veltech.edu.in`, `outstanding`
 
 ---
+
+### Synthesized Entry: Final Call To Apply [Training and Internship program campaig (2026-09-22 17:33 UTC)
+- **Source Application:** `gmail`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** Email from "Payal ." <payal@corizo.info> to vtu24334@veltech.edu.in about: Final Call To Apply [Training and Internship program campaign, Wipro Certification]
+
+#### Key Takeaways & Evidence:
+- Action: Action: Final Call To Apply [Training and Internship program campaign, Wipro Certification] - due 2026-09-22
+- From: "Payal ." <payal@corizo.info>
+- Received: Sun, 7 Jan 2024 23:57:41 +0530
+
+**Identified Concepts & Entities:** `payal@corizo.info`, `vtu24334@veltech.edu.in`, `outstanding`
+
+---
