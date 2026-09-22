@@ -19,3 +19,17 @@ Email from "anil ." <anil@teachnook.com> to vtu24334@veltech.edu.in about: IBM, 
 - Received: Wed, 3 Jan 2024 23:00:00 +0530
 
 ---
+
+### Synthesized Entry: IBM, Microsoft Training and Internship Program (2026-09-22 11:14 UTC)
+- **Source Application:** `gmail`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** Email from Thatte Bhargavi <thatte.bhargavi@teachnook.com> to vtu24334@veltech.edu.in about: IBM, Microsoft Training and Internship Program
+
+#### Key Takeaways & Evidence:
+- Action: Action: IBM, Microsoft Training and Internship Program - due 2024-10-02
+- From: Thatte Bhargavi <thatte.bhargavi@teachnook.com>
+- Received: Sat, 10 Feb 2024 01:12:55 +0530
+
+**Identified Concepts & Entities:** `thatte.bhargavi@teachnook.com`, `vtu24334@veltech.edu.in`, `interview`
+
+---

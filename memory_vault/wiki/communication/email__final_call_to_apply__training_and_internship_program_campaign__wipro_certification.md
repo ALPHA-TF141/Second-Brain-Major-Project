@@ -89,3 +89,31 @@ Email from Vikash CHaudhary <vikashchaudhary@corizo.co> to vtu24334@veltech.edu.
 **Identified Concepts & Entities:** `payal@corizo.info`, `vtu24334@veltech.edu.in`, `outstanding`
 
 ---
+
+### Synthesized Entry: Final Call To Apply [Training and Internship program campaig (2026-09-22 11:14 UTC)
+- **Source Application:** `gmail`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** Email from Aditya tiwari <aditya@corizo.org> to vtu24334@veltech.edu.in about: Final Call To Apply [Training and Internship program campaign, Wipro Certification]
+
+#### Key Takeaways & Evidence:
+- Action: Action: Final Call To Apply [Training and Internship program campaign, Wipro Certification] - due 2026-09-22
+- From: Aditya tiwari <aditya@corizo.org>
+- Received: Sat, 3 Feb 2024 00:14:58 +0530
+
+**Identified Concepts & Entities:** `aditya@corizo.org`, `vtu24334@veltech.edu.in`, `outstanding`
+
+---
+
+### Synthesized Entry: Final Call To Apply [Training and Internship program campaig (2026-09-22 11:14 UTC)
+- **Source Application:** `gmail`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** Email from Dhaneeswari D <dhaneeswari@corizo.info> to vtu24334@veltech.edu.in about: Final Call To Apply [Training and Internship program campaign, Wipro Certification]
+
+#### Key Takeaways & Evidence:
+- Action: Action: Final Call To Apply [Training and Internship program campaign, Wipro Certification] - due 2026-09-22
+- From: Dhaneeswari D <dhaneeswari@corizo.info>
+- Received: Wed, 7 Feb 2024 00:23:32 +0530
+
+**Identified Concepts & Entities:** `dhaneeswari@corizo.info`, `vtu24334@veltech.edu.in`, `outstanding`
+
+---
