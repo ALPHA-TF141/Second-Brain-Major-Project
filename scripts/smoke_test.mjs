@@ -155,7 +155,15 @@ async function main() {
   rmSync(ARTIFACTS, { recursive: true, force: true });
   mkdirSync(ARTIFACTS, { recursive: true });
 
-  const { chromium } = await import('playwright');
+  let chromium;
+  try {
+    ({ chromium } = await import('playwright'));
+  } catch {
+    console.log(`${C.y}  Playwright is not installed - cannot run the browser smoke test.${C.x}`);
+    console.log(`${C.d}  Enable it once with:  npm run smoke:setup${C.x}\n`);
+    shutdown();
+    process.exit(2);
+  }
   const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-gpu'] });
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
 

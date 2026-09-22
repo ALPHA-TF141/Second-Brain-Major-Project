@@ -46,7 +46,7 @@ echo.
 echo [5/5] Browser route smoke test ...
 if not exist "node_modules\playwright" (
     echo       Playwright not installed - skipping.
-    echo       To enable it run:  npm install --save-dev playwright
+    echo       To enable it run:  npm run smoke:setup
     echo                          npx playwright install chromium
 ) else (
     call node scripts\smoke_test.mjs

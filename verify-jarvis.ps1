@@ -52,7 +52,7 @@ if (-not $failed) {
     if ($LASTEXITCODE -ne 0) { $failed = $true }
   } else {
     Write-Host "      Playwright not installed - skipping." -ForegroundColor DarkGray
-    Write-Host "      Enable it with:  npm install --save-dev playwright ; npx playwright install chromium" -ForegroundColor DarkGray
+    Write-Host "      Enable it once with:  npm run smoke:setup" -ForegroundColor DarkGray
   }
 }
 
