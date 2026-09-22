@@ -79,6 +79,23 @@ export async function apiFetch(url, options = {}) {
   return fetch(target, { ...options, headers });
 }
 
+/**
+ * Open a URL in the user's real browser.
+ * Google blocks OAuth consent inside embedded webviews, so in Electron we hand
+ * off to the system browser through the preload bridge. In a normal browser we
+ * fall back to window.open.
+ */
+export async function openInBrowser(url) {
+  const bridge = typeof window !== 'undefined' ? window.secondBrain : null;
+  if (bridge?.openExternal) {
+    const result = await bridge.openExternal(url);
+    if (result?.ok) return { ok: true };
+    // fall through to the browser path if the bridge refused
+  }
+  const opened = typeof window !== 'undefined' ? window.open(url, '_blank', 'noopener,noreferrer') : null;
+  return opened ? { ok: true } : { ok: false, error: 'Popup blocked - allow popups for this app.' };
+}
+
 export const apiClient = {
   baseUrl: API_BASE_URL,
   tokenKey: TOKEN_KEY,
@@ -216,5 +233,28 @@ export const apiClient = {
       method: 'PUT',
       body: JSON.stringify(payload)
     }),
-  voiceAudioUrl: (audioId) => `${API_BASE_URL}/api/voice/audio/${audioId}?token=${encodeURIComponent(getToken())}`
+  voiceAudioUrl: (audioId) => `${API_BASE_URL}/api/voice/audio/${audioId}?token=${encodeURIComponent(getToken())}`,
+
+  // ---- Google Workspace integration (Gmail + Calendar) -------------------
+  googleStatus: () => request('/api/google/status'),
+  googleAccounts: () => request('/api/google/accounts'),
+  googleConnect: (email, services = ['gmail', 'calendar']) =>
+    request('/api/google/connect', {
+      method: 'POST',
+      body: JSON.stringify({ email, services })
+    }),
+  googleDisconnect: (accountId) =>
+    request(`/api/google/accounts/${accountId}`, { method: 'DELETE' }),
+  gmailMessages: (accountId, q = '', limit = 25) => {
+    const params = new URLSearchParams({ account_id: accountId, limit: String(limit) });
+    if (q) params.set('q', q);
+    return request(`/api/google/gmail/messages?${params.toString()}`);
+  },
+  gmailMessage: (accountId, messageId) =>
+    request(`/api/google/gmail/message/${messageId}?account_id=${encodeURIComponent(accountId)}`),
+  calendarEvents: (accountId, daysAhead = 7, daysBack = 1) =>
+    request(`/api/google/calendar/events?account_id=${encodeURIComponent(accountId)}` +
+            `&days_ahead=${daysAhead}&days_back=${daysBack}`),
+  calendarList: (accountId) =>
+    request(`/api/google/calendar/calendars?account_id=${encodeURIComponent(accountId)}`)
 };

@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from app.audio_streaming.voice_stream import router as voice_stream_router
 from app.config import settings
 from app.database.init_db import init_database
-from app.routes import activities, auth, capture, chat, graph, health, memory, ocr, os_router, semantic, sessions, settings as settings_routes, social, timeline, voice
+from app.routes import activities, auth, capture, chat, google, graph, health, memory, ocr, os_router, semantic, sessions, settings as settings_routes, social, timeline, voice
 from app.routes.graph import initialize_neo4j
 from app.services.ocr_service import ocr_processor
 from app.streaming.chat_stream import router as chat_stream_router
@@ -41,6 +41,7 @@ app.include_router(voice.router, prefix="/api/voice", tags=["voice"])
 app.include_router(graph.router, tags=["graph"])
 app.include_router(social.router)
 app.include_router(os_router.router)
+app.include_router(google.router)
 app.include_router(websocket_router)
 app.include_router(chat_stream_router)
 app.include_router(voice_stream_router)
@@ -69,6 +70,25 @@ async def on_startup():
                 pass
 
     asyncio.create_task(_vault_sync_loop())
+
+    # --- Google integration status (Gmail + Calendar) ---
+    if settings.google_configured:
+        from app.integrations.token_store import google_token_store
+
+        try:
+            accounts = google_token_store.list_accounts()
+            if accounts:
+                print(f"[Google] {len(accounts)} account(s) connected: "
+                      + ", ".join(a.get("email", "?") for a in accounts))
+            else:
+                print("[Google] Credentials configured, but no accounts connected yet. "
+                      "Open Integrations in the app to link Gmail / Calendar.")
+        except Exception as exc:
+            print(f"[Google] Token store unavailable: {exc}")
+    else:
+        print("[Google] Not configured - Gmail and Calendar will show 'Not Connected'. "
+              "See GOOGLE_SETUP.md.")
+
 
     # ---------------------------------------------------------------------
     # Warm the semantic embedding model in a BACKGROUND thread.

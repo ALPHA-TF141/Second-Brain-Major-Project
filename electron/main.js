@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, session, Tray, Menu, nativeImage, globalShortcut, screen } = require('electron');
+const { app, BrowserWindow, ipcMain, session, Tray, Menu, nativeImage, shell, globalShortcut, screen } = require('electron');
 const path = require('path');
 
 const isDev = !app.isPackaged;
@@ -166,6 +166,25 @@ function createTray() {
   tray.setContextMenu(contextMenu);
   tray.on('click', () => { toggleOrbWindow(); });
 }
+
+// ---------------------------------------------------------------------------
+// Open external URLs in the user's real browser.
+// Google refuses OAuth sign-in inside embedded webviews ("This browser or app
+// may not be secure"), so the consent screen MUST open in the system browser.
+// Only http/https are allowed - never file:// or custom schemes.
+// ---------------------------------------------------------------------------
+ipcMain.handle('shell:open-external', async (_event, url) => {
+  try {
+    const parsed = new URL(String(url));
+    if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+      return { ok: false, error: 'Only http and https URLs can be opened' };
+    }
+    await shell.openExternal(parsed.toString());
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, error: String(err) };
+  }
+});
 
 app.whenReady().then(() => {
   setupPermissions();

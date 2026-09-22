@@ -1,228 +1,414 @@
-import { useState } from 'react';
-import { Mail, Inbox, Star, Send, FileEdit, Search, Sparkles, Clock, ShieldCheck, Plus } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  AlertTriangle, ArrowLeft, CheckCircle2, Inbox, Loader2, Mail,
+  PlusCircle, RefreshCw, Search, Send, ShieldCheck, Sparkles, Star
+} from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useBackend } from '../context/BackendContext.jsx';
-import { apiFetch } from '../services/apiClient.js';
+import { apiFetch, openInBrowser } from '../services/apiClient.js';
+
+/**
+ * GmailWorkspace - real Gmail.
+ * ---------------------------------------------------------------------------
+ * There is no sample inbox here. If no Google account is linked, the page says
+ * so and offers the connect flow. Every message shown comes from Gmail.
+ */
+const FOLDERS = [
+  { id: 'inbox', label: 'Inbox', query: 'in:inbox', icon: Inbox },
+  { id: 'unread', label: 'Unread', query: 'is:unread in:inbox', icon: Mail },
+  { id: 'important', label: 'Important', query: 'is:important in:inbox', icon: AlertTriangle },
+  { id: 'starred', label: 'Starred', query: 'is:starred', icon: Star },
+  { id: 'sent', label: 'Sent', query: 'in:sent', icon: Send }
+];
+
+function formatDate(value) {
+  if (!value) return '';
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return value;
+  const now = new Date();
+  const sameDay = parsed.toDateString() === now.toDateString();
+  return sameDay
+    ? parsed.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })
+    : parsed.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+}
+
+function senderName(from) {
+  if (!from) return 'Unknown sender';
+  const match = from.match(/^"?([^"<]+)"?\s*</);
+  return (match ? match[1] : from).trim();
+}
 
 export default function GmailWorkspace() {
   const { apiClient } = useBackend();
-  const [activeFolder, setActiveFolder] = useState('inbox');
-  // NOTE: this only flips local UI state - there is NO Gmail OAuth yet.
-  // The "Connect Gmail Account" button below sets it directly.
-  const [isConnected, setIsConnected] = useState(false);
-  const [selectedEmail, setSelectedEmail] = useState(null);
-  const [aiDraft, setAiDraft] = useState('');
+  const navigate = useNavigate();
 
-  // Sample emails once connected or simulated integration
-  const [emails] = useState([
-    {
-      id: 'em_1',
-      sender: 'Prof. Sharma <sharma@university.edu>',
-      subject: 'Urgent: Project Documentation & Final Evaluation Date',
-      date: 'Today, 9:42 AM',
-      snippet: 'Please ensure your project documentation and IEEE conference draft are submitted before Friday 5:00 PM for the review committee.',
-      unread: true,
-      important: true,
-      body: 'Dear Immanuel,\n\nPlease ensure your project documentation and IEEE conference draft are submitted before Friday 5:00 PM for the departmental review committee. We will also test the live hardware demo with your local GPU. Ensure all team members are present.\n\nBest regards,\nProf. Sharma',
-      aiExtractedTask: 'Submit project documentation & IEEE conference draft before Friday 5:00 PM',
-      aiExtractedDeadline: 'Friday, 5:00 PM'
-    },
-    {
-      id: 'em_2',
-      sender: 'IEEE Systems Conference <submissions@ieee-smc2026.org>',
-      subject: 'Acknowledgment of Manuscript Abstract Submission',
-      date: 'Yesterday, 4:15 PM',
-      snippet: 'We acknowledge receipt of your research abstract on Autonomous Personal Knowledge Synthesizers.',
-      unread: false,
-      important: true,
-      body: 'Dear Author,\n\nWe acknowledge receipt of your research abstract on Autonomous Personal Knowledge Synthesizers. Your paper ID is #SMC-4820. Final camera-ready notifications will be released next month.\n\nSincerely,\nIEEE SMC Program Committee'
+  const [status, setStatus] = useState({ configured: false, accounts: [] });
+  const [accountId, setAccountId] = useState('');
+  const [folder, setFolder] = useState('inbox');
+  const [search, setSearch] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [bodyLoading, setBodyLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [draft, setDraft] = useState('');
+  const [aiBusy, setAiBusy] = useState(false);
+  const [taskNotice, setTaskNotice] = useState('');
+
+  const accounts = status.accounts || [];
+  const account = useMemo(
+    () => accounts.find((a) => a.id === accountId) || accounts[0] || null,
+    [accounts, accountId]
+  );
+
+  async function loadStatus() {
+    try {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/google/status`);
+      if (res.ok) {
+        const data = await res.json();
+        setStatus(data);
+        if (!accountId && data.accounts?.length) setAccountId(data.accounts[0].id);
+      }
+    } catch {
+      setError('Backend unreachable.');
     }
-  ]);
-
-  function convertEmailToTask(email) {
-    if (!email.aiExtractedTask) return;
-    apiFetch(`${apiClient.baseUrl}/api/os/tasks`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title: email.aiExtractedTask,
-        project: 'Academic Review',
-        priority: 'high',
-        due_date: '2026-09-25'
-      })
-    });
-    alert('✓ Converted email deadline into an active Task in your Second Brain!');
   }
 
-  function generateReply(email) {
-    setAiDraft(`Dear ${email.sender.split('<')[0].trim()},\n\nThank you for the notification. The documentation and live demo are prepared and verified on our local setup. I will submit the deliverables ahead of the deadline.\n\nBest regards,\nImmanuel`);
+  async function loadMessages() {
+    if (!account?.id) return;
+    setLoading(true);
+    setError('');
+    setSelected(null);
+    try {
+      const query = search.trim() || FOLDERS.find((f) => f.id === folder)?.query || 'in:inbox';
+      const res = await apiFetch(
+        `${apiClient.baseUrl}/api/google/gmail/messages` +
+        `?account_id=${encodeURIComponent(account.id)}&limit=30&q=${encodeURIComponent(query)}`
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.detail || 'Could not read this mailbox.');
+        setMessages([]);
+      } else {
+        setMessages(data.messages || []);
+      }
+    } catch (err) {
+      setError(String(err.message || err));
+      setMessages([]);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  return (
-    <div className="flex h-full w-full bg-[#111318] text-slate-100 font-sans select-none overflow-hidden">
-      {/* Left Mailbox Nav */}
-      <div className="w-56 shrink-0 border-r border-[#262626] bg-[#16181f] p-3 text-xs flex flex-col justify-between">
-        <div>
-          <div className="flex items-center gap-2 mb-4 px-2">
-            <Mail size={16} className="text-cyan-400" />
-            <h3 className="font-bold text-white uppercase tracking-wider text-[11px]">Gmail Workspace</h3>
+  useEffect(() => { loadStatus(); }, []);
+  useEffect(() => { loadMessages(); }, [account?.id, folder]);
+
+  async function openMessage(message) {
+    setSelected({ ...message, body: '' });
+    setDraft('');
+    setTaskNotice('');
+    setBodyLoading(true);
+    try {
+      const res = await apiFetch(
+        `${apiClient.baseUrl}/api/google/gmail/message/${message.id}?account_id=${encodeURIComponent(account.id)}`
+      );
+      const data = await res.json();
+      if (res.ok) setSelected(data);
+      else setError(data.detail || 'Could not open that message.');
+    } catch (err) {
+      setError(String(err.message || err));
+    } finally {
+      setBodyLoading(false);
+    }
+  }
+
+  /** Turn an email into a real task in the OS task store. */
+  async function convertToTask(message) {
+    const due = new Date(Date.now() + 2 * 86400000).toISOString().slice(0, 10);
+    try {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/os/tasks`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: `Email: ${message.subject}`.slice(0, 120),
+          project: 'Email Follow-ups',
+          priority: message.important ? 'high' : 'medium',
+          due_date: due,
+          status: 'pending'
+        })
+      });
+      setTaskNotice(res.ok
+        ? 'Task created in your task list.'
+        : 'Could not create that task.');
+    } catch {
+      setTaskNotice('Could not create that task.');
+    }
+  }
+
+  /** Ask the local LLM for a reply draft (never auto-sends). */
+  async function generateDraft(message) {
+    setAiBusy(true);
+    setDraft('');
+    try {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/chat/ask`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query:
+            `Write a short, professional reply to this email. Return only the reply body.\n\n` +
+            `From: ${message.from}\nSubject: ${message.subject}\n\n${(message.body || message.snippet || '').slice(0, 1500)}`,
+          limit: 3
+        })
+      });
+      const data = await res.json();
+      setDraft(data.answer || data.response || data.message || 'No draft returned.');
+    } catch {
+      setDraft('Could not reach the local language model.');
+    } finally {
+      setAiBusy(false);
+    }
+  }
+
+  async function connect(email) {
+    try {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/google/connect`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, services: ['gmail'] })
+      });
+      const data = await res.json();
+      if (res.ok && data.auth_url) await openInBrowser(data.auth_url);
+      else setError(data.detail || 'Could not start Google sign-in.');
+    } catch {
+      setError('Could not start Google sign-in.');
+    }
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Not configured / not connected - say so plainly, never fake mail.
+   * ------------------------------------------------------------------ */
+  if (!status.configured || accounts.length === 0) {
+    return (
+      <div className="flex h-full w-full items-center justify-center bg-[#111318] p-6 text-slate-100 font-sans">
+        <div className="w-full max-w-lg rounded-2xl border border-white/10 bg-[#0f1422] p-7 text-center space-y-4">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-amber-400/30 bg-amber-500/10">
+            <Mail size={20} className="text-amber-300" />
+          </div>
+          <div>
+            <h2 className="text-sm font-bold uppercase tracking-wider font-mono text-white">Gmail Not Connected</h2>
+            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+              {status.configured
+                ? 'No Google account is linked yet, so there is nothing real to show here. Connect one to load your actual inbox.'
+                : 'Google OAuth is not configured yet. Add your Client ID and Secret to backend/.env (see GOOGLE_SETUP.md), then connect an account.'}
+            </p>
           </div>
 
-          <nav className="space-y-1">
-            {[
-              { id: 'inbox', label: 'Inbox', icon: Inbox, count: 2 },
-              { id: 'important', label: 'Important', icon: Star, count: 2 },
-              { id: 'sent', label: 'Sent', icon: Send, count: 0 },
-              { id: 'drafts', label: 'Drafts', icon: FileEdit, count: 1 }
-            ].map((f) => {
-              const Icon = f.icon;
-              const isActive = activeFolder === f.id;
-              return (
+          {status.configured ? (
+            <div className="space-y-2">
+              {['immanuellourdu@gmail.com', 'lmariaimmanuel@gmail.com', 'vtu24334@veltech.edu.in'].map((email) => (
                 <button
-                  key={f.id}
-                  onClick={() => setActiveFolder(f.id)}
-                  className={`flex w-full items-center justify-between rounded-lg px-2.5 py-1.5 transition ${
-                    isActive ? 'bg-cyan-500/15 text-cyan-300 font-semibold' : 'text-slate-400 hover:bg-white/5 hover:text-white'
-                  }`}
+                  key={email}
+                  type="button"
+                  onClick={() => connect(email)}
+                  className="w-full rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-4 py-2.5 text-xs font-semibold text-cyan-200 hover:bg-cyan-500/20 transition"
                 >
-                  <div className="flex items-center gap-2">
-                    <Icon size={13} />
-                    <span>{f.label}</span>
-                  </div>
-                  {f.count > 0 && <span className="text-[10px] text-cyan-400 font-mono">{f.count}</span>}
+                  Connect {email}
                 </button>
-              );
-            })}
-          </nav>
-        </div>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-xl border border-white/10 bg-black/30 p-3 text-left">
+              <p className="text-[11px] font-mono text-slate-400 mb-1.5">backend/.env</p>
+              <pre className="text-[11px] font-mono text-cyan-300 whitespace-pre-wrap break-all">{`GOOGLE_CLIENT_ID=...\nGOOGLE_CLIENT_SECRET=...`}</pre>
+            </div>
+          )}
 
-        {/* Integration Status Indicator */}
-        <div className="rounded-xl border border-white/5 bg-black/40 p-2.5 text-[10px] text-slate-400 space-y-1">
-          <div className="flex items-center justify-between">
-            <span>Status</span>
-            <span className={isConnected ? 'text-emerald-400 font-bold' : 'text-amber-400'}>
-              {isConnected ? 'Connected' : 'Ready to Connect'}
-            </span>
-          </div>
-          <p className="text-[9.5px] text-slate-500">Google Workspace token isolation active.</p>
+          <button
+            type="button"
+            onClick={() => navigate('/integrations')}
+            className="text-[11px] text-cyan-400 hover:underline"
+          >
+            Open Integrations →
+          </button>
         </div>
       </div>
+    );
+  }
 
-      {/* Main Mail Area */}
-      <div className="flex flex-1 flex-col min-w-0 bg-[#111318]">
-        {/* Top Search & Actions */}
-        <div className="flex h-11 shrink-0 items-center justify-between border-b border-[#262626] px-4 bg-[#14161d]">
-          <div className="flex items-center gap-2 max-w-md flex-1">
-            <Search size={14} className="text-slate-500" />
+  /* ---------------------------------------------------------------- inbox */
+  return (
+    <div className="flex h-full w-full flex-col bg-[#111318] text-slate-100 font-sans select-none">
+      {/* Account switcher */}
+      <div className="flex items-center gap-2 border-b border-white/10 px-4 py-2 overflow-x-auto">
+        {accounts.map((a) => (
+          <button
+            key={a.id}
+            type="button"
+            onClick={() => { setAccountId(a.id); setSearch(''); setFolder('inbox'); }}
+            className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[11px] whitespace-nowrap transition ${
+              account?.id === a.id
+                ? 'border-cyan-400/40 bg-cyan-500/10 text-cyan-200 font-semibold'
+                : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10'
+            }`}
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            {a.email}
+          </button>
+        ))}
+        <button
+          type="button"
+          onClick={loadMessages}
+          className="ml-auto flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] text-slate-300 hover:bg-white/10 shrink-0"
+        >
+          <RefreshCw size={11} className={loading ? 'animate-spin' : ''} /> Sync
+        </button>
+      </div>
+
+      <div className="flex flex-1 min-h-0">
+        {/* Folders */}
+        <div className="w-44 shrink-0 border-r border-white/10 p-2 space-y-0.5">
+          {FOLDERS.map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              onClick={() => { setFolder(f.id); setSearch(''); }}
+              className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs transition ${
+                folder === f.id && !search
+                  ? 'bg-cyan-500/10 text-cyan-200 font-semibold'
+                  : 'text-slate-400 hover:bg-white/5'
+              }`}
+            >
+              <f.icon size={13} /> {f.label}
+            </button>
+          ))}
+          <div className="pt-3 mt-3 border-t border-white/5 px-2">
+            <div className="flex items-center gap-1.5 text-[10px] font-mono text-slate-500">
+              <ShieldCheck size={10} /> READ-ONLY
+            </div>
+            <p className="text-[10px] text-slate-600 mt-1 leading-snug">
+              Jarvis can read your mail but never send or delete it.
+            </p>
+          </div>
+        </div>
+
+        {/* List */}
+        <div className={`${selected ? 'hidden md:flex' : 'flex'} w-full md:w-80 shrink-0 flex-col border-r border-white/10`}>
+          <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2">
+            <Search size={13} className="text-slate-500" />
             <input
-              type="text"
-              placeholder="Search emails, extracted tasks, senders..."
-              className="w-full bg-transparent text-xs text-white outline-none placeholder:text-slate-500"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') loadMessages(); }}
+              placeholder="Search Gmail (e.g. from:sharma)"
+              className="w-full bg-transparent text-xs outline-none placeholder:text-slate-500"
             />
           </div>
 
-          <div className="flex items-center gap-2">
-            {!isConnected && (
-              <button
-                type="button"
-                onClick={() => setIsConnected(true)}
-                className="flex items-center gap-1.5 rounded-lg bg-cyan-400 px-3 py-1 text-xs font-bold text-slate-950 shadow-glow"
-              >
-                <ShieldCheck size={12} />
-                Connect Gmail Account
-              </button>
+          <div className="flex-1 overflow-y-auto thin-scrollbar">
+            {loading && (
+              <div className="flex items-center justify-center py-8 text-xs text-slate-500">
+                <Loader2 size={14} className="animate-spin mr-2" /> Loading {account.email}…
+              </div>
             )}
+
+            {!loading && error && (
+              <div className="m-3 rounded-lg border border-red-400/20 bg-red-500/10 p-3 text-[11px] text-red-200">
+                {error}
+              </div>
+            )}
+
+            {!loading && !error && messages.length === 0 && (
+              <p className="p-4 text-center text-xs text-slate-500">No messages in this view.</p>
+            )}
+
+            {!loading && messages.map((message) => (
+              <button
+                key={message.id}
+                type="button"
+                onClick={() => openMessage(message)}
+                className={`w-full border-b border-white/5 px-3 py-2.5 text-left transition hover:bg-white/5 ${
+                  selected?.id === message.id ? 'bg-cyan-500/10' : ''
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  {message.unread && <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shrink-0" />}
+                  <span className={`truncate text-xs ${message.unread ? 'font-bold text-white' : 'text-slate-300'}`}>
+                    {senderName(message.from)}
+                  </span>
+                  <span className="ml-auto shrink-0 text-[10px] text-slate-500">{formatDate(message.date)}</span>
+                </div>
+                <p className={`mt-0.5 truncate text-[11px] ${message.unread ? 'text-slate-200' : 'text-slate-400'}`}>
+                  {message.subject}
+                </p>
+                <p className="truncate text-[10px] text-slate-500 mt-0.5">{message.snippet}</p>
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Email Content / List View */}
-        <div className="flex flex-1 min-h-0">
-          {/* Thread List */}
-          <div className="w-80 shrink-0 border-r border-[#262626] overflow-y-auto thin-scrollbar p-2 space-y-1">
-            {emails.map((em) => (
-              <div
-                key={em.id}
-                onClick={() => setSelectedEmail(em)}
-                className={`cursor-pointer rounded-xl p-3 transition border ${
-                  selectedEmail?.id === em.id
-                    ? 'border-cyan-400/30 bg-cyan-500/10'
-                    : 'border-white/5 bg-[#161820] hover:border-white/15'
-                }`}
-              >
-                <div className="flex items-center justify-between text-[10px] text-slate-400 mb-1">
-                  <span className="font-bold text-white truncate max-w-[160px]">{em.sender.split('<')[0]}</span>
-                  <span>{em.date}</span>
-                </div>
-                <h4 className="text-xs font-semibold text-slate-200 truncate">{em.subject}</h4>
-                <p className="text-[11px] text-slate-400 line-clamp-2 mt-1">{em.snippet}</p>
+        {/* Reader */}
+        <div className={`${selected ? 'flex' : 'hidden md:flex'} flex-1 flex-col min-w-0`}>
+          {!selected ? (
+            <div className="flex flex-1 items-center justify-center text-xs text-slate-500">
+              Select a message to read it.
+            </div>
+          ) : (
+            <>
+              <div className="border-b border-white/10 px-5 py-3">
+                <button
+                  type="button"
+                  onClick={() => setSelected(null)}
+                  className="mb-2 flex items-center gap-1 text-[11px] text-cyan-400 md:hidden"
+                >
+                  <ArrowLeft size={11} /> Back
+                </button>
+                <h3 className="text-sm font-bold text-white leading-snug">{selected.subject}</h3>
+                <p className="mt-1 text-[11px] text-slate-400 break-all">
+                  <span className="text-slate-300">{selected.from}</span>
+                  {selected.to ? ` → ${selected.to}` : ''}
+                </p>
+                <p className="text-[10px] text-slate-500">{selected.date}</p>
+              </div>
 
-                {em.aiExtractedDeadline && (
-                  <div className="mt-2 flex items-center gap-1 text-[10px] font-mono text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 w-fit">
-                    <Clock size={10} /> Deadline: {em.aiExtractedDeadline}
+              <div className="flex flex-wrap items-center gap-2 border-b border-white/5 px-5 py-2.5">
+                <button
+                  type="button"
+                  onClick={() => convertToTask(selected)}
+                  className="flex items-center gap-1.5 rounded-lg border border-cyan-400/30 bg-cyan-500/10 px-3 py-1.5 text-[11px] font-semibold text-cyan-200 hover:bg-cyan-500/20"
+                >
+                  <PlusCircle size={12} /> Create task
+                </button>
+                <button
+                  type="button"
+                  onClick={() => generateDraft(selected)}
+                  disabled={aiBusy}
+                  className="flex items-center gap-1.5 rounded-lg border border-amber-400/30 bg-amber-500/10 px-3 py-1.5 text-[11px] font-semibold text-amber-200 hover:bg-amber-500/20 disabled:opacity-40"
+                >
+                  {aiBusy ? <Loader2 size={12} className="animate-spin" /> : <Sparkles size={12} />}
+                  Draft reply (local AI)
+                </button>
+                {taskNotice && <span className="text-[11px] text-emerald-300">{taskNotice}</span>}
+              </div>
+
+              <div className="flex-1 overflow-y-auto thin-scrollbar px-5 py-4">
+                {bodyLoading
+                  ? <div className="flex items-center gap-2 text-xs text-slate-500"><Loader2 size={13} className="animate-spin" /> Loading message…</div>
+                  : <pre className="whitespace-pre-wrap break-words font-sans text-[12.5px] leading-relaxed text-slate-200">{selected.body || selected.snippet}</pre>}
+
+                {draft && (
+                  <div className="mt-5 rounded-xl border border-amber-400/20 bg-amber-500/5 p-4">
+                    <div className="mb-2 flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">
+                      <Sparkles size={10} /> AI draft - review before sending
+                    </div>
+                    <pre className="whitespace-pre-wrap break-words font-sans text-[12.5px] leading-relaxed text-slate-200">{draft}</pre>
+                    <p className="mt-2 text-[10px] text-slate-500">
+                      Jarvis has read-only access, so it cannot send this for you.
+                    </p>
                   </div>
                 )}
               </div>
-            ))}
-          </div>
-
-          {/* Email Reading & AI Action Pane */}
-          <div className="flex flex-1 flex-col justify-between p-5 overflow-y-auto thin-scrollbar">
-            {selectedEmail ? (
-              <div className="space-y-4">
-                <div className="border-b border-white/10 pb-3">
-                  <span className="text-[10px] font-mono text-cyan-400 uppercase">From: {selectedEmail.sender}</span>
-                  <h2 className="text-base font-bold text-white mt-1">{selectedEmail.subject}</h2>
-                  <span className="text-xs text-slate-500">{selectedEmail.date}</span>
-                </div>
-
-                {/* AI Extracted Intel Banner */}
-                {selectedEmail.aiExtractedTask && (
-                  <div className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-3 flex items-center justify-between">
-                    <div>
-                      <div className="flex items-center gap-1.5 text-xs font-bold text-cyan-300">
-                        <Sparkles size={13} /> AI Extracted Actionable Deadline
-                      </div>
-                      <p className="text-xs text-slate-200 mt-0.5">{selectedEmail.aiExtractedTask}</p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => convertEmailToTask(selectedEmail)}
-                      className="flex items-center gap-1.5 rounded-lg bg-cyan-400 px-3 py-1.5 text-xs font-bold text-slate-950 shadow-glow"
-                    >
-                      <Plus size={12} /> Add to Tasks
-                    </button>
-                  </div>
-                )}
-
-                <div className="text-xs leading-relaxed text-slate-300 whitespace-pre-wrap font-sans bg-black/30 p-4 rounded-xl border border-white/5">
-                  {selectedEmail.body}
-                </div>
-
-                {/* AI Draft Reply Action */}
-                <div className="space-y-2 pt-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-300">AI Draft Reply</span>
-                    <button
-                      type="button"
-                      onClick={() => generateReply(selectedEmail)}
-                      className="flex items-center gap-1 text-xs text-cyan-400 hover:underline"
-                    >
-                      <Sparkles size={12} /> Auto-Generate Reply
-                    </button>
-                  </div>
-                  {aiDraft && (
-                    <div className="rounded-xl border border-white/10 bg-black/50 p-3 text-xs text-slate-200 whitespace-pre-wrap">
-                      {aiDraft}
-                    </div>
-                  )}
-                </div>
-              </div>
-            ) : (
-              <div className="flex h-full flex-col items-center justify-center text-slate-500 text-xs">
-                <Mail size={32} className="mb-2 text-slate-600" />
-                <p>Select an email thread to inspect AI summaries, tasks, and draft replies.</p>
-              </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
       </div>
     </div>

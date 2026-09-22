@@ -18,6 +18,22 @@ class Settings(BaseSettings):
     apify_api_token: str = ""
     supadata_api_key: str = ""
 
+    # --- Google Workspace integration (Gmail + Calendar) ---------------------
+    # Create these once at https://console.cloud.google.com and paste them here
+    # or into backend/.env. See GOOGLE_SETUP.md for the exact walkthrough.
+    # The app works fine with these empty - the UI shows "Not Connected".
+    google_client_id: str = ""
+    google_client_secret: str = ""
+    # MUST match the redirect URI registered in Google Cloud exactly.
+    google_redirect_uri: str = "http://127.0.0.1:8000/api/google/callback"
+    # Directory holding OAuth tokens. Lives under backend/data/ which is
+    # git-ignored, so credentials are never committed or synced to the vault.
+    google_token_dir: str = "./data/integrations"
+
+    @property
+    def google_configured(self) -> bool:
+        return bool(self.google_client_id.strip() and self.google_client_secret.strip())
+
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     @property

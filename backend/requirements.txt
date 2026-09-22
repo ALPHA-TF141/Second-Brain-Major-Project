@@ -16,6 +16,10 @@ sqlalchemy==2.0.36
 pydantic==2.10.3
 pydantic-settings==2.7.0
 python-jose[cryptography]==3.3.0
+# Imported DIRECTLY by app/integrations/token_store.py (Fernet encryption of
+# OAuth tokens). It arrived transitively via python-jose above, but a direct
+# import needs a direct declaration - same lesson as httpx.
+cryptography>=42.0.0
 passlib==1.7.4
 python-dotenv==1.0.1
 
