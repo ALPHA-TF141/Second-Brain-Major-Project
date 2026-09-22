@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  AlertTriangle, Calendar, CheckCircle2, ChevronDown, ExternalLink, Info,
+  AlertTriangle, Brain, Calendar, CheckCircle2, ChevronDown, ExternalLink, Info,
   KeyRound, Link2, Loader2, Mail, RefreshCw, ShieldCheck, Trash2, Zap
 } from 'lucide-react';
 import { useBackend } from '../context/BackendContext.jsx';
@@ -49,20 +49,27 @@ export default function IntegrationsManager() {
 
   const pollRef = useRef(null);
 
+  // Mail -> Brain ingestion
+  const [syncStatus, setSyncStatus] = useState(null);
+  const [syncResult, setSyncResult] = useState(null);
+  const [syncing, setSyncing] = useState(false);
+
   const mailEmails = mailAccounts.map((a) => (a.email || '').toLowerCase());
 
   async function loadAll() {
     try {
-      const [mailRes, calRes, googRes, localRes] = await Promise.all([
+      const [mailRes, calRes, googRes, localRes, syncRes] = await Promise.all([
         apiFetch(`${apiClient.baseUrl}/api/mail/accounts`),
         apiFetch(`${apiClient.baseUrl}/api/calendar/sources`),
         apiFetch(`${apiClient.baseUrl}/api/google/status`),
-        apiFetch(`${apiClient.baseUrl}/api/os/integrations`)
+        apiFetch(`${apiClient.baseUrl}/api/os/integrations`),
+        apiFetch(`${apiClient.baseUrl}/api/mail/sync/status`)
       ]);
       if (mailRes.ok) setMailAccounts(await mailRes.json());
       if (calRes.ok) setCalendarSources(await calRes.json());
       if (googRes.ok) setGoogle(await googRes.json());
       if (localRes.ok) setLocal(await localRes.json());
+      if (syncRes.ok) setSyncStatus(await syncRes.json());
     } catch {
       setNotice({ type: 'error', text: 'Could not reach the backend. Is it running?' });
     }
@@ -198,6 +205,36 @@ export default function IntegrationsManager() {
       }
     } finally {
       setBusy('');
+    }
+  }
+
+  async function syncNow() {
+    setSyncing(true);
+    setSyncResult(null);
+    setNotice({ type: 'info', text: 'Reading new mail and building memories…' });
+    try {
+      const res = await apiFetch(`${apiClient.baseUrl}/api/mail/sync`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ account_id: '' })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setNotice({ type: 'error', text: data.detail || 'Sync failed.' });
+        return;
+      }
+      setSyncResult(data);
+      setNotice({
+        type: 'success',
+        text: `${data.ingested ?? 0} email(s) turned into memories` +
+              (data.skipped_bulk ? `, ${data.skipped_bulk} bulk skipped` : '') +
+              (data.actions ? `, ${data.actions} action item(s) detected` : '') + '.'
+      });
+      await loadAll();
+    } catch (err) {
+      setNotice({ type: 'error', text: String(err.message || err) });
+    } finally {
+      setSyncing(false);
     }
   }
 
@@ -448,6 +485,95 @@ GOOGLE_CLIENT_SECRET=...`}</pre>
             )}
           </div>
         </section>
+
+        {/* ==================== MAIL -> BRAIN ==================== */}
+        {mailAccounts.length > 0 && (
+          <section className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Brain size={14} className="text-purple-400" />
+              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
+                Mail → Brain
+              </h3>
+              <span className={`ml-auto rounded px-2 py-0.5 text-[10px] font-mono font-bold ${
+                syncStatus?.enabled ? 'bg-emerald-400/10 text-emerald-300' : 'bg-slate-500/10 text-slate-400'
+              }`}>
+                {syncStatus?.enabled ? `AUTO EVERY ${syncStatus.interval_minutes}m` : 'MANUAL ONLY'}
+              </span>
+            </div>
+
+            <div className="rounded-2xl border border-purple-400/20 bg-[#0f1422] p-4 space-y-3">
+              <p className="text-[11px] text-slate-400 leading-relaxed">
+                New mail is read (never marked as read), turned into a memory you can ask
+                questions about, written into the vault + wiki + knowledge graph, and
+                scanned for deadlines that become tasks and alerts.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={syncNow}
+                  disabled={syncing}
+                  className="flex items-center gap-1.5 rounded-lg bg-purple-400 px-4 py-2 text-xs font-bold text-slate-950 disabled:opacity-40"
+                >
+                  {syncing ? <Loader2 size={12} className="animate-spin" /> : <RefreshCw size={12} />}
+                  {syncing ? 'Syncing…' : 'Sync mail now'}
+                </button>
+                {syncStatus && (
+                  <span className="text-[11px] text-slate-500">
+                    {syncStatus.folders?.join(', ')} · max {syncStatus.limit_per_run} per run
+                    {syncStatus.skip_bulk ? ' · bulk skipped' : ''}
+                  </span>
+                )}
+              </div>
+
+              {/* per-account ingestion totals */}
+              {syncStatus?.stats && Object.keys(syncStatus.stats).length > 0 && (
+                <div className="space-y-1.5 pt-2 border-t border-white/5">
+                  {Object.entries(syncStatus.stats).map(([accountId, stat]) => (
+                    <div key={accountId} className="flex items-center justify-between text-[11px]">
+                      <span className="text-slate-400 truncate">{stat.email || accountId}</span>
+                      <span className="text-slate-500 font-mono shrink-0">
+                        {stat.total_ingested || 0} stored · {stat.actions || 0} actions
+                        {stat.last_sync ? ` · ${new Date(stat.last_sync).toLocaleTimeString()}` : ''}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {syncResult?.results?.some((r) => r.messages?.length > 0) && (
+                <div className="space-y-1 pt-2 border-t border-white/5">
+                  <p className="text-[10px] font-mono uppercase tracking-wider text-slate-500">
+                    Just ingested
+                  </p>
+                  {syncResult.results.flatMap((r) => r.messages || []).slice(0, 6).map((m, i) => (
+                    <div key={i} className="flex items-start gap-2 text-[11px]">
+                      <span className={`mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full ${
+                        m.importance === 'high' ? 'bg-red-400'
+                          : m.importance === 'normal' ? 'bg-amber-400' : 'bg-slate-500'
+                      }`} />
+                      <span className="text-slate-300 truncate">{m.subject}</span>
+                      {m.actions > 0 && (
+                        <span className="ml-auto shrink-0 rounded bg-amber-400/10 px-1.5 py-0.5 text-[9px] font-mono text-amber-300">
+                          {m.actions} ACTION
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className="flex items-start gap-1.5 pt-2 border-t border-white/5 text-[10px] text-slate-500">
+                <ShieldCheck size={10} className="mt-0.5 shrink-0" />
+                <span>
+                  Memories are searchable in AI Agent and appear in Knowledge, the graph and
+                  the wiki. Tune the interval in <span className="font-mono">backend/.env</span>{' '}
+                  (<span className="font-mono">MAIL_SYNC_INTERVAL_MINUTES</span>).
+                </span>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ==================== CALENDAR ==================== */}
         <section className="space-y-3">

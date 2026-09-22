@@ -280,6 +280,18 @@ export const apiClient = {
   disconnectMail: (accountId) =>
     request(`/api/mail/accounts/${encodeURIComponent(accountId)}`, { method: 'DELETE' }),
 
+  // ---- Mail -> Brain ingestion -------------------------------------------
+  mailSyncStatus: () => request('/api/mail/sync/status'),
+  mailSyncNow: (accountId = '') =>
+    request('/api/mail/sync', {
+      method: 'POST',
+      body: JSON.stringify({ account_id: accountId })
+    }),
+  notifications: (limit = 50) => request(`/api/os/notifications?limit=${limit}`),
+  markNotificationRead: (id) =>
+    request(`/api/os/notifications/${id}/read`, { method: 'POST' }),
+  clearNotifications: () => request('/api/os/notifications', { method: 'DELETE' }),
+
   calendarSources: () => request('/api/calendar/sources'),
   addCalendarFeed: (url, label = '', accountEmail = '') =>
     request('/api/calendar/feed', {

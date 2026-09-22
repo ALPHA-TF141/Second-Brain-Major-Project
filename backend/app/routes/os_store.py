@@ -235,6 +235,7 @@ class OSDataStore:
                     },
                 },
                 "gmail_messages": [],
+                "notifications": [],
             }
             self.data_file.write_text(json.dumps(default_data, indent=2), encoding="utf-8")
 
@@ -247,6 +248,44 @@ class OSDataStore:
 
     def _write(self, data: Dict[str, Any]):
         self.data_file.write_text(json.dumps(data, indent=2), encoding="utf-8")
+
+    # Notifications (real events only - produced by agents, never seeded)
+    def get_notifications(self, limit: int = 50) -> List[Dict]:
+        return self._read().get("notifications", [])[:limit]
+
+    def add_notification(self, payload: Dict) -> Dict:
+        data = self._read()
+        item = {
+            "id": f"ntf_{datetime.utcnow().strftime('%Y%m%d_%H%M%S_%f')[:19]}",
+            "timestamp": datetime.utcnow().isoformat(),
+            "title": payload.get("title", "Notification"),
+            "body": payload.get("body", ""),
+            "kind": payload.get("kind", "info"),
+            "priority": payload.get("priority", "medium"),
+            "source": payload.get("source", "system"),
+            "read": False,
+        }
+        data.setdefault("notifications", []).insert(0, item)
+        data["notifications"] = data["notifications"][:200]
+        self._write(data)
+        return item
+
+    def mark_notification_read(self, notification_id: str) -> Optional[Dict]:
+        data = self._read()
+        for item in data.get("notifications", []):
+            if item["id"] == notification_id:
+                item["read"] = True
+                self._write(data)
+                return item
+        return None
+
+    def clear_notifications(self, only_read: bool = True) -> int:
+        data = self._read()
+        before = data.get("notifications", [])
+        kept = [n for n in before if not (n.get("read") if only_read else True)]
+        data["notifications"] = kept
+        self._write(data)
+        return len(before) - len(kept)
 
     # Tasks
     def get_tasks(self) -> List[Dict]:

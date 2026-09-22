@@ -41,7 +41,7 @@ class GitVaultAgent:
             }
             self.graph_file.write_text(json.dumps(initial_graph, indent=2), encoding="utf-8")
 
-    def store_card(self, card: JSONMemoryCard) -> str:
+    def store_card(self, card: JSONMemoryCard, sync: bool = True) -> str:
         """Saves a JSON card organized by date: memory_vault/cards/YYYY-MM-DD/<id>.json"""
         date_folder = self.cards_dir / datetime.utcnow().strftime("%Y-%m-%d")
         date_folder.mkdir(parents=True, exist_ok=True)
@@ -61,13 +61,16 @@ class GitVaultAgent:
 
         self._pending_push = True
 
-        # 100% Autonomous Auto-Push: silently sync to GitHub in background
-        try:
-            loop = asyncio.get_event_loop()
-            if loop.is_running():
-                loop.create_task(self.sync_to_github())
-        except Exception:
-            pass
+        # 100% Autonomous Auto-Push: silently sync to GitHub in background.
+        # Bulk callers (mail ingestion) pass sync=False - otherwise a 25-email
+        # run would fire 25 pushes. The 60-second vault loop picks those up.
+        if sync:
+            try:
+                loop = asyncio.get_event_loop()
+                if loop.is_running():
+                    loop.create_task(self.sync_to_github())
+            except Exception:
+                pass
 
         return str(card_path)
 

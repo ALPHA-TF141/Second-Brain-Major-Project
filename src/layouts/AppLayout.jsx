@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import {
   Activity,
@@ -31,9 +31,50 @@ import CommandPaletteModal from '../components/CommandPaletteModal.jsx';
 import { useBackend } from '../context/BackendContext.jsx';
 
 export default function AppLayout() {
-  const { apiClient, loginDemo, username } = useBackend();
+  const { apiClient, loginDemo, username, liveEvents } = useBackend();
   const location = useLocation();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const lastNotified = useRef(null);
+
+  /**
+   * Surface mail-ingestion alerts as real OS notifications.
+   *
+   * The backend broadcasts a `mail_sync` event over /ws/live whenever an agent
+   * pass ingests mail. In Electron the renderer can raise a native Windows
+   * notification directly, so a deadline Jarvis found reaches the user even if
+   * the window is buried.
+   */
+  useEffect(() => {
+    const latest = (liveEvents || [])[0];
+    if (!latest || latest.type !== 'mail_sync') return;
+    if (lastNotified.current === latest.timestamp) return;
+    lastNotified.current = latest.timestamp;
+
+    const count = latest.ingested ?? 0;
+    const actions = latest.actions ?? 0;
+    if (!count) return;
+
+    const title = actions
+      ? `Jarvis: ${actions} new action item${actions > 1 ? 's' : ''}`
+      : `Jarvis: ${count} new email${count > 1 ? 's' : ''} stored`;
+
+    const body = `${latest.account || 'Mailbox'} - ${count} message${count > 1 ? 's' : ''} added to memory` +
+      (actions ? `, ${actions} deadline${actions > 1 ? 's' : ''} detected.` : '.');
+
+    try {
+      if (typeof window !== 'undefined' && 'Notification' in window) {
+        if (Notification.permission === 'granted') {
+          new Notification(title, { body, silent: false });
+        } else if (Notification.permission !== 'denied') {
+          Notification.requestPermission().then((permission) => {
+            if (permission === 'granted') new Notification(title, { body });
+          });
+        }
+      }
+    } catch {
+      // notifications are a nicety - never let them break the shell
+    }
+  }, [liveEvents]);
 
   // Auto-login as Immanuel & auto-start capture
   useEffect(() => {

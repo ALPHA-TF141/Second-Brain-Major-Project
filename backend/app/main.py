@@ -72,6 +72,41 @@ async def on_startup():
 
     asyncio.create_task(_vault_sync_loop())
 
+    # --- Automatic mail ingestion loop ---
+    # Reads connected mailboxes on a timer and turns each new email into a
+    # memory (SQLite + vault card + wiki + graph). Controlled by
+    # MAIL_SYNC_ENABLED / MAIL_SYNC_INTERVAL_MINUTES.
+    async def _mail_sync_loop():
+        from app.agents.mail_ingestion_agent import mail_ingestion_agent
+        from app.auth.dependencies import get_current_user  # noqa: F401  (import guard)
+        from app.database.session import SessionLocal
+        from app.models.user import User
+
+        # let startup finish before the first pass
+        await asyncio.sleep(20)
+        while True:
+            try:
+                if settings.mail_sync_enabled:
+                    def run_once():
+                        db = SessionLocal()
+                        try:
+                            owner = db.query(User).order_by(User.id.asc()).first()
+                            if owner:
+                                return mail_ingestion_agent.sync_all(db, owner.id, notify=True)
+                        finally:
+                            db.close()
+                        return None
+
+                    result = await asyncio.to_thread(run_once)
+                    if result and result.get("ingested"):
+                        print(f"[MailSync] Ingested {result['ingested']} email(s), "
+                              f"{result.get('actions', 0)} action item(s).")
+            except Exception as exc:
+                print(f"[MailSync] Pass failed: {exc}")
+            await asyncio.sleep(max(1, settings.mail_sync_interval_minutes) * 60)
+
+    asyncio.create_task(_mail_sync_loop())
+
     # --- Google integration status (Gmail + Calendar) ---
     if settings.google_configured:
         from app.integrations.token_store import google_token_store

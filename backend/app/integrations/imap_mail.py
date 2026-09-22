@@ -383,6 +383,175 @@ class GmailImapClient:
         except Exception:
             pass
 
+    # ------------------------------------------------- incremental sync API
+    # IMAP *sequence* numbers shift whenever mail is deleted or moved, so they
+    # are useless as a saved cursor. UIDs are stable within a folder for as long
+    # as UIDVALIDITY is unchanged - that pair is the correct cursor.
+    def folder_state(self, folder: str = "inbox") -> Dict[str, Any]:
+        """Returns {uidvalidity, uidnext, exists} for a mailbox."""
+        mailbox = FOLDER_MAP.get(folder, folder)
+        conn = self._connect()
+        try:
+            status, data = conn.select(_imap_quote(mailbox), readonly=True)
+            if status != "OK":
+                raise ImapError(f"Mailbox '{mailbox}' is not available for this account.")
+
+            uidvalidity = None
+            uidnext = None
+            exists = 0
+            for item in data:
+                text = item.decode("utf-8", "replace") if isinstance(item, bytes) else str(item)
+                match = re.search(r"UIDVALIDITY\s+(\d+)", text)
+                if match:
+                    uidvalidity = int(match.group(1))
+                match = re.search(r"UIDNEXT\s+(\d+)", text)
+                if match:
+                    uidnext = int(match.group(1))
+                match = re.search(r"(\d+)\s+EXISTS", text)
+                if match:
+                    exists = int(match.group(1))
+
+            if uidvalidity is None:
+                # Some servers only report it via STATUS
+                status, status_data = conn.status(_imap_quote(mailbox), "(UIDVALIDITY UIDNEXT MESSAGES)")
+                if status == "OK" and status_data:
+                    text = status_data[0].decode("utf-8", "replace") if isinstance(status_data[0], bytes) else str(status_data[0])
+                    match = re.search(r"UIDVALIDITY\s+(\d+)", text)
+                    if match:
+                        uidvalidity = int(match.group(1))
+                    match = re.search(r"UIDNEXT\s+(\d+)", text)
+                    if match:
+                        uidnext = int(match.group(1))
+                    match = re.search(r"MESSAGES\s+(\d+)", text)
+                    if match:
+                        exists = int(match.group(1))
+
+            return {"uidvalidity": uidvalidity, "uidnext": uidnext, "exists": exists, "mailbox": mailbox}
+        finally:
+            self._safe_logout(conn)
+
+    def list_uids_since(self, folder: str = "inbox", since_uid: int = 0, limit: int = 25) -> List[str]:
+        """UIDs newer than `since_uid`, oldest-first so ingestion is chronological."""
+        mailbox = FOLDER_MAP.get(folder, folder)
+        conn = self._connect()
+        try:
+            status, _ = conn.select(_imap_quote(mailbox), readonly=True)
+            if status != "OK":
+                raise ImapError(f"Mailbox '{mailbox}' is not available for this account.")
+
+            # UID SEARCH, not SEARCH: we need stable identifiers.
+            status, data = conn.uid("SEARCH", None, f"UID {since_uid + 1}:*")
+            if status != "OK":
+                return []
+            uids = [u.decode() for u in (data[0] or b"").split() if u.decode().isdigit()]
+            # "UID n:*" always returns at least the last message even when nothing
+            # is new, so filter explicitly.
+            uids = [u for u in uids if int(u) > since_uid]
+            return uids[:limit]
+        finally:
+            self._safe_logout(conn)
+
+    def fetch_by_uids(self, folder: str, uids: List[str]) -> List[Dict[str, Any]]:
+        """
+        Fully parsed messages for the given UIDs, including the headers needed to
+        tell real mail from bulk mail (List-Unsubscribe / Precedence).
+        """
+        if not uids:
+            return []
+        mailbox = FOLDER_MAP.get(folder, folder)
+        conn = self._connect()
+        results: List[Dict[str, Any]] = []
+        try:
+            status, _ = conn.select(_imap_quote(mailbox), readonly=True)
+            if status != "OK":
+                raise ImapError(f"Mailbox '{mailbox}' is not available for this account.")
+
+            for chunk_start in range(0, len(uids), 10):
+                chunk = uids[chunk_start:chunk_start + 10]
+                # BODY.PEEK[] - never marks mail as read.
+                status, data = conn.uid("FETCH", ",".join(chunk), "(BODY.PEEK[] FLAGS)")
+                if status != "OK":
+                    continue
+                for uid, raw, flags in self._extract_uid_payloads(data):
+                    try:
+                        parsed = email.message_from_bytes(raw)
+                    except Exception:
+                        continue
+                    results.append({
+                        "uid": uid,
+                        "subject": _decode(parsed.get("Subject")) or "(no subject)",
+                        "from": _decode(parsed.get("From")),
+                        "to": _decode(parsed.get("To")),
+                        "cc": _decode(parsed.get("Cc")),
+                        "date": _decode(parsed.get("Date")),
+                        "date_parsed": self._parse_date(parsed.get("Date")),
+                        "message_id": (parsed.get("Message-ID") or "").strip(),
+                        "body": self._body_text(parsed),
+                        "unread": self._is_unread(flags),
+                        "flagged": "\\Flagged" in flags,
+                        "list_unsubscribe": bool(parsed.get("List-Unsubscribe")),
+                        "precedence": (parsed.get("Precedence") or "").lower(),
+                        "auto_submitted": (parsed.get("Auto-Submitted") or "").lower(),
+                        "folder": folder,
+                    })
+        finally:
+            self._safe_logout(conn)
+        return results
+
+    @staticmethod
+    def _parse_date(value: Optional[str]):
+        if not value:
+            return None
+        try:
+            parsed = email.utils.parsedate_to_datetime(value)
+            if parsed and parsed.tzinfo:
+                return parsed.astimezone(timezone.utc)
+            return parsed
+        except Exception:
+            return None
+
+    @staticmethod
+    def _extract_uid_payloads(data: list):
+        r"""
+        Yield (uid, raw_bytes, flags) from a `UID FETCH ... (BODY.PEEK[] FLAGS)` reply.
+
+        Wire format for two messages looks like:
+            * 1 FETCH (UID 101 BODY[] {123}
+            <123 raw bytes>
+             FLAGS (\Seen))
+            * 2 FETCH (UID 102 BODY[] {45}
+            <45 raw bytes>
+             FLAGS ())
+        So: each tuple carries the spec + literal, and the FLAGS line that follows
+        belongs to the message that was just read. Reading the UID out of the spec
+        (rather than counting positionally) is what makes this reliable.
+        """
+        current = None  # {"uid": str, "raw": bytes, "flags": str}
+
+        for item in data:
+            if isinstance(item, tuple):
+                spec = item[0].decode("utf-8", "replace") if isinstance(item[0], bytes) else str(item[0])
+                literal = next((part for part in item[1:] if isinstance(part, bytes)), b"")
+
+                uid_match = re.search(r"UID\s+(\d+)", spec) or re.match(r"\s*(\d+)\s+\(", spec)
+                if not uid_match:
+                    continue
+
+                if current and current["raw"]:
+                    yield current["uid"], current["raw"], current["flags"]
+
+                current = {"uid": uid_match.group(1), "raw": literal, "flags": ""}
+
+                # A trailer line may follow the literal; if it does not, this
+                # message is already complete and is yielded on the next round.
+            elif isinstance(item, bytes) and current is not None:
+                text = item.decode("utf-8", "replace")
+                if "FLAGS" in text:
+                    current["flags"] = text
+
+        if current and current["raw"]:
+            yield current["uid"], current["raw"], current["flags"]
+
     # ------------------------------------------------------------ validate
     def verify(self) -> Dict[str, Any]:
         """Used by the connect endpoint to prove the credentials work."""

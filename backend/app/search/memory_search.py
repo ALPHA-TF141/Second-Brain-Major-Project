@@ -1,3 +1,4 @@
+import re
 from datetime import datetime, timedelta
 
 from sqlalchemy import and_, func, or_
@@ -7,6 +8,26 @@ from app.models.memory import Memory, MemoryTag, SearchIndex
 
 
 class MemorySearch:
+    STOPWORDS = {
+        "a", "an", "and", "are", "as", "at", "be", "by", "did", "do", "does", "for",
+        "from", "had", "has", "have", "how", "i", "in", "is", "it", "its", "me", "my",
+        "of", "on", "or", "said", "say", "she", "tell", "that", "the", "their", "them",
+        "there", "they", "this", "to", "was", "we", "were", "what", "when", "where",
+        "which", "who", "why", "will", "with", "you", "your", "about", "any", "can",
+    }
+
+    def _tokens(self, text: str) -> list[str]:
+        """Meaningful lowercase words from a user question."""
+        words = re.findall(r"[a-z0-9][a-z0-9_+.#-]{2,}", (text or "").lower())
+        tokens = [w for w in words if w not in self.STOPWORDS]
+        # de-duplicate but keep order
+        seen, out = set(), []
+        for token in tokens:
+            if token not in seen:
+                seen.add(token)
+                out.append(token)
+        return out
+
     def search(
         self,
         db: Session,
@@ -20,16 +41,28 @@ class MemorySearch:
     ):
         """
         Search memories with smart ranking:
-        - Exact text matches get higher priority
+        - Whole-phrase matches rank highest
+        - Multi-word questions match on ANY meaningful word and are ranked by how
+          many of those words they contain
         - Recent memories get higher priority
         - Specified category (topic/app/source) matches get boosted
-        - Relevance is computed and results are re-ranked
         """
         query = db.query(Memory).join(SearchIndex, SearchIndex.memory_id == Memory.id)
 
         filters = []
+        tokens: list[str] = []
         if q:
-            filters.append(SearchIndex.searchable_text.contains(q))
+            tokens = self._tokens(q)
+            if len(tokens) <= 1:
+                # Single word (or no useful words): literal substring match.
+                filters.append(SearchIndex.searchable_text.contains(q if not tokens else tokens[0]))
+            else:
+                # A natural-language question is NOT a substring of any stored
+                # text, so matching it whole returned zero rows and the assistant
+                # had nothing to answer from whenever the embedding model was
+                # unavailable. Match on any meaningful word instead, then rank by
+                # how many words matched.
+                filters.append(or_(*[SearchIndex.searchable_text.contains(t) for t in tokens]))
         if source_type:
             filters.append(Memory.source_type == source_type)
         if topic:
@@ -56,14 +89,28 @@ class MemorySearch:
         # Compute relevance score for each result
         scored = []
         q_lower = q.lower()
+        index_by_memory = {
+            row.memory_id: row for row in
+            db.query(SearchIndex).filter(SearchIndex.memory_id.in_([m.id for m in all_results])).all()
+        } if all_results else {}
+
         for memory in all_results:
             score = self._compute_relevance_score(memory, q_lower, source_type, topic, app)
-            scored.append((score, memory.created_at, memory))
-        
-        # Sort by score (desc) then by date (desc)
-        scored.sort(key=lambda x: (-x[0], -x[1].timestamp()))
-        
-        return [m for _, _, m in scored[:limit]]
+
+            # How many of the question's words actually appear - the main signal
+            # for a multi-word question.
+            hits = 0
+            if tokens:
+                haystack = (index_by_memory.get(memory.id).searchable_text.lower()
+                            if index_by_memory.get(memory.id) else f"{memory.title} {memory.content}".lower())
+                hits = sum(1 for token in tokens if token in haystack)
+
+            scored.append((hits, score, memory.created_at, memory))
+
+        # Most matched words first, then relevance, then recency
+        scored.sort(key=lambda x: (-x[0], -x[1], -x[2].timestamp()))
+
+        return [m for _, _, _, m in scored[:limit]]
 
     def _compute_relevance_score(self, memory: Memory, query: str, source_type: str, topic: str, app: str) -> float:
         """

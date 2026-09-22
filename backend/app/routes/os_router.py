@@ -218,6 +218,25 @@ def list_agent_activity():
 
 # ============ 8. INTEGRATIONS ============
 
+@router.get("/notifications")
+def list_notifications(limit: int = 50):
+    """Real notifications produced by agents (mail ingestion, insights)."""
+    return os_store.get_notifications(limit=limit)
+
+
+@router.post("/notifications/{notification_id}/read")
+def mark_notification_read(notification_id: str):
+    item = os_store.mark_notification_read(notification_id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Notification not found")
+    return item
+
+
+@router.delete("/notifications")
+def clear_notifications(only_read: bool = True):
+    return {"removed": os_store.clear_notifications(only_read=only_read)}
+
+
 @router.get("/integrations")
 def list_integrations():
     return os_store.get_integrations()

@@ -30,6 +30,22 @@ class Settings(BaseSettings):
     # git-ignored, so credentials are never committed or synced to the vault.
     google_token_dir: str = "./data/integrations"
 
+    # --- Automatic mail ingestion into the memory vault ---------------------
+    mail_sync_enabled: bool = True
+    mail_sync_interval_minutes: int = 10
+    # Which IMAP folders to read. INBOX by default - add "sent" to also learn
+    # from what you write.
+    mail_sync_folders: str = "inbox"
+    # New messages processed per folder per run, so a huge mailbox cannot stall
+    # the app on first sync.
+    mail_sync_limit: int = 25
+    # On the very first Google sync, how far back to look.
+    mail_sync_backfill_days: int = 7
+    # Skip newsletters/promotions (detected via List-Unsubscribe / Precedence).
+    mail_sync_skip_bulk: bool = True
+    # Also write each email into the GitHub-backed memory vault + wiki + graph.
+    mail_store_in_vault: bool = True
+
     @property
     def google_configured(self) -> bool:
         return bool(self.google_client_id.strip() and self.google_client_secret.strip())

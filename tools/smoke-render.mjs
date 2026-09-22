@@ -125,6 +125,10 @@ const CONNECTED_PAYLOADS = {
     { id: 'gacct_1', email: 'vtu24334@veltech.edu.in', name: 'College', provider: 'google',
       provider_label: 'Google OAuth', services: ['gmail', 'calendar'], scopes: [], status: 'connected' }
   ],
+  '/api/os/notifications': [
+    { id: 'ntf_1', title: 'Deadline: IEEE conference draft deadline', body: 'From sharma@university.edu (college) - due 2026-09-25', kind: 'email_action', priority: 'high', source: 'mail', read: false, timestamp: '2026-09-22T10:00:00Z' },
+    { id: 'ntf_2', title: 'Important email: Project review notes', body: 'From sharma@university.edu', kind: 'email_important', priority: 'high', source: 'mail', read: true, timestamp: '2026-09-22T09:00:00Z' }
+  ],
   '/api/calendar/sources': [
     { id: 'ics_xyz789', email: 'College', name: 'College Calendar', provider: 'ical',
       provider_label: 'iCal secret address', kind: 'snapshot', status: 'connected',
@@ -176,6 +180,8 @@ const offlineFetch = async (url) => {
     '/api/google/status': { configured: false, accounts: [], account_count: 0, setup_help: '' },
     '/api/mail/accounts': [],
     '/api/calendar/sources': [],
+    '/api/os/notifications': [],
+    '/api/mail/sync/status': { enabled: false, interval_minutes: 10, folders: ['inbox'], limit_per_run: 25, skip_bulk: true, is_syncing: false, stats: {} },
     '/api/google/accounts': [],
     '/api/google/gmail/messages': { messages: [], count: 0 },
     '/api/google/calendar/events': { events: [], count: 0 },
