@@ -32,3 +32,17 @@ Email from vamsi05@blendvidya.in to vtu24334@veltech.edu.in about: TRAINING AND 
 **Identified Concepts & Entities:** `mayaa02@blendvidya.com`, `vtu24334@veltech.edu.in`
 
 ---
+
+### Synthesized Entry: TRAINING AND INTERNSHIP (2026-09-22 10:49 UTC)
+- **Source Application:** `gmail`
+- **Priority Rating:** `MEDIUM`
+- **Context Summary:** Email from abhi03@blendvidya.com to vtu24334@veltech.edu.in about: TRAINING AND INTERNSHIP
+
+#### Key Takeaways & Evidence:
+- Action: Action: TRAINING AND INTERNSHIP
+- From: abhi03@blendvidya.com
+- Received: Tue, 02 Jan 2024 13:54:53 +0530
+
+**Identified Concepts & Entities:** `abhi03@blendvidya.com`, `vtu24334@veltech.edu.in`, `interview`
+
+---

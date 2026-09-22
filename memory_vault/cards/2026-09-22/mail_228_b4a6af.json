@@ -1,0 +1,29 @@
+{
+  "id": "mail_228_b4a6af",
+  "timestamp": "2024-01-12T11:57:37+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Annual reminder about YouTube’s Terms of Service, Community Guidelines and Privacy Policy",
+  "topic": "Email: Annual reminder about YouTube’s Terms of Service, Community Guidelines and Privacy Policy",
+  "summary": "Email from YouTube <no-reply@youtube.com> to vtu24334@veltech.edu.in about: Annual reminder about YouTube’s Terms of Service, Community Guidelines and Privacy Policy",
+  "key_pointers": [
+    "From: YouTube <no-reply@youtube.com>",
+    "Received: Fri, 12 Jan 2024 03:57:37 -0800"
+  ],
+  "entities": [
+    "no-reply@youtube.com",
+    "vtu24334@veltech.edu.in"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "youtube.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@youtube.com",
+  "raw_ocr_excerpt": "This email is an annual reminder that your use of YouTube is subject to the  \nTerms of Service  \n<https://notifications.google.com/g/p/ANiao5q9MXsLhJfpBSLrK1NiPyUlRxcEEOugpHP9vGp7baPfAb3YfbXF_jkWyAyykEUuqHnjJ_usUVU6PzUJOq6nVEikNFItnaEc7jOHgib_GhPMCKcxN2OjNHwAwss-UxJFhCURKWP6eiCZE4BVh6IX-J_hhatUzfz8KJ56m5H0zzi-aFoxjYWpKj5mJ2bFLtq4clnQobQYX-MifrhZ9ZEU49wyzEKdK5ejjKLwC10KvUh8bpY0YokHisevWU-X>,  \nCommunity Guidelines  \n<https://notifications.google.com/g/p/ANiao5qcnKloTYwoLozNG_K5-fqfUA1F2g2x3m-giToXftN8DUDuuaoif5pBS8xAnkDi4Dp51z3FNud55hKBcrGsa2mBA5BTYqviua_fJT-fhALpmpl02yTHbACdMBk_m3r2cSksBm0gXaC-o5RHbpaAD9KBAZChBKISUX0hg45JaQ54P9NcVReT74ADAyYYNWjZ4fXRunc1pGXswB5Z5rH07mb9IS-39TF0tWGHkrhBDGeGBfpL1QKnHzqkip2cxaoz4LSmBXF3JFMP6nN9i-W-VLSm0AY4I5vnIv1WQyDLyorKkAziiPsQvA>  \nand Google’s Privacy Policy  \n<https://notifications.google.com/g/p/ANiao5oKyNGFRf639bj7YtPY3LuXw0bqfPoH4A6HkPWLA6uZw-T0EVAwf1rKZRNd-VqB2rbOjMVMCHQuoQbdOpHE746m2lkMv6RyMlovGsSALnZok7qUVXRCERFpeCGOZ5lX6MFQB9VBrz5HXASRXCflW51HkChizcAL5LqcGI8v6hkZDDKfHNKRG7exS__DCFcPPcUH3QkkCvurX5jI3A4D09Oa_wGba1f1Xi98y-XWhObxbvcAmXK646nKOQQhW5mC3-RoxHsZd1Y>.  \nWhile our Terms of Service remain a legal document, we’ve done our best to  \nmake them easy to understand.\nThe Community Guidelines  \n<https://notifications.google.com/g/p/ANiao5oy7dygxNV_MLNGqSTgoxqbYJ8Pi1_KjkfAAZ3plt8mbQrngxtIoguEDSfxPZfEk0Dn-WKV3g84a2Df4Oak02iwFiIPwSm4EZA84s6FQo3ly4cgkj66TfmPS_Sm0tlLcrLd3OKrK5pdhwrreYod-DjfHd4hRKcQLSUIECd1SpKHJFDsH0u32XYCziychbupV18h7VvWu80NZ",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}
