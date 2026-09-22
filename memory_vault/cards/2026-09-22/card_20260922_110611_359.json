@@ -1,0 +1,28 @@
+{
+  "id": "card_20260922_110611_359",
+  "timestamp": "2026-09-22T11:06:11.359214Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Inbox (1,193) - lmariaimmanuel@gmail.com - Gmail - Google Chrome",
+  "topic": "Inbox (1,193) - lmariaimmanuel@gmail.com - Gm",
+  "summary": "[General] Inbox (1,193) - lmariaimmanuel@gmail.com - Gmail: Activity on chrome.exe: Inbox (1,193) - lmariaimmanuel@gmail.com - Gmail - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Inbox (1,193) - lmariaimmanuel@gmail.com - Gmail - Google Chrome"
+  ],
+  "entities": [
+    "Activity",
+    "Gmail",
+    "Inbox",
+    "Google"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Inbox (1,193) - lmariaimmanuel@gmail.com - Gmail - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_110611_359.webp",
+  "hero_image_info_score": 32.4
+}
