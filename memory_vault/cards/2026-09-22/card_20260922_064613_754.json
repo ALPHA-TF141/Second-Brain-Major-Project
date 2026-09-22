@@ -1,0 +1,30 @@
+{
+  "id": "card_20260922_064613_754",
+  "timestamp": "2026-09-22T06:46:13.754627Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "My First Project – Google Cloud console - Google Chrome",
+  "topic": "Cloud",
+  "summary": "[Technology] My First Project – Google Cloud console: Activity on chrome.exe: My First Project – Google Cloud console - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: My First Project – Google Cloud console - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Project",
+    "First",
+    "Activity",
+    "Cloud"
+  ],
+  "tags": [
+    "cloud",
+    "chrome",
+    "technology"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: My First Project – Google Cloud console - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 50.85
+}
