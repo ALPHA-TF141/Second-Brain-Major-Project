@@ -21,7 +21,7 @@ import math
 import re
 from collections import Counter, defaultdict
 from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 EXPLANATION_MARKERS = (
     "is a", "is an", "means", "refers to", "defined as", "because", "works by",
@@ -86,14 +86,30 @@ class KnowledgeGapDetector:
         return stats
 
     # ------------------------------------------------------------ gap scoring
-    def detect(self, db, limit: int = 25) -> Dict[str, Any]:
+    def detect(self, db, limit: int = 25, scope_ids: Optional[Iterable[int]] = None,
+               persist: bool = True) -> Dict[str, Any]:
+        """
+        `scope_ids` restricts the analysis to a set of memories.
+
+        The evaluation harness needs that: gap scores are relative to the corpus
+        being examined (mentions, spread, connectivity are all corpus statistics),
+        so scoring a 15-memory corpus against a database that also holds the
+        user's own notes answers a different question. `persist=False` keeps a
+        scoped run from overwriting the user's real gap snapshot.
+        """
         from app.models.graph import GraphNode
         from app.models.memory import Memory
         from app.models.research import KnowledgeGap
 
-        memories = db.query(Memory).all()
+        scope = set(scope_ids) if scope_ids is not None else None
+        query = db.query(Memory)
+        if scope is not None:
+            if not scope:
+                return {"gaps": 0, "concepts_examined": 0, "memories_examined": 0, "items": []}
+            query = query.filter(Memory.id.in_(scope))
+        memories = query.all()
         if not memories:
-            return {"gaps": 0, "concepts_examined": 0, "items": []}
+            return {"gaps": 0, "concepts_examined": 0, "memories_examined": 0, "items": []}
 
         stats = self._concept_stats(memories)
         total_memories = max(1, len(memories))
@@ -101,7 +117,10 @@ class KnowledgeGapDetector:
         # graph connectivity per concept
         degree: Counter = Counter()
         try:
-            for node in db.query(GraphNode).all():
+            node_query = db.query(GraphNode)
+            if scope is not None:
+                node_query = node_query.filter(GraphNode.memory_id.in_(scope))
+            for node in node_query.all():
                 for token in set(self._tokens(node.name or "")):
                     degree[token] += 1
         except Exception:
@@ -152,11 +171,17 @@ class KnowledgeGapDetector:
         rows = rows[:limit]
 
         # persist (replace previous snapshot so results do not accumulate)
-        db.query(KnowledgeGap).delete()
-        db.commit()
-        for row in rows:
-            db.add(KnowledgeGap(**row))
-        db.commit()
+        if persist:
+            db.query(KnowledgeGap).delete()
+            db.commit()
+            # The bulk delete above leaves stale identities in the session, and
+            # the re-insert reuses the freed primary keys (SQLAlchemy "Identity
+            # map already had an identity for ..."). Expunging makes the session
+            # forget the deleted rows entirely.
+            db.expunge_all()
+            for row in rows:
+                db.add(KnowledgeGap(**row))
+            db.commit()
 
         return {
             "gaps": len(rows),

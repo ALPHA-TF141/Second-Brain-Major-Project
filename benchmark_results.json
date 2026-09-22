@@ -1,9 +1,21 @@
 {
-  "generated_at": "2026-09-22T00:00:00Z",
+  "generated_at": "2026-09-22T15:35:02.931897+00:00",
   "system": "SecondBrain - Adaptive Memory Retrieval",
+  "configuration": {
+    "dense_backend": "tfidf",
+    "scoring_weights_version": "v1",
+    "corpus_scope": true,
+    "k": 5
+  },
+  "environment": {
+    "note": "Retrieval, scoring and conflict detection are corpus-scoped, so the quality metrics are reproducible on any database. Latency is wall-clock on the machine that produced this file and is NOT comparable across machines.",
+    "platform": "Linux-6.1.158+-x86_64-with-glibc2.41",
+    "python": "3.13.14",
+    "cpu_count": 2
+  },
   "corpus": {
     "memories": 15,
-    "conflicts": 4
+    "conflicts": 2
   },
   "k": 5,
   "results": {
@@ -19,8 +31,8 @@
       "staleness_rate": 0.0889,
       "forgotten_leak_rate": 0.0222,
       "duplicate_rate": 0.0222,
-      "avg_context_chars": 560.7,
-      "latency_ms": 33,
+      "avg_context_chars": 409.4,
+      "latency_ms": 39,
       "per_type": {
         "factual": {
           "n": 3,
@@ -73,13 +85,13 @@
       "answerable_questions": 9,
       "hit_at_k": 1.0,
       "mrr": 0.9444,
-      "stale_top1_rate": 0.0909,
-      "precision_at_k": 0.3537,
+      "stale_top1_rate": 0.1818,
+      "precision_at_k": 0.3759,
       "staleness_rate": 0.087,
       "forgotten_leak_rate": 0.0217,
       "duplicate_rate": 0.0217,
-      "avg_context_chars": 560.4,
-      "latency_ms": 29,
+      "avg_context_chars": 409.4,
+      "latency_ms": 33,
       "per_type": {
         "factual": {
           "n": 3,
@@ -132,13 +144,13 @@
       "answerable_questions": 9,
       "hit_at_k": 1.0,
       "mrr": 0.9444,
-      "stale_top1_rate": 0.0909,
-      "precision_at_k": 0.3537,
+      "stale_top1_rate": 0.1818,
+      "precision_at_k": 0.3759,
       "staleness_rate": 0.087,
       "forgotten_leak_rate": 0.0217,
       "duplicate_rate": 0.0217,
-      "avg_context_chars": 560.4,
-      "latency_ms": 37,
+      "avg_context_chars": 409.4,
+      "latency_ms": 42,
       "per_type": {
         "factual": {
           "n": 3,
@@ -196,8 +208,8 @@
       "staleness_rate": 0.0698,
       "forgotten_leak_rate": 0.0,
       "duplicate_rate": 0.0,
-      "avg_context_chars": 538.5,
-      "latency_ms": 80,
+      "avg_context_chars": 397.3,
+      "latency_ms": 84,
       "per_type": {
         "factual": {
           "n": 3,
@@ -250,21 +262,21 @@
       "mrr_delta": 0.1667,
       "staleness_reduction": 0.0191,
       "duplicate_reduction": 0.0222,
-      "context_reduction_pct": 4.0
+      "context_reduction_pct": 3.0
     },
     "adaptive_vs_hybrid": {
       "hit_at_k_delta": 0.0,
       "mrr_delta": 0.0556,
       "staleness_reduction": 0.0172,
       "duplicate_reduction": 0.0217,
-      "context_reduction_pct": 3.9
+      "context_reduction_pct": 3.0
     },
     "adaptive_vs_graph": {
       "hit_at_k_delta": 0.0,
       "mrr_delta": 0.0556,
       "staleness_reduction": 0.0172,
       "duplicate_reduction": 0.0217,
-      "context_reduction_pct": 3.9
+      "context_reduction_pct": 3.0
     }
   },
   "per_question_adaptive": [
@@ -280,13 +292,13 @@
       "precision": 0.2,
       "stale_results": 0,
       "forgotten_leak": 0,
-      "context_chars": 751,
+      "context_chars": 543,
       "retrieved": [
         "ieee",
-        "?",
         "deadline_new",
         "airnet",
-        "gap1"
+        "gap1",
+        "dataset"
       ]
     },
     {
@@ -301,13 +313,13 @@
       "precision": 0.2,
       "stale_results": 0,
       "forgotten_leak": 0,
-      "context_chars": 789,
+      "context_chars": 543,
       "retrieved": [
         "dataset",
         "airnet",
         "ieee",
         "deadline_new",
-        "?"
+        "gap1"
       ]
     },
     {
@@ -322,13 +334,13 @@
       "precision": 0.4,
       "stale_results": 0,
       "forgotten_leak": 0,
-      "context_chars": 752,
+      "context_chars": 523,
       "retrieved": [
         "randomforest",
         "airnet",
         "dataset",
         "java_new",
-        "?"
+        "python_old"
       ]
     },
     {
@@ -379,13 +391,13 @@
       "precision": 0.2,
       "stale_results": 1,
       "forgotten_leak": 0,
-      "context_chars": 788,
+      "context_chars": 483,
       "retrieved": [
         "deadline_new",
-        "?",
-        "deadline_old",
         "airnet",
-        "ieee"
+        "ieee",
+        "deadline_old",
+        "gap1"
       ]
     },
     {
@@ -400,13 +412,13 @@
       "precision": 0.2,
       "stale_results": 1,
       "forgotten_leak": 0,
-      "context_chars": 788,
+      "context_chars": 483,
       "retrieved": [
         "deadline_new",
-        "?",
-        "deadline_old",
         "airnet",
-        "ieee"
+        "ieee",
+        "deadline_old",
+        "gap1"
       ]
     },
     {
@@ -421,13 +433,13 @@
       "precision": 0.6,
       "stale_results": 0,
       "forgotten_leak": 0,
-      "context_chars": 796,
+      "context_chars": 641,
       "retrieved": [
         "airnet",
         "dataset",
         "deadline_new",
-        "?",
-        "randomforest"
+        "randomforest",
+        "ieee"
       ]
     },
     {
@@ -442,13 +454,13 @@
       "precision": 0.0,
       "stale_results": 0,
       "forgotten_leak": 0,
-      "context_chars": 591,
+      "context_chars": 486,
       "retrieved": [
-        "?",
-        "gap3",
         "gap2",
+        "gap3",
         "deadline_new",
-        "ieee"
+        "ieee",
+        "airnet"
       ]
     },
     {

@@ -22,7 +22,7 @@ context budget on items that damping later removes.
 """
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 MODES = ("vanilla", "hybrid", "graph", "adaptive")
 
@@ -33,19 +33,26 @@ class AdaptiveMemoryRetrieval:
 
     # ================================================================ helpers
     @staticmethod
-    def _candidate_semantic(db, question: str, limit: int) -> List[Tuple[int, float]]:
+    def _candidate_semantic(db, question: str, limit: int,
+                            allowed_ids: Optional[set] = None) -> List[Tuple[int, float]]:
         """Dense retrieval. Returns [] if no embedding model is installed."""
         try:
             from app.embeddings.embedding_model import embedding_model
             from app.vectorstore.chroma_store import chroma_store
 
             vector = embedding_model.encode([question])[0]
-            raw = chroma_store.query(vector, n_results=limit)
+            # A scoped call over-fetches and filters below, because the vector
+            # store is queried globally: asking for `limit` neighbours of the
+            # whole collection returns the user's memories, not the corpus's.
+            n_results = limit if allowed_ids is None else max(limit * 4, 64)
+            raw = chroma_store.query(vector, n_results=n_results)
             out = []
             for vector_id, distance in zip(raw.get("ids", [[]])[0], raw.get("distances", [[]])[0]):
                 try:
                     memory_id = int(str(vector_id).replace("memory-", ""))
                 except ValueError:
+                    continue
+                if allowed_ids is not None and memory_id not in allowed_ids:
                     continue
                 out.append((memory_id, max(0.0, 1.0 - float(distance))))
             return out
@@ -53,7 +60,8 @@ class AdaptiveMemoryRetrieval:
             return []
 
     @staticmethod
-    def _candidate_tfidf(db, question: str, limit: int) -> List[Tuple[int, float]]:
+    def _candidate_tfidf(db, question: str, limit: int,
+                         allowed_ids: Optional[set] = None) -> List[Tuple[int, float]]:
         """
         TF-IDF cosine retrieval - the dense baseline, available without any model.
 
@@ -74,7 +82,12 @@ class AdaptiveMemoryRetrieval:
         def vec(text: str) -> Counter:
             return Counter(re.findall(r"[a-z][a-z0-9_+.#-]{2,}", (text or "").lower()))
 
-        memories = db.query(Memory).all()
+        query = db.query(Memory)
+        if allowed_ids is not None:
+            if not allowed_ids:
+                return []
+            query = query.filter(Memory.id.in_(allowed_ids))
+        memories = query.all()
         if not memories:
             return []
 
@@ -109,13 +122,23 @@ class AdaptiveMemoryRetrieval:
         return scored[:limit]
 
     @staticmethod
-    def _candidate_keyword(db, question: str, limit: int) -> List[int]:
+    def _candidate_keyword(db, question: str, limit: int,
+                           allowed_ids: Optional[set] = None) -> List[int]:
         from app.search.memory_search import memory_search
 
         try:
-            return [m.id for m in memory_search.search(db, q=question, limit=limit)]
+            # The scope goes INTO the query. Filtering a global top-N afterwards
+            # starves the scope: unrelated memories take the top slots, and the
+            # corpus candidates left over depend on what the user happened to
+            # capture that day.
+            hits = [m.id for m in memory_search.search(
+                db, q=question, limit=limit,
+                memory_ids=sorted(allowed_ids) if allowed_ids is not None else None)]
         except Exception:
             return []
+        if allowed_ids is not None:
+            hits = [i for i in hits if i in allowed_ids]
+        return hits
 
     @staticmethod
     def _graph_neighbours(db, memory_ids: List[int]) -> Dict[int, float]:
@@ -149,26 +172,41 @@ class AdaptiveMemoryRetrieval:
         return boost
 
     # ================================================================== modes
-    def retrieve(self, db, question: str, limit: int = 8, mode: str = "adaptive") -> List[Dict[str, Any]]:
+    def retrieve(self, db, question: str, limit: int = 8, mode: str = "adaptive",
+                 allowed_ids: Optional[Iterable[int]] = None) -> List[Dict[str, Any]]:
+        """
+        `allowed_ids` restricts the candidate pool to a set of memories.
+
+        Why it exists: the evaluation harness must not be moved by whatever else
+        happens to be in the user's database. Without a scope, a top-k slot can be
+        taken by an unrelated memory the user captured, which makes hit@k/MRR a
+        property of their inbox rather than of the retriever - the benchmark then
+        stops being reproducible between machines. The benchmark passes the
+        corpus ids, so every mode is measured on the same evidence.
+        """
         from app.models.memory import Memory
         from app.ranking.hybrid_ranker import hybrid_ranker
 
         if mode not in MODES:
             mode = "adaptive"
 
+        scope = set(allowed_ids) if allowed_ids is not None else None
+
         trace: Dict[str, Any] = {"mode": mode, "question": question, "stages": {}}
         pool = max(limit * 4, 24)
 
         # ---- candidate generation ----------------------------------------
-        semantic = self._candidate_semantic(db, question, pool)
-        keyword_ids = self._candidate_keyword(db, question, pool)
+        semantic = self._candidate_semantic(db, question, pool, scope)
+        keyword_ids = self._candidate_keyword(db, question, pool, scope)
         trace["stages"]["semantic_candidates"] = len(semantic)
         trace["stages"]["keyword_candidates"] = len(keyword_ids)
+        if scope is not None:
+            trace["stages"]["scoped_to"] = len(scope)
 
         # Dense candidates: neural if an embedder is configured, otherwise
         # TF-IDF. Either way every mode has a real dense signal, so no baseline
         # degenerates to zero and flatters the proposed method.
-        dense = semantic if semantic else self._candidate_tfidf(db, question, pool)
+        dense = semantic if semantic else self._candidate_tfidf(db, question, pool, scope)
         trace["stages"]["dense_backend"] = "neural" if semantic else "tfidf"
         trace["stages"]["dense_candidates"] = len(dense)
 

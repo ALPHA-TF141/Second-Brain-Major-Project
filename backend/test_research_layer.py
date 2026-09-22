@@ -17,6 +17,20 @@ Usage (backend folder, venv active):
 """
 import os
 import sys
+import warnings
+
+# These must be set before any model library is imported. The research layer
+# loads a sentence-transformer when one is installed, and its progress bars plus
+# the "unauthenticated requests to the HF Hub" notice are not test output - they
+# bury the PASS/FAIL lines this gate exists to print.
+os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
+os.environ.setdefault("HF_HUB_DISABLE_TELEMETRY", "1")
+os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+# datetime.utcnow() deprecation notices from the standard library are noise here;
+# the app's own migration to timezone-aware datetimes is tracked separately.
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+warnings.filterwarnings("ignore", module=r"(starlette|fastapi)\.testclient")
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import app.research  # noqa: F401  - registers every ORM mapper
@@ -191,7 +205,16 @@ def main():
         print("\n[5] Contribution 5 - Knowledge-Gap Detection")
         from app.research.gaps import knowledge_gap_detector
 
-        gap_result = knowledge_gap_detector.detect(db)
+        # Scoped to the benchmark corpus, and not persisted.
+        #
+        # Gap scores are corpus-relative (mentions, spread, connectivity are all
+        # statistics over the memories being examined), so a 15-memory corpus has
+        # to be measured against itself. Unscoped, this ran over every memory the
+        # machine holds and the concept the check looks for was crowded out of the
+        # ranking by unrelated notes - a failure that said nothing about the code.
+        # persist=False so a scoped run cannot overwrite the gaps of the real vault.
+        corpus_ids = set(key_to_id.values())
+        gap_result = knowledge_gap_detector.detect(db, scope_ids=corpus_ids, persist=False)
         check("gap detection runs", gap_result["memories_examined"] >= 15, str(gap_result["memories_examined"]))
         check("at least one gap surfaced", gap_result["gaps"] >= 1, str(gap_result["gaps"]))
 
@@ -238,14 +261,37 @@ def main():
                 res = adaptive_retrieval.retrieve(db, "temporary lab portal credential", limit=10, mode=mode)
                 leaks[mode] = sum(1 for r in res if r["memory_id"] == secret_id)
 
-            # The contribution is ASYMMETRIC and that asymmetry is the finding:
-            # every baseline still returns the unlearned content; only the
-            # adaptive pipeline excludes it. Asserting "no mode leaks" would have
-            # hidden the very behaviour the paper claims.
             check("adaptive does NOT return the forgotten memory",
                   leaks["adaptive"] == 0, str(leaks))
-            check("baselines DO leak it - the research layer is what closes the hole",
-                  leaks["hybrid"] >= 1, str(leaks))
+
+            # WHY THIS IS NOT "the baselines leak it": whether a baseline still
+            # reaches the text depends on which dense backend is installed. With a
+            # vector store the embedding itself is deleted, so no mode can return
+            # it; with the model-free TF-IDF backend the raw memory row is still
+            # there and the baselines DO return it. Asserting that
+            # backend-dependent outcome failed on a machine that had
+            # sentence-transformers installed while the forgetting was working
+            # perfectly. What the paper claims is the MECHANISM, so the mechanism
+            # is what gets asserted:
+            #   (a) the row is tombstoned, not destroyed,
+            #   (b) an unfiltered retriever still reaches that row,
+            #   (c) the research layer drops it when it is handed over.
+            from app.models.memory import Memory
+
+            secret_row = db.query(Memory).filter(Memory.id == secret_id).first()
+            check("the unlearned row is tombstoned, not destroyed (audit trail kept)",
+                  secret_row is not None and secret_id in forgetting_service.forgotten_ids(db))
+
+            raw_ids = [mid for mid, _score in adaptive_retrieval._candidate_tfidf(
+                db, "temporary lab portal credential", 10 ** 6)]
+            check("an unfiltered raw-row retriever still reaches it - that is the hole",
+                  secret_id in raw_ids, f"reachable={secret_id in raw_ids}")
+
+            if secret_row is not None:
+                layer_trace = {"stages": {}}
+                kept = adaptive_retrieval._apply_research_layer(db, [secret_row], layer_trace)
+                check("the research layer drops it even when handed over as a candidate",
+                      all(m.id != secret_id for m in kept), str(layer_trace["stages"]))
 
         # restore works
         if secret_id:
@@ -289,6 +335,16 @@ def main():
               f"adaptive={a['per_type']['contradiction']['mrr']} vanilla={v['per_type']['contradiction']['mrr']}")
         check("comparison table produced", "adaptive_vs_hybrid" in result["comparison"],
               str(list(result["comparison"].keys())))
+
+        # The dense backend (neural embedder vs model-free TF-IDF) is selected at
+        # runtime and the two do not give identical figures. A table without this
+        # line cannot be reproduced on another machine, so the run states it.
+        configuration = result.get("configuration", {})
+        check("the run records the configuration it was measured with",
+              bool(configuration.get("dense_backend")), str(configuration))
+        print(f"      (dense backend: {configuration.get('dense_backend')}, "
+              f"scoring weights {configuration.get('scoring_weights_version')}, "
+              f"k={result.get('k')}, corpus-scoped={configuration.get('corpus_scope')})")
 
         # ================================================ API SURFACE
         print("\n[8] API surface")

@@ -252,6 +252,20 @@ class BenchmarkRunner:
                 db.query(Memory).filter(Memory.id.in_(ids)).delete(synchronize_session=False)
                 db.commit()
 
+            # These bulk deletes bypass the session's identity map, and SQLite
+            # hands the freed primary keys straight back to the rows inserted
+            # below. Without expunging, every insert collides with an identity the
+            # session still remembers, and SQLAlchemy prints one warning per row
+            # ("Identity map already had an identity for ...") - hundreds of lines
+            # of noise in the verification log.
+            #
+            # expunge_all() detaches every instance, including the `user` fetched
+            # above, so it has to be re-read before we use it.
+            db.expunge_all()
+            user = db.query(User).order_by(User.id.asc()).first()
+            if not user:
+                return {"error": "No user in the database"}
+
         session = MemorySession(user_id=user.id, session_type="benchmark",
                                 dominant_activity="PersonalBrain-Bench", is_active=True,
                                 started_at=self.bench.now)
@@ -285,8 +299,11 @@ class BenchmarkRunner:
             key_to_id[item["key"]] = memory.id
         db.commit()
 
-        # research layer over the corpus
-        adaptive_memory_scorer.score_corpus(db)
+        # Research layer over the corpus - scoped, because these scores are
+        # normalised corpus statistics (see score_corpus) and the rest of the
+        # database must not move them.
+        corpus_scope = set(key_to_id.values())
+        adaptive_memory_scorer.score_corpus(db, scope_ids=corpus_scope)
 
         # temporal facts, in chronological order so supersession behaves correctly
         corpus = {c["key"]: c for c in self.bench.build_corpus()}
@@ -295,9 +312,14 @@ class BenchmarkRunner:
             facts = temporal_knowledge_graph.extract_facts(item["content"])
             if facts:
                 temporal_knowledge_graph.record_facts(
-                    db, facts, source_memory_id=key_to_id[key], at=item["created_at"])
+                    db, facts, source_memory_id=key_to_id[key], at=item["created_at"],
+                    scope_ids=corpus_scope)
 
-        conflict_result = contradiction_resolver.resolve(db)
+        # Conflict detection compares a memory against its neighbours; scoped to
+        # the corpus it cannot be moved by unrelated memories, and it leaves the
+        # user's own conflict rows alone.
+        conflict_result = contradiction_resolver.resolve(
+            db, memory_ids=sorted(corpus_scope), scope_ids=corpus_scope)
         db.commit()
 
         # The forgetting evaluation is meaningless unless something has actually
@@ -353,8 +375,13 @@ class BenchmarkRunner:
         total_results = 0
         stale_top1 = 0
 
+        # Corpus scope: every mode sees the same 15 memories, so the comparison
+        # measures the retrievers and not whatever else the user has captured.
+        corpus_ids = set(key_to_id.values())
+
         for question in self.bench.build_questions():
-            results = adaptive_retrieval.retrieve(db, question["question"], limit=k, mode=mode)
+            results = adaptive_retrieval.retrieve(db, question["question"], limit=k, mode=mode,
+                                                  allowed_ids=corpus_ids)
             result_ids = [r["memory_id"] for r in results]
             result_keys = [id_to_key.get(i, "?") for i in result_ids]
 
@@ -466,9 +493,25 @@ class BenchmarkRunner:
             ))
         db.commit()
 
+        # Record the configuration the numbers were produced with. The dense
+        # backend is chosen at runtime (neural embedder when installed, TF-IDF
+        # otherwise), and the two do NOT produce identical leak/staleness
+        # figures - a result table without this line is not reproducible.
+        from app.research.pipeline import adaptive_retrieval
+        from app.research.scoring import WEIGHTS_VERSION
+
+        stages = (getattr(adaptive_retrieval, "last_trace", None) or {}).get("stages", {})
+        configuration = {
+            "dense_backend": stages.get("dense_backend", "unknown"),
+            "scoring_weights_version": WEIGHTS_VERSION,
+            "corpus_scope": True,
+            "k": k,
+        }
+
         return {
             "corpus": {"memories": ingest["memories"], "conflicts": ingest["conflicts"]},
             "k": k,
+            "configuration": configuration,
             "results": results,
             "comparison": self._comparison(results),
         }

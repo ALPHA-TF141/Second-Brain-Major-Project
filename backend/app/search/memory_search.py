@@ -38,6 +38,7 @@ class MemorySearch:
         session_id: int | None = None,
         date: str = "",
         limit: int = 80,
+        memory_ids: list[int] | None = None,
     ):
         """
         Search memories with smart ranking:
@@ -46,8 +47,15 @@ class MemorySearch:
           many of those words they contain
         - Recent memories get higher priority
         - Specified category (topic/app/source) matches get boosted
+        - `memory_ids` restricts the search to a set of memories (the evaluation
+          harness uses it so a corpus search cannot be crowded out by unrelated
+          memories that happen to share a word)
         """
         query = db.query(Memory).join(SearchIndex, SearchIndex.memory_id == Memory.id)
+        if memory_ids is not None:
+            if not memory_ids:
+                return []
+            query = query.filter(Memory.id.in_(memory_ids))
 
         filters = []
         tokens: list[str] = []

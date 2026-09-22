@@ -436,13 +436,14 @@ def build():
     f.append(Sub("30. Results"))
     f.extend(table([
         ["Pipeline", "Hit@5", "MRR", "Stale@1", "Leak", "Duplicate", "Latency"],
-        ["Vanilla dense", "1.000", "0.833", "0.364", "0.022", "0.022", "33 ms"],
-        ["Hybrid", "1.000", "0.944", "0.091", "0.022", "0.022", "29 ms"],
-        ["Graph-augmented", "1.000", "0.944", "0.091", "0.022", "0.022", "37 ms"],
-        ["Adaptive (proposed)", "1.000", "1.000", "0.000", "0.000", "0.000", "80 ms"],
+        ["Vanilla dense", "1.000", "0.833", "0.364", "0.022", "0.022", "39 ms"],
+        ["Hybrid", "1.000", "0.944", "0.182", "0.022", "0.022", "33 ms"],
+        ["Graph-augmented", "1.000", "0.944", "0.182", "0.022", "0.022", "42 ms"],
+        ["Adaptive (proposed)", "1.000", "1.000", "0.000", "0.000", "0.000", "84 ms"],
     ], [116, 52, 50, 56, 48, 66, W - 388],
-        caption="Table 26 \u2014 Comparative results (k = 5, 11 questions, 15 memories). Two "
-                "consecutive runs are byte-identical."))
+        caption="Table 26 \u2014 Comparative results (k = 5, 11 questions, 15 memories, "
+                "corpus-scoped evaluation). The quality metrics are deterministic and reproduce "
+                "exactly on any database; latency is wall-clock and varies between runs."))
     f.extend(table([
         ["Question category", "Vanilla MRR", "Hybrid MRR", "Adaptive MRR", "Change"],
         ["Factual", "1.000", "1.000", "1.000", "\u2014"],
@@ -631,7 +632,7 @@ def build():
         ["Interface routes", "19"],
         ["Verification gates", "15"],
         ["Test suites", "8 (5 backend, 2 interface, 1 research)"],
-        ["Research assertions", "68"],
+        ["Research assertions", "77"],
         ["Documented defects", "27"],
         ["Documented deviations", "13"],
         ["Knowledge graph", "350 nodes, 500 edges"],
@@ -653,7 +654,7 @@ def build():
   22 SEP      Phase 7   Research layer: seven contributions, benchmark, IEEE paper
 
   Gates added    0 \u2192 15          Defects found and fixed   27
-  Deviations     13                 Research assertions       68
+  Deviations     13                 Research assertions       77
   Phases 4\u20137 all occurred on one day, which was possible only because
   Phase 4 produced the means to verify a change in under a minute.""",
                   "The build at a glance."))

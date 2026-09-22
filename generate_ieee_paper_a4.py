@@ -253,12 +253,10 @@ def load_results():
     if not os.path.exists(RESULTS_FILE):
         raise SystemExit(
             f"\n[!] {RESULTS_FILE} not found - the paper reports measured numbers.\n"
-            "    Regenerate it first:\n"
-            "        cd backend\n"
-            "        python -c \"import app.research; from app.database.session import SessionLocal;"
-            " from app.research.bench import benchmark_runner as b; import json;"
-            " d=SessionLocal(); json.dump(b.run_all(d), open('../benchmark_results.json','w'),"
-            " indent=2, default=str)\"\n")
+            "    Regenerate it first (from the repo root):\n"
+            "        python backend/run_benchmark.py\n"
+            "    That writes benchmark_results.json with the run configuration and the\n"
+            "    environment, which the paper's latency caption reads.\n")
     with open(RESULTS_FILE, encoding="utf-8") as fh:
         return json.load(fh)
 
@@ -596,8 +594,8 @@ def main():
         f"superseded content in {v['stale_top1_rate']*100:.1f}% of queries; hybrid and graph reduce "
         f"this to {hy['stale_top1_rate']*100:.1f}%, and the adaptive pipeline reduces it to "
         f"{ad['stale_top1_rate']*100:.1f}%. The proposed system therefore never leads with an outdated "
-        f"fact on this corpus, while the strongest baseline still does so on roughly one query in "
-        f"eleven. Because each retrieved passage remains faithful to its source, no faithfulness "
+        f"fact on this corpus, while the strongest baseline still does so on two of eleven queries. "
+        f"Because each retrieved passage remains faithful to its source, no faithfulness "
         f"metric would flag those cases.", S["body"]))
 
     story.append(Paragraph(
@@ -641,18 +639,29 @@ def main():
                     ("Adaptive (proposed)", ad)):
         t5.append([name, str(m["latency_ms"]), f"{m['latency_ms']/base:.2f}\u00d7"])
     story.append(make_table(t5, [W - 118, 70, 48], S, align_left_col0=True))
+    env_note = ""
+    if isinstance(r.get("environment"), dict):
+        env = r["environment"]
+        bits = []
+        if env.get("cpu_count"):
+            bits.append(f"{env['cpu_count']} vCPU")
+        if env.get("python"):
+            bits.append(f"Python {env['python']}")
+        if bits:
+            env_note = (" Measured on " + ", ".join(bits) +
+                        "; latency is wall-clock and not comparable across machines.")
     story.append(Paragraph(
         f"The adaptive pipeline costs approximately {ad['latency_ms']/base:.1f}\u00d7 the hybrid "
         f"baseline on a corpus of {corpus['memories']} memories \u2014 a per-run overhead dominated by "
         f"conflict and temporal lookups. At personal-corpus scale this is immaterial against generation "
-        f"latency, but it is stated plainly: the gains are not free.", S["capt"]))
+        f"latency, but it is stated plainly: the gains are not free.{env_note}", S["capt"]))
 
     # ------------------------------------------------ VII. IMPLEMENTATION
     story.append(h1("VII", "Implementation and Verification", S))
     story.append(Paragraph(
         "The system is implemented rather than prototyped. Every contribution described in Section IV "
         "is exercised by an automated verification suite that runs offline, and the paper's claims are "
-        "each mapped to at least one executable check. The suite comprises 68 assertions covering "
+        "each mapped to at least one executable check. The suite comprises 77 assertions covering "
         "scoring component behaviour and range, temporal extraction and supersession semantics, "
         "contradiction detection and penalty application, consolidation threshold and provenance "
         "retention, gap scoring and depth suppression, forgetting leakage across all four retrieval "

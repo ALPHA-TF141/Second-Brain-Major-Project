@@ -27,7 +27,7 @@ import math
 import re
 from collections import Counter
 from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Iterable
 
 # Weights are deliberately exposed as a versioned dict so an ablation study can
 # vary them without touching code. Sum of positive weights = 1.0.
@@ -179,8 +179,17 @@ class AdaptiveMemoryScorer:
         return components
 
     # ------------------------------------------------------- corpus context
-    def build_context(self, db, memories: List) -> Dict[str, Any]:
-        """One pass over the corpus to compute the shared statistics."""
+    def build_context(self, db, memories: List,
+                      scope_ids: Optional[Iterable[int]] = None) -> Dict[str, Any]:
+        """
+        One pass over the corpus to compute the shared statistics.
+
+        `scope_ids` limits the graph-degree term to nodes belonging to the set
+        being scored. Unscoped, a memory's connectivity would be measured against
+        the user's entire knowledge graph, so the same corpus would score
+        differently on two machines - which is exactly what makes an evaluation
+        table irreproducible.
+        """
         from app.models.graph import GraphNode
         from app.models.research import MemoryConflict
 
@@ -197,7 +206,13 @@ class AdaptiveMemoryScorer:
 
         degree_by_term: Counter = Counter()
         try:
-            for node in db.query(GraphNode).all():
+            node_query = db.query(GraphNode)
+            if scope_ids is not None:
+                scope = set(scope_ids)
+                if not scope:
+                    raise ValueError("empty scope")
+                node_query = node_query.filter(GraphNode.memory_id.in_(scope))
+            for node in node_query.all():
                 for term in set(self._terms(node.name or "")):
                     degree_by_term[term] += 1
         except Exception:
@@ -232,11 +247,27 @@ class AdaptiveMemoryScorer:
         }
 
     # -------------------------------------------------------------- persist
-    def score_corpus(self, db, limit: Optional[int] = None) -> Dict[str, Any]:
+    def score_corpus(self, db, limit: Optional[int] = None,
+                     scope_ids: Optional[Iterable[int]] = None) -> Dict[str, Any]:
+        """
+        `scope_ids` scores a subset as if it were the whole corpus.
+
+        The components are corpus-relative by construction - term interests,
+        frequency and connectivity are normalised over the set being scored - so
+        scoring a benchmark corpus inside a database that also holds the user's
+        own memories changes the numbers. The evaluation harness passes the corpus
+        ids to keep the published figures reproducible between machines.
+        """
         from app.models.memory import Memory
         from app.models.research import MemoryScore
 
         query = db.query(Memory)
+        if scope_ids is not None:
+            scope = set(scope_ids)
+            if not scope:
+                return {"scored": 0, "orphans_pruned": 0, "weights_version": WEIGHTS_VERSION,
+                        "weights": self.weights, "corpus_size": 0}
+            query = query.filter(Memory.id.in_(scope))
         if limit:
             query = query.order_by(Memory.created_at.desc()).limit(limit)
         memories = query.all()
@@ -244,16 +275,20 @@ class AdaptiveMemoryScorer:
         # Prune orphans first: a memory deleted elsewhere leaves its score row
         # behind, and an orphan inflates counts while never appearing in the
         # joined listing. Cheap to clean, and it keeps the tables consistent.
-        live_ids = {m.id for m in memories}
+        # Orphan pruning is a whole-database repair, not a corpus statistic, so
+        # it only runs for an unscoped pass - a scoped run must not delete the
+        # scores belonging to memories outside its scope.
         pruned = 0
-        for row in db.query(MemoryScore).all():
-            if row.memory_id not in live_ids:
-                db.delete(row)
-                pruned += 1
+        if scope_ids is None:
+            live_ids = {m.id for m in memories}
+            for row in db.query(MemoryScore).all():
+                if row.memory_id not in live_ids:
+                    db.delete(row)
+                    pruned += 1
         if pruned:
             db.flush()
 
-        context = self.build_context(db, memories)
+        context = self.build_context(db, memories, scope_ids=scope_ids)
         scored = 0
         for memory in memories:
             components = self.score_memory(memory, context)

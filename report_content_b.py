@@ -790,13 +790,16 @@ def build():
     f.append(Sub("Measured results"))
     f.extend(table([
         ["Pipeline", "Hit@5", "MRR", "Stale@1", "Leak", "Duplicate", "Latency"],
-        ["Vanilla dense", "1.000", "0.833", "0.364", "0.022", "0.022", "33 ms"],
-        ["Hybrid", "1.000", "0.944", "0.091", "0.022", "0.022", "29 ms"],
-        ["Graph-augmented", "1.000", "0.944", "0.091", "0.022", "0.022", "37 ms"],
-        ["Adaptive (proposed)", "1.000", "1.000", "0.000", "0.000", "0.000", "80 ms"],
+        ["Vanilla dense", "1.000", "0.833", "0.364", "0.022", "0.022", "39 ms"],
+        ["Hybrid", "1.000", "0.944", "0.182", "0.022", "0.022", "33 ms"],
+        ["Graph-augmented", "1.000", "0.944", "0.182", "0.022", "0.022", "42 ms"],
+        ["Adaptive (proposed)", "1.000", "1.000", "0.000", "0.000", "0.000", "84 ms"],
     ], [116, 52, 50, 56, 48, 66, W - 388],
         caption="Table 20 \u2014 Comparative results on PersonalBrain-Bench (k = 5, 11 questions, 15 "
-                "memories). Two consecutive runs are byte-identical."))
+                "memories, corpus-scoped evaluation). The quality metrics are deterministic: "
+                "consecutive runs reproduce them exactly, on a database holding the corpus alone or "
+                "the corpus beside hundreds of unrelated memories. Latency is wall-clock and varies "
+                "between runs."))
     f.extend(table([
         ["Question category", "Vanilla MRR", "Hybrid MRR", "Adaptive MRR", "Change"],
         ["Factual", "1.000", "1.000", "1.000", "\u2014"],
@@ -886,7 +889,7 @@ def build():
                                         "previously reported stall"],
         ["Wake word", "Working when installed", "Measured 0.9968 against 0.000 for silence"],
         ["Proactive speech", "Working", "Priority-gated with quiet hours, cooldown and dedupe"],
-        ["Research layer", "Working", "68 checks; four retrieval pipelines with measured comparison"],
+        ["Research layer", "Working", "77 checks; four retrieval pipelines with measured comparison"],
         ["Desktop packaging", "Partial", "Runs from source; an installer configuration exists but has "
                                          "not been produced"],
     ], [128, 82, W - 210], caption="Table 22 \u2014 Current capabilities with the evidence for each."))
@@ -970,7 +973,7 @@ def build():
         ["Interface routes", "19"],
         ["Automated verification gates", "15"],
         ["Test suites", "8"],
-        ["Research assertions", "68"],
+        ["Research assertions", "77"],
         ["Documented defects", "27"],
         ["Documented deviations", "13"],
     ], [220, W - 220], caption="Table 24 \u2014 Project metrics at the time of writing."))

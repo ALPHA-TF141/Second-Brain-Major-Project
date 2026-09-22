@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import re
 from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Iterable
 
 # Predicates that describe a current state, and therefore supersede.
 STATEFUL_PREDICATES = {
@@ -106,19 +106,44 @@ class TemporalKnowledgeGraph:
         return unique
 
     # -------------------------------------------------------------- merging
+    @staticmethod
+    def _open_facts(db, TemporalFact, subject: str, predicate: str, scope) -> List:
+        """
+        The still-open facts matching this (subject, predicate).
+
+        `scope=None` means the whole database; a set of memory ids limits the
+        answer to facts asserted by those memories, which is what keeps an
+        evaluation corpus from closing the user's own live facts.
+        """
+        query = db.query(TemporalFact).filter(
+            TemporalFact.subject == subject,
+            TemporalFact.predicate == predicate,
+            TemporalFact.valid_to.is_(None),
+        )
+        if scope is not None:
+            query = query.filter(TemporalFact.source_memory_id.in_(scope))
+        return query.all()
+
     def record_facts(self, db, facts: List[Dict[str, Any]], source_memory_id: Optional[int] = None,
-                     at: Optional[datetime] = None, user_id: Optional[int] = None) -> Dict[str, Any]:
+                     at: Optional[datetime] = None, user_id: Optional[int] = None,
+                     scope_ids: Optional[Iterable[int]] = None) -> Dict[str, Any]:
         """
         Insert facts and apply supersession.
 
         A new stateful fact with the same (subject, predicate) but a different
         object CLOSES the previous one. That is what turns a pile of statements
         into a timeline.
+
+        `scope_ids` limits which existing facts may be superseded. The evaluation
+        corpus must not be able to close one of the user's live facts (nor have
+        its own closed by one), otherwise the same corpus produces different
+        results on two machines.
         """
         from app.models.research import TemporalFact
 
         at = at or datetime.utcnow()
         created, superseded, retracted = 0, 0, 0
+        scope = set(scope_ids) if scope_ids is not None else None
 
         for fact in facts:
             subject = fact["subject"]
@@ -127,26 +152,14 @@ class TemporalKnowledgeGraph:
 
             if fact.get("negated"):
                 # Retraction: close any open fact with this predicate.
-                open_rows = (
-                    db.query(TemporalFact)
-                    .filter(TemporalFact.subject == subject,
-                            TemporalFact.predicate == predicate,
-                            TemporalFact.valid_to.is_(None))
-                    .all()
-                )
+                open_rows = self._open_facts(db, TemporalFact, subject, predicate, scope)
                 for row in open_rows:
                     row.valid_to = at
                     retracted += 1
                 db.flush()
                 continue
 
-            open_rows = (
-                db.query(TemporalFact)
-                .filter(TemporalFact.subject == subject,
-                        TemporalFact.predicate == predicate,
-                        TemporalFact.valid_to.is_(None))
-                .all()
-            )
+            open_rows = self._open_facts(db, TemporalFact, subject, predicate, scope)
 
             same_object = next((r for r in open_rows if r.object.lower() == obj.lower()), None)
             if same_object:

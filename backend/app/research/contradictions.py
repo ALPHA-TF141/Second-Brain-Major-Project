@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import re
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Iterable
 
 from app.research.temporal import temporal_knowledge_graph
 
@@ -56,13 +56,21 @@ class ContradictionResolver:
             return 0.0
         return len(ta & tb) / len(ta | tb)
 
-    def detect_for_memory(self, db, memory, all_facts: Optional[List] = None) -> List[Dict[str, Any]]:
+    def detect_for_memory(self, db, memory, all_facts: Optional[List] = None,
+                          scope_ids: Optional[Iterable[int]] = None) -> List[Dict[str, Any]]:
         """
         Find memories that conflict with this one.
 
         Two independent signals are combined:
           (a) temporal  - both memories assert the same predicate with different objects
           (b) lexical   - the texts are about the same thing and one negates the other
+
+        `scope_ids` limits which memories this one may be compared against. Without
+        it the comparison set is "the most recent N memories in the database",
+        which on a used machine is mostly the user's own notes - and once more than
+        N memories are newer than the ones under test, the ones under test are not
+        compared at all. The benchmark passes its corpus ids so its conflict set is
+        a property of the corpus.
         """
         from app.models.research import TemporalFact
 
@@ -92,12 +100,11 @@ class ContradictionResolver:
         if has_negation:
             from app.models.memory import Memory
 
+            candidate_query = db.query(Memory).filter(Memory.id != memory.id)
+            if scope_ids is not None:
+                candidate_query = candidate_query.filter(Memory.id.in_(scope_ids))
             candidates = (
-                db.query(Memory)
-                .filter(Memory.id != memory.id)
-                .order_by(Memory.created_at.desc())
-                .limit(80)
-                .all()
+                candidate_query.order_by(Memory.created_at.desc()).limit(80).all()
             )
             mine = self._tokens(text)
             for other in candidates:
@@ -122,7 +129,7 @@ class ContradictionResolver:
                 break
 
         # ---- (c) factual value changes --------------------------------
-        conflicts.extend(self._detect_value_changes(db, memory))
+        conflicts.extend(self._detect_value_changes(db, memory, scope_ids))
 
         return conflicts
 
@@ -147,7 +154,8 @@ class ContradictionResolver:
             "been", "will", "than", "now", "date", "notice",
         }}
 
-    def _detect_value_changes(self, db, memory) -> List[Dict[str, Any]]:
+    def _detect_value_changes(self, db, memory,
+                              scope_ids: Optional[Iterable[int]] = None) -> List[Dict[str, Any]]:
         """
         Same topic, different dated/numeric value, different time -> conflict.
 
@@ -167,12 +175,11 @@ class ContradictionResolver:
             return []
 
         out: List[Dict[str, Any]] = []
+        candidate_query = db.query(Memory).filter(Memory.id != memory.id)
+        if scope_ids is not None:
+            candidate_query = candidate_query.filter(Memory.id.in_(scope_ids))
         candidates = (
-            db.query(Memory)
-            .filter(Memory.id != memory.id)
-            .order_by(Memory.created_at.desc())
-            .limit(120)
-            .all()
+            candidate_query.order_by(Memory.created_at.desc()).limit(120).all()
         )
 
         for other in candidates:
@@ -217,8 +224,17 @@ class ContradictionResolver:
         return out
 
     # ------------------------------------------------------------- resolving
-    def resolve(self, db, memory_ids: Optional[List[int]] = None) -> Dict[str, Any]:
-        """Detect and store conflicts; mark which memory retrieval should prefer."""
+    def resolve(self, db, memory_ids: Optional[List[int]] = None,
+                scope_ids: Optional[Iterable[int]] = None) -> Dict[str, Any]:
+        """
+        Detect and store conflicts; mark which memory retrieval should prefer.
+
+        `memory_ids` selects which memories to examine, `scope_ids` which memories
+        they may be compared against (default: the whole database). Keeping them
+        separate matters for evaluation - and for the stored rows, a scoped run
+        only clears the conflicts that touch its scope, so it cannot wipe the
+        user's conflict history.
+        """
         from app.models.memory import Memory
         from app.models.research import MemoryConflict
 
@@ -228,13 +244,20 @@ class ContradictionResolver:
         memories = query.all()
 
         # Clear previous auto-detections so a re-run does not accumulate
-        db.query(MemoryConflict).delete()
+        if scope_ids is not None:
+            scope = list(scope_ids)
+            db.query(MemoryConflict).filter(
+                (MemoryConflict.older_memory_id.in_(scope)) |
+                (MemoryConflict.newer_memory_id.in_(scope))
+            ).delete(synchronize_session=False)
+        else:
+            db.query(MemoryConflict).delete()
         db.commit()
 
         stored = 0
         seen_pairs = set()
         for memory in memories:
-            for conflict in self.detect_for_memory(db, memory):
+            for conflict in self.detect_for_memory(db, memory, scope_ids=scope_ids):
                 pair = (
                     conflict.get("older_memory_id"),
                     conflict.get("newer_memory_id"),

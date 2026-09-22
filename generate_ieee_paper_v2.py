@@ -415,8 +415,8 @@ def main():
         f"superseded content in {v['stale_top1_rate']*100:.1f}% of queries; hybrid and graph reduce "
         f"this to {h['stale_top1_rate']*100:.1f}%, and the adaptive pipeline reduces it to "
         f"{a['stale_top1_rate']*100:.1f}%. In other words the proposed system never leads with an "
-        f"outdated fact on this corpus, while the strongest baseline still does so on roughly one "
-        f"query in eleven. Because each retrieved passage remains faithful to its source, no "
+        f"outdated fact on this corpus, while the strongest baseline still does so on two of "
+        f"eleven queries. Because each retrieved passage remains faithful to its source, no "
         f"faithfulness metric would flag those cases.", S["body"]))
 
     story.append(Paragraph(
