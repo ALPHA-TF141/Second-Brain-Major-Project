@@ -1,0 +1,32 @@
+{
+  "id": "card_20260922_064237_375",
+  "timestamp": "2026-09-22T06:42:37.375944Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Weekly Feedback Form - Basics of Food and Nutrition ( noc26-ge100 ) - Google Chrome",
+  "topic": "Weekly Feedback Form - Basics of Food and Nut",
+  "summary": "[General] Weekly Feedback Form - Basics of Food and Nutrition ( noc26-ge100 ): Activity on chrome.exe: Weekly Feedback Form - Basics of Food and Nutrition ( noc26-ge100 ) - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Weekly Feedback Form - Basics of Food and Nutrition ( noc26-ge100 ) - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Basics",
+    "Weekly",
+    "Nutrition",
+    "Food",
+    "Form",
+    "Feedback",
+    "Activity"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Weekly Feedback Form - Basics of Food and Nutrition ( noc26-ge100 ) - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 35.1
+}

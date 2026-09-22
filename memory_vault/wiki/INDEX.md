@@ -41,3 +41,5 @@
 - [General: Quick settings](general/quick_settings.md) — *Updated 2026-09-22*
 - [General: SWAYAM](general/swayam.md) — *Updated 2026-09-22*
 - [General: Course: Basics of Food and Nutrition | SWAYAM](general/course__basics_of_food_and_nutrition___swayam.md) — *Updated 2026-09-22*
+- [General: Weekly Feedback Form - Basics of Food and Nut](general/weekly_feedback_form___basics_of_food_and_nut.md) — *Updated 2026-09-22*
+- [General: Progress: Basics of Food and Nutrition | SWAY](general/progress__basics_of_food_and_nutrition___sway.md) — *Updated 2026-09-22*
