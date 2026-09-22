@@ -1,0 +1,29 @@
+{
+  "id": "mail_212_028ce1",
+  "timestamp": "2026-02-04T14:16:26+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Webinar Reminder: \"How to Switch to Top Product-Based Companies in\r\n 2026?\"",
+  "topic": "Email: Webinar Reminder: \"How to Switch to Top Product-Based Companies in\r\n 2026?\"",
+  "summary": "Email from Arpit <no-reply@propeers.in> to lmariaimmanuel@gmail.com about: Webinar Reminder: \"How to Switch to Top Product-Based Companies in\r\n 2026?\"",
+  "key_pointers": [
+    "From: Arpit <no-reply@propeers.in>",
+    "Received: Wed, 4 Feb 2026 14:16:26 +0000"
+  ],
+  "entities": [
+    "no-reply@propeers.in",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "propeers.in",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@propeers.in",
+  "raw_ocr_excerpt": "Hello Maria Immanuel L,\n\n      You registered for the free webinar: How to Switch to Top Product-Based Companies in 2026?\n\n      The webinar is starting in 15 minutes!\n\n      👉 Join via this link\n\n      See you in the webinar!\n      Good luck,\n\n      Best Regards,\n      Arpit\n      Senior Software Engineer @Airtel Digital",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

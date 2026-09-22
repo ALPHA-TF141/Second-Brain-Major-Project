@@ -211,3 +211,20 @@
 - [General: Google Chrome](general/google_chrome.md) — *Updated 2026-09-22*
 - [General: chatgbt - Google Search](general/chatgbt___google_search.md) — *Updated 2026-09-22*
 - [General: Second Brain Topics](general/second_brain_topics.md) — *Updated 2026-09-22*
+- [Communication: Email: Forget ad breaks in music.](communication/email__forget_ad_breaks_in_music.md) — *Updated 2026-09-22*
+- [Communication: Email: 3D4Medical Account: Email verification](communication/email__3d4medical_account__email_verification.md) — *Updated 2026-09-22*
+- [Communication: Email: [Update] Google Drive trash items will be automatically deleted after
+
+ 30 days starting on October 13, 2020](communication/email___update__google_drive_trash_items_will_be_automatically_deleted_after___30_days_starting_on_october_13__2020.md) — *Updated 2026-09-22*
+- [Communication: Email: I Need Your Help!](communication/email__i_need_your_help.md) — *Updated 2026-09-22*
+- [Communication: Email: Maria Immanuel, here's your PIN 144804](communication/email__maria_immanuel__here_s_your_pin_144804.md) — *Updated 2026-09-22*
+- [Communication: Email: Maria Immanuel, your password was successfully reset](communication/email__maria_immanuel__your_password_was_successfully_reset.md) — *Updated 2026-09-22*
+- [Communication: Email: [GitHub] A third-party OAuth application has been added to your
+
+ account](communication/email___github__a_third_party_oauth_application_has_been_added_to_your___account.md) — *Updated 2026-09-22*
+- [Communication: Email: Webinar Reminder: "How to Switch to Top Product-Based Companies in
+
+ 2026?"](communication/email__webinar_reminder___how_to_switch_to_top_product_based_companies_in___2026.md) — *Updated 2026-09-22*
+- [Communication: Email: Last Day for MAANG Bootcamp](communication/email__last_day_for_maang_bootcamp.md) — *Updated 2026-09-22*
+- [Communication: Email: Learn Computer Science from a Harvard Professor [Free 25-hour
+ Python course]](communication/email__learn_computer_science_from_a_harvard_professor__free_25_hour___python_course.md) — *Updated 2026-09-22*

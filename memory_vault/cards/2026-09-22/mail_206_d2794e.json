@@ -1,0 +1,29 @@
+{
+  "id": "mail_206_d2794e",
+  "timestamp": "2026-02-04T13:34:57+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "I Need Your Help!",
+  "topic": "Email: I Need Your Help!",
+  "summary": "Email from Parikh Jain <no-reply@propeers.in> to lmariaimmanuel@gmail.com about: I Need Your Help!",
+  "key_pointers": [
+    "From: Parikh Jain <no-reply@propeers.in>",
+    "Received: Wed, 4 Feb 2026 13:34:57 +0000"
+  ],
+  "entities": [
+    "no-reply@propeers.in",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "propeers.in",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@propeers.in",
+  "raw_ocr_excerpt": "This is the body",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

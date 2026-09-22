@@ -1,0 +1,31 @@
+{
+  "id": "mail_176_26f2ba",
+  "timestamp": "2020-09-25T04:32:08+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "[Update] Google Drive trash items will be automatically deleted after\r\n 30 days starting on October 13, 2020",
+  "topic": "Email: [Update] Google Drive trash items will be automatically deleted after\r\n 30 days starting on October 13, 2020",
+  "summary": "Email from The Google Drive Team <google-apps-noreply@google.com> to immanuellourdu@gmail.com about: [Update] Google Drive trash items will be automatically deleted after\r\n 30 days starting on October 13, 2020",
+  "key_pointers": [
+    "Deadline: Deadline: Google Drive trash items will be automatically deleted after\r\n 30 days starting on October 13, 2020",
+    "From: The Google Drive Team <google-apps-noreply@google.com>",
+    "Received: Thu, 24 Sep 2020 21:32:08 -0700"
+  ],
+  "entities": [
+    "google-apps-noreply@google.com",
+    "immanuellourdu@gmail.com",
+    "before the"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "google.com",
+    "deadline"
+  ],
+  "source_url_or_ref": "mailto:google-apps-noreply@google.com",
+  "raw_ocr_excerpt": "Google logo\n\nDear Google Drive User,\n\nWe are writing to let you know that starting October 13, 2020, Google Drive  \nis making a change so that its trash behaves more consistently with the  \nrest of Google applications (such as Gmail) with regards to automatic  \ndeletion. This means that any file that is put into Google Drive's 'My  \nDrive' trash will begin to be automatically deleted after 30 consecutive  \ndays in the trash. Items in trash will still continue to consume quota and  \nyour storage will still continue to be shared across Google Drive, Gmail,  \nand Google Photos.\n\nPlease note that starting October 13, 2020, any files already in a user's  \ntrash, will remain there for 30 days. After the 30-day-period files that  \nhave been in the trash for longer than 30 days will begin to be  \nautomatically deleted.\n\nWhat does this mean for me?\n\nAny file that has been in the Google Drive trash for longer than 30 days  \nafter October 13, 2020 will be automatically deleted forever, regardless of  \nwhether or not you have acknowledged any in-app messaging. We will be  \nshowing in-app messaging in Drive starting September 15, 2020 and in our  \nEditors products (such as Google Docs and Google Forms) starting September  \n29, 2020.\n\nA few things to note:\n\nFiles in shared drives trash are already automatically deleted after 30  \ndays.\nThese changes affect items that are trashed from any device and any  \nplatform.\nThere is no impact to Backup and Sync behavior.\n\nWhat do I need to do?\n\nYou ",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

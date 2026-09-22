@@ -1,0 +1,29 @@
+{
+  "id": "mail_209_40537c",
+  "timestamp": "2026-02-04T14:06:19+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Maria Immanuel, your password was successfully reset",
+  "topic": "Email: Maria Immanuel, your password was successfully reset",
+  "summary": "Email from LinkedIn <security-noreply@linkedin.com> to lmariaimmanuel@gmail.com about: Maria Immanuel, your password was successfully reset",
+  "key_pointers": [
+    "From: LinkedIn <security-noreply@linkedin.com>",
+    "Received: Wed, 4 Feb 2026 14:06:19 +0000 (UTC)"
+  ],
+  "entities": [
+    "security-noreply@linkedin.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "linkedin.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:security-noreply@linkedin.com",
+  "raw_ocr_excerpt": "Hi Maria Immanuel,\n\nYou've successfully changed your LinkedIn password.\n\nThanks for using LinkedIn!\nThe LinkedIn Team\n\nWhen and where this happened:\nDate: February 4, 2026 GMT\nBrowser: Chrome\nOperating System: Windows\nApproximate Location: Chennai, Tamil Nadu, India\n\nDidn't do this? Be sure to change your password right away. https://www.linkedin.com/e/v2?urlhash=yJya&url=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Fuas%2Frequest-password-reset%3F_l%3Den_US&lipi=urn%3Ali%3Apage%3Aemail_security_reset_password_notification%3B8lt2D0OKQhm5h0B0k0waAw%3D%3D&midToken=AQG8pTHJ91tLmQ&midSig=2bjj3xyyRecc81&ek=security_reset_password_notification&e=rfx49w-ml83p47v-20&eid=rfx49w-ml83p47v-20&m=null&ts=null&li=0&t=plh\n\n----------------------------------------\n\nThis email was intended for Maria Immanuel L (Computer Science Student | Aspiring Full‑Stack Web Developer | Interested in Cloud, IoT & Web Applications | Open to Software Engineer Opportunities)\nLearn why we included this: https://www.linkedin.com/help/linkedin/answer/4788?lang=en&lipi=urn%3Ali%3Apage%3Aemail_security_reset_password_notification%3B8lt2D0OKQhm5h0B0k0waAw%3D%3D&midToken=AQG8pTHJ91tLmQ&midSig=2bjj3xyyRecc81&trk=eml-security_reset_password_notification-SecurityHelp-0-textfooterglimmer&trkEmail=eml-security_reset_password_notification-SecurityHelp-0-textfooterglimmer-null-rfx49w~ml83p47v~20-null-null&eid=rfx49w-ml83p47v-20\nYou are receiving LinkedIn notification emails.\n\nHelp: https://www.linkedin.com/help/linkedin/answer/67?la",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}
