@@ -1,0 +1,26 @@
+{
+  "id": "card_20260922_172457_575",
+  "timestamp": "2026-09-22T17:24:57.575677Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "excluded",
+  "window_title": "Hidden by privacy rule",
+  "topic": "Hidden by privacy rule",
+  "summary": "[General] Hidden by privacy rule: Activity on excluded: Hidden by privacy rule",
+  "key_pointers": [
+    "Activity on excluded: Hidden by privacy rule"
+  ],
+  "entities": [
+    "Activity",
+    "Hidden"
+  ],
+  "tags": [
+    "excluded",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on excluded: Hidden by privacy rule",
+  "hero_image": null,
+  "hero_image_info_score": 30.15
+}
