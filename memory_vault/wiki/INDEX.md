@@ -48,3 +48,4 @@
 - [General: 2-Step Verification](general/2_step_verification.md) — *Updated 2026-09-22*
 - [Geopolitics: Security](geopolitics/security.md) — *Updated 2026-09-22*
 - [General: Snipping Tool Confirmation Banner](general/snipping_tool_confirmation_banner.md) — *Updated 2026-09-22*
+- [General: Hidden by privacy rule](general/hidden_by_privacy_rule.md) — *Updated 2026-09-22*
