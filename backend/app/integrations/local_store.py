@@ -32,7 +32,14 @@ class StoreUnavailable(RuntimeError):
 class EncryptedStore:
     """A single encrypted JSON file holding a list of records."""
 
-    def __init__(self, filename: str, directory: str = "./data/integrations", collection: str = "items"):
+    def __init__(self, filename: str, directory: Optional[str] = None,
+                 collection: str = "items"):
+        # None -> the resolved absolute default; never working-directory relative
+        # (see app.config.credentials_dir for why that mattered).
+        if not directory:
+            from app.config import credentials_dir
+
+            directory = credentials_dir()
         self.directory = Path(directory)
         self.file = self.directory / filename
         self.key_file = self.directory / ".token_key"

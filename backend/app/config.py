@@ -28,7 +28,16 @@ class Settings(BaseSettings):
     google_redirect_uri: str = "http://127.0.0.1:8000/api/google/callback"
     # Directory holding OAuth tokens. Lives under backend/data/ which is
     # git-ignored, so credentials are never committed or synced to the vault.
-    google_token_dir: str = "./data/integrations"
+    #
+    # EMPTY means "work it out": backend/data/integrations, anchored to this
+    # file's location. Set it only to move credentials somewhere else.
+    #
+    # It used to default to the relative "./data/integrations", which is resolved
+    # against the process working directory. Launch the backend from anywhere but
+    # backend/ - an IDE run configuration, a shell one level up, a different
+    # shortcut - and the app would read an empty directory and report every
+    # account as disconnected, while the real tokens sat in the other folder.
+    google_token_dir: str = ""
 
     # --- Automatic mail ingestion into the memory vault ---------------------
     mail_sync_enabled: bool = True
@@ -75,3 +84,21 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+
+def credentials_dir() -> str:
+    """
+    Absolute path of the credential directory.
+
+    Anchored to this file, so it does not depend on the working directory, and
+    honours GOOGLE_TOKEN_DIR when it is set. Every credential store resolves
+    through here, which is what makes "connect once" actually mean once.
+    """
+    import os
+    from pathlib import Path
+
+    configured = (os.getenv("GOOGLE_TOKEN_DIR") or "").strip() or \
+        (getattr(settings, "google_token_dir", "") or "").strip()
+    if configured:
+        return str(Path(configured).expanduser().resolve())
+    return str((Path(__file__).resolve().parent.parent / "data" / "integrations"))

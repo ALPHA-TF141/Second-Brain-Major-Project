@@ -58,7 +58,20 @@ def main():
     # ---------------------------------------------------------------- setup
     settings.voice_announce_enabled = True
     settings.voice_announce_min_priority = "high"
-    settings.voice_quiet_hours = "23:00-07:00"
+    # Quiet hours are OFF for the body of this suite, on purpose.
+    #
+    # They used to be set to "23:00-07:00" here, and the policy compares that
+    # window against the wall clock. So every section asserting that a line IS
+    # spoken passed or failed depending on what time it was: run the verifier at
+    # 23:30 and seven checks failed with "quiet hours (23:00-07:00)", even though
+    # the code was correct. Same class of phantom failure as the timeouts fixed
+    # elsewhere in this suite.
+    #
+    # Quiet hours are covered properly in section [6], which injects a window
+    # that provably contains the current minute and asserts both that
+    # non-critical lines are silenced and that critical ones break through - a
+    # real behavioural test, with no dependence on when it runs.
+    settings.voice_quiet_hours = ""
     settings.voice_announce_cooldown_seconds = 90
     settings.voice_announce_dedupe_minutes = 30
 

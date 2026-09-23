@@ -301,6 +301,19 @@ class IcsHandler(BaseHTTPRequestHandler):
 
 # ===========================================================================
 def main():
+    """Wrap the scenario so the real credential directory is always verified."""
+    from _harness import activate, describe_real_credentials, verify_and_restore
+
+    print(f"\n[0] Real credentials on disk: {describe_real_credentials()}")
+    print("    (protected: this suite runs against a private harness directory)")
+    activate("mail_calendar")
+    try:
+        return _scenario()
+    finally:
+        verify_and_restore()
+
+
+def _scenario():
     print("=" * 74)
     print("  JARVIS OS - IMAP MAIL + ICAL CALENDAR TEST (offline)")
     print("=" * 74)
@@ -459,15 +472,12 @@ def main():
             "username": "Immanuel", "password": "secondbrain", "device_name": "test"}).json()["access_token"]
         headers = {"Authorization": f"Bearer {token}"}
 
-        store_dir = os.path.join(os.getcwd(), "data", "integrations")
-        for name in ("imap_accounts.enc", "calendar_feeds.enc"):
-            path = os.path.join(store_dir, name)
-            if os.path.exists(path):
-                os.remove(path)
-        mail_accounts = imap_module.__dict__.get("mail_accounts")
-        from app.routes import mail as mail_routes
-        mail_routes.mail_accounts.__init__("imap_accounts.enc", collection="accounts")
-        mail_routes.calendar_feeds.__init__("calendar_feeds.enc", collection="feeds")
+        # Credentials live in the private harness directory for this run. This
+        # block used to DELETE the user's real imap_accounts.enc and
+        # calendar_feeds.enc by name, which is why connected mailboxes kept
+        # disappearing after a verification run.
+        from _harness import active_dir
+        store_dir = str(active_dir())
 
         r = api.post("/api/mail/imap/connect", headers=headers, json={
             "email": "vtu24334@veltech.edu.in",

@@ -39,7 +39,15 @@ class TokenStoreUnavailable(RuntimeError):
 class GoogleTokenStore:
     """Encrypted JSON store for connected Google accounts."""
 
-    def __init__(self, directory: str = "./data/integrations"):
+    def __init__(self, directory: Optional[str] = None):
+        # None -> the resolved absolute default (see app.config.credentials_dir).
+        # A relative default here would make the token directory depend on the
+        # process working directory, so the same app could see two different
+        # account lists depending on how it was started.
+        if not directory:
+            from app.config import credentials_dir
+
+            directory = credentials_dir()
         self.directory = Path(directory)
         self.accounts_file = self.directory / "google_accounts.enc"
         self.key_file = self.directory / ".token_key"

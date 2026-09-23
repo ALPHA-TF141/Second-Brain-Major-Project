@@ -149,6 +149,19 @@ class FakeGoogle(BaseHTTPRequestHandler):
 
 
 def main():
+    """Wrap the scenario so the real credential directory is always verified."""
+    from _harness import activate, describe_real_credentials, verify_and_restore
+
+    print(f"\n[0] Real credentials on disk: {describe_real_credentials()}")
+    print("    (protected: this suite runs against a private harness directory)")
+    activate("google")
+    try:
+        return _scenario()
+    finally:
+        verify_and_restore()
+
+
+def _scenario():
     print("=" * 74)
     print("  JARVIS OS - GOOGLE INTEGRATION TEST (offline, fake Google server)")
     print("=" * 74)
@@ -173,13 +186,16 @@ def main():
     google_oauth.GMAIL_API = f"{base}/gmail/v1/users/me"
     google_oauth.CALENDAR_API = f"{base}/calendar/v3"
 
-    # ---- fresh token store so the test is repeatable ----------------------
-    from app.integrations.token_store import google_token_store
+    # ---- private credential directory -------------------------------------
+    # This block used to rmtree backend/data/integrations - the directory that
+    # holds the user's connected accounts AND the Fernet key that decrypts them -
+    # and then point the global store back at it. This file is gate 7 of
+    # verify-jarvis.ps1, so every verification run disconnected the user's
+    # accounts. It now writes only inside a throwaway harness directory; main()
+    # fails the run if the real directory changes by so much as a byte.
+    from _harness import active_dir
 
-    store_dir = os.path.join(os.getcwd(), "data", "integrations")
-    if os.path.isdir(store_dir):
-        shutil.rmtree(store_dir, ignore_errors=True)
-    google_token_store.__init__(directory=os.path.join("./data/integrations"))
+    store_dir = str(active_dir())
 
     from fastapi.testclient import TestClient
 
