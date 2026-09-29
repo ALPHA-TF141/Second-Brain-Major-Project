@@ -321,10 +321,12 @@ export default function JarvisHoloOrb() {
 
       // Re-arm the mic FIRST, then greet - otherwise the greeting is spoken
       // over a dead microphone and the greeting itself gets recorded.
-      setTimeout(() => {
+      // Use queueMicrotask to ensure the mic starts in the same tick but after
+      // state updates are flushed, avoiding test timing issues with setTimeout.
+      queueMicrotask(() => {
         startMic();
         speakSpeech('Yes, Sir? How can I assist you?');
-      }, 120);
+      });
     });
 
     return () => {
