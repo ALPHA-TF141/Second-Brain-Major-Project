@@ -19,12 +19,10 @@ import { useEffect, useRef, useState } from 'react';
 export default function LivingNeuralBrain3D({
   mode = 'idle', // 'idle' | 'chatting' | 'agent' | 'research' | 'speaking'
   audioLevel = 0.5,
-  onNodeClick = null,
   activeTrait = 'agent'
 }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
-  const [hoveredNode, setHoveredNode] = useState(null);
 
   // 3D Orbit & Mouse tracking refs
   const rotRef = useRef({ x: 0.15, y: 0.0, targetX: 0.15, targetY: 0.0 });
@@ -321,7 +319,6 @@ export default function LivingNeuralBrain3D({
 
         const pulseX = p1.x + (p2.x - p1.x) * edge.pulseProgress;
         const pulseY = p1.y + (p2.y - p1.y) * edge.pulseProgress;
-        const pulseAlpha = depthAlpha * 0.9;
 
         ctx.fillStyle = '#ffffff';
         ctx.shadowColor = primaryColor;
