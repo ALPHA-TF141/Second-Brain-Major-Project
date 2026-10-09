@@ -314,5 +314,19 @@ export const apiClient = {
     request(`/api/calendar/source-events?source_id=${encodeURIComponent(sourceId)}` +
             `&days_ahead=${daysAhead}&days_back=${daysBack}`),
   removeCalendarFeed: (sourceId) =>
-    request(`/api/calendar/feed/${encodeURIComponent(sourceId)}`, { method: 'DELETE' })
+    request(`/api/calendar/feed/${encodeURIComponent(sourceId)}`, { method: 'DELETE' }),
+
+  // Persistent Database App Connectors
+  fetchConnectors: () => request('/api/connectors'),
+  saveConnector: (payload) =>
+    request('/api/connectors', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    }),
+  testConnector: (serviceKey) =>
+    request(`/api/connectors/${encodeURIComponent(serviceKey)}/test`, { method: 'POST' }),
+  toggleConnector: (serviceKey) =>
+    request(`/api/connectors/${encodeURIComponent(serviceKey)}/toggle`, { method: 'POST' }),
+  deleteConnector: (serviceKey) =>
+    request(`/api/connectors/${encodeURIComponent(serviceKey)}`, { method: 'DELETE' })
 };

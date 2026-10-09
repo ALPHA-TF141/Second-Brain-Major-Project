@@ -130,6 +130,17 @@ export default function IntegrationsManager() {
         text: `${address} connected. ${data.verified?.total_messages ?? 0} messages, ` +
               `${data.verified?.unread ?? 0} unread.`
       });
+
+      // Persist permanently to SQLite database
+      apiClient.saveConnector({
+        service_key: 'gmail_imap',
+        service_name: 'Gmail Autonomous Sync',
+        account_identifier: address,
+        secret_payload: password,
+        category: 'mail',
+        is_live: true
+      }).catch(() => {});
+
       setImapPassword('');
       setImapEmail('');
       setImapLabel('');
@@ -161,6 +172,16 @@ export default function IntegrationsManager() {
         type: 'success',
         text: `Calendar connected - ${data.source?.stats?.parsed_events ?? 0} events found.`
       });
+
+      // Persist permanently to SQLite database
+      apiClient.saveConnector({
+        service_key: 'calendar_ical',
+        service_name: icsLabel || 'Google Calendar Feed',
+        account_identifier: icsUrl.trim(),
+        category: 'calendar',
+        is_live: true
+      }).catch(() => {});
+
       setIcsUrl('');
       setIcsLabel('');
       await loadAll();

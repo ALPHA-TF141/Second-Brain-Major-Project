@@ -19,3 +19,4 @@ class User(Base):
     activities = relationship("Activity", back_populates="user")
     timeline_events = relationship("TimelineEvent", back_populates="user")
     settings = relationship("Setting", back_populates="user")
+    connectors = relationship("ConnectorCredential", back_populates="user")

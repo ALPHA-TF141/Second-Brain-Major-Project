@@ -29,12 +29,17 @@ import {
 } from 'lucide-react';
 import AmbientCapsuleHUD from '../components/AmbientCapsuleHUD.jsx';
 import CommandPaletteModal from '../components/CommandPaletteModal.jsx';
+import PitchingDashboardDrawer from '../components/PitchingDashboardDrawer.jsx';
+import LiveConnectorsModal from '../components/LiveConnectorsModal.jsx';
 import { useBackend } from '../context/BackendContext.jsx';
 
 export default function AppLayout() {
   const { apiClient, loginDemo, username, liveEvents } = useBackend();
   const location = useLocation();
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const isHome = location.pathname === '/';
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(isHome);
+  const [isPitchDrawerOpen, setIsPitchDrawerOpen] = useState(false);
+  const [isConnectorsModalOpen, setIsConnectorsModalOpen] = useState(false);
   const lastNotified = useRef(null);
   const lastWakedAt = useRef(null);
   const lastSpokenAt = useRef(null);
@@ -226,6 +231,26 @@ export default function AppLayout() {
             <span>Search & Commands</span>
             <kbd className="rounded bg-white/10 px-1.5 py-0.2 text-[9px] font-bold text-slate-300">Ctrl + K</kbd>
           </div>
+
+          <button
+            type="button"
+            onClick={() => setIsPitchDrawerOpen(true)}
+            className="flex items-center gap-1.5 rounded-lg border border-cyan-400/30 bg-cyan-500/10 px-2.5 py-1 text-cyan-300 hover:bg-cyan-500/20 transition font-bold"
+            title="Pitching Intel Deck"
+          >
+            <Sparkles size={11} />
+            <span>PITCH DECK</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsConnectorsModalOpen(true)}
+            className="flex items-center gap-1.5 rounded-lg border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-1 text-emerald-300 hover:bg-emerald-500/20 transition font-bold"
+            title="Persistent DB App Connectors"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>CONNECTORS (DB)</span>
+          </button>
         </div>
 
         {/* Right: Immanuel Profile & Window Controls */}
@@ -370,6 +395,22 @@ export default function AppLayout() {
 
       {/* Global Universal Command Palette (Ctrl + K) */}
       <CommandPaletteModal />
+
+      {/* Global Slide-Over Pitching Dashboard Drawer */}
+      <PitchingDashboardDrawer
+        isOpen={isPitchDrawerOpen}
+        onClose={() => setIsPitchDrawerOpen(false)}
+        onOpenConnectorsModal={() => {
+          setIsPitchDrawerOpen(false);
+          setIsConnectorsModalOpen(true);
+        }}
+      />
+
+      {/* Global Persistent SQLite DB Connectors Modal */}
+      <LiveConnectorsModal
+        isOpen={isConnectorsModalOpen}
+        onClose={() => setIsConnectorsModalOpen(false)}
+      />
     </div>
   );
 }

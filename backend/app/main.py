@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from app.audio_streaming.voice_stream import router as voice_stream_router
 from app.config import settings
 from app.database.init_db import init_database
-from app.routes import activities, auth, capture, chat, google, graph, health, mail, memory, ocr, os_router, proactive, research, semantic, sessions, settings as settings_routes, social, timeline, voice
+from app.routes import activities, auth, capture, chat, connectors, google, graph, health, mail, memory, ocr, os_router, proactive, research, semantic, sessions, settings as settings_routes, social, timeline, voice
 from app.routes.graph import initialize_neo4j
 from app.services.ocr_service import ocr_processor
 from app.streaming.chat_stream import router as chat_stream_router
@@ -32,6 +32,7 @@ app.include_router(sessions.router, prefix="/api/sessions", tags=["sessions"])
 app.include_router(activities.router, prefix="/api/activities", tags=["activities"])
 app.include_router(timeline.router, prefix="/api/timeline", tags=["timeline"])
 app.include_router(settings_routes.router, prefix="/api/settings", tags=["settings"])
+app.include_router(connectors.router)
 app.include_router(capture.router, prefix="/api/capture", tags=["capture"])
 app.include_router(ocr.router, prefix="/api/ocr", tags=["ocr"])
 app.include_router(memory.router, prefix="/api/memory", tags=["memory"])

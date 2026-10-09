@@ -279,7 +279,7 @@ async function main() {
 
   const vite = await createServer({
     root: ROOT,
-    server: { middlewareMode: true },
+    server: { middlewareMode: true, hmr: false },
     appType: 'custom',
     logLevel: 'error',
     optimizeDeps: { noDiscovery: true }
