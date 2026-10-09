@@ -86,7 +86,7 @@ export default function Dashboard() {
       return card.hero_image;
     }
     const cleanPath = card.hero_image.replace(/\\/g, '/');
-    return `${apiClient?.baseUrl || 'http://127.0.0.1:8000'}/${cleanPath}`;
+    return `${apiClient?.baseUrl ?? ''}/${cleanPath}`;
   };
 
   // 1. Initialize Real-Time Voice Socket
@@ -126,7 +126,7 @@ export default function Dashboard() {
 
     // 2. Fetch Deep Telemetry (Graph, Wiki, Deliverables, Cards, Insights, Activity)
     async function fetchAllTelemetry() {
-      const baseUrl = apiClient?.baseUrl || 'http://127.0.0.1:8000';
+      const baseUrl = apiClient?.baseUrl ?? '';
       try {
         const [gRes, cRes, wRes, dRes, insRes, bRes] = await Promise.all([
           apiFetch(`${baseUrl}/api/graph/vault`).catch(() => null),
@@ -298,7 +298,7 @@ export default function Dashboard() {
     setJarvisState('thinking');
     soundEffects.playThoughtBlip();
     setJarvisReply('Scanning monitor optic telemetry, Sir...');
-    const baseUrl = apiClient?.baseUrl || 'http://127.0.0.1:8000';
+    const baseUrl = apiClient?.baseUrl ?? '';
     try {
       const res = await apiFetch(`${baseUrl}/api/graph/vision/analyze-screen`, {
         method: 'POST'
@@ -336,7 +336,7 @@ export default function Dashboard() {
 
   async function openWikiArticle(art) {
     if (!art?.path) return;
-    const baseUrl = apiClient?.baseUrl || 'http://127.0.0.1:8000';
+    const baseUrl = apiClient?.baseUrl ?? '';
     try {
       const res = await apiFetch(`${baseUrl}/api/graph/vault/wiki/article?path=${encodeURIComponent(art.path)}`);
       if (res.ok) {
