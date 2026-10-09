@@ -256,6 +256,16 @@ def run_benchmark(payload: BenchmarkPayload, db: Session = Depends(get_db),
             "comparison": result["comparison"], "detail": result["results"]}
 
 
+@router.post("/benchmark/multi-user")
+def run_multi_user_benchmark(payload: BenchmarkPayload, db: Session = Depends(get_db),
+                             _user: User = Depends(get_current_user)):
+    """Run PersonalBrain-Bench v2 across multiple personas with statistical significance."""
+    from app.research.multi_user_bench import multi_user_benchmark
+
+    k = payload.k or 5
+    return multi_user_benchmark.run_benchmark(db, k=k)
+
+
 @router.get("/runs")
 def runs(limit: int = Query(default=20, ge=1, le=100),
          db: Session = Depends(get_db), _user: User = Depends(get_current_user)):

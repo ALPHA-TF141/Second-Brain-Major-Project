@@ -37,3 +37,12 @@
 # --- OpenAI-compatible remote LLM  (only if you ever move off local Ollama) -
 # The app talks to local Ollama over httpx by default and stays 100% free.
 # openai>=1.50.0
+
+# --- Lightweight Neural Research Pack (~80 MB) ----------------------------
+# Enables: ONNX NLI Cross-Encoder contradiction detection and dependency-based
+# temporal triple extraction in the research layer.
+# onnxruntime>=1.20.0
+# tokenizers>=0.20.0
+# spacy>=3.8.0
+# scipy>=1.14.0
+

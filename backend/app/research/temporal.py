@@ -70,8 +70,78 @@ class TemporalKnowledgeGraph:
         value = re.split(r"\b(?:because|since|so|but|and then|which|that)\b", value, maxsplit=1)[0]
         return value.strip(" .,;:-")[:120]
 
-    def extract_facts(self, text: str) -> List[Dict[str, Any]]:
-        """Rule-based triple extraction. No LLM needed, so it runs offline."""
+    def _extract_neural_facts(self, text: str) -> List[Dict[str, Any]]:
+        """
+        Lightweight neural dependency parsing and entity extraction using spaCy.
+        Catches natural language variations and syntactic structures that static regex misses.
+        """
+        try:
+            import spacy
+            try:
+                nlp = spacy.load("en_core_web_sm")
+            except Exception:
+                return []
+
+            state_map = {
+                "learn": "learning", "study": "learning", "focus": "focus",
+                "concentrate": "focus", "switch": "focus", "specialize": "focus",
+                "work": "working_on", "build": "working_on", "develop": "working_on",
+                "create": "working_on", "use": "using", "prefer": "using",
+                "adopt": "using", "live": "located_in", "reside": "located_in",
+                "relocate": "located_in",
+            }
+
+            doc = nlp(text or "")
+            facts = []
+
+            for token in doc:
+                lemma = token.lemma_.lower()
+                if lemma not in state_map:
+                    continue
+
+                subjs = [w for w in token.children if "subj" in w.dep_]
+                has_first_person = any(w.text.lower() in ("i", "we", "me") for w in subjs)
+                if not has_first_person and not any(t.text.lower() in ("i", "my") for t in doc[:5]):
+                    continue
+
+                negated = any(
+                    w.dep_ == "neg" or w.lower_ in ("not", "never", "stopped", "quit")
+                    for w in token.children
+                )
+
+                target_obj = None
+                dobjs = [w for w in token.children if "obj" in w.dep_ or w.dep_ == "dobj"]
+                if dobjs:
+                    dobj = dobjs[0]
+                    target_obj = " ".join([t.text for t in dobj.subtree if t.dep_ not in ("prep", "punct")])
+
+                if not target_obj:
+                    for prep in [w for w in token.children if w.dep_ == "prep"]:
+                        pobjs = [w for w in prep.children if "obj" in w.dep_ or w.dep_ == "pobj"]
+                        if pobjs:
+                            pobj = pobjs[0]
+                            target_obj = " ".join([t.text for t in pobj.subtree if t.dep_ not in ("prep", "punct")])
+                            break
+
+                if target_obj:
+                    clean_obj = self._clean_object(target_obj)
+                    if clean_obj and len(clean_obj) > 1:
+                        facts.append({
+                            "subject": self.subject,
+                            "predicate": state_map[lemma],
+                            "object": clean_obj,
+                            "negated": negated,
+                            "confidence": 0.82,
+                            "evidence": token.sent.text[:200],
+                            "method": "neural_dep",
+                        })
+
+            return facts
+        except Exception:
+            return []
+
+    def extract_facts(self, text: str, use_neural: bool = True) -> List[Dict[str, Any]]:
+        """Rule-based + Neural dependency triple extraction."""
         lowered = (text or "").lower()
         facts: List[Dict[str, Any]] = []
 
@@ -92,17 +162,30 @@ class TemporalKnowledgeGraph:
                     "negated": negated,
                     "confidence": confidence,
                     "evidence": match.group(0)[:200],
+                    "method": "rule",
                 })
 
-        # de-duplicate identical triples within one text
-        seen = set()
+        # Add neural dependency-extracted facts for phrases regex missed
+        if use_neural:
+            neural_facts = self._extract_neural_facts(text)
+            facts.extend(neural_facts)
+
+        # de-duplicate triples within one text, merging overlapping phrases
         unique = []
         for fact in facts:
-            key = (fact["predicate"], fact["object"], fact["negated"])
-            if key in seen:
-                continue
-            seen.add(key)
-            unique.append(fact)
+            is_dup = False
+            for u in unique:
+                if u["predicate"] == fact["predicate"] and u["negated"] == fact["negated"]:
+                    o1, o2 = u["object"].lower(), fact["object"].lower()
+                    if o1 in o2 or o2 in o1:
+                        is_dup = True
+                        # If the new object is cleaner/shorter (e.g. 'Python' vs 'python for data analysis'), keep the cleaner one
+                        if len(fact["object"]) < len(u["object"]) and len(fact["object"]) >= 3:
+                            u["object"] = fact["object"]
+                            u["evidence"] = fact["evidence"]
+                        break
+            if not is_dup:
+                unique.append(fact)
         return unique
 
     # -------------------------------------------------------------- merging
