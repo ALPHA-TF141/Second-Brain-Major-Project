@@ -1,0 +1,60 @@
+{
+  "personas_evaluated": 5,
+  "total_queries": 30,
+  "k": 5,
+  "summary": {
+    "vanilla": {
+      "hit_at_5": 1.0,
+      "mrr": 0.88,
+      "mrr_std": 0.2135,
+      "stale_top1_rate": 0.3333,
+      "leak_rate": 0.0617,
+      "duplicate_rate": 0.0067,
+      "mean_latency_ms": 2.55
+    },
+    "hybrid": {
+      "hit_at_5": 1.0,
+      "mrr": 0.94,
+      "mrr_std": 0.1625,
+      "stale_top1_rate": 0.2333,
+      "leak_rate": 0.045,
+      "duplicate_rate": 0.0033,
+      "mean_latency_ms": 2.59
+    },
+    "graph": {
+      "hit_at_5": 1.0,
+      "mrr": 0.94,
+      "mrr_std": 0.1625,
+      "stale_top1_rate": 0.2333,
+      "leak_rate": 0.045,
+      "duplicate_rate": 0.0033,
+      "mean_latency_ms": 3.28
+    },
+    "adaptive": {
+      "hit_at_5": 1.0,
+      "mrr": 0.96,
+      "mrr_std": 0.1356,
+      "stale_top1_rate": 0.0333,
+      "leak_rate": 0.0,
+      "duplicate_rate": 0.0,
+      "mean_latency_ms": 6.35
+    }
+  },
+  "significance": {
+    "vanilla": {
+      "mrr_p_value": 0.10247043485974941,
+      "stale_p_value": 0.0026997960632601866,
+      "significant_at_0_01": true
+    },
+    "hybrid": {
+      "mrr_p_value": 0.5637028616507731,
+      "stale_p_value": 0.014305878435429648,
+      "significant_at_0_01": false
+    },
+    "graph": {
+      "mrr_p_value": 0.5637028616507731,
+      "stale_p_value": 0.014305878435429648,
+      "significant_at_0_01": false
+    }
+  }
+}

@@ -56,21 +56,81 @@ class ContradictionResolver:
             return 0.0
         return len(ta & tb) / len(ta | tb)
 
+    def _detect_neural_conflicts(
+        self, db, memory, scope_ids: Optional[Iterable[int]] = None
+    ) -> List[Dict[str, Any]]:
+        """
+        Neural Natural Language Inference (NLI) conflict detection.
+        Uses a lightweight ONNX Cross-Encoder to detect semantic contradictions
+        and moved values that rule-based patterns miss.
+        """
+        try:
+            from app.models.memory import Memory
+            from app.research.neural_nli import neural_nli
+
+            if not neural_nli.is_available():
+                return []
+
+            text = f"{memory.title or ''} {memory.content or ''}".strip()
+            if not text:
+                return []
+
+            my_tokens = self._tokens(text)
+            if not my_tokens:
+                return []
+
+            candidate_query = db.query(Memory).filter(Memory.id != memory.id)
+            if scope_ids is not None:
+                candidate_query = candidate_query.filter(Memory.id.in_(scope_ids))
+            candidates = candidate_query.order_by(Memory.created_at.desc()).limit(80).all()
+
+            conflicts = []
+            for other in candidates:
+                other_text = f"{other.title or ''} {other.content or ''}".strip()
+                other_tokens = self._tokens(other_text)
+
+                # Fast-path screen: must share at least 2 salient tokens
+                shared = my_tokens & other_tokens
+                if len(shared) < 2 and (len(shared) / max(1, len(my_tokens | other_tokens))) < 0.15:
+                    continue
+
+                is_conflict, severity, _ = neural_nli.classify_conflict(text, other_text, threshold=0.55)
+                if is_conflict:
+                    mine_time = memory.created_at or datetime.min
+                    other_time = other.created_at or datetime.min
+                    if mine_time >= other_time:
+                        older_id, newer_id = other.id, memory.id
+                        older_val, newer_val = other_text[:120], text[:120]
+                    else:
+                        older_id, newer_id = memory.id, other.id
+                        older_val, newer_val = text[:120], other_text[:120]
+
+                    conflicts.append({
+                        "subject": "statement",
+                        "predicate": "claim",
+                        "older_memory_id": older_id,
+                        "newer_memory_id": newer_id,
+                        "older_value": older_val,
+                        "newer_value": newer_val,
+                        "conflict_type": "contradiction",
+                        "severity": round(severity, 3),
+                        "detected_by": "neural_nli",
+                    })
+
+            return conflicts
+        except Exception:
+            return []
+
     def detect_for_memory(self, db, memory, all_facts: Optional[List] = None,
-                          scope_ids: Optional[Iterable[int]] = None) -> List[Dict[str, Any]]:
+                          scope_ids: Optional[Iterable[int]] = None,
+                          use_neural: bool = True) -> List[Dict[str, Any]]:
         """
         Find memories that conflict with this one.
 
-        Two independent signals are combined:
+        Three signals are combined:
           (a) temporal  - both memories assert the same predicate with different objects
           (b) lexical   - the texts are about the same thing and one negates the other
-
-        `scope_ids` limits which memories this one may be compared against. Without
-        it the comparison set is "the most recent N memories in the database",
-        which on a used machine is mostly the user's own notes - and once more than
-        N memories are newer than the ones under test, the ones under test are not
-        compared at all. The benchmark passes its corpus ids so its conflict set is
-        a property of the corpus.
+          (c) neural    - lightweight ONNX cross-encoder NLI semantic contradiction
         """
         from app.models.research import TemporalFact
 
@@ -130,6 +190,10 @@ class ContradictionResolver:
 
         # ---- (c) factual value changes --------------------------------
         conflicts.extend(self._detect_value_changes(db, memory, scope_ids))
+
+        # ---- (d) neural NLI contradictions ----------------------------
+        if use_neural:
+            conflicts.extend(self._detect_neural_conflicts(db, memory, scope_ids))
 
         return conflicts
 
@@ -225,7 +289,8 @@ class ContradictionResolver:
 
     # ------------------------------------------------------------- resolving
     def resolve(self, db, memory_ids: Optional[List[int]] = None,
-                scope_ids: Optional[Iterable[int]] = None) -> Dict[str, Any]:
+                scope_ids: Optional[Iterable[int]] = None,
+                use_neural: bool = True) -> Dict[str, Any]:
         """
         Detect and store conflicts; mark which memory retrieval should prefer.
 
@@ -234,6 +299,7 @@ class ContradictionResolver:
         separate matters for evaluation - and for the stored rows, a scoped run
         only clears the conflicts that touch its scope, so it cannot wipe the
         user's conflict history.
+        `use_neural` controls whether the lightweight ONNX NLI classifier is used.
         """
         from app.models.memory import Memory
         from app.models.research import MemoryConflict
@@ -257,7 +323,7 @@ class ContradictionResolver:
         stored = 0
         seen_pairs = set()
         for memory in memories:
-            for conflict in self.detect_for_memory(db, memory, scope_ids=scope_ids):
+            for conflict in self.detect_for_memory(db, memory, scope_ids=scope_ids, use_neural=use_neural):
                 pair = (
                     conflict.get("older_memory_id"),
                     conflict.get("newer_memory_id"),
