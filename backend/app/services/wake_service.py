@@ -19,7 +19,6 @@ from __future__ import annotations
 import asyncio
 from typing import Any, Dict, Optional
 
-from app.agents.proactive_voice import proactive_voice
 from app.config import settings
 from app.integrations.wake_word import wake_word_listener
 from app.websocket.manager import manager
@@ -122,11 +121,4 @@ def wake_status() -> Dict[str, Any]:
     }
 
 
-def wire_proactive_voice() -> None:
-    """
-    Give the announcer a way to reach the UI.
 
-    It runs from agent threads as well as request handlers, so it uses the same
-    thread-safe dispatcher as the wake event.
-    """
-    proactive_voice.set_broadcaster(_dispatch)

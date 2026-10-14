@@ -8,7 +8,7 @@ from app.chunking.semantic_chunker import SemanticChunker
 from app.database.session import SessionLocal
 from app.extraction.text_cleaner import TextCleaner
 from app.metadata.metadata_extractor import MetadataExtractor
-from app.models.capture import AppUsage, MemorySession, Screenshot
+from app.models.capture import MemorySession, Screenshot
 from app.models.ocr import DetectedTopic, ExtractedText, OCRMetadata, ProcessedSession, SemanticChunk
 from app.ocr.ocr_engine import OCREngine
 from app.preprocessing.image_preprocessor import ImagePreprocessor
@@ -155,51 +155,6 @@ class OCRProcessor:
             db.commit()
             self._refresh_memory_archive(screenshot.session_id)
 
-            # --- Agentic Curation + Hero Image Selection + GitHub Vault Sync ---
-            try:
-                from app.agents.curation_agent import curation_agent
-                from app.agents.vault_agent import vault_agent
-
-                app_name, win_title = self._latest_app_info(db, screenshot.session_id)
-                curation_result = curation_agent.evaluate_and_curate(
-                    raw_text=clean_text,
-                    app_source=app_name,
-                    window_title=win_title,
-                    session_id=screenshot.session_id,
-                    raw_image_path=screenshot.file_path,
-                )
-                if curation_result:
-                    card, is_hero_selected = curation_result
-                    if is_hero_selected:
-                        # This frame is the richest in content & context for this time period
-                        hero_rel_path = vault_agent.optimize_and_store_hero_image(screenshot.file_path, card.id)
-                        card.hero_image = hero_rel_path
-                        print(f"[CurationAgent] Selected HERO screen capture ({card.domain}): {hero_rel_path}")
-
-                    vault_agent.store_card(card)
-                    print(f"[CurationAgent] Created & indexed JSON memory card: {card.id} ({card.domain} | {card.priority})")
-
-                    # Proactive Cognitive Collision Check
-                    try:
-                        import json
-                        from app.agents.card_schema import JSONMemoryCard
-                        from app.agents.insight_agent import insight_agent
-                        recent_card_objs = []
-                        if vault_agent.cards_dir.exists():
-                            for cf in sorted(vault_agent.cards_dir.rglob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True)[:12]:
-                                try:
-                                    recent_card_objs.append(JSONMemoryCard(**json.loads(cf.read_text(encoding="utf-8"))))
-                                except Exception:
-                                    pass
-                        asyncio.create_task(insight_agent.evaluate_collision(card, recent_card_objs))
-                    except Exception as ins_err:
-                        print(f"[InsightAgent] Collision notice: {ins_err}")
-
-                # Purge raw uncompressed image from laptop disk (zero storage waste!)
-                vault_agent.prune_screenshot(screenshot.file_path)
-            except Exception as agent_err:
-                print(f"[CurationAgent] Notice: {agent_err}")
-
             return {"status": "completed", "screenshot_id": screenshot_id, "chunks": len(chunks)}
         except Exception as exc:
             db.rollback()
@@ -222,19 +177,10 @@ class OCRProcessor:
         )
         db.commit()
 
-    def _latest_app_info(self, db: Session, session_id: int):
-        usage = db.query(AppUsage).filter(AppUsage.session_id == session_id).order_by(AppUsage.started_at.desc()).first()
-        if usage and usage.window_title:
-            return (usage.app_name, usage.window_title)
-        try:
-            from app.services.capture_service import capture_manager
-            return (capture_manager.current_app or "browser", capture_manager.current_title or "")
-        except Exception:
-            return ("unknown", "")
-
     def _latest_app_source(self, db: Session, session_id: int):
-        usage = db.query(AppUsage).filter(AppUsage.session_id == session_id).order_by(AppUsage.started_at.desc()).first()
-        return usage.app_name if usage else "unknown"
+        # Window tracking was removed with the activity-log feature; the OCR
+        # pipeline no longer attributes captures to a foreground application.
+        return "unknown"
 
     def _source_type_from_app(self, app_name: str):
         lowered = app_name.lower()

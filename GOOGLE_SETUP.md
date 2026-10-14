@@ -1,4 +1,4 @@
-# Connecting Gmail & Calendar to Jarvis
+# Connecting Gmail to Jarvis
 
 **Why you have to do this part yourself:** Google requires that the *account owner*
 approve access through their own browser. That is a good thing — it means nobody,
@@ -37,7 +37,6 @@ You will connect three accounts:
 For each of these, click the link → **Enable**:
 
 - **Gmail API** → <https://console.cloud.google.com/apis/library/gmail.googleapis.com>
-- **Google Calendar API** → <https://console.cloud.google.com/apis/library/calendar-json.googleapis.com>
 
 Both must say **Enabled**. If you skip this, connecting succeeds but every read fails.
 
@@ -146,7 +145,7 @@ Then in the app:
 6. Jarvis updates by itself within ~2 seconds
 7. Repeat for the other two addresses
 
-Then open **Gmail** and **Calendar** — both now show real data with an account switcher
+Then open **Gmail** — it now shows real data with an account switcher
 at the top.
 
 ---
@@ -157,11 +156,10 @@ at the top.
 |---|---|
 | Read your inbox and messages | Send email |
 | Detect deadlines, senders, unread state | Delete or archive anything |
-| Read your calendars and events | Create, edit, or cancel events |
 
-Scopes requested: `gmail.readonly`, `calendar.readonly`, `userinfo.email`.
+Scopes requested: `gmail.readonly`, `userinfo.email`.
 You can verify this yourself in the consent screen — it will say *"View your email
-messages"* and *"See your calendars"*, never "send".
+messages"*, never "send".
 
 ---
 

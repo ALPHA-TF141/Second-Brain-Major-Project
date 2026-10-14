@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Pause, Radio, Save, Settings2, Square, Volume2, Waves } from 'lucide-react';
-import NeuralBrain3D from '../components/NeuralBrain3D.jsx';
 import PageHeader from '../components/PageHeader.jsx';
 import { useBackend } from '../context/BackendContext.jsx';
 import { createVoiceSocket } from '../services/voiceSocket.js';
@@ -240,16 +239,23 @@ function VoiceAssistant() {
     <div>
       <PageHeader
         eyebrow="Voice Assistant"
-        title="Tamil voice cognitive companion"
-        description="Realtime microphone streaming, Tamil-English conversation, wake phrases, command routing, memory-aware answers, and spoken replies."
+        title="Voice cognitive companion"
+        description="Realtime microphone streaming, conversation, wake phrases, command routing, memory-aware answers, and spoken replies."
       />
 
       <div className="grid gap-5 xl:grid-cols-[1.1fr_1.1fr_0.8fr]">
         <section className="glass-panel flex flex-col justify-between rounded-lg p-5">
-          <NeuralBrain3D
-            state={status === 'listening' ? 'listening' : status === 'speaking' ? 'speaking' : 'idle'}
-            domainFocus="Active Sensory Audio Stream"
-          />
+          <div className="flex h-48 items-center justify-center rounded-lg border border-white/10 bg-slate-950/40">
+            <span
+              className={`h-16 w-16 rounded-full border-2 ${
+                status === 'listening'
+                  ? 'animate-pulse border-mintGlow bg-mintGlow/20'
+                  : status === 'speaking'
+                    ? 'animate-pulse border-cyanGlow bg-cyanGlow/20'
+                    : 'border-white/20 bg-white/5'
+              }`}
+            />
+          </div>
 
           <div className="mt-4 flex flex-col items-center justify-center rounded-lg border border-white/10 bg-slate-950/40 p-4">
             <h3 className="text-xl font-semibold capitalize">{status}</h3>

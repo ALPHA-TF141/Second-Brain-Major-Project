@@ -121,13 +121,6 @@ export const apiClient = {
       method: 'POST',
       body: JSON.stringify({ device_name: deviceName })
     }),
-  saveActivity: (activity) =>
-    request('/api/activities', {
-      method: 'POST',
-      body: JSON.stringify(activity)
-    }),
-  fetchActivities: () => request('/api/activities'),
-  fetchTimeline: () => request('/api/timeline'),
   updateSetting: (key, value) =>
     request('/api/settings', {
       method: 'PUT',
@@ -287,35 +280,6 @@ export const apiClient = {
       method: 'POST',
       body: JSON.stringify({ account_id: accountId })
     }),
-  notifications: (limit = 50) => request(`/api/os/notifications?limit=${limit}`),
-  markNotificationRead: (id) =>
-    request(`/api/os/notifications/${id}/read`, { method: 'POST' }),
-  clearNotifications: () => request('/api/os/notifications', { method: 'DELETE' }),
-
-  // ---- Hands-free: wake word + proactive voice ---------------------------
-  proactiveStatus: () => request('/api/proactive/status'),
-  testWakeWord: () => request('/api/proactive/wake/test', { method: 'POST' }),
-  announce: (text, priority = 'high', force = true) =>
-    request('/api/proactive/announce', {
-      method: 'POST',
-      body: JSON.stringify({ text, priority, source: 'manual', force })
-    }),
-  proactiveHistory: (limit = 50) => request(`/api/proactive/history?limit=${limit}`),
-  pauseVoice: () => request('/api/proactive/pause', { method: 'POST' }),
-  resumeVoice: () => request('/api/proactive/resume', { method: 'POST' }),
-
-  calendarSources: () => request('/api/calendar/sources'),
-  addCalendarFeed: (url, label = '', accountEmail = '') =>
-    request('/api/calendar/feed', {
-      method: 'POST',
-      body: JSON.stringify({ url, label, account_email: accountEmail })
-    }),
-  calendarSourceEvents: (sourceId, daysAhead = 7, daysBack = 1) =>
-    request(`/api/calendar/source-events?source_id=${encodeURIComponent(sourceId)}` +
-            `&days_ahead=${daysAhead}&days_back=${daysBack}`),
-  removeCalendarFeed: (sourceId) =>
-    request(`/api/calendar/feed/${encodeURIComponent(sourceId)}`, { method: 'DELETE' }),
-
   // Persistent Database App Connectors
   fetchConnectors: () => request('/api/connectors'),
   saveConnector: (payload) =>

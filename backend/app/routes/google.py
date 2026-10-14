@@ -1,5 +1,5 @@
 """
-Google integration routes: OAuth connect flow + Gmail + Calendar reads.
+Google integration routes: OAuth connect flow + Gmail reads.
 ===========================================================================
 Endpoint map
 ------------
@@ -10,8 +10,6 @@ Endpoint map
   DELETE /api/google/accounts/{account_id}      revoke at Google + forget locally
   GET    /api/google/gmail/messages             inbox list for one account
   GET    /api/google/gmail/message/{id}         full message body
-  GET    /api/google/calendar/events            upcoming events
-  GET    /api/google/calendar/calendars         which calendars are visible
 
 NOTE ON AUTH: every route except /callback requires the app JWT. The callback
 cannot, because Google does not send our Authorization header - it is protected
@@ -214,7 +212,7 @@ async def google_callback(
     if not email:
         return _page("Connection Failed", "Google did not return an email address.", accent="#f87171")
 
-    services = pending.get("services") or ["gmail", "calendar"]
+    services = pending.get("services") or ["gmail"]
     scopes = (tokens.get("scope") or "").split()
 
     google_token_store.upsert_account({
@@ -234,8 +232,6 @@ async def google_callback(
     granted = []
     if any("gmail" in s for s in scopes):
         granted.append("Gmail (read-only)")
-    if any("calendar" in s for s in scopes):
-        granted.append("Calendar (read-only)")
 
     return _page(
         "Connected Successfully",
@@ -287,27 +283,3 @@ async def gmail_message(
 async def gmail_profile(account_id: str = Query(...), _user: User = Depends(get_current_user)):
     _require_account(account_id, "Mail account")
     return await _ahandle(google_oauth.gmail_profile(account_id))
-
-
-# ---------------------------------------------------------------- Calendar
-@router.get("/calendar/events")
-async def calendar_events(
-    account_id: str = Query(...),
-    days_ahead: int = Query(default=7, ge=1, le=90),
-    days_back: int = Query(default=1, ge=0, le=30),
-    calendar_id: str = Query(default="primary"),
-    limit: int = Query(default=50, ge=1, le=250),
-    _user: User = Depends(get_current_user),
-):
-    _require_account(account_id, "Calendar account")
-    events = await _ahandle(
-        google_oauth.calendar_events(account_id, days_ahead, days_back, calendar_id, limit)
-    )
-    google_token_store.touch(account_id)
-    return {"account_id": account_id, "calendar_id": calendar_id, "count": len(events), "events": events}
-
-
-@router.get("/calendar/calendars")
-async def calendar_calendars(account_id: str = Query(...), _user: User = Depends(get_current_user)):
-    _require_account(account_id, "Calendar account")
-    return await _ahandle(google_oauth.calendar_list_calendars(account_id))

@@ -8,8 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from app.audio_streaming.voice_stream import router as voice_stream_router
 from app.config import settings
 from app.database.init_db import init_database
-from app.routes import activities, auth, capture, chat, connectors, google, graph, health, mail, memory, ocr, os_router, proactive, research, semantic, sessions, settings as settings_routes, social, timeline, voice
-from app.routes.graph import initialize_neo4j
+from app.routes import auth, capture, chat, connectors, google, health, mail, memory, ocr, research, semantic, sessions, settings as settings_routes, social, voice
 from app.services.ocr_service import ocr_processor
 from app.streaming.chat_stream import router as chat_stream_router
 from app.workers.embedding_worker import embedding_worker
@@ -29,8 +28,6 @@ app.add_middleware(
 app.include_router(health.router, prefix="/api")
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(sessions.router, prefix="/api/sessions", tags=["sessions"])
-app.include_router(activities.router, prefix="/api/activities", tags=["activities"])
-app.include_router(timeline.router, prefix="/api/timeline", tags=["timeline"])
 app.include_router(settings_routes.router, prefix="/api/settings", tags=["settings"])
 app.include_router(connectors.router)
 app.include_router(capture.router, prefix="/api/capture", tags=["capture"])
@@ -39,12 +36,9 @@ app.include_router(memory.router, prefix="/api/memory", tags=["memory"])
 app.include_router(semantic.router, prefix="/api/semantic", tags=["semantic"])
 app.include_router(chat.router, prefix="/api/chat", tags=["chat"])
 app.include_router(voice.router, prefix="/api/voice", tags=["voice"])
-app.include_router(graph.router, tags=["graph"])
 app.include_router(social.router)
-app.include_router(os_router.router)
 app.include_router(google.router)
 app.include_router(mail.router)
-app.include_router(proactive.router)
 app.include_router(research.router)
 app.include_router(websocket_router)
 app.include_router(chat_stream_router)
@@ -59,25 +53,12 @@ app.mount("/vault", StaticFiles(directory="memory_vault"), name="vault")
 @app.on_event("startup")
 async def on_startup():
     init_database()
-    initialize_neo4j()
     ocr_processor.start_worker()
     embedding_worker.start()
 
-    # Launch periodic GitHub Memory Vault sync (every 60s background guarantee)
-    async def _vault_sync_loop():
-        from app.agents.vault_agent import vault_agent
-        while True:
-            await asyncio.sleep(60)
-            try:
-                await vault_agent.sync_to_github()
-            except Exception:
-                pass
-
-    asyncio.create_task(_vault_sync_loop())
-
     # --- Automatic mail ingestion loop ---
     # Reads connected mailboxes on a timer and turns each new email into a
-    # memory (SQLite + vault card + wiki + graph). Controlled by
+    # memory (SQLite semantic store). Controlled by
     # MAIL_SYNC_ENABLED / MAIL_SYNC_INTERVAL_MINUTES.
     async def _mail_sync_loop():
         from app.agents.mail_ingestion_agent import mail_ingestion_agent
@@ -110,12 +91,11 @@ async def on_startup():
 
     asyncio.create_task(_mail_sync_loop())
 
-    # --- Hands-free: local wake word + proactive voice ---------------------
-    from app.services.wake_service import capture_loop, start_wake_word, wire_proactive_voice
+    # --- Hands-free: local wake word ---------------------------------------
+    from app.services.wake_service import capture_loop, start_wake_word
 
     # Capture THIS loop before any worker thread needs to broadcast into it.
     capture_loop()
-    wire_proactive_voice()
 
     wake_result = start_wake_word()
     if wake_result.get("started"):
@@ -127,12 +107,7 @@ async def on_startup():
             print("[Wake] Alt+J still works. To enable hands-free: "
                   "pip install openwakeword sounddevice")
 
-    if settings.voice_announce_enabled:
-        quiet = settings.voice_quiet_hours or "off"
-        print(f"[Voice] Proactive announcements on (min priority "
-              f"'{settings.voice_announce_min_priority}', quiet hours {quiet}).")
-
-    # --- Google integration status (Gmail + Calendar) ---
+    # --- Google integration status (Gmail) ---
     if settings.google_configured:
         from app.integrations.token_store import google_token_store
 
@@ -143,11 +118,11 @@ async def on_startup():
                       + ", ".join(a.get("email", "?") for a in accounts))
             else:
                 print("[Google] Credentials configured, but no accounts connected yet. "
-                      "Open Integrations in the app to link Gmail / Calendar.")
+                      "Open Integrations in the app to link Gmail.")
         except Exception as exc:
             print(f"[Google] Token store unavailable: {exc}")
     else:
-        print("[Google] Not configured - Gmail and Calendar will show 'Not Connected'. "
+        print("[Google] Not configured - Gmail will show 'Not Connected'. "
               "See GOOGLE_SETUP.md.")
 
 

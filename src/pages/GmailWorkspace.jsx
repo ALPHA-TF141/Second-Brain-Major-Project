@@ -53,7 +53,6 @@ export default function GmailWorkspace() {
   const [error, setError] = useState('');
   const [draft, setDraft] = useState('');
   const [aiBusy, setAiBusy] = useState(false);
-  const [taskNotice, setTaskNotice] = useState('');
 
   const accounts = status.accounts || [];
   const account = useMemo(
@@ -125,29 +124,6 @@ export default function GmailWorkspace() {
       setError(String(err.message || err));
     } finally {
       setBodyLoading(false);
-    }
-  }
-
-  /** Turn an email into a real task in the OS task store. */
-  async function convertToTask(message) {
-    const due = new Date(Date.now() + 2 * 86400000).toISOString().slice(0, 10);
-    try {
-      const res = await apiFetch(`${apiClient.baseUrl}/api/os/tasks`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: `Email: ${message.subject}`.slice(0, 120),
-          project: 'Email Follow-ups',
-          priority: message.important ? 'high' : 'medium',
-          due_date: due,
-          status: 'pending'
-        })
-      });
-      setTaskNotice(res.ok
-        ? 'Task created in your task list.'
-        : 'Could not create that task.');
-    } catch {
-      setTaskNotice('Could not create that task.');
     }
   }
 
@@ -356,13 +332,6 @@ export default function GmailWorkspace() {
               <div className="flex flex-wrap items-center gap-2 border-b border-white/5 px-5 py-2.5">
                 <button
                   type="button"
-                  onClick={() => convertToTask(selected)}
-                  className="flex items-center gap-1.5 rounded-lg border border-cyan-400/30 bg-cyan-500/10 px-3 py-1.5 text-[11px] font-semibold text-cyan-200 hover:bg-cyan-500/20"
-                >
-                  <PlusCircle size={12} /> Create task
-                </button>
-                <button
-                  type="button"
                   onClick={() => generateDraft(selected)}
                   disabled={aiBusy}
                   className="flex items-center gap-1.5 rounded-lg border border-amber-400/30 bg-amber-500/10 px-3 py-1.5 text-[11px] font-semibold text-amber-200 hover:bg-amber-500/20 disabled:opacity-40"
@@ -370,7 +339,6 @@ export default function GmailWorkspace() {
                   {aiBusy ? <Loader2 size={12} className="animate-spin" /> : <Sparkles size={12} />}
                   Draft reply (local AI)
                 </button>
-                {taskNotice && <span className="text-[11px] text-emerald-300">{taskNotice}</span>}
               </div>
 
               <div className="flex-1 overflow-y-auto thin-scrollbar px-5 py-4">

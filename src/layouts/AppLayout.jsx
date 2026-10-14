@@ -27,10 +27,6 @@ import {
   X,
   Zap
 } from 'lucide-react';
-import AmbientCapsuleHUD from '../components/AmbientCapsuleHUD.jsx';
-import CommandPaletteModal from '../components/CommandPaletteModal.jsx';
-import PitchingDashboardDrawer from '../components/PitchingDashboardDrawer.jsx';
-import LiveConnectorsModal from '../components/LiveConnectorsModal.jsx';
 import { useBackend } from '../context/BackendContext.jsx';
 
 export default function AppLayout() {
@@ -38,8 +34,6 @@ export default function AppLayout() {
   const location = useLocation();
   const isHome = location.pathname === '/';
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(isHome);
-  const [isPitchDrawerOpen, setIsPitchDrawerOpen] = useState(false);
-  const [isConnectorsModalOpen, setIsConnectorsModalOpen] = useState(false);
   const lastNotified = useRef(null);
   const lastWakedAt = useRef(null);
   const lastSpokenAt = useRef(null);
@@ -176,28 +170,13 @@ export default function AppLayout() {
   function maximize() { window.secondBrain?.maximize?.(); }
   function closeApp() { window.secondBrain?.close?.(); }
 
-  function summonJarvisOrb() {
-    if (window.secondBrain?.showOrb) {
-      window.secondBrain.showOrb();
-    }
-  }
-
-  // All 15 required persistent primary working tabs
+  // Persistent primary working tabs
   const allWorkingTabs = [
     { label: 'Home', path: '/', icon: LayoutDashboard, badge: 'Live' },
     { label: 'AI Agent', path: '/agent', icon: Bot, badge: 'Qwen' },
     { label: 'Gmail', path: '/gmail', icon: Mail },
-    { label: 'Calendar', path: '/calendar', icon: Calendar },
-    { label: 'Tasks', path: '/tasks', icon: CheckSquare },
-    { label: 'Notifications', path: '/notifications', icon: Bell },
-    { label: 'Reminders', path: '/reminders', icon: Clock },
     { label: 'Knowledge', path: '/knowledge', icon: BookOpen },
-    { label: 'Knowledge Graph', path: '/knowledge-graph', icon: Network },
-    { label: 'Files', path: '/files', icon: Folder },
-    { label: 'Projects', path: '/projects', icon: Rocket },
-    { label: 'Automations', path: '/automations', icon: Zap },
     { label: 'Memory Lab', path: '/memory-lab', icon: FlaskConical },
-    { label: 'Agent Activity', path: '/activity', icon: Activity },
     { label: 'Integrations', path: '/integrations', icon: Link2 },
     { label: 'Settings', path: '/settings', icon: Settings },
   ];
@@ -219,52 +198,9 @@ export default function AppLayout() {
           </span>
         </div>
 
-        {/* Center: Search & Quick Launcher Shortcut */}
-        <div className="hidden md:flex items-center gap-2 text-[10px] font-mono text-slate-400 -webkit-app-region-no-drag">
-          <div
-            onClick={() => {
-              window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }));
-            }}
-            className="flex cursor-pointer items-center gap-2 rounded-lg border border-white/10 bg-black/40 px-3 py-1 text-slate-400 hover:border-cyan-400/40 hover:text-white transition"
-          >
-            <Search size={11} className="text-cyan-400" />
-            <span>Search & Commands</span>
-            <kbd className="rounded bg-white/10 px-1.5 py-0.2 text-[9px] font-bold text-slate-300">Ctrl + K</kbd>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setIsPitchDrawerOpen(true)}
-            className="flex items-center gap-1.5 rounded-lg border border-cyan-400/30 bg-cyan-500/10 px-2.5 py-1 text-cyan-300 hover:bg-cyan-500/20 transition font-bold"
-            title="Pitching Intel Deck"
-          >
-            <Sparkles size={11} />
-            <span>PITCH DECK</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setIsConnectorsModalOpen(true)}
-            className="flex items-center gap-1.5 rounded-lg border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-1 text-emerald-300 hover:bg-emerald-500/20 transition font-bold"
-            title="Persistent DB App Connectors"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>CONNECTORS (DB)</span>
-          </button>
-        </div>
-
         {/* Right: Immanuel Profile & Window Controls */}
         <div className="flex items-center gap-2 -webkit-app-region-no-drag">
-          <button
-            type="button"
-            onClick={summonJarvisOrb}
-            className="flex items-center gap-1 rounded-full border border-amber-400/40 bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-mono font-bold text-amber-300 hover:bg-amber-500/20 transition shadow-[0_0_10px_rgba(251,191,36,0.2)]"
-            title="Summon Golden Holographic Orb (Alt + J)"
-          >
-            <Sparkles size={11} className="text-amber-400 animate-spin" />
-            <span>ORB: ALT+J</span>
-          </button>
-
+          
           <div className="flex items-center gap-1.5 rounded-lg border border-white/5 bg-white/5 px-2.5 py-0.5 text-[11px] font-mono text-slate-300">
             <span className="text-cyan-400 font-bold uppercase">{username || 'IMMANUEL'}</span>
             <span className="text-slate-600">/</span>
@@ -390,27 +326,6 @@ export default function AppLayout() {
         </div>
       </div>
 
-      {/* Global Ambient Floating Jarvis Orb Trigger (Alt + J / Alt + Space) */}
-      <AmbientCapsuleHUD />
-
-      {/* Global Universal Command Palette (Ctrl + K) */}
-      <CommandPaletteModal />
-
-      {/* Global Slide-Over Pitching Dashboard Drawer */}
-      <PitchingDashboardDrawer
-        isOpen={isPitchDrawerOpen}
-        onClose={() => setIsPitchDrawerOpen(false)}
-        onOpenConnectorsModal={() => {
-          setIsPitchDrawerOpen(false);
-          setIsConnectorsModalOpen(true);
-        }}
-      />
-
-      {/* Global Persistent SQLite DB Connectors Modal */}
-      <LiveConnectorsModal
-        isOpen={isConnectorsModalOpen}
-        onClose={() => setIsConnectorsModalOpen(false)}
-      />
     </div>
   );
 }

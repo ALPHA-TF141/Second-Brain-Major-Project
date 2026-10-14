@@ -16,7 +16,5 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     sessions = relationship("UserSession", back_populates="user")
-    activities = relationship("Activity", back_populates="user")
-    timeline_events = relationship("TimelineEvent", back_populates="user")
     settings = relationship("Setting", back_populates="user")
     connectors = relationship("ConnectorCredential", back_populates="user")
