@@ -7,7 +7,7 @@
   "scripts": {
     "backend": "node run_backend.js",
     "build": "vite build",
-    "check": "npm run lint && npm run check:api && npm run smoke && npm run build",
+    "check": "npm run lint && npm run check:api && npm run build",
     "check:api": "node tools/check-api-contract.mjs",
     "dev": "concurrently \"npm run backend\" \"npm run dev:react\" \"npm run dev:electron\"",
     "dev:electron": "wait-on http://127.0.0.1:5173 && electron .",
@@ -17,12 +17,9 @@
     "lint:fix": "eslint src electron --fix",
     "lint:strict": "eslint src electron --max-warnings=0",
     "preview": "vite preview",
-    "smoke": "node tools/smoke-render.mjs",
     "smoke:browser": "node scripts/smoke_test.mjs",
     "smoke:setup": "npm install --no-save playwright && npx playwright install chromium",
     "start": "electron .",
-    "test:orb": "node tools/test-orb-voice.mjs",
-    "test:proactive": "node tools/test-proactive-ui.mjs",
     "verify:backend": "python backend/verify_backend_endpoints.py"
   },
   "build": {

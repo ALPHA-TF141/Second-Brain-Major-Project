@@ -1,0 +1,31 @@
+{
+  "id": "mail_106_766789",
+  "timestamp": "2026-01-23T01:37:27+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Learn Dynamic Programming with Python [Free 2-hour course on Data\r\n Structures & Algorithms]",
+  "topic": "Email: Learn Dynamic Programming with Python [Free 2-hour course on Data\r\n Structures & Algorithms]",
+  "summary": "Email from Quincy Larson <quincy@freecodecamp.org> to lmariaimmanuel@gmail.com about: Learn Dynamic Programming with Python [Free 2-hour course on Data\r\n Structures & Algorithms]",
+  "key_pointers": [
+    "Action: Action: Learn Dynamic Programming with Python [Free 2-hour course on Data\r\n Structures & Algorithms]",
+    "From: Quincy Larson <quincy@freecodecamp.org>",
+    "Received: Fri, 23 Jan 2026 01:37:27 +0000"
+  ],
+  "entities": [
+    "quincy@freecodecamp.org",
+    "lmariaimmanuel@gmail.com",
+    "interview"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "freecodecamp.org",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:quincy@freecodecamp.org",
+  "raw_ocr_excerpt": "Here are this week's five freeCodeCamp resources that are worth your time:\n\n1. freeCodeCamp just published a new Python Data Structures & Algorithms course that will help you understand key Dynamic Programming patterns. These approaches come up all the time in technical interviews. You'll learn Constant Transition, the Grid Pattern, Two Sequences, Interval DP, Non-Constant Transition, Knapsack-like problems, and more. (2 hour YouTube course): https://www.freecodecamp.org/news/learn-dynamic-programming-through-dynamic-visuals/\n\n2. If you're interested in building projects on top of Large Language Models, freeCodeCamp just published a Python course on Retrieval-Augmented Generation (RAG). You'll learn how to turn documents into embeddings then store them in vector databases. The course will also walk you through building your own Model Context Protocol (MCP) server. (2 hour YouTube course): https://www.freecodecamp.org/news/learn-rag-and-mcp-fundamentals/\n\n3. On this week's freeCodeCamp podcast, I interview Mike McQuaid. He's a software engineer who maintains Homebrew, an open source package manager used by tens of millions of developers. We talk about how big open source infrastructure gets maintained and what a career in open source really looks like. Mike also shares how he uses LLM code generation tools, and which developer skills he thinks will be the most important going forward. (1 hour watch or listen in your favorite podcast app): https://www.freecodecamp.org/news/the-",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

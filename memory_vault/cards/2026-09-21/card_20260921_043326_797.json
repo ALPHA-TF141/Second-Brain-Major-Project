@@ -1,0 +1,28 @@
+{
+  "id": "card_20260921_043326_797",
+  "timestamp": "2026-09-21T04:33:26.797724Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Untitled design - Presentation - Google Chrome",
+  "topic": "Untitled design - Presentation",
+  "summary": "[General] Untitled design - Presentation: Activity on chrome.exe: Untitled design - Presentation - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Untitled design - Presentation - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Activity",
+    "Untitled",
+    "Presentation"
+  ],
+  "tags": [
+    "general",
+    "chrome"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Untitled design - Presentation - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 31.5
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mail_313_cd82db",
+  "timestamp": "2024-02-12T10:59:51+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "INFO_VELTECH STUDENTS",
+  "topic": "Email: INFO_VELTECH STUDENTS",
+  "summary": "Email from Yogeshwari Subramanian <yogesubramanian@gmail.com> to vtu24334@veltech.edu.in about: INFO_VELTECH STUDENTS",
+  "key_pointers": [
+    "Action: Action: INFO_VELTECH STUDENTS",
+    "From: Yogeshwari Subramanian <yogesubramanian@gmail.com>",
+    "Received: Mon, 12 Feb 2024 16:29:51 +0530"
+  ],
+  "entities": [
+    "yogesubramanian@gmail.com",
+    "vtu24334@veltech.edu.in",
+    "interview"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "gmail.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:yogesubramanian@gmail.com",
+  "raw_ocr_excerpt": "Dear Student,\n\nExciting news awaits! 🌟 *You've been shortlisted for the Advanced Training\nand Internship Program with WIPRO verified certificate in collaboration\nwith IIT INDORE FLUXUS.*\n\n*Make sure to fill out your application form using the link provided below\nfor further information. 📄* This is a fantastic opportunity to dive into a\nworld of innovation and learning with WIPRO.\n\n📍*APPLICATION FORM:* *https://forms.gle/owDt8cT1vVSHBpXS9*\n<https://forms.gle/owDt8cT1vVSHBpXS9>\n\n📍*WhatsAppGroup **Link:*\n *https://chat.whatsapp.com/EEP04zuIzc4J4rlFKllVGW\n<https://chat.whatsapp.com/EEP04zuIzc4J4rlFKllVGW>*\n\n*🗓️Duration: 2 months*\n\nMarch-April\nApril - May\nMay - June\n\n🔍 About the Program:\n\n📘 Immerse yourself in a unique 2-month *Advanced training with\nInternship* designed\nby  *IIT INDORE FLUXUS** with WIPRO DICE ID:*\n\n   - Comprehensive learning with industry professionals boasting over 10\n   years of experience.\n   - 60+ hours of immersive content across 25-30 modules.\n   - Prerequisite classes to build foundational knowledge.\n\n*🛠️ Industrial Internship Highlights:*\n\n   -  Program completion certificate from Teachnook in collaboration with\n   IIT-B (Wissenaire) verified with *WIPRO DICE ID*.\n   - Co-branded internship certificate verified with *WIPRO DICE ID*.\n   - Letter of recommendation (based on your performance).\n   - Mock interviews and resume-building sessions from industry experts.\n   - Allotment letter.\n   - Free access to a growth community\n\n📝 How to Seize This Opportuni",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

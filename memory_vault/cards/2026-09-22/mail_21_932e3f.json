@@ -1,0 +1,29 @@
+{
+  "id": "mail_21_932e3f",
+  "timestamp": "2020-07-07T08:23:41+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "🌎 Immanuel, your June update",
+  "topic": "Email: 🌎 Immanuel, your June update",
+  "summary": "Email from Google Maps Timeline <noreply-maps-timeline@google.com> to immanuellourdu@gmail.com about: 🌎 Immanuel, your June update",
+  "key_pointers": [
+    "From: Google Maps Timeline <noreply-maps-timeline@google.com>",
+    "Received: Tue, 07 Jul 2020 01:23:41 -0700"
+  ],
+  "entities": [
+    "noreply-maps-timeline@google.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "google.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:noreply-maps-timeline@google.com",
+  "raw_ocr_excerpt": "This Timeline email is an automated summary of places you’ve been, which\nmay be fewer this month due to the COVID-19\n<https://www.google.com/covid19?utm_source=Google-Maps-timeline&utm_medium=email&utm_campaign=COVID-site-promo>\nresponse in your area.\nImmanuel, here's your new Timeline update\nYou're receiving this monthly email because you turned on Location History,\na Google Account–level setting that saves where you go in your private\nTimeline.\nLocation History data also helps give you personalized information on\nGoogle, including better restaurant recommendations, and suggestions for a\nfaster commute. You can view, edit, and delete this data anytime in\nTimeline.\nExplore Timeline\n<https://www.google.com/maps/timeline?ved=0ENaiAggAKAA&pb=!1m2!2m1!1s2020-06&gid=113616049628634578366>\nLocation History: ON\nManage Settings\n<https://accounts.google.com/AccountChooser?continue=https://myaccount.google.com/activitycontrols/location?utm_source%3Dtl-email%26utm_medium%3Demail%26utm_campaign%3Dper-month&Email=immanuellourdu@gmail.com>\nYour June activity\n[image: In transit]\n7 hr\nYour all time data\n3\nPlaces\n<https://www.google.com/maps/timeline?ved=0ELKuBQgAKAA&pb=!1m2!5m1!1m0&gid=113616049628634578366>\nManage your Location History\nVisit your private Timeline to view, edit and delete your Location History\nGo to your Timeline\n<https://www.google.com/maps/timeline?ved=0ENeiAg&gid=113616049628634578366>\nPause your Location History\nVisit Activity controls anytime to pause your Location Hist",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

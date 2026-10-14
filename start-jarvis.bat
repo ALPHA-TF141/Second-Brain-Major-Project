@@ -46,7 +46,7 @@ echo ==============================================
 echo   Backend  : http://127.0.0.1:8000
 echo   Frontend : http://127.0.0.1:5173
 echo   Desktop  : Electron window will open
-echo   Orb      : Press Alt + J anytime
+echo   Voice    : Alt+J focuses the app; the wake word summons Jarvis
 echo ==============================================
 echo.
 echo   Keep this window open. Press Ctrl+C to stop.

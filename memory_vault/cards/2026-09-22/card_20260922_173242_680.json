@@ -1,0 +1,32 @@
+{
+  "id": "card_20260922_173242_680",
+  "timestamp": "2026-09-22T17:32:42.680471Z",
+  "domain": "Technology",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "(3055) Paul Gilbert Tries Flerb! - YouTube - Google Chrome",
+  "topic": "Web_Knowledge",
+  "summary": "[Technology] (3055) Paul Gilbert Tries Flerb!: Activity on chrome.exe: (3055) Paul Gilbert Tries Flerb! - YouTube - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: (3055) Paul Gilbert Tries Flerb! - YouTube - Google Chrome"
+  ],
+  "entities": [
+    "Flerb",
+    "Paul",
+    "Tries",
+    "Gilbert",
+    "Activity",
+    "Web_Knowledge",
+    "Google"
+  ],
+  "tags": [
+    "technology",
+    "chrome",
+    "web_knowledge"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: (3055) Paul Gilbert Tries Flerb! - YouTube - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 47.85
+}

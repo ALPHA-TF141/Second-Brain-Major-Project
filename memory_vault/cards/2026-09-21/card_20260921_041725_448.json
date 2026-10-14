@@ -1,0 +1,30 @@
+{
+  "id": "card_20260921_041725_448",
+  "timestamp": "2026-09-21T04:17:25.448161Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "ONENOTE.EXE",
+  "window_title": "Face Prep Class - OneNote",
+  "topic": "Face Prep Class - OneNote",
+  "summary": "[General] Face Prep Class - OneNote: Activity on ONENOTE.EXE: Face Prep Class - OneNote",
+  "key_pointers": [
+    "Activity on ONENOTE.EXE: Face Prep Class - OneNote"
+  ],
+  "entities": [
+    "Prep",
+    "Face",
+    "Class",
+    "OneNote",
+    "Activity",
+    "ONENOTE"
+  ],
+  "tags": [
+    "onenote",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on ONENOTE.EXE: Face Prep Class - OneNote",
+  "hero_image": null,
+  "hero_image_info_score": 30.6
+}

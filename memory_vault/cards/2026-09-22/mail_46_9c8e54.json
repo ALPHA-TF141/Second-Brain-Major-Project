@@ -1,0 +1,29 @@
+{
+  "id": "mail_46_9c8e54",
+  "timestamp": "2026-01-09T05:21:12+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Learn the math that powers AI systems [Free full-length book for\r\n non-mathematicians]",
+  "topic": "Email: Learn the math that powers AI systems [Free full-length book for\r\n non-mathematicians]",
+  "summary": "Email from Quincy Larson <quincy@freecodecamp.org> to lmariaimmanuel@gmail.com about: Learn the math that powers AI systems [Free full-length book for\r\n non-mathematicians]",
+  "key_pointers": [
+    "From: Quincy Larson <quincy@freecodecamp.org>",
+    "Received: Fri, 9 Jan 2026 05:21:12 +0000"
+  ],
+  "entities": [
+    "quincy@freecodecamp.org",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "freecodecamp.org",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:quincy@freecodecamp.org",
+  "raw_ocr_excerpt": "Here are this week's five freeCodeCamp resources that are worth your time:\n\n1. freeCodeCamp just published a book that will teach you the math that powers most AI systems. Even if you haven't studied math since high school, you may find this book helpful in expanding your understanding of the layers of abstraction underpinning these emerging tools. You'll learn key concepts in statistics, linear algebra, calculus, and optimization theory. You'll also get a healthy dose of mathematical history. (free full-length book): https://www.freecodecamp.org/news/the-math-behind-artificial-intelligence-book/\n\n2. And if you're finding the sudden surge in AI tools to be overwhelming, freeCodeCamp just published this practical guide to using them effectively. This tutorial will separate the utility from the hype. You'll learn how to minimize hallucinations with Context Management. You'll also learn about agentic tools and in-editor assistants. It even has tips for how to prevent your own developer skills from atrophying, so you can adopt these tools without becoming overly dependent on them. (35 minute read): https://www.freecodecamp.org/news/how-to-not-be-overwhelmed-by-ai/\n\n3. freeCodeCamp also published a course on React Optimization. You'll learn key React design patterns to achieve a screaming-fast front end. This course covers memoization, derived states, throttling, debouncing, concurrency, virtualization, and more. (2 hour YouTube course): https://www.freecodecamp.org/news/how-to-op",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,34 @@
+{
+  "id": "card_20260922_064726_073",
+  "timestamp": "2026-09-22T06:47:26.073952Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "Google Calendar API – APIs & Services – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "topic": "Cloud",
+  "summary": "[Technology] Google Calendar API – APIs & Services – Jarvis Second Brain – Google Cloud console: Activity on chrome.exe: Google Calendar API – APIs & Services – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Google Calendar API – APIs & Services – Jarvis Second Brain – Google Cloud console - Google Chrome"
+  ],
+  "entities": [
+    "Calendar",
+    "Google",
+    "Services",
+    "Jarvis",
+    "Second",
+    "Brain",
+    "Api",
+    "APIs"
+  ],
+  "tags": [
+    "api",
+    "cloud",
+    "chrome",
+    "technology"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Google Calendar API – APIs & Services – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_064726_073.webp",
+  "hero_image_info_score": 69.45
+}

@@ -1,0 +1,29 @@
+{
+  "id": "mail_6_c5b90f",
+  "timestamp": "2025-12-31T03:38:19+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "[LeetCode] Password Reset E-mail",
+  "topic": "Email: [LeetCode] Password Reset E-mail",
+  "summary": "Email from LeetCode <no-reply@leetcode.com> to lmariaimmanuel@gmail.com about: [LeetCode] Password Reset E-mail",
+  "key_pointers": [
+    "From: LeetCode <no-reply@leetcode.com>",
+    "Received: Wed, 31 Dec 2025 03:38:19 +0000"
+  ],
+  "entities": [
+    "no-reply@leetcode.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "leetcode.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@leetcode.com",
+  "raw_ocr_excerpt": "You're receiving this e-mail because you or someone else has requested a password reset for your user account at .\n\nClick the link below to reset your password:\nhttps://leetcode.com/accounts/password/reset/key/c58w7-d1n2jv-d59a421ff2e9afb9ee8e134c2ed5b23e/\n\nIf you did not request a password reset you can safely ignore this email.",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

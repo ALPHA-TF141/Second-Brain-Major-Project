@@ -1,0 +1,29 @@
+{
+  "id": "mail_7_317b6f",
+  "timestamp": "2020-06-18T08:20:45+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Security alert",
+  "topic": "Email: Security alert",
+  "summary": "Email from Google <no-reply@accounts.google.com> to immanuellourdu@gmail.com about: Security alert",
+  "key_pointers": [
+    "From: Google <no-reply@accounts.google.com>",
+    "Received: Thu, 18 Jun 2020 08:20:45 GMT"
+  ],
+  "entities": [
+    "no-reply@accounts.google.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "accounts.google.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@accounts.google.com",
+  "raw_ocr_excerpt": "[image: Google]\nNew device signed in to\n\nimmanuellourdu@gmail.com\nYour Google Account was just signed in to from a new Casper L20 device.\nYou're getting this email to make sure it was you.\nCheck activity\n<https://accounts.google.com/AccountChooser?Email=immanuellourdu@gmail.com&continue=https://myaccount.google.com/alert/nt/1592468445000?rfn%3D31%26rfnc%3D1%26eid%3D1241674653070362230%26et%3D0%26anexp%3Dhsc-control_a>\nYou received this email to let you know about important changes to your\nGoogle Account and services.\n© 2020 Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

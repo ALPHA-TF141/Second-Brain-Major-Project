@@ -1,0 +1,28 @@
+{
+  "id": "card_20260921_043235_051",
+  "timestamp": "2026-09-21T04:32:35.051802Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Redirecting... | Canva - Google Chrome",
+  "topic": "Redirecting... | Canva",
+  "summary": "[General] Redirecting... | Canva: Activity on chrome.exe: Redirecting... | Canva - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Redirecting... | Canva - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Activity",
+    "Redirecting",
+    "Canva"
+  ],
+  "tags": [
+    "general",
+    "chrome"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Redirecting... | Canva - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-21/hero_card_20260921_043235_051.webp",
+  "hero_image_info_score": 31.05
+}

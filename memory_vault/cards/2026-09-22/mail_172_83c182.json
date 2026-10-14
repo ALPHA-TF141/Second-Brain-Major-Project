@@ -1,0 +1,29 @@
+{
+  "id": "mail_172_83c182",
+  "timestamp": "2026-01-31T12:01:07+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "All Products at Lowest Price",
+  "topic": "Email: All Products at Lowest Price",
+  "summary": "Email from Parikh Jain <no-reply@propeers.in> to lmariaimmanuel@gmail.com about: All Products at Lowest Price",
+  "key_pointers": [
+    "From: Parikh Jain <no-reply@propeers.in>",
+    "Received: Sat, 31 Jan 2026 12:01:07 +0000"
+  ],
+  "entities": [
+    "no-reply@propeers.in",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "propeers.in",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@propeers.in",
+  "raw_ocr_excerpt": "This is the body",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

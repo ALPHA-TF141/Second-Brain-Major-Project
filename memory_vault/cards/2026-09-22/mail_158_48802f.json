@@ -1,0 +1,29 @@
+{
+  "id": "mail_158_48802f",
+  "timestamp": "2020-09-10T10:52:56+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Alert! Meet BYJU'S Class 10 toppers",
+  "topic": "Email: Alert! Meet BYJU'S Class 10 toppers",
+  "summary": "Email from \"The Learning App\" <happylearning@byjuslearning.com> to immanuellourdu@gmail.com about: Alert! Meet BYJU'S Class 10 toppers",
+  "key_pointers": [
+    "From: \"The Learning App\" <happylearning@byjuslearning.com>",
+    "Received: Thu, 10 Sep 2020 10:52:56 +0000 (UTC)"
+  ],
+  "entities": [
+    "happylearning@byjuslearning.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "byjuslearning.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:happylearning@byjuslearning.com",
+  "raw_ocr_excerpt": "<http://click.byjuslearnathome.in/t/em1/24692/1/026d8398-32eb-4dfb-a70c-4c067a742bbd/38d29420f34b11eab50c0697d1d57d70 >\n\nIf you wish to opt out of all type of emails, click Unsubscribe<http://click.byjuslearnathome.in/t/em/24692/5/026d8398-32eb-4dfb-a70c-4c067a742bbd >",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

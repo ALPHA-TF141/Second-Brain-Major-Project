@@ -1,0 +1,29 @@
+{
+  "id": "card_20260922_111933_676",
+  "timestamp": "2026-09-22T11:19:33.676494Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Second Brain Topics - Google Chrome",
+  "topic": "Second Brain Topics",
+  "summary": "[General] Second Brain Topics: Activity on chrome.exe: Second Brain Topics - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Second Brain Topics - Google Chrome"
+  ],
+  "entities": [
+    "Second",
+    "Brain",
+    "Topics",
+    "Activity",
+    "Google"
+  ],
+  "tags": [
+    "general",
+    "chrome"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Second Brain Topics - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 31.05
+}

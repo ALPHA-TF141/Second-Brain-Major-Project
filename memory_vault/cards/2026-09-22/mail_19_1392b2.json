@@ -1,0 +1,31 @@
+{
+  "id": "mail_19_1392b2",
+  "timestamp": "2020-07-05T10:56:50+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Verify Email Address for Discord",
+  "topic": "Email: Verify Email Address for Discord",
+  "summary": "Email from \"Discord\" <noreply@discordapp.com> to immanuellourdu@gmail.com about: Verify Email Address for Discord",
+  "key_pointers": [
+    "Action: Action: Verify Email Address for Discord",
+    "From: \"Discord\" <noreply@discordapp.com>",
+    "Received: Sun, 05 Jul 2020 10:56:50 +0000 (UTC)"
+  ],
+  "entities": [
+    "noreply@discordapp.com",
+    "immanuellourdu@gmail.com",
+    "verify"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "discordapp.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:noreply@discordapp.com",
+  "raw_ocr_excerpt": "Hey Immanuel,\n\nThanks for registering for an account on Discord! Before we get started, we just need to confirm that this is you. Click below to verify your email address:\n\nVerify Email: https://url9624.discordapp.com/ls/click?upn=qDOo8cnwIoKzt0aLL1cBeFE1RlVCKJFF5zAq8ml-2BFh1dq-2FeX22E9yMPFmLMSO5CYFALAQ05aZiMqxu9KnWdQpNeSiuQWMKp3FoO8hERjCvNs8Nu92TFgjoimsACjqY8VFSnGJbB793doW5t3JmkABxPnRUPfQQguja09mLPr7z3tDj1EJjkvUtDnGva8-2BNbo9-2B2oqcpt4FMAAht-2B7mFn7A-3D-3DRoh2_v12URl19nfex9HuvDXYCoR9-2B85OSICI3w7l9rIvW7q4e5e0BES1tk0DUeS0GcMmMfWeWqLr10fMHinwsYJ48t09hwm41yQLUOViSrImAR7rSPgWQS3r2mXX5TazEPyuLrM29qIceZiQ8tFI-2BQ70oaF6EhVK0t25aGBrcuWmeUF1vxMNPoFXMJTSdzbzGxObmeR51XbF2LtLyxve66fL3rnyUWwrA6yvovi9p-2Be1JS-2Bk-3D",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

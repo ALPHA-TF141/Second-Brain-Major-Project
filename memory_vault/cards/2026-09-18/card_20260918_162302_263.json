@@ -1,0 +1,33 @@
+{
+  "id": "card_20260918_162302_263",
+  "timestamp": "2026-09-18T16:23:02.263979Z",
+  "domain": "Technology",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "புதிய துவக்கம் | Pudhiya Thuvakkam | YOUTH NIGHT| ஜீவன் செல்லதுரை | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+  "topic": "Web_Knowledge",
+  "summary": "[Technology] புதிய துவக்கம் | Pudhiya Thuvakkam | YOUTH NIGHT| ஜீவன் செல்லதுரை | AFT Praise & Worship Official | YouTube Music: Activity on chrome.exe: புதிய துவக்கம் | Pudhiya Thuvakkam | YOUTH NIGHT| ஜீவன் செல்லதுரை | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: புதிய துவக்கம் | Pudhiya Thuvakkam | YOUTH NIGHT| ஜீவன் செல்லதுரை | AFT Praise & Worship Official | YouTube Music - Google Chrome"
+  ],
+  "entities": [
+    "Activity",
+    "Thuvakkam",
+    "Pudhiya",
+    "Web_Knowledge",
+    "YOUTH",
+    "Worship",
+    "Praise",
+    "NIGHT"
+  ],
+  "tags": [
+    "technology",
+    "chrome",
+    "web_knowledge"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: புதிய துவக்கம் | Pudhiya Thuvakkam | YOUTH NIGHT| ஜீவன் செல்லதுரை | AFT Praise & Worship Official | YouTube Music - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 53.25
+}

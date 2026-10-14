@@ -1,0 +1,28 @@
+{
+  "id": "card_20260918_061446_478",
+  "timestamp": "2026-09-18T06:14:46.478855Z",
+  "domain": "Technology",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "electron.exe",
+  "window_title": "Second Brain",
+  "topic": "Electron",
+  "summary": "[Technology] Second Brain: Activity on electron.exe: Second Brain",
+  "key_pointers": [
+    "Activity on electron.exe: Second Brain"
+  ],
+  "entities": [
+    "Activity",
+    "Electron",
+    "Second",
+    "Brain"
+  ],
+  "tags": [
+    "electron",
+    "technology"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on electron.exe: Second Brain",
+  "hero_image": "memory_vault/images/2026-09-18/hero_card_20260918_061446_478.webp",
+  "hero_image_info_score": 44.25
+}

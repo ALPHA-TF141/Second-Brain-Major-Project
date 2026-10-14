@@ -1,0 +1,29 @@
+{
+  "id": "mail_210_d9f716",
+  "timestamp": "2024-01-03T12:33:29+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Congratulations on your Internship Program!",
+  "topic": "Email: Congratulations on your Internship Program!",
+  "summary": "Email from \"INTERNSHIP @BLENDVIDYA\" <joe.p@blendvidya.com> to vtu24334@veltech.edu.in about: Congratulations on your Internship Program!",
+  "key_pointers": [
+    "From: \"INTERNSHIP @BLENDVIDYA\" <joe.p@blendvidya.com>",
+    "Received: Wed, 3 Jan 2024 18:03:29 +0530"
+  ],
+  "entities": [
+    "joe.p@blendvidya.com",
+    "vtu24334@veltech.edu.in"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "blendvidya.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:joe.p@blendvidya.com",
+  "raw_ocr_excerpt": "*Dear Student*,\n\nWe are thrilled to extend our heartfelt congratulations on your selection\ninto Blend Vidya's Internship Program! This is a unique chance for you to\nembark on a transformative journey towards personal and professional growth.\n\n*Program Details:*\n\n*Choose Your Interest*:\n\na). Full Stack Web Development\n\nb). Python\n\nc). Digital Marketing\n\nd). Artificial Intelligence (AI)\n\n*Internship Highlights:*\n\n*Hands-on Freelance Projects:* Work on real projects for esteemed companies\nand earn an attractive stipend ranging from ₹15,000 to ₹25,000 per project.\nGain valuable real-world experience and enhance your skill set.\n\n*12-Week Program, Dual Phases:* Your journey spans 12 weeks, featuring\nTraining and Project Phases, commencing on December 5th. Sharpen your\nskills, dive into exciting projects, and experience the practical\napplications of your learning.\n\n*Certifications:*\n\nTraining Completion Certificate\n\nInternship Completion Certificate\n\n*Opportunities Await:*\n\nUpon successful completion, shortlisted candidates will receive valuable\nfreelancing opportunities. Earn ₹15,000 to ₹25,000 for each project, and\nproudly showcase your Training and Internship Completion Certificates.\n\n*Program Duration:*\n\nJanuary 5th - April 5th\n\n*Secure Your Spot:*\n\n*To secure your spot, please complete the form using the following link:*\n\n*https://docs.google.com/forms/d/e/1FAIpQLScnkKyQhtqcqjQ51KiW2ipnxoObEbIKfFax-D2q4V2Lkuu5OQ/viewform?usp=sf_link\n<https://docs.google.com/forms/d/e/1FAIpQLScn",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mail_62_c0e5be",
+  "timestamp": "2020-07-29T10:36:31+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Einstein In Bollywood Confirmation",
+  "topic": "Email: Einstein In Bollywood Confirmation",
+  "summary": "Email from Zoom Webinar <no-reply@zoom.us> to immanuellourdu@gmail.com about: Einstein In Bollywood Confirmation",
+  "key_pointers": [
+    "Action: Action: Einstein In Bollywood Confirmation - due 2027-07-29",
+    "From: Zoom Webinar <no-reply@zoom.us>",
+    "Received: Wed, 29 Jul 2020 10:36:31 +0000"
+  ],
+  "entities": [
+    "no-reply@zoom.us",
+    "immanuellourdu@gmail.com",
+    "please submit"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "zoom.us",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:no-reply@zoom.us",
+  "raw_ocr_excerpt": "html,body{\n\t\tfont-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif;\n\t\tfont-size: 14px;\n\t\tline-height: 22px;\n\t}\n\t.custom_logo {\n\t\tmargin: 0 auto;\n\t\tmax-width:640px;\n\t}\n\t.img-responsive {\n\t\tdisplay: block;\n\t\theight: auto;\n\t\tmax-height: 200px;\n\t\talign: middle;\n\t}\n\t.custom_image {\n\t\tfloat: right;\n\t\tmargin: 10px 0 10px 10px;\n\t\tmax-width:100px;\n\t}\n\t.cssTab{\n\t    margin-left:24px;\n\t}\n\t \n\t \n \n  \n \n \n\t   \n\t  \n \n \n\t &nbsp; \n\t &nbsp; \n \n \n\t Hi Immanuel Immanuel,   \n \nThank you for registering for \"Einstein In Bollywood\".\n \n\n \nPlease submit any questions to: zoom.webinar@krea.edu.in \n \nDate Time: Jul 29, 2020 05:00 PM India  \n \nJoin from a PC, Mac, iPad, iPhone or Android device:  \n \n     Click Here to Join  \nNote: This link should not be shared with others; it is unique to you. \nPasscode: 651127 \n     Add to Calendar  &nbsp;   Add to Google Calendar  &nbsp;  Add to Yahoo Calendar \n \n    Description: Music lies at the crux of the most astonishing minds in the world&#39;s history. What is it about music - of any genre - that shapes the brain differently, makes people behave differently and further - fire imagination and speeden up discovery and innovation.\n \n \nOr iPhone one-tap : \n \n    US: +13017158592,,96475205531#  or +13126266799,,96475205531# \n \n \nOr Telephone: \n \n    Dial(for higher quality, dial a number based on your current location):\n\t&nbsp;&nbsp;&nbsp;&nbsp; US: +1 301 715 8592  or +1 312 626 6799  or +1 346 248 7799  or +1 646 558 8656  or +1 669 900 9128  or +1 253 215 878",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

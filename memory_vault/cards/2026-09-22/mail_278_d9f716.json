@@ -1,0 +1,29 @@
+{
+  "id": "mail_278_d9f716",
+  "timestamp": "2024-01-30T06:25:42+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Congratulations on your Internship Program!",
+  "topic": "Email: Congratulations on your Internship Program!",
+  "summary": "Email from \"admin @blendvidya\" <sumithra@blendvidya.com> to vtu24334@veltech.edu.in about: Congratulations on your Internship Program!",
+  "key_pointers": [
+    "From: \"admin @blendvidya\" <sumithra@blendvidya.com>",
+    "Received: Tue, 30 Jan 2024 11:55:42 +0530"
+  ],
+  "entities": [
+    "sumithra@blendvidya.com",
+    "vtu24334@veltech.edu.in"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "blendvidya.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:sumithra@blendvidya.com",
+  "raw_ocr_excerpt": "Dear Students,\n\nWe're thrilled to introduce an immersive training and internship program\ndesigned to propel your skills in Python full stack web development and\nartificial intelligence. This program not only offers hands-on learning\nexperiences but also includes a unique freelancing opportunity where you\ncan apply your newfound expertise.\n\nProgram Highlights:\n\n   -\n\n   Python Full Stack & AI Digital Marketing Training: Dive into\n   comprehensive modules covering Python development and cutting-edge AI\n   technologies.\n   -\n\n   Hands-on Projects: Apply your learning through real-world projects,\n   gaining practical experience.\n   -\n\n   Expert Guidance: Learn from industry professionals and mentors dedicated\n   to your success.\n   -\n\n   Freelancing Opportunity: Put your skills to work on live projects,\n   gaining valuable experience and earning a stipend of ₹15,000-20,000.\n   -\n\n   Certification: Upon successful completion, receive a certification\n   recognizing your accomplishments.\n\nProgram Details:\n\n   -\n\n   Duration: 3 Months, From February 5th to May 5th\n   -\n\n   Location: Virtual\n   -\n\n   Time Commitment: 1 hour 30min/6 days per week\n   -\n\n   Stipend: ₹15,000-20,000( Freelancing)\n   -\n\n   Application Process: Apply Now\n   -\n   *https://docs.google.com/forms/d/e/1FAIpQLSd13PWbUZa1ttTGzgermRsdT5Rq3p7YafXbC_G87p4mILzyQg/viewform?usp=sf_link*\n   <https://docs.google.com/forms/d/e/1FAIpQLSd13PWbUZa1ttTGzgermRsdT5Rq3p7YafXbC_G87p4mILzyQg/viewform?usp=sf_link>\n\nEligibility Criter",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

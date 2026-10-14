@@ -1,0 +1,29 @@
+{
+  "id": "mail_167_755e6d",
+  "timestamp": "2026-01-30T16:46:06+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Welcome to GeeksforGeeks!",
+  "topic": "Email: Welcome to GeeksforGeeks!",
+  "summary": "Email from no-reply@geeksforgeeks.org to lmariaimmanuel@gmail.com about: Welcome to GeeksforGeeks!",
+  "key_pointers": [
+    "From: no-reply@geeksforgeeks.org",
+    "Received: Fri, 30 Jan 2026 16:46:06 +0000"
+  ],
+  "entities": [
+    "no-reply@geeksforgeeks.org",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "geeksforgeeks.org",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@geeksforgeeks.org",
+  "raw_ocr_excerpt": "html,\n      body {\n        margin: 0 auto !important;\n        padding: 0 !important;\n        height: 100% !important;\n        width: 100% !important;\n      }\n      * {\n        -ms-text-size-adjust: 100%;\n        -webkit-text-size-adjust: 100%;\n      }\n      div[style*=\"margin: 16px 0\"] {\n        margin:0 !important;\n      }\n      table,\n      td {\n        mso-table-lspace: 0pt !important;\n        mso-table-rspace: 0pt !important;\n      }\n      table {\n        border-spacing: 0 !important;\n        border-collapse: collapse !important;\n        table-layout: fixed !important;\n        Margin: 0 auto !important;\n      }\n      table table table {\n        table-layout: auto;\n      }\n      img {\n        -ms-interpolation-mode:bicubic;\n      }\n      .mobile-link--footer a,\n      a[x-apple-data-detectors] {\n        color:inherit !important;\n        text-decoration: underline !important;\n      }\n     \n \n      .button-td,\n      .button-a {\n        transition: all 100ms ease-in;\n      }\n      .button-td:hover,\n      .button-a:hover {\n        background: #555555 !important;\n        border-color: #555555 !important;\n      }\n     \n \n \n  \n   \n \n \n \n \n       \n \n \n \n \n \n \n \n Hi lmariaimw9a0 Thank you for registering. Your login details are as follows: Username:  lmariaimw9a0   Email:  lmariaimmanuel@gmail.com    Explore the unlimited learning opportunities: \n                           \n \n \n \n We hope we can help you in achieving your career goals and that you level up your skills one coding pro",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

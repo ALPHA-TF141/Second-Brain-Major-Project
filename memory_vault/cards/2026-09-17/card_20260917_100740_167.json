@@ -1,0 +1,28 @@
+{
+  "id": "card_20260917_100740_167",
+  "timestamp": "2026-09-17T10:07:40.167571Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Second-Brain-Major-Project/memory_vault/images/2026-09-17 at main · ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+  "topic": "Second-Brain-Major-Project/memory_vault/image",
+  "summary": "[General] Second-Brain-Major-Project/memory_vault/images/2026-09-17 at main · ALPHA-TF141/Second-Brain-Major-Project: Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-17 at main · ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-17 at main · ALPHA-TF141/Second-Brain-Major-Project - Google Chrome"
+  ],
+  "entities": [
+    "Second-Brain-Major-Project",
+    "Activity",
+    "ALPHA-TF141",
+    "Google"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Second-Brain-Major-Project/memory_vault/images/2026-09-17 at main · ALPHA-TF141/Second-Brain-Major-Project - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 31.95
+}

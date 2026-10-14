@@ -1,0 +1,31 @@
+{
+  "id": "card_20260918_061633_610",
+  "timestamp": "2026-09-18T06:16:33.610231Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "Code.exe",
+  "window_title": "IEEE_Conference_Paper_Jarvis_Second_Brain.pdf - Second Brain - Visual Studio Code",
+  "topic": "Code",
+  "summary": "[Technology] IEEE_Conference_Paper_Jarvis_Second_Brain.pdf - Second Brain: Activity on Code.exe: IEEE_Conference_Paper_Jarvis_Second_Brain.pdf - Second Brain - Visual Studio Code",
+  "key_pointers": [
+    "Activity on Code.exe: IEEE_Conference_Paper_Jarvis_Second_Brain.pdf - Second Brain - Visual Studio Code"
+  ],
+  "entities": [
+    "IEEE_Conference_Paper_Jarvis_Second_Brain",
+    "Studio",
+    "Second",
+    "Visual",
+    "Brain",
+    "Activity",
+    "Code"
+  ],
+  "tags": [
+    "technology",
+    "code"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on Code.exe: IEEE_Conference_Paper_Jarvis_Second_Brain.pdf - Second Brain - Visual Studio Code",
+  "hero_image": "memory_vault/images/2026-09-18/hero_card_20260918_061633_610.webp",
+  "hero_image_info_score": 49.95
+}

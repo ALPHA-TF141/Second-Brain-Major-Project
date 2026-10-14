@@ -1,0 +1,32 @@
+{
+  "id": "card_20260922_082556_897",
+  "timestamp": "2026-09-22T08:25:56.897049Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Vel Tech Rangarajan Dr.Sagunthala R & D Institute of Science and Technology - Calendar - Calendar settings for MARIA IMMANUEL L,CSE 2023 Vel Tech, Chennai - Google Chrome",
+  "topic": "Vel Tech Rangarajan Dr.Sagunthala R & D Insti",
+  "summary": "[General] Vel Tech Rangarajan Dr.Sagunthala R & D Institute of Science and Technology - Calendar - Calendar settings for MARIA IMMANUEL L,CSE 2023 Vel Tech, Chennai: Activity on chrome.exe: Vel Tech Rangarajan Dr.Sagunthala R & D Institute of Science and Technology - Calendar - Calendar settings for MARIA IMMANUEL L,CSE 2023 Vel Tech, Chennai - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Vel Tech Rangarajan Dr.Sagunthala R & D Institute of Science and Technology - Calendar - Calendar settings for MARIA IMMANUEL L,CSE 2023 Vel Tech, Chennai -"
+  ],
+  "entities": [
+    "Technology",
+    "Institute",
+    "Tech",
+    "Science",
+    "Rangarajan",
+    "Activity",
+    "Sagunthala",
+    "Calendar"
+  ],
+  "tags": [
+    "general",
+    "chrome"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Vel Tech Rangarajan Dr.Sagunthala R & D Institute of Science and Technology - Calendar - Calendar settings for MARIA IMMANUEL L,CSE 2023 Vel Tech, Chennai - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 40.95
+}

@@ -1,0 +1,29 @@
+{
+  "id": "mail_30_1411b6",
+  "timestamp": "2020-07-13T05:41:38+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "New login to Spotify",
+  "topic": "Email: New login to Spotify",
+  "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: New login to Spotify",
+  "key_pointers": [
+    "From: \"Spotify\" <no-reply@spotify.com>",
+    "Received: Mon, 13 Jul 2020 05:41:38 +0000 (UTC)"
+  ],
+  "entities": [
+    "no-reply@spotify.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "spotify.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@spotify.com",
+  "raw_ocr_excerpt": "New login to Spotify\nWe noticed a new login to your account. Here are the details:\n\n*Location/City/Country:* India\n\n*Time:* Jul 13, 2020, 11:11:37 AM IST\n\nIf you logged in to your account recently, there's nothing for you to do right now.\n\nIf you don’t recognize this login, we recommend you take the following steps:\n\n1. Change your password. ( http://wl.spotify.com/ls/click?upn=4eYBe7grRs48Zqhf9HedJixaBJLgHzxt7ucpNDx7svNukhA4PFZRDnkwrT62pE0WLocxlIsks6lizmqj9amDbA-3D-3DB-iX_v12URl19nfex9HuvDXYCoR9-2B85OSICI3w7l9rIvW7q4kP2i6YHEsq-2FgMljovwtMHw-2F4aGeHearHk-2B1mwmiRVx4BtHKx-2FR5Bsl-2BTfPVIxyLtUk2ATRFX3uBdf3FSvBcREJIH3b9mkAbs4YjLeoaYDFqh4HM2Ob5YB-2FHHmA9uffujyHZUXgrz5irgMdJT5es10jbeKkEPt1B7uVp0OSRLBNp6NLfZXPcPerEuWMFtOx4rSCGw62IFTrjvTK7ANR9OQH-2FItEeKtLSb1ygHjxunzlxbPaUZ7bH-2BdblslhaxQ6baxlXOp6KWYUS-2F7w-2FJseuEYUBGMvvlPKL5Lugyp-2FcCPEg-3D-3D ) Choose a strong password you haven’t used before.\n\n2. Go to your account overview page ( http://wl.spotify.com/ls/click?upn=4eYBe7grRs48Zqhf9HedJixaBJLgHzxt7ucpNDx7svMEN9kDhH4EYryPp4BPvoGdseVe_v12URl19nfex9HuvDXYCoR9-2B85OSICI3w7l9rIvW7q4kP2i6YHEsq-2FgMljovwtMHw-2F4aGeHearHk-2B1mwmiRVx8tqsaJXMxvkU0tKtPh-2BtpjfUNuIoJVoToG-2F2Q7-2F3irSGtMygwNYxKnaGFk2-2BHDL9KvuLlSd1E4D-2FVgwipBZmHvURWOpl2D-2BsmBgxvlfKJYngAgPlkOtdF6-2FxbiFgO9wRmvP2cfmO-2FVYaCp6-2BDyQC26zSHiVVVi0Idl0DY1clyGTcSeBbz0B5vYTlPnwvRbwDb-2FlRKkMzlEDq7qzTIN8k-2FcZ4wfIIvsrgV4BT5eaWuHRT5Ffb-2F-2B-2Fl6rybgdV-2FTmXaw-3D-3D ) and tap “Sign out everywhere”.\n\n3. Review ( http://wl.spotify.com",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

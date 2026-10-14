@@ -141,7 +141,6 @@ export const apiClient = {
   pauseCapture: () => request('/api/capture/pause', { method: 'POST' }),
   resumeCapture: () => request('/api/capture/resume', { method: 'POST' }),
   captureStatus: () => request('/api/capture/status'),
-  captureActivity: () => request('/api/capture/activity'),
   captureScreenshots: () => request('/api/capture/screenshots'),
   captureSessions: () => request('/api/capture/sessions'),
   ocrStatus: () => request('/api/ocr/status'),
@@ -245,15 +244,9 @@ export const apiClient = {
   },
   gmailMessage: (accountId, messageId) =>
     request(`/api/google/gmail/message/${messageId}?account_id=${encodeURIComponent(accountId)}`),
-  calendarEvents: (accountId, daysAhead = 7, daysBack = 1) =>
-    request(`/api/google/calendar/events?account_id=${encodeURIComponent(accountId)}` +
-            `&days_ahead=${daysAhead}&days_back=${daysBack}`),
-  calendarList: (accountId) =>
-    request(`/api/google/calendar/calendars?account_id=${encodeURIComponent(accountId)}`),
-
-  // ---- Unified mail + calendar sources -----------------------------------
-  // These abstract over BOTH providers (Google OAuth and IMAP app-password /
-  // iCal feed), so the UI does not care how an account was connected.
+  // ---- Mail sources -------------------------------------------------------
+  // These abstract over BOTH providers (Google OAuth and IMAP app-password),
+  // so the UI does not care how an account was connected.
   mailAccounts: () => request('/api/mail/accounts'),
   mailMessages: (accountId, folder = 'inbox', q = '', limit = 30) => {
     const params = new URLSearchParams({

@@ -1,0 +1,31 @@
+{
+  "id": "mail_70_0773ee",
+  "timestamp": "2020-08-04T09:53:49+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Google Verification Code",
+  "topic": "Email: Google Verification Code",
+  "summary": "Email from Google <noreply@google.com> to immanuellourdu@gmail.com about: Google Verification Code",
+  "key_pointers": [
+    "Action: Action: Google Verification Code",
+    "From: Google <noreply@google.com>",
+    "Received: Tue, 04 Aug 2020 09:53:49 +0000"
+  ],
+  "entities": [
+    "noreply@google.com",
+    "immanuellourdu@gmail.com",
+    "verification"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "google.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:noreply@google.com",
+  "raw_ocr_excerpt": "Google Verification Code\n\nGoogle received a request to use this email address to help recover Google  \nAccount immanuel2005@gmail.com.\n\n879557\n\nEnter the code when asked for it to show that Google can reach you at this  \nemail address.\n\nIf you don't recognize immanuel2005@gmail.com, someone probably gave your  \nemail address by mistake. You can safely ignore this email.\n\nSincerely,\nThe Google Accounts Team\n\nThis email can't receive replies. For more information, visit the Google  \nAccounts Help Center.\n© Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

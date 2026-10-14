@@ -1,0 +1,29 @@
+{
+  "id": "mail_11_ec0179",
+  "timestamp": "2020-06-20T17:37:25+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Thank you for setting your New York Times password",
+  "topic": "Email: Thank you for setting your New York Times password",
+  "summary": "Email from NYTimes.com <nyt@service.newyorktimes.com> to immanuellourdu@gmail.com about: Thank you for setting your New York Times password",
+  "key_pointers": [
+    "From: NYTimes.com <nyt@service.newyorktimes.com>",
+    "Received: Sat, 20 Jun 2020 10:37:25 -0700"
+  ],
+  "entities": [
+    "nyt@service.newyorktimes.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "service.newyorktimes.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:nyt@service.newyorktimes.com",
+  "raw_ocr_excerpt": "Thanks for setting your password\n\n-----------------------------------------------------------------\n\n-- The New York Times --\n\n-----------------------------------------------------------------\n\nYour new password has been saved and you're logged in.\n\nKEEP READING \nhttps://e.newyorktimes.com/pub/cc?_ri_=X0Gzc2X%3DAQpglLjHJlYQGlpzed5DCWzbDejSrRjKIzaEIS9uyAPazgKpzb1zb5ueP1gULcd384GCzc0VXtpKX%3DYUSUCY&_ei_=Eq2tf9zs59idfPO1Sc_9Bbl95O0-9yuajOHZLCwXF0yxKzd9iKAtpXNq1swzQvJHpmgOZX5vF7q9t5t9sz_be1s5LkNNZw.&_di_=8hdsi2kn45dalhk78f353mvqjpcqpfu347j760rer8obr5p0uo60Jg%3D%3D\n\nIf you didn't request this change, please contact us right away. \nhttps://e.newyorktimes.com/pub/cc?_ri_=X0Gzc2X%3DAQpglLjHJlYQGlpzed5DCWzbDejSrRjKIzaEIS9uyAPazgKpzb1zb5ueP1gULcd384GCzc0VXtpKX%3DYBCARY&_ei_=Eq2tf9zs59idfPO1Sc_9Bbl95O0-9yuajOHZLCwXF0yxKzd9iKAtpXNq1swzQvJHpmgOZX5vF7q9t5t9sz_be1s5LkNNZw.&_di_=g8d31g79h0e3kbmp3sdh0st7ehviq71e2iui1e5b7p8reaebngbgJg%3D%3D\n\n-----------------------------------------------------------------\n\nThis email was sent to immanuellourdu@gmail.com\n\nAccount Login: \nhttps://e.newyorktimes.com/pub/cc?_ri_=X0Gzc2X%3DAQpglLjHJlYQGlpzed5DCWzbDejSrRjKIzaEIS9uyAPazgKpzb1zb5ueP1gULcd384GCzc0VXtpKX%3DWBTSRY&_ei_=Eq2tf9zs59idfPO1Sc_9Bbl95O0-9yuajOHZLCwXF0yxKzd9iKAtpXNq1swzQvJHpmgOZX5vF7q9t5t9sz_be1s5LkNNZw.&_di_=b0geqcs6g01ocbs793cu1g9d4ifjmj4b1sqlmdavian8se7toh1gJg%3D%3D\n\nHelp Center: \nhttps://e.newyorktimes.com/pub/cc?_ri_=X0Gzc2X%3DAQpglLjHJlYQGlpzed5DCWzbDejSrRjKIzaEIS9uyAPazgKpzb1zb5ueP1gULcd",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

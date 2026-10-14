@@ -1,0 +1,31 @@
+{
+  "id": "mail_316_eb66e7",
+  "timestamp": "2024-02-12T18:55:23+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Invitation For IBM, Microsoft Training and Internship Program",
+  "topic": "Email: Invitation For IBM, Microsoft Training and Internship Program",
+  "summary": "Email from Ayush Gakhare <ayush.gakhare@teachnook.com> to vtu24334@veltech.edu.in about: Invitation For IBM, Microsoft Training and Internship Program",
+  "key_pointers": [
+    "Action: Action: Invitation For IBM, Microsoft Training and Internship Program",
+    "From: Ayush Gakhare <ayush.gakhare@teachnook.com>",
+    "Received: Tue, 13 Feb 2024 00:25:23 +0530"
+  ],
+  "entities": [
+    "ayush.gakhare@teachnook.com",
+    "vtu24334@veltech.edu.in",
+    "interview"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "teachnook.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:ayush.gakhare@teachnook.com",
+  "raw_ocr_excerpt": "Dear Students* Congratulations on being shortlisted for the Internship\nProgram!*\n\nAs mentioned above, *Teachnook in collaboration with IBM & IIT BHUBANESWAR *is\norganizing a 2 Month Training + Internship program designed by IBM.\n*Interested students fill out the form, if you get shortlisted you will get\na call from our HR Team;*\n\n*https://docs.google.com/forms/d/e/1FAIpQLSfurFXdxcwgTPUFQ5UpAFxgyjdTe-1p-7dUTiezzKWwVtMqKA/viewform?usp=sf_link\n<https://docs.google.com/forms/d/e/1FAIpQLSfurFXdxcwgTPUFQ5UpAFxgyjdTe-1p-7dUTiezzKWwVtMqKA/viewform?usp=sf_link>*\n\n*\n<https://docs.google.com/forms/d/e/1FAIpQLSfurFXdxcwgTPUFQ5UpAFxgyjdTe-1p-7dUTiezzKWwVtMqKA/viewform?usp=sf_link>*\n*T**op Preferred Courses: *\n✅\n\n*Artificial Intelligence.✅ Data Science.✅ Machine Learning.✅ Cloud\nComputing.*\n*✅ Full Stack Web Development.*\n\n*Here is an outline of the program's structure.*\n\n*First month: *During the first month of the program, IBM training will be\nconducted in the form of live lectures, and you will have live mentorship\nfrom industry professionals. You will have access to the IBM Portal, where\nyou can interact with the trainers and fellow students. Login credentials\nwill be provided to registered students.\n\n*Second month:* Internship with live mentorship for projects from\nprofessionals. The LIVE INDUSTRY PROJECT will give students an experience\nin solving real-world problems.\n\n*Project 1 Minor Project**: *The minor project is an individual project,\nand you will work on it independently. Resu",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mail_335_024264",
+  "timestamp": "2024-02-19T20:57:58+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Congratulations you have been Shortlisted !!!",
+  "topic": "Email: Congratulations you have been Shortlisted !!!",
+  "summary": "Email from rajasekar sudhakar <rajasekar.sudhakar@teachnook.com> to vtu24334@veltech.edu.in about: Congratulations you have been Shortlisted !!!",
+  "key_pointers": [
+    "Action: Action: Congratulations you have been Shortlisted !!!",
+    "From: rajasekar sudhakar <rajasekar.sudhakar@teachnook.com>",
+    "Received: Tue, 20 Feb 2024 02:27:58 +0530"
+  ],
+  "entities": [
+    "rajasekar.sudhakar@teachnook.com",
+    "vtu24334@veltech.edu.in",
+    "exam"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "teachnook.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:rajasekar.sudhakar@teachnook.com",
+  "raw_ocr_excerpt": "*Dear Students of VTU**,*\n\n*Greetings from Teachnook FLUXUS-IIT INDORE!*\n\n*Reminder for ** VTU* *Students (INTRODUCING DRONE ENGINEERING TECHNOLOGY)*\n\n*DRONES WILL BE PROVIDED IF STUDENTS ARE OPTING FOR DRONE ENGINEERING\nTECHNOLOGY*\n\n*This Internship and Training will be conducted in after your exams*\n\nTeachnook in collaboration with *FLUXUS-IIT INDORE and IIT BOMBAY E-CELL *is\norganizing a 2 Months of Training + Internship program. We are enrolling\nonly *LIMITED STUDENTS *in the program for* VTU.*\n\n*It is Mandatory for interested students to fill out the form, if you get\nshortlisted you will get a call from our HR Team:**Registration Form*\n<https://docs.google.com/forms/u/2/d/1BKh40v5VRZdHJOjPM3sz9bfdx2WyQ4H8xoqMCb-WbeU/edit?ts=65bbe438>\n\n*FIND THE BELOW ATTACHMENTS FOR REFERENCE:*\nFirst month: IIT training has been designed in the form of Live lectures\nalong with living mentorship from industry professionals. (Login\ncredentials will be provided to students after registration)\n\nSecond month: Internship with live mentorship for projects from\nprofessionals. The LIVE INDUSTRY PROJECT will be giving students experience\nin solving real-world problems.\n\nProject 1:- 10 individual projects assigned to each intern which they have\nto complete with their mentor .\n\nProject 2:-  Capstone Project: It's a group project assigned to a group of\n15 interns. For each intern particular work will be assigned to them they\nhave to work on it.\n(Essential data and materials required for the project w",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

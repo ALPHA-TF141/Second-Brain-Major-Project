@@ -1,0 +1,28 @@
+{
+  "id": "card_20260918_161739_608",
+  "timestamp": "2026-09-18T16:17:39.608610Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "explorer.exe",
+  "window_title": "Dropbox - File Explorer",
+  "topic": "Dropbox - File Explorer",
+  "summary": "[General] Dropbox - File Explorer: Activity on explorer.exe: Dropbox - File Explorer",
+  "key_pointers": [
+    "Activity on explorer.exe: Dropbox - File Explorer"
+  ],
+  "entities": [
+    "Activity",
+    "File",
+    "Explorer",
+    "Dropbox"
+  ],
+  "tags": [
+    "explorer",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on explorer.exe: Dropbox - File Explorer",
+  "hero_image": "memory_vault/images/2026-09-18/hero_card_20260918_161739_608.webp",
+  "hero_image_info_score": 30.15
+}

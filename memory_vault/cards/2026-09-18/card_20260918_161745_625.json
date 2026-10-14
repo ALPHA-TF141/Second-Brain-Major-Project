@@ -1,0 +1,28 @@
+{
+  "id": "card_20260918_161745_625",
+  "timestamp": "2026-09-18T16:17:45.625314Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "explorer.exe",
+  "window_title": "Major proj - File Explorer",
+  "topic": "Major proj - File Explorer",
+  "summary": "[General] Major proj - File Explorer: Activity on explorer.exe: Major proj - File Explorer",
+  "key_pointers": [
+    "Activity on explorer.exe: Major proj - File Explorer"
+  ],
+  "entities": [
+    "Activity",
+    "Major",
+    "File",
+    "Explorer"
+  ],
+  "tags": [
+    "explorer",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on explorer.exe: Major proj - File Explorer",
+  "hero_image": "memory_vault/images/2026-09-18/hero_card_20260918_161745_625.webp",
+  "hero_image_info_score": 30.6
+}

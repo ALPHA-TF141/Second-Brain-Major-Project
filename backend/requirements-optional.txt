@@ -43,6 +43,6 @@
 # temporal triple extraction in the research layer.
 # onnxruntime>=1.20.0
 # tokenizers>=0.20.0
-# spacy>=3.8.0
+spacy>=3.8.0
 # scipy>=1.14.0
 

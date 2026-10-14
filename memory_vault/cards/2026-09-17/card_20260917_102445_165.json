@@ -1,0 +1,30 @@
+{
+  "id": "card_20260917_102445_165",
+  "timestamp": "2026-09-17T10:24:45.165302Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "Code.exe",
+  "window_title": "hero_card_20260917_100755_722.webp - Second Brain - Visual Studio Code",
+  "topic": "Code",
+  "summary": "[Technology] hero_card_20260917_100755_722.webp - Second Brain: Activity on Code.exe: hero_card_20260917_100755_722.webp - Second Brain - Visual Studio Code",
+  "key_pointers": [
+    "Activity on Code.exe: hero_card_20260917_100755_722.webp - Second Brain - Visual Studio Code"
+  ],
+  "entities": [
+    "Activity",
+    "Brain",
+    "Visual",
+    "Studio",
+    "Second",
+    "Code"
+  ],
+  "tags": [
+    "code",
+    "technology"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on Code.exe: hero_card_20260917_100755_722.webp - Second Brain - Visual Studio Code",
+  "hero_image": null,
+  "hero_image_info_score": 49.95
+}

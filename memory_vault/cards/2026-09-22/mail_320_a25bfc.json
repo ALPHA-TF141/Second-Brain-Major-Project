@@ -1,0 +1,31 @@
+{
+  "id": "mail_320_a25bfc",
+  "timestamp": "2024-02-13T16:20:00+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "IBM, Microsoft Training and Internship Program",
+  "topic": "Email: IBM, Microsoft Training and Internship Program",
+  "summary": "Email from samarpit gupta <samarpit.gupta@teachnook.com> to vtu24334@veltech.edu.in about: IBM, Microsoft Training and Internship Program",
+  "key_pointers": [
+    "Action: Action: IBM, Microsoft Training and Internship Program - due 2024-02-13",
+    "From: samarpit gupta <samarpit.gupta@teachnook.com>",
+    "Received: Tue, 13 Feb 2024 21:50:00 +0530"
+  ],
+  "entities": [
+    "samarpit.gupta@teachnook.com",
+    "vtu24334@veltech.edu.in",
+    "interview"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "teachnook.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:samarpit.gupta@teachnook.com",
+  "raw_ocr_excerpt": "[image: ibm logo.jpeg]\nDear * VELTECH  *Student,* Congratulations on being shortlisted for the\nInternship Program!*\n\nAs mentioned above, *Teachnook in collaboration with IBM & IIT BHUBANESWAR *is\norganizing a 2 Month Training + Internship program designed by IBM.\n*Interested students fill out the form, if you get shortlisted you will get\na call from our HR Team;*\nhttps://docs.google.com/forms/d/e/1FAIpQLSdupgtSZpfeKYC7nHLOoY3CN8TwippslcgNPK1xI5g9-02_KQ/viewform\n\n*Top Preferred Courses: *\n✅\n\n*Artificial Intelligence.✅ Data Science.✅ Machine Learning.✅ Cloud\nComputing.*\n*✅ Full Stack Web Development.*\n\n*Here is an outline of the program's structure.*\n\n*First month: *During the first month of the program, IBM training will be\nconducted in the form of live lectures, and you will have live mentorship\nfrom industry professionals. You will have access to the IBM Portal, where\nyou can interact with the trainers and fellow students. Login credentials\nwill be provided to registered students.\n\n*Second month:* Internship with live mentorship for projects from\nprofessionals. The LIVE INDUSTRY PROJECT will give students an experience\nin solving real-world problems.\n\n*Project 1 Minor Project**: *The minor project is an individual project,\nand you will work on it independently. Resume building session.\n\n*Project 2 Major Project: *The major project is a group project, and you\nwill work in a group of 15 interns, with specific responsibilities assigned\nto each intern. The company will provide y",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

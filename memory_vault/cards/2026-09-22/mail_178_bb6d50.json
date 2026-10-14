@@ -1,0 +1,29 @@
+{
+  "id": "mail_178_bb6d50",
+  "timestamp": "2026-01-31T16:24:09+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "PRIME Deal for YOU",
+  "topic": "Email: PRIME Deal for YOU",
+  "summary": "Email from 2-Hours Left <no-reply@propeers.in> to lmariaimmanuel@gmail.com about: PRIME Deal for YOU",
+  "key_pointers": [
+    "From: 2-Hours Left <no-reply@propeers.in>",
+    "Received: Sat, 31 Jan 2026 16:24:09 +0000"
+  ],
+  "entities": [
+    "no-reply@propeers.in",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "propeers.in",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@propeers.in",
+  "raw_ocr_excerpt": "This is the body",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

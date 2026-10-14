@@ -1,0 +1,32 @@
+{
+  "id": "card_20260918_161821_827",
+  "timestamp": "2026-09-18T16:18:21.827788Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Work-in-Progress: On-device Retrieval Augmented Generation with Knowledge Graphs for Personalized Large Language Models - Google Chrome",
+  "topic": "Work-in-Progress: On-device Retrieval Augment",
+  "summary": "[General] Work-in-Progress: On-device Retrieval Augmented Generation with Knowledge Graphs for Personalized Large Language Models: Activity on chrome.exe: Work-in-Progress: On-device Retrieval Augmented Generation with Knowledge Graphs for Personalized Large Language Models - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Work-in-Progress: On-device Retrieval Augmented Generation with Knowledge Graphs for Personalized Large Language Models - Google Chrome"
+  ],
+  "entities": [
+    "Activity",
+    "Augmented",
+    "Retrieval",
+    "Work-in-Progress",
+    "On-device",
+    "Graphs",
+    "Knowledge",
+    "Generation"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Work-in-Progress: On-device Retrieval Augmented Generation with Knowledge Graphs for Personalized Large Language Models - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 35.55
+}

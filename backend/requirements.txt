@@ -37,9 +37,11 @@ watchdog==6.0.0
 pyperclip==1.9.0
 pytesseract==0.3.13
 
-# --- Image handling: Best-Shot hero images (WebP) + scraped thumbnails.
-#     Imported unguarded by the social ingestion + vault agents. ---
+# --- Image handling: scraped thumbnails and screenshot processing. ---
 pillow>=10.4.0
+
+# --- Tests: backend/tests/* are pytest suites run by verify-jarvis. ---
+pytest>=8.0.0
 
 # --- Free native social / web ingestion (replaces paid Apify & Supadata) ---
 youtube-transcript-api>=0.6.2

@@ -1,0 +1,29 @@
+{
+  "id": "mail_342_f5c00d",
+  "timestamp": "2024-02-22T12:20:32+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Your Google Account was recovered successfully",
+  "topic": "Email: Your Google Account was recovered successfully",
+  "summary": "Email from Google <no-reply@accounts.google.com> to vtu24334@veltech.edu.in about: Your Google Account was recovered successfully",
+  "key_pointers": [
+    "From: Google <no-reply@accounts.google.com>",
+    "Received: Thu, 22 Feb 2024 12:20:32 GMT"
+  ],
+  "entities": [
+    "no-reply@accounts.google.com",
+    "vtu24334@veltech.edu.in"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "accounts.google.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@accounts.google.com",
+  "raw_ocr_excerpt": "[image: Google]\nAccount recovered successfully\n\nvtu24334@veltech.edu.in\nWelcome back to your accountIf you suspect you were locked out of your\naccount because of changes made by someone else, you should review &\nprotect your account.\n<https://accounts.google.com/AccountChooser?Email=vtu24334@veltech.edu.in&continue=https://myaccount.google.com/secure-account?utm_source%3Demail%26utm_medium%3Demail%26utm_campaign%3Dph%26src%3D14%26aneid%3D7648854759345720767>\nYou received this email to let you know about important changes to your\nGoogle Account and services.\n© 2024 Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

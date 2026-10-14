@@ -1,0 +1,31 @@
+{
+  "id": "mail_15_231d8c",
+  "timestamp": "2026-01-02T11:46:32+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "LeetCode Weekly Digest",
+  "topic": "Email: LeetCode Weekly Digest",
+  "summary": "Email from LeetCode <no-reply@leetcode.com> to lmariaimmanuel@gmail.com about: LeetCode Weekly Digest",
+  "key_pointers": [
+    "Deadline: Deadline: LeetCode Weekly Digest",
+    "From: LeetCode <no-reply@leetcode.com>",
+    "Received: Fri, 2 Jan 2026 11:46:32 +0000"
+  ],
+  "entities": [
+    "no-reply@leetcode.com",
+    "lmariaimmanuel@gmail.com",
+    "submission"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "leetcode.com",
+    "deadline"
+  ],
+  "source_url_or_ref": "mailto:no-reply@leetcode.com",
+  "raw_ocr_excerpt": "@import url(\"https://use.typekit.net/vyq6kag.css\");\n\n  /* Take care of image borders and formatting */\n  img {\n    max-width: 600px;\n    outline: none;\n    text-decoration: none;\n    -ms-interpolation-mode: bicubic;\n  }\n\n  a {\n    text-decoration: none;\n    border: 0;\n    outline: none;\n    color: #212121;\n  }\n\n  p {\n    margin: 0;\n  }\n\n  u+.body a {\n    color: inherit;\n    text-decoration: none;\n    font-size: inherit;\n    font-weight: inherit;\n    line-height: inherit;\n  }\n\n  a img {\n    border: none;\n  }\n\n  /* General styling */\n  td,\n  h1,\n  h2,\n  h3 {\n    font-family: Helvetica, Arial, sans-serif;\n    font-weight: 400;\n  }\n\n  td {\n    text-align: center;\n  }\n\n  body {\n    -webkit-font-smoothing: antialiased;\n    -webkit-text-size-adjust: none;\n    width: 100%;\n    height: 100%;\n    color: #37302d;\n    background: #ffffff;\n    font-size: 16px;\n  }\n\n  table {\n    border-collapse: collapse !important;\n  }\n\n  .headline {\n    color: #ffffff;\n    font-size: 36px;\n  }\n\n  .force-full-width {\n    width: 100% !important;\n  }\n\n  .new-badge {\n    display: none;\n  }\n \n \n  @media screen {\n\n    /*Thanks Outlook 2013! http://goo.gl/XLxpyl*/\n    td,\n    h1,\n    h2,\n    h3 {\n      font-family: Helvetica, \"Arial\", \"sans-serif\";\n    }\n  }\n \n \n  /* Mobile styles */\n  @media only screen and (max-width: 480px) {\n    table[class=\"w320\"] {\n      width: 320px !important;\n    }\n  }\n\n  @media only screen and (max-width: 400px) {\n    span[class=\"new-badge\"] {\n      display: none;\n    }\n\n    span[cla",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

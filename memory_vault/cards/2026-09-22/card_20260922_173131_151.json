@@ -1,0 +1,28 @@
+{
+  "id": "card_20260922_173131_151",
+  "timestamp": "2026-09-22T17:31:31.151853Z",
+  "domain": "Technology",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "(3055) YouTube - Google Chrome",
+  "topic": "Web_Knowledge",
+  "summary": "[Technology] (3055) YouTube: Activity on chrome.exe: (3055) YouTube - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: (3055) YouTube - Google Chrome"
+  ],
+  "entities": [
+    "Activity",
+    "Google",
+    "Web_Knowledge"
+  ],
+  "tags": [
+    "technology",
+    "chrome",
+    "web_knowledge"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: (3055) YouTube - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_173131_151.webp",
+  "hero_image_info_score": 45.6
+}
