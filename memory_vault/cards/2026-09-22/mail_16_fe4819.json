@@ -1,0 +1,31 @@
+{
+  "id": "mail_16_fe4819",
+  "timestamp": "2020-07-03T12:18:56+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Registration Verification",
+  "topic": "Email: Registration Verification",
+  "summary": "Email from Tamilpokkisham <no-reply@tamilpokkishamapp.com> to immanuellourdu@gmail.com about: Registration Verification",
+  "key_pointers": [
+    "Action: Action: Registration Verification",
+    "From: Tamilpokkisham <no-reply@tamilpokkishamapp.com>",
+    "Received: Fri, 3 Jul 2020 12:18:56 +0000"
+  ],
+  "entities": [
+    "no-reply@tamilpokkishamapp.com",
+    "immanuellourdu@gmail.com",
+    "verification"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "tamilpokkishamapp.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:no-reply@tamilpokkishamapp.com",
+  "raw_ocr_excerpt": "Welcome to tamil pokkisham",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

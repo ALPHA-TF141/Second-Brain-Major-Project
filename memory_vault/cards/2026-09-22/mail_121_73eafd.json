@@ -1,0 +1,29 @@
+{
+  "id": "mail_121_73eafd",
+  "timestamp": "2020-08-27T12:49:11+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Reply: I am sharing 'Document (8)' with you",
+  "topic": "Email: Reply: I am sharing 'Document (8)' with you",
+  "summary": "Email from celinvictoria1978 <celinvictoria1978@gmail.com> to immanuellourdu@gmail.com about: Reply: I am sharing 'Document (8)' with you",
+  "key_pointers": [
+    "From: celinvictoria1978 <celinvictoria1978@gmail.com>",
+    "Received: Thu, 27 Aug 2020 18:19:11 +0530"
+  ],
+  "entities": [
+    "celinvictoria1978@gmail.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "gmail.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:celinvictoria1978@gmail.com",
+  "raw_ocr_excerpt": "Thank u\n\nSent from vivo smartphone",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

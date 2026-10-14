@@ -1,0 +1,31 @@
+{
+  "id": "mail_208_c7c318",
+  "timestamp": "2026-02-04T14:05:52+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Maria Immanuel, here's your PIN 144804",
+  "topic": "Email: Maria Immanuel, here's your PIN 144804",
+  "summary": "Email from LinkedIn <security-noreply@linkedin.com> to lmariaimmanuel@gmail.com about: Maria Immanuel, here's your PIN 144804",
+  "key_pointers": [
+    "Action: Action: Maria Immanuel, here's your PIN 144804",
+    "From: LinkedIn <security-noreply@linkedin.com>",
+    "Received: Wed, 4 Feb 2026 14:05:52 +0000 (UTC)"
+  ],
+  "entities": [
+    "security-noreply@linkedin.com",
+    "lmariaimmanuel@gmail.com",
+    "verification"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "linkedin.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:security-noreply@linkedin.com",
+  "raw_ocr_excerpt": "Hi Maria Immanuel,\n\nEnter this code to complete the reset.\n\n144804\n\nIf you didn't request this pin, we recommend you change your LinkedIn password.\n\nGo to Settings & Privacy > Sign in & security > Change password\n\nTo further secure your account, you should also:\n\nEnable two-step verification\n\nSettings & Privacy > Sign in & security > Two-step verification\n\nCheck where you are signed in\n\nSettings & Privacy > Sign in & security > Where you're signed in\n\nThanks for helping us keep your account secure.\n\nThe LinkedIn Team\n\n----------------------------------------\n\nThis email was intended for Maria Immanuel L (Computer Science Student | Aspiring Full‑Stack Web Developer | Interested in Cloud, IoT & Web Applications | Open to Software Engineer Opportunities)\nLearn why we included this: https://www.linkedin.com/help/linkedin/answer/4788?lang=en&lipi=urn%3Ali%3Apage%3Aemail_security_ato_challenge_send_pin%3BljUMHwexQx%2B3A6cCK4MbuQ%3D%3D&midToken=AQG8pTHJ91tLmQ&midSig=2UGz1XvYddcc81&trk=eml-security_ato_challenge_send_pin-SecurityHelp-0-textfooterglimmer&trkEmail=eml-security_ato_challenge_send_pin-SecurityHelp-0-textfooterglimmer-null-rfx49w~ml83oj5e~g7-null-null&eid=rfx49w-ml83oj5e-g7\nYou are receiving LinkedIn notification emails.\n\nHelp: https://www.linkedin.com/help/linkedin/answer/67?lang=en&lipi=urn%3Ali%3Apage%3Aemail_security_ato_challenge_send_pin%3BljUMHwexQx%2B3A6cCK4MbuQ%3D%3D&midToken=AQG8pTHJ91tLmQ&midSig=2UGz1XvYddcc81&trk=eml-security_ato_challenge_send_pin-help-0-text",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

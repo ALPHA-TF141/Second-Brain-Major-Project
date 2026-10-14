@@ -1,0 +1,28 @@
+{
+  "id": "card_20260922_064430_690",
+  "timestamp": "2026-09-22T06:44:30.690495Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "2-Step Verification - Google Chrome",
+  "topic": "2-Step Verification",
+  "summary": "[General] 2-Step Verification: Activity on chrome.exe: 2-Step Verification - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: 2-Step Verification - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Step",
+    "Activity",
+    "Verification"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: 2-Step Verification - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_064430_690.webp",
+  "hero_image_info_score": 30.6
+}

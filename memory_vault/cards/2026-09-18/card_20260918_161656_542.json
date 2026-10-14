@@ -1,0 +1,27 @@
+{
+  "id": "card_20260918_161656_542",
+  "timestamp": "2026-09-18T16:16:56.542289Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Instagram - Google Chrome",
+  "topic": "Instagram",
+  "summary": "[General] Instagram: Activity on chrome.exe: Instagram - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Instagram - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Activity",
+    "Instagram"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Instagram - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-18/hero_card_20260918_161656_542.webp",
+  "hero_image_info_score": 30.15
+}

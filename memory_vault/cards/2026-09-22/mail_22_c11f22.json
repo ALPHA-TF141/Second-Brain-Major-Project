@@ -1,0 +1,31 @@
+{
+  "id": "mail_22_c11f22",
+  "timestamp": "2026-01-04T00:15:49+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Hi Maria, please verify your email address",
+  "topic": "Email: Hi Maria, please verify your email address",
+  "summary": "Email from Dropbox <no-reply@dropbox.com> to lmariaimmanuel@gmail.com about: Hi Maria, please verify your email address",
+  "key_pointers": [
+    "Action: Action: Hi Maria, please verify your email address",
+    "From: Dropbox <no-reply@dropbox.com>",
+    "Received: Sun, 4 Jan 2026 00:15:49 +0000"
+  ],
+  "entities": [
+    "no-reply@dropbox.com",
+    "lmariaimmanuel@gmail.com",
+    "verify"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "dropbox.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:no-reply@dropbox.com",
+  "raw_ocr_excerpt": "Hi Maria,\n\nWe just need to verify your  email address before your sign up is complete!\n\nVerify your email[1]\n\nHappy Dropboxing!\n\n[1]: https://www.dropbox.com/verifyemail/AiG5ac6StNjZkKq1SqunfxhoQ2vOjehgpQA2Ax_JavocPg-1767485748?account_id=dbid%3AAACUfB1-yMQyL5cQkWzLLw6G-CBaAezQrHo&email=lmariaimmanuel%40gmail.com&reason=generic&signature=AiG5ac6StNjZkKq1SqunfxhoQ2vOjehgpQA2Ax_JavocPg-1767485748",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

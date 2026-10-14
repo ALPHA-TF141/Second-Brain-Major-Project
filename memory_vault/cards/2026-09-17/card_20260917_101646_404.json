@@ -1,0 +1,27 @@
+{
+  "id": "card_20260917_101646_404",
+  "timestamp": "2026-09-17T10:16:46.404601Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "WhatsApp.Root.exe",
+  "window_title": "WhatsApp",
+  "topic": "WhatsApp",
+  "summary": "[General] WhatsApp: Activity on WhatsApp.Root.exe: WhatsApp",
+  "key_pointers": [
+    "Activity on WhatsApp.Root.exe: WhatsApp"
+  ],
+  "entities": [
+    "Activity",
+    "WhatsApp",
+    "Root"
+  ],
+  "tags": [
+    "whatsapp.root",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on WhatsApp.Root.exe: WhatsApp",
+  "hero_image": null,
+  "hero_image_info_score": 28.8
+}

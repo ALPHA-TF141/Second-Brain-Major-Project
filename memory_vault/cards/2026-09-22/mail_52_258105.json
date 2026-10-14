@@ -1,0 +1,29 @@
+{
+  "id": "mail_52_258105",
+  "timestamp": "2026-01-09T14:34:23+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Failed production deployment on team 'ALPHA-TF141's projects'",
+  "topic": "Email: Failed production deployment on team 'ALPHA-TF141's projects'",
+  "summary": "Email from Vercel <notifications@vercel.com> to lmariaimmanuel@gmail.com about: Failed production deployment on team 'ALPHA-TF141's projects'",
+  "key_pointers": [
+    "From: Vercel <notifications@vercel.com>",
+    "Received: Fri, 9 Jan 2026 14:34:23 +0000"
+  ],
+  "entities": [
+    "notifications@vercel.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "vercel.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:notifications@vercel.com",
+  "raw_ocr_excerpt": "Hey lmariaimmanuel-5525,\n completed an activity.\nSomething happened that you should be aware of.\nThanks,\nThe team @ \n\n--\n\nIf you've got questions, ask us in https://vercel.community/\n\nCopyright © 2026 Vercel Inc. All rights reserved.\n440 N Barranca Ave #4133 Covina, CA 91723",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

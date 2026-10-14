@@ -1,0 +1,33 @@
+{
+  "id": "card_20260922_104909_350",
+  "timestamp": "2026-09-22T10:49:09.350377Z",
+  "domain": "Technology",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "(3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
+  "topic": "Web_Knowledge",
+  "summary": "[Technology] (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany: Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome"
+  ],
+  "entities": [
+    "Jarvis",
+    "Activity",
+    "Robert",
+    "Paul",
+    "Bettany",
+    "Iron",
+    "Downey",
+    "Web_Knowledge"
+  ],
+  "tags": [
+    "chrome",
+    "technology",
+    "web_knowledge"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: (3055) All Iron Man and Jarvis Scenes Ft. Robert Downey Jr. & Paul Bettany - YouTube - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_104909_350.webp",
+  "hero_image_info_score": 51.9
+}

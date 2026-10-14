@@ -1,0 +1,29 @@
+{
+  "id": "mail_88_36b84c",
+  "timestamp": "2026-01-19T13:01:05+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Registration Confirmation: PwC AC India: Advisory Launchpad -\r\n Orientation Session",
+  "topic": "Email: Registration Confirmation: PwC AC India: Advisory Launchpad -\r\n Orientation Session",
+  "summary": "Email from PwC Webcasting <donotreply@webcasts.com> to lmariaimmanuel@gmail.com about: Registration Confirmation: PwC AC India: Advisory Launchpad -\r\n Orientation Session",
+  "key_pointers": [
+    "From: PwC Webcasting <donotreply@webcasts.com>",
+    "Received: Mon, 19 Jan 2026 13:01:05 +0000 (GMT)"
+  ],
+  "entities": [
+    "donotreply@webcasts.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "webcasts.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:donotreply@webcasts.com",
+  "raw_ocr_excerpt": "<style type=\"text/css\"> \ta, \tspan { \t\tborder-collapse: collapse; \t} \t \t*.ExternalClass * { \t\tline-height: 100.0%; \t} \t \t*.em_defaultlink a { \t\tcolor: inherit; \t\ttext-decoration: none; \t} \t \t*.em_g_img + div { \t\tdisplay: none; \t} \t \t*.em_white a { \t\tcolor: rgb(255, 255, 255); \t\ttext-decoration: none; \t} \t \t*.em_white_un a { \t\tcolor: rgb(255, 255, 255); \t\ttext-decoration: underline; \t} \t \t*.em_black a { \t\tcolor: rgb(45, 45, 45); \t\ttext-decoration: none; \t} \t \t*.em_orange_un a { \t\tcolor: rgb(208, 74, 2); \t\ttext-decoration: underline; \t} \t \t*.em_black_un a { \t\tcolor: rgb(45, 45, 45); \t\ttext-decoration: underline; \t\tfont-weight: bold; \t} \t \t*.em_grey a { \t\tcolor: rgb(45, 45, 45); \t\ttext-decoration: none; \t} \t \t*.em_orange a { \t\tcolor: rgb(208, 74, 2); \t\ttext-decoration: none; \t} \t \t*.em_green a { \t\tcolor: rgb(0, 74, 2); \t\ttext-decoration: none; \t} \t \t*.em_greyA a { \t\tcolor: rgb(125, 125, 125); \t\ttext-decoration: underline; \t} </style><table bgcolor=\"#ffffff\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" fr-original-class=\"em_full_wrap\" fr-original-style=\"border: none;border-collapse: collapse;empty-cells: show;max-width: 100.0%;\" style=\"border: none;border-collapse: collapse;empty-cells: show;max-width: 100.0%;\" width=\"100%\"><tbody><tr><td align=\"center\" style=\"border-collapse: collapse;\" valign=\"top\"><table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" fr-original-class=\"em_main_table\" fr-original-style=\"width:600px; table-layout:fixed;\" style=\"width:600px; table-layout:",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

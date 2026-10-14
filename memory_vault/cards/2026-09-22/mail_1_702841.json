@@ -1,0 +1,29 @@
+{
+  "id": "mail_1_702841",
+  "timestamp": "2020-06-03T08:06:45+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Finish setting up your new Google Account",
+  "topic": "Email: Finish setting up your new Google Account",
+  "summary": "Email from Google Community Team <googlecommunityteam-noreply@google.com> to immanuellourdu@gmail.com about: Finish setting up your new Google Account",
+  "key_pointers": [
+    "From: Google Community Team <googlecommunityteam-noreply@google.com>",
+    "Received: Wed, 03 Jun 2020 01:06:45 -0700"
+  ],
+  "entities": [
+    "googlecommunityteam-noreply@google.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "google.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:googlecommunityteam-noreply@google.com",
+  "raw_ocr_excerpt": "Google  \n<https://www.google.com/appserve/mkt/p/AD-FnEwaaXTu85x91A_BMCRrp5X9ueLX-cXMnQD87xYKS26XmcUfbbycOcUkoJvqU9XOQn_m1Phg9n48nKtOQgnUmZ2CUKmvfL_DTWWolgbaX6KCJL7_Iqqu9lMzm70NOlvOetGLXlFOu_FQ0pDu5Fd_u9o10KfbCBiYTRL2>\n\nbanner\n\nHi Immanuel,\n\nWelcome to Google. Your new account comes with access to Google products,  \napps, and services.\n\nHere are a few tips to get you started.\n\nGoogle Go\n\nGet a lighter, faster way to search\n\nSearch in a fast, fun, and easy way. Type less and save time by using your  \nvoice.\n\nGet Google Go  \n<https://www.google.com/appserve/mkt/p/AD-FnExC970636glckwnhZoObwVBXL7WWfcy3F--fxQks1xpdxH7_uh4PR1kJe47YP5IdNMaY_A7ozTKY3qKtcMGBJVIHpeRRqJEBce62DuHdPq0dzTg-9ZmRBYDnwGNw5ZjE5LZeOxRr683rhuD_WHdRrvMHVkbst5QIEKPxpTJXz8wi_wrmW6zj2jc83rOk0498UMa_-zpiHmRmsD3hZHACFfZE1Z8S9YWVfckwoygaNEri6pv1r1lH2rNyN-LH4agffCtZIl3pHFLP4JjqC7xvwPYKFAHn_K3wBnoDY7R00g>\n\nGoogle Play\n\nGoogle Play\n\nFind apps and games you love.\n\nGo to Google Play  \n<https://www.google.com/appserve/mkt/p/AD-FnEwReWADUM4NQwt9NCZfwHtkUXjTbCgviq8t_XfwuznErtID-bXAMEHPsUqehYKwc9R9Uh8dgD3t-oz4yPjnrFXKoO78uXyXQM6Ci9Q0pGXF6Pwp2MKcqVqPGIigtZI-CB03WHZwd6FbqCaVx7rOnmK6y7B-Baa_RcAgucRPYrK5nUAIXQjTeTFGVXHa68Km3FO_ngIZn9XaIgZkVSyOEpk-C2chZ3NN4maMIRRCyw2gjEhDNBOdGLs>\n\nSecurity\n\nControl your account\n\nChoose what's right for you. Review and adjust your privacy and security  \nsettings any time.\n\nGoogle Account  \n<https://www.google.com/appserve/mkt/p/AD-FnEzfk8ud0J29jE3D97W0cmgCQ9nr4fAB3lMQCxN1n-_faevSS2XWyY_g9izjaVeWQIwGYX",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,27 @@
+{
+  "id": "card_20260922_105043_280",
+  "timestamp": "2026-09-22T10:50:43.280347Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "jarvis and tony stark all clips together - Google Search - Google Chrome",
+  "topic": "jarvis and tony stark all clips together - Go",
+  "summary": "[General] jarvis and tony stark all clips together - Google Search: Activity on chrome.exe: jarvis and tony stark all clips together - Google Search - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: jarvis and tony stark all clips together - Google Search - Google Chrome"
+  ],
+  "entities": [
+    "Search",
+    "Activity",
+    "Google"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: jarvis and tony stark all clips together - Google Search - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 34.2
+}

@@ -1,0 +1,29 @@
+{
+  "id": "mail_101_2a218b",
+  "timestamp": "2020-08-16T11:17:53+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Re: I am sharing 'Document (1)' with you",
+  "topic": "Email: Re: I am sharing 'Document (1)' with you",
+  "summary": "Email from celin celin <celinvictoria1978@gmail.com> to immanuellourdu@gmail.com about: Re: I am sharing 'Document (1)' with you",
+  "key_pointers": [
+    "From: celin celin <celinvictoria1978@gmail.com>",
+    "Received: Sun, 16 Aug 2020 16:47:53 +0530"
+  ],
+  "entities": [
+    "celinvictoria1978@gmail.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "gmail.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:celinvictoria1978@gmail.com",
+  "raw_ocr_excerpt": "thank u 😀😀\n\nOn Sun, Aug 16, 2020 at 4:28 PM Immanuel Lourdu <immanuellourdu@gmail.com>\nwrote:",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,27 @@
+{
+  "id": "card_20260921_043133_002",
+  "timestamp": "2026-09-21T04:31:33.002999Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "obsidian app second brain - Google Search - Google Chrome",
+  "topic": "obsidian app second brain - Google Search",
+  "summary": "[General] obsidian app second brain - Google Search: Activity on chrome.exe: obsidian app second brain - Google Search - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: obsidian app second brain - Google Search - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Activity",
+    "Search"
+  ],
+  "tags": [
+    "general",
+    "chrome"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: obsidian app second brain - Google Search - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-21/hero_card_20260921_043133_002.webp",
+  "hero_image_info_score": 32.85
+}

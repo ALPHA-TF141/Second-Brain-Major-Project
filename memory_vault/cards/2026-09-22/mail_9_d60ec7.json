@@ -1,0 +1,29 @@
+{
+  "id": "mail_9_d60ec7",
+  "timestamp": "2026-01-01T09:30:32+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "[GitHub] A first-party GitHub OAuth application has been added to\r\n your account",
+  "topic": "Email: [GitHub] A first-party GitHub OAuth application has been added to\r\n your account",
+  "summary": "Email from GitHub <noreply@github.com> to lmariaimmanuel@gmail.com about: [GitHub] A first-party GitHub OAuth application has been added to\r\n your account",
+  "key_pointers": [
+    "From: GitHub <noreply@github.com>",
+    "Received: Thu, 01 Jan 2026 01:30:32 -0800"
+  ],
+  "entities": [
+    "noreply@github.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "github.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:noreply@github.com",
+  "raw_ocr_excerpt": "Hey ALPHA-TF141!\n\nA first-party GitHub OAuth application (Git Credential Manager) with gist, repo, and workflow scopes was recently authorized to access your account.\nVisit https://github.com/settings/connections/applications/0120e057bd645470c1ed for more information.\n\nTo see this and other security events for your account, visit https://github.com/settings/security-log\n\nIf you run into problems, please contact support by visiting https://github.com/contact\n\nThanks,\nThe GitHub Team",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

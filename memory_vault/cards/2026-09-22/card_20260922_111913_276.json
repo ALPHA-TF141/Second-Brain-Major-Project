@@ -1,0 +1,32 @@
+{
+  "id": "card_20260922_111913_276",
+  "timestamp": "2026-09-22T11:19:13.276298Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "ChatGPT Images 2.5 | AI Image Generator - Google Chrome",
+  "topic": "Ai",
+  "summary": "[Technology] ChatGPT Images 2.5 | AI Image Generator: Activity on chrome.exe: ChatGPT Images 2.5 | AI Image Generator - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: ChatGPT Images 2.5 | AI Image Generator - Google Chrome"
+  ],
+  "entities": [
+    "Image",
+    "Generator",
+    "ChatGPT",
+    "Activity",
+    "Google",
+    "Images",
+    "Ai"
+  ],
+  "tags": [
+    "technology",
+    "chrome",
+    "ai"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: ChatGPT Images 2.5 | AI Image Generator - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_111913_276.webp",
+  "hero_image_info_score": 50.85
+}

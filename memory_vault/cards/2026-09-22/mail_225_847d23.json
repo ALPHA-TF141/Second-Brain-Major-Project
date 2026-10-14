@@ -1,0 +1,31 @@
+{
+  "id": "mail_225_847d23",
+  "timestamp": "2026-02-06T02:15:14+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Learn Computer Science from a Harvard Professor [Free 25-hour\r\n Python course]",
+  "topic": "Email: Learn Computer Science from a Harvard Professor [Free 25-hour\r\n Python course]",
+  "summary": "Email from Quincy Larson <quincy@freecodecamp.org> to lmariaimmanuel@gmail.com about: Learn Computer Science from a Harvard Professor [Free 25-hour\r\n Python course]",
+  "key_pointers": [
+    "Action: Action: Learn Computer Science from a Harvard Professor [Free 25-hour\r\n Python course]",
+    "From: Quincy Larson <quincy@freecodecamp.org>",
+    "Received: Fri, 6 Feb 2026 02:15:14 +0000"
+  ],
+  "entities": [
+    "quincy@freecodecamp.org",
+    "lmariaimmanuel@gmail.com",
+    "interview"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "freecodecamp.org",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:quincy@freecodecamp.org",
+  "raw_ocr_excerpt": "Here are this week's five freeCodeCamp resources that are worth your time:\n\n1. Learn to code in Python from one of the greatest living Computer Science professors, Harvard's David J. Malan. This is the 2026 version of the famous CS50 course. It will teach you Python programming fundamentals like functions, conditionals, loops, libraries, file I/O, and more. If you're new to Python, or to coding in general, this is an excellent place to start. (25 hour YouTube course): https://www.freecodecamp.org/news/harvard-cs50-2026-free-computer-science-university-course\n\n2. And a few weeks ago I had the honor of interviewing Harvard CS50 professor David J. Malan on the freeCodeCamp podcast. I was hyped to ask him how he uses emerging LLM tools, and where he thinks the software engineering field is heading. I had a LOT of questions for him and he answered all of them. (1 hour watch or listen in your favorite podcast app): https://www.freecodecamp.org/news/harvard-cs50-prof-david-j-malan-on-why-you-should-learn-programming-slowly-podcast-197/\n\n3. That Harvard computer science course will get you started with programming. But where do you go from there? freeCodeCamp just published a helpful tutorial that will help you bridge from beginner projects to building real-world applications that solve real-world problems. (40 minute read): https://www.freecodecamp.org/news/how-to-go-from-hello-world-to-building-real-world-applications/\n\n4. freeCodeCamp also just published a comprehensive intro to O",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

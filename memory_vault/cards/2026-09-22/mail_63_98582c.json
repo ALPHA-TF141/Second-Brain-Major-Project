@@ -1,0 +1,29 @@
+{
+  "id": "mail_63_98582c",
+  "timestamp": "2020-07-30T03:30:00+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "The Michelle Obama Podcast is here.",
+  "topic": "Email: The Michelle Obama Podcast is here.",
+  "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: The Michelle Obama Podcast is here.",
+  "key_pointers": [
+    "From: \"Spotify\" <no-reply@spotify.com>",
+    "Received: Thu, 30 Jul 2020 03:30:00 +0000 (UTC)"
+  ],
+  "entities": [
+    "no-reply@spotify.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "spotify.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@spotify.com",
+  "raw_ocr_excerpt": "THE MICHELLE OBAMA PODCAST https://open.spotify.com/show/71mvGXupfKcmO6jlmOJQTP\n\nTHE MICHELLE OBAMA PODCAST\n\nHear the first episode now.\n\nThe moment you’ve been waiting for is here: President Barack Obama joins the First Lady in her premiere episode with an open conversation about what positive change means today. Listen to the can’t-miss premiere of The Michelle Obama Podcast right now.\n\nLISTEN NOW ( https://open.spotify.com/show/71mvGXupfKcmO6jlmOJQTP )\n\n-------------\n\nGet Spotify for:\n  * iPhone (https://itunes.apple.com/app/spotify-music/id324684580)\n  * iPad (https://itunes.apple.com/app/spotify-music/id324684580)\n  * Android (https://play.google.com/store/apps/details?id=com.spotify.music)\n  * Other (https://www.spotify.com/download/)\n\nThis message was sent to immanuellourdu@gmail.com.\nIf you don't want to receive these emails from Spotify in the future, you can edit your profile ( https://www.spotify.com/accounts/profile ) or unsubscribe ( https://www.spotify.com/account/unsubscribe?t=BcGJDYAgDADAVViApFArMA6UGjUCUXzC9t7dic5dXJg%2F396j26fiOpCTqNrubRn6Em6lSM2SdXn6xiqhZ%2B%2FsRCYGyAgEBgHYCMUZrHeZJgFK7gc%3D&a=unsubscribe ).\n\n  * Terms of Use https://www.spotify.com/legal/end-user-agreement/\n  * Privacy Policy https://www.spotify.com/legal/privacy-policy/\n  * Contact Us https://www.spotify.com/about-us/contact/\n\nSpotify AB, Regeringsgatan 19, 111 53, Stockholm, Sweden",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

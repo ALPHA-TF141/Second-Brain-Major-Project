@@ -1,0 +1,34 @@
+{
+  "id": "card_20260917_101025_866",
+  "timestamp": "2026-09-17T10:10:25.866549Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+  "topic": "Ai",
+  "summary": "[Technology] Arena | Benchmark & Compare the Best AI Models: Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome"
+  ],
+  "entities": [
+    "Benchmark",
+    "Compare",
+    "Models",
+    "Activity",
+    "Ai",
+    "Arena",
+    "Best",
+    "Google"
+  ],
+  "tags": [
+    "technology",
+    "benchmark",
+    "chrome",
+    "ai"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Arena | Benchmark & Compare the Best AI Models - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 66.75
+}

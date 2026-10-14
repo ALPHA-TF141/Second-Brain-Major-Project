@@ -1,0 +1,34 @@
+{
+  "id": "card_20260918_140331_137",
+  "timestamp": "2026-09-18T14:03:31.137180Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "native_youtube",
+  "window_title": "I Built a Self-Improving AI Second Brain 🤯",
+  "topic": "Ai",
+  "summary": "[Technology] I Built a Self-Improving AI Second Brain 🤯: Full Spoken Audio Transcript: I just built a self-improving second brain with Claude and it's very convincing. One of the most respected people in AI quietly posted how he runs his personal knowledge base. 105,000 people bookmarked it and probably...",
+  "key_pointers": [
+    "Full Spoken Audio Transcript:",
+    "I just built a self-improving second brain with Claude and it's very convincing. One of the most respected people in AI quietly posted how he runs his personal knowledge base. 105,"
+  ],
+  "entities": [
+    "Audio",
+    "Ai",
+    "Full",
+    "Claude",
+    "Obsidian",
+    "Transcript",
+    "Andrej",
+    "Karpathy"
+  ],
+  "tags": [
+    "ai",
+    "technology",
+    "native_youtube"
+  ],
+  "source_url_or_ref": "https://www.youtube.com/shorts/f_iWrXDpUkw",
+  "raw_ocr_excerpt": "Full Spoken Audio Transcript:\nI just built a self-improving second brain with Claude and it's very convincing. One of the most respected people in AI quietly posted how he runs his personal knowledge base. 105,000 people bookmarked it and probably very few have actually built it. And I get why cuz every second brain setup ends the same way. You open Obsidian, install the plugins, start linking not",
+  "hero_image": "https://img.youtube.com/vi/f_iWrXDpUkw/maxresdefault.jpg",
+  "hero_image_info_score": 95.0
+}

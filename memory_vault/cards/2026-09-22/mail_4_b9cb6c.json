@@ -1,0 +1,31 @@
+{
+  "id": "mail_4_b9cb6c",
+  "timestamp": "2025-12-29T15:55:59+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Maria Immanuel: your job alert for Software Developer in Chennai,\r\n Tamil Nadu, India has been created",
+  "topic": "Email: Maria Immanuel: your job alert for Software Developer in Chennai,\r\n Tamil Nadu, India has been created",
+  "summary": "Email from LinkedIn Job Alerts <jobalerts-noreply@linkedin.com> to lmariaimmanuel@gmail.com about: Maria Immanuel: your job alert for Software Developer in Chennai,\r\n Tamil Nadu, India has been created",
+  "key_pointers": [
+    "Action: Action: Maria Immanuel: your job alert for Software Developer in Chennai,\r\n Tamil Nadu, India has been created",
+    "From: LinkedIn Job Alerts <jobalerts-noreply@linkedin.com>",
+    "Received: Mon, 29 Dec 2025 15:55:59 +0000 (UTC)"
+  ],
+  "entities": [
+    "jobalerts-noreply@linkedin.com",
+    "lmariaimmanuel@gmail.com",
+    "otp"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "linkedin.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:jobalerts-noreply@linkedin.com",
+  "raw_ocr_excerpt": "Your job alert has been created: Software Developer in Chennai, Tamil Nadu, India.\nYou’ll receive notifications when new jobs are posted that match your search preferences.\n          \nJunior Software Developer\nJob Nexus India\nIndia\nView job: https://www.linkedin.com/comm/jobs/view/4350558672?alertAction=markasviewed&savedSearchId=15557920988&savedSearchAuthToken=1&AQEsdjdIQO47nAAAAZtqcG8Cr5XEC9DY9dPXZWZ1E8kdmBpWXd3uwMOA374PJdJkTrMUkQYSEbp6BfP-_nmeG07mxI_yOm0mchVRSXCT4rHUYnZ9pEAbRi9nl_BuxnleR_7rGqZJDxs7Wz2IfuYdvpm-wERmSMsNvSGXk-ROk1v_LqHHZ7zrAf9Czoge-G0PESR_Msa5VUtmwGapdBfidIFz1xO0TAX7jimdLlQYf0mH1rQQZ7TvcqlMHkwWr-N_IiiiFUu-ykQYUqAb00CPrqm0izh9GPlGgtKjPgeWZ7aHijvgLEFjT4A7hA=&AS8mHNGotHfrwYrd8En9DFPNTWV5=&trackingId=UIKPTSuQc1ZIvB0AdygDiQ%3D%3D&refId=xboZsdMc2swINUfCwqTALg%3D%3D&lipi=urn%3Ali%3Apage%3Aemail_email_job_alert_confirmation_01%3BnQELZpRBT7mnsFTLMIesdg%3D%3D&midToken=AQG8pTHJ91tLmQ&midSig=0rRg739gCroc41&trk=eml-email_job_alert_confirmation_01-email_job_alert_confirmation-0-view_job&trkEmail=eml-email_job_alert_confirmation_01-email_job_alert_confirmation-0-view_job-null-rfx49w~mjrc9pil~4s-null-null&eid=rfx49w-mjrc9pil-4s&otpToken=MTMwMzFiZTkxMTJjY2ZjNWJjMmUwZmViNDExOGUwYjQ4ZGNkZDc0NDkwYTg4YTZiN2JjNjAxNmI0ZDU4NWNmMWY2ZDdkMGU1MThiOGNhZDU3ZGE4YWViOTJjMWM5NTYzNGM4OTU0ZjU4MDVlMjM3N2I5ZTliMTBjZTQsMSwx\n\n---------------------------------------------------------\n  \n          \nFront-end Software Engineer\nJobgether\nIndia\nApply with resume & profile\nView job: https://www.linkedi",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

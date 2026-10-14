@@ -1,0 +1,28 @@
+{
+  "id": "card_20260917_100633_249",
+  "timestamp": "2026-09-17T10:06:33.249328Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "(3043) ai trends - YouTube - Google Chrome",
+  "topic": "Ai",
+  "summary": "[Technology] (3043) ai trends: Activity on chrome.exe: (3043) ai trends - YouTube - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: (3043) ai trends - YouTube - Google Chrome"
+  ],
+  "entities": [
+    "Activity",
+    "Ai",
+    "Google"
+  ],
+  "tags": [
+    "technology",
+    "chrome",
+    "ai"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: (3043) ai trends - YouTube - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 49.95
+}

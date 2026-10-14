@@ -250,3 +250,56 @@ async def mail_message(
         return await google_oauth.gmail_get_message(account_id, message_id)
     except (AccountNotFound, GoogleAuthError, GoogleNotConfigured) as exc:
         raise _google_error(exc)
+
+
+# ============================================================ INGESTION
+class SyncPayload(BaseModel):
+    account_id: Optional[str] = ""      # empty = every connected account
+    folders: Optional[List[str]] = None
+    limit: Optional[int] = None
+
+
+@router.get("/mail/sync/status")
+def mail_sync_status(_user: User = Depends(get_current_user)):
+    from app.agents.mail_ingestion_agent import mail_ingestion_agent
+
+    status = mail_ingestion_agent.status()
+    # Which accounts are actually available to sync right now
+    try:
+        imap_ids = [a["id"] for a in mail_accounts.all()]
+    except StoreUnavailable:
+        imap_ids = []
+    status["syncable_accounts"] = imap_ids
+    return status
+
+
+@router.post("/mail/sync")
+async def mail_sync(payload: SyncPayload, user: User = Depends(get_current_user),
+                    db: Session = Depends(get_db)):
+    """
+    Read new mail from the connected account(s) and turn it into memories.
+
+    Runs in a worker thread: IMAP is blocking, and a first sync can take a while.
+    """
+    from app.agents.mail_ingestion_agent import mail_ingestion_agent
+
+    def run():
+        from app.database.session import SessionLocal
+
+        local = SessionLocal()
+        try:
+            if payload.account_id:
+                return mail_ingestion_agent.sync_account(
+                    local, payload.account_id, user.id,
+                    folders=payload.folders, limit=payload.limit,
+                )
+            return mail_ingestion_agent.sync_all(local, user.id)
+        finally:
+            local.close()
+
+    result = await asyncio.to_thread(run)
+    if result.get("errors") and not result.get("ingested"):
+        # Surface the first error clearly rather than a silent empty result
+        first = result["errors"][0] if isinstance(result.get("errors"), list) else str(result["errors"])
+        raise HTTPException(status_code=502, detail=first)
+    return result

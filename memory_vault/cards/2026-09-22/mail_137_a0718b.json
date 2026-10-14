@@ -1,0 +1,29 @@
+{
+  "id": "mail_137_a0718b",
+  "timestamp": "2020-09-01T04:30:00+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Listening is easy",
+  "topic": "Email: Listening is easy",
+  "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: Listening is easy",
+  "key_pointers": [
+    "From: \"Spotify\" <no-reply@spotify.com>",
+    "Received: Tue, 01 Sep 2020 04:30:00 +0000 (UTC)"
+  ],
+  "entities": [
+    "no-reply@spotify.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "spotify.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@spotify.com",
+  "raw_ocr_excerpt": "## https://support.spotify.com/article/bandwidth-and-data-usage/\n\nYour music.  Your podcasts.  Your way.\n\ndesign https://support.spotify.com/article/bandwidth-and-data-usage/\n\nSpotify makes it easy to listen your way.\n\nWith features like Data Saver, you can listen longer. Plus, personalized recommendations make it easy to listen to what you like. It's listening that fits your lifestyle.\n\nListen now ( https://support.spotify.com/article/bandwidth-and-data-usage/ )\n\n-------------\n\nGet Spotify for:\n  * iPhone (https://itunes.apple.com/app/spotify-music/id324684580)\n  * iPad (https://itunes.apple.com/app/spotify-music/id324684580)\n  * Android (https://play.google.com/store/apps/details?id=com.spotify.music)\n  * Other (https://www.spotify.com/download/)\n\nThis message was sent to immanuellourdu@gmail.com.\nIf you don't want to receive these emails from Spotify in the future, you can edit your profile ( https://www.spotify.com/accounts/profile ) or unsubscribe ( https://www.spotify.com/account/unsubscribe?t=BcEBCoAgDADAr%2FgBIZzT%2BRx1k4rQSiv8fXcj4bWLD%2B6j9h7dPBXWCTmJqm1sZerzbvzkoat8XXnPSJSWCGbJSMgulGwJrAvAKRYSDOIL%2Fw%3D%3D&a=unsubscribe ).\n\n  * Terms of Use https://www.spotify.com/legal/end-user-agreement/\n  * Privacy Policy https://www.spotify.com/legal/privacy-policy/\n  * Contact Us https://www.spotify.com/about-us/contact/\n\nSpotify AB, Regeringsgatan 19, 111 53, Stockholm, Sweden",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

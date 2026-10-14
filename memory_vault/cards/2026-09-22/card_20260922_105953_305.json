@@ -1,0 +1,29 @@
+{
+  "id": "card_20260922_105953_305",
+  "timestamp": "2026-09-22T10:59:53.305587Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "GitHub - Google Chrome",
+  "topic": "Github",
+  "summary": "[Technology] GitHub: Activity on chrome.exe: GitHub - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: GitHub - Google Chrome"
+  ],
+  "entities": [
+    "Github",
+    "Activity",
+    "GitHub",
+    "Google"
+  ],
+  "tags": [
+    "chrome",
+    "technology",
+    "github"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: GitHub - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 48.15
+}

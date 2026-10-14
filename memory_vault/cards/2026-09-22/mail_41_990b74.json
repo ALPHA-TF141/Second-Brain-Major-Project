@@ -1,0 +1,31 @@
+{
+  "id": "mail_41_990b74",
+  "timestamp": "2020-07-20T09:04:12+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "[GitHub] Please verify your email address.",
+  "topic": "Email: [GitHub] Please verify your email address.",
+  "summary": "Email from GitHub <noreply@github.com> to immanuellourdu@gmail.com about: [GitHub] Please verify your email address.",
+  "key_pointers": [
+    "Action: Action: Please verify your email address.",
+    "From: GitHub <noreply@github.com>",
+    "Received: Mon, 20 Jul 2020 02:04:12 -0700"
+  ],
+  "entities": [
+    "noreply@github.com",
+    "immanuellourdu@gmail.com",
+    "verification"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "github.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:noreply@github.com",
+  "raw_ocr_excerpt": "Almost done, @Immanuel15!\r\n\r\nTo complete your GitHub sign up, we just need to verify your email address: immanuellourdu@gmail.com.\r\n\r\nClick the link below to verify your email address:\r\nhttps://github.com/users/Immanuel15/emails/111544945/confirm_verification/ad10077db220a087a73ccfde96631a12a65d0b4a\r\n\r\nOnce verified, you can start using all of GitHub's features to explore, build, and share projects.\r\n\r\n\r\n\r\nYou're receiving this email because you recently created a new GitHub account or added a new email address. If this wasn’t you, please ignore this email.\r\n\r\n---\r\nSent with <3 by GitHub.\r\nGitHub, Inc. 88 Colin P Kelly Jr Street\r\nSan Francisco, CA 94107",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

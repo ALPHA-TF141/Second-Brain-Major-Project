@@ -1,0 +1,31 @@
+{
+  "id": "mail_58_83d7bf",
+  "timestamp": "2020-07-26T09:11:35+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "OTP for Sign Up from Godmusic",
+  "topic": "Email: OTP for Sign Up from Godmusic",
+  "summary": "Email from God Music <support@godmusicapp.com> to immanuellourdu@gmail.com about: OTP for Sign Up from Godmusic",
+  "key_pointers": [
+    "Action: Action: OTP for Sign Up from Godmusic",
+    "From: God Music <support@godmusicapp.com>",
+    "Received: Sun, 26 Jul 2020 09:11:35 +0000"
+  ],
+  "entities": [
+    "support@godmusicapp.com",
+    "immanuellourdu@gmail.com",
+    "otp"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "godmusicapp.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:support@godmusicapp.com",
+  "raw_ocr_excerpt": "7620",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

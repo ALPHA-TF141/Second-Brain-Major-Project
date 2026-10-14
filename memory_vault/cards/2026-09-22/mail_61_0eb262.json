@@ -1,0 +1,29 @@
+{
+  "id": "mail_61_0eb262",
+  "timestamp": "2020-07-28T07:06:39+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Add a mobile number to complete your account",
+  "topic": "Email: Add a mobile number to complete your account",
+  "summary": "Email from \"Amazon.com\" <store-news@amazon.com> to immanuellourdu@gmail.com about: Add a mobile number to complete your account",
+  "key_pointers": [
+    "From: \"Amazon.com\" <store-news@amazon.com>",
+    "Received: Tue, 28 Jul 2020 07:06:39 +0000"
+  ],
+  "entities": [
+    "store-news@amazon.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "amazon.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:store-news@amazon.com",
+  "raw_ocr_excerpt": "=====================================================================\nAmazon.com\n=====================================================================\nAdding your mobile number to your Amazon account helps avert potential security issues. Plus, you can use your phone to quickly and easily recover your password, should you ever need to.\nhttps://www.amazon.com/gp/../ap/profile/mobilephone/ref=pe_pj_ssap_new_us/ref=pj_ssap_new_us?openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.return_to=https://www.amazon.com&orig_return_to=https://www.amazon.com&openid.ns.pape=http://specs.openid.net/extensions/pape/1.0&action=editPhoneClaim\n\nWhy add your mobile number?\nhttps://www.amazon.com/gp/../ap/profile/mobilephone/ref=pe_pj_ssap_new_us/ref=pj_ssap_new_us?openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.return_to=https://www.amazon.com&orig_return_to=https://www.amazon.com&openid.ns.pape=http://specs.openid.net/extensions/pape/1.0&action=editPhoneClaim\nAdding your mobile number to your Amazon account helps avert potential security issues. Plus, you can use your phone to quickly and easily recover your password, should you ever need to.\nComplete your account\nhttps://www.amazon.com/gp/../ap/profile/mobilephone/ref=pe_pj_ssap_new_us/ref=pj_ssap_new_us?openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.return_to=https://www.amazon.com",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

@@ -1,0 +1,29 @@
+{
+  "id": "mail_95_160b07",
+  "timestamp": "2020-08-15T10:59:24+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "India's best teachers are waiting for you in class!",
+  "topic": "Email: India's best teachers are waiting for you in class!",
+  "summary": "Email from \"BYJUS LearnFromHome\" <Keeplearning@byjuslearnathome.in> to immanuellourdu@gmail.com about: India's best teachers are waiting for you in class!",
+  "key_pointers": [
+    "From: \"BYJUS LearnFromHome\" <Keeplearning@byjuslearnathome.in>",
+    "Received: Sat, 15 Aug 2020 10:59:24 +0000 (UTC)"
+  ],
+  "entities": [
+    "keeplearning@byjuslearnathome.in",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "byjuslearnathome.in",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:keeplearning@byjuslearnathome.in",
+  "raw_ocr_excerpt": "96    \n\t \n\t \n\t  \n\t \n\t \n\t  \n\t  \n\t \n\t \n\t\tbody {\n\t\t\tmargin: 0;\n\t\t\tpadding: 0;\n\t\t}\n\n\t\ttable,\n\t\ttd,\n\t\ttr {\n\t\t\tvertical-align: top;\n\t\t\tborder-collapse: collapse;\n\t\t}\n\n\t\t* {\n\t\t\tline-height: inherit;\n\t\t}\n\n\t\ta[x-apple-data-detectors=true] {\n\t\t\tcolor: inherit !important;\n\t\t\ttext-decoration: none !important;\n\t\t}\n\t \n\t \n\t\t@media (max-width: 620px) {\n\n\t\t\t.block-grid,\n\t\t\t.col {\n\t\t\t\tmin-width: 320px !important;\n\t\t\t\tmax-width: 100% !important;\n\t\t\t\tdisplay: block !important;\n\t\t\t}\n\n\t\t\t.block-grid {\n\t\t\t\twidth: 100% !important;\n\t\t\t}\n\n\t\t\t.col {\n\t\t\t\twidth: 100% !important;\n\t\t\t}\n\n\t\t\t.col>div {\n\t\t\t\tmargin: 0 auto;\n\t\t\t}\n\n\t\t\timg.fullwidth,\n\t\t\timg.fullwidthOnMobile {\n\t\t\t\tmax-width: 100% !important;\n\t\t\t}\n\n\t\t\t.no-stack .col {\n\t\t\t\tmin-width: 0 !important;\n\t\t\t\tdisplay: table-cell !important;\n\t\t\t}\n\n\t\t\t.no-stack.two-up .col {\n\t\t\t\twidth: 50% !important;\n\t\t\t}\n\n\t\t\t.no-stack .col.num4 {\n\t\t\t\twidth: 33% !important;\n\t\t\t}\n\n\t\t\t.no-stack .col.num8 {\n\t\t\t\twidth: 66% !important;\n\t\t\t}\n\n\t\t\t.no-stack .col.num4 {\n\t\t\t\twidth: 33% !important;\n\t\t\t}\n\n\t\t\t.no-stack .col.num3 {\n\t\t\t\twidth: 25% !important;\n\t\t\t}\n\n\t\t\t.no-stack .col.num6 {\n\t\t\t\twidth: 50% !important;\n\t\t\t}\n\n\t\t\t.no-stack .col.num9 {\n\t\t\t\twidth: 75% !important;\n\t\t\t}\n\n\t\t\t.video-block {\n\t\t\t\tmax-width: none !important;\n\t\t\t}\n\n\t\t\t.mobile_hide {\n\t\t\t\tmin-height: 0px;\n\t\t\t\tmax-height: 0px;\n\t\t\t\tmax-width: 0px;\n\t\t\t\tdisplay: none;\n\t\t\t\toverflow: hidden;\n\t\t\t\tfont-size: 0px;\n\t\t\t}\n\n\t\t\t.desktop_hide {\n\t\t\t\tdisplay: block !important;\n\t\t\t\tmax-height: none !important;\n\t\t\t}\n\t\t}\n\t \n \n\n \n\t   \n\t \n\t\t \n",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

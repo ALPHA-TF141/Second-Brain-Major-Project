@@ -1,0 +1,30 @@
+{
+  "id": "card_20260918_161806_674",
+  "timestamp": "2026-09-18T16:18:06.674765Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "native_web_article",
+  "window_title": "Web Research Article",
+  "topic": "Web Research Article",
+  "summary": "[General] Web Research Article: Article content from: file:///C:/Users/Maria%20Immanuel/Dropbox/Major%20proj/Work-in-Progress_On-device_Retrieval_Augmented_Generation_with_Knowledge_Graphs_for_Personalized_Large_Language_Models.pdf",
+  "key_pointers": [
+    "Article content from: file:///C:/Users/Maria%20Immanuel/Dropbox/Major%20proj/Work-in-Progress_On-device_Retrieval_Augmented_Generation_with_Knowledge_Graphs_for_Personalized_Large_"
+  ],
+  "entities": [
+    "Major",
+    "Work-in-Progress_On-device_Retrieval_Augmented_Generation_with_Knowledge_Graphs_for_Personalized_Large_Language_Models",
+    "Article",
+    "Maria",
+    "Dropbox",
+    "Users"
+  ],
+  "tags": [
+    "native_web_article",
+    "general"
+  ],
+  "source_url_or_ref": "file:///C:/Users/Maria%20Immanuel/Dropbox/Major%20proj/Work-in-Progress_On-device_Retrieval_Augmented_Generation_with_Knowledge_Graphs_for_Personalized_Large_Language_Models.pdf",
+  "raw_ocr_excerpt": "Article content from: file:///C:/Users/Maria%20Immanuel/Dropbox/Major%20proj/Work-in-Progress_On-device_Retrieval_Augmented_Generation_with_Knowledge_Graphs_for_Personalized_Large_Language_Models.pdf",
+  "hero_image": null,
+  "hero_image_info_score": 28.8
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mail_186_a397ff",
+  "timestamp": "2023-12-18T07:03:17+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "📢Industrial Training and Internship Program",
+  "topic": "Email: 📢Industrial Training and Internship Program",
+  "summary": "Email from Mohamed Abu Fareed M <abu.fareed@corizo.info> to vtu24334@veltech.edu.in about: 📢Industrial Training and Internship Program",
+  "key_pointers": [
+    "Action: Action: 📢Industrial Training and Internship Program",
+    "From: Mohamed Abu Fareed M <abu.fareed@corizo.info>",
+    "Received: Mon, 18 Dec 2023 12:33:17 +0530"
+  ],
+  "entities": [
+    "abu.fareed@corizo.info",
+    "vtu24334@veltech.edu.in",
+    "interview"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "corizo.info",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:abu.fareed@corizo.info",
+  "raw_ocr_excerpt": "Dear student's From\n\n*VELTECH UNIVERSITY,*\n*GREETINGS FROM CORIZO COMPANY,*\n\nCORIZO is the top emerging leading platform which provides Professional\ncertification Internship and Industrial Training .\n\nGet certified in all the Engineering and Management Domains.\n\nWe are in collaboration with Top MNCs Company(IBM ,Microsoft, Deloitte,\nCOGNIZANT, BARCLAYS, INFOSYS, GENPACT, ORACLE  ETC) and are organizing a\nTraining + Internship program on multiple domains.\n\n*Domains:-🔹 PYTHON🔹 DATA SCIENCE🔹 CYBER SECURITY🔹 AI🔹 ML USING\nPYTHON🔹 WEB DEVELOPMENT🔹 ANDROID DEVELOPMENT🔹 CLOUD\nCOMPUTING🔹 HR🔹 DIGITAL MARKETING🔹 STOCK MARKET🔹 FINANCE🔹 GENETIC\nENGINEERING🔹 EMBEDDED SYSTEM🔹 GRAPHIC DESIGN*\n\n*About the Program:*\n\nDuration: 2-3 Months\n\n*1st Month - INDUSTRIAL TRAINING *\n\nStudents will be trained in a selected domain right from the basics to the\nintermediate to the professional level by Mentors having 5 to 10 years of\nexperience in that particular domain.\n\nTraining Methods :\n\n1) Self paced: Recorded sessions. The videos will be available for 6 months\nfrom the start of their internship for them to refer again.\n2) Mentor led: Live sessions delivered by an industry expert who have many\nyears of knowledge in the selected domain.\n\nYou can choose anyone of the Training Methods\n\n*2nd Month - INDUSTRIAL INTERNSHIP*\n\n2 Live projects:\n\n   - 1 Minor - 7 days\n   - 1 Major - 23 days\n\n*3rd Month - PLACEMENT ASSISTANCE *\nMultiple sessions of Mock Interview, Group Discussion, Resume building and\nPersonality",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

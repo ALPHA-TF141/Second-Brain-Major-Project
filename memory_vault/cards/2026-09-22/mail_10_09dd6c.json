@@ -1,0 +1,29 @@
+{
+  "id": "mail_10_09dd6c",
+  "timestamp": "2020-06-20T17:36:11+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Set the password to your Times account",
+  "topic": "Email: Set the password to your Times account",
+  "summary": "Email from NYTimes.com <nyt@service.newyorktimes.com> to immanuellourdu@gmail.com about: Set the password to your Times account",
+  "key_pointers": [
+    "From: NYTimes.com <nyt@service.newyorktimes.com>",
+    "Received: Sat, 20 Jun 2020 10:36:11 -0700"
+  ],
+  "entities": [
+    "nyt@service.newyorktimes.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "service.newyorktimes.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:nyt@service.newyorktimes.com",
+  "raw_ocr_excerpt": "Finish setting up your account\n\n-----------------------------------------------------------------\n\n-- The New York Times --\n\n-----------------------------------------------------------------\n\nThis link will expire in one hour.\n\nCREATE YOUR PASSWORD \nhttps://e.newyorktimes.com/pub/cc?_ri_=X0Gzc2X%3DAQpglLjHJlYQGpzaGfzcNqtBtYzdzeBHR0uhEkh7rPd5NpHIsMUNiBlurP3ultwyJvwTVXtpKX%3DWBSDAY&_ei_=Eq2tf9zs59idfPO1Sc_9Bbl95O0-9yuajOHZLCwXF0yxKzd9iKAtpXNq1swzQvJHpibJZLczi_TpSreKZxy-NOTrtvpuIRt9kIKNTMzH9dV-Wvwi17iDaIRWLd7RAISmMP3UBoYJUqxKgBuC2_H3aNEBcmKLSmlxAA1c_dsjzXkBqXtBsPZ8vYsRwBcgmBiNhnPzbFrhYVq5QRdO1TfTtEpV-W09auI-qectgadwdBnsE-UKfAWeBsG8yoi8aoj7rQRsqucxPEuYE5vOFhcjaCAkGFR-Foij9H_HHxooE8y2ZO8nXHGrlgwWhIhZG2VDGw9mz81DD3hlyZ937aSwleWRruErnFJuU88d5MpgPN83184k3I8i-ORNiSBOUti68qacU1yDjq5LH1ekOWm_Gf4BWx3I_Bki8ykVixtmfDe0wG0zp2mdJqTnN4-hQiYVqmBbHFGe0OZqBJKPe4SSyoBB13xyfy5zXMg7YX1zPfS2fN3o_JMKbVl9zsFohZcE98WbLLU_Bj-H1gYuMVEotIAdkfiPQXcA3tn0F13guwwgojU6mMUqoB3zNzqCd6aus6_R2cl9jkPy9bgEdmwc94kxSpKKWs-o4OSRCB6MK5y8aCuH.&_di_=sqnggmab7l3pkb5hd5s7fd7qvois4ns5c4fl228cvk61og9bogd0Jg%3D%3D\n\nIf you didn't request this change, please contact us right away. \nhttps://e.newyorktimes.com/pub/cc?_ri_=X0Gzc2X%3DAQpglLjHJlYQGpzaGfzcNqtBtYzdzeBHR0uhEkh7rPd5NpHIsMUNiBlurP3ultwyJvwTVXtpKX%3DYBCCRY&_ei_=Eq2tf9zs59idfPO1Sc_9Bbl95O0-9yuajOHZLCwXF0yxKzd9iKAtpXNq1swzQvJHphhD0U7yyGCxBPkNwmnlnTTMqlW1Hw.&_di_=4srcb3g9fvev561vj5gd6b1evaut057tc9raol918tc1mr1cbu80Jg%3D%3D\n\n----------------------------------------------------",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

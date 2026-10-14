@@ -1,0 +1,26 @@
+{
+  "id": "card_20260922_105931_656",
+  "timestamp": "2026-09-22T10:59:31.656595Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "New tab - Google Chrome",
+  "topic": "New tab",
+  "summary": "[General] New tab: Activity on chrome.exe: New tab - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: New tab - Google Chrome"
+  ],
+  "entities": [
+    "Activity",
+    "Google"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: New tab - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_105931_656.webp",
+  "hero_image_info_score": 30.6
+}

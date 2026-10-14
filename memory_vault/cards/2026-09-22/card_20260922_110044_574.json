@@ -1,0 +1,33 @@
+{
+  "id": "card_20260922_110044_574",
+  "timestamp": "2026-09-22T11:00:44.574678Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "[GitHub] Sudo email verification code - lmariaimmanuel@gmail.com - Gmail - Google Chrome",
+  "topic": "Github",
+  "summary": "[Technology] [GitHub] Sudo email verification code - lmariaimmanuel@gmail.com - Gmail: Activity on chrome.exe: [GitHub] Sudo email verification code - lmariaimmanuel@gmail.com - Gmail - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: [GitHub] Sudo email verification code - lmariaimmanuel@gmail.com - Gmail - Google Chrome"
+  ],
+  "entities": [
+    "Activity",
+    "Google",
+    "Code",
+    "Gmail",
+    "Github",
+    "GitHub",
+    "Sudo"
+  ],
+  "tags": [
+    "chrome",
+    "technology",
+    "code",
+    "github"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: [GitHub] Sudo email verification code - lmariaimmanuel@gmail.com - Gmail - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 66.75
+}

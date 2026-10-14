@@ -1,0 +1,29 @@
+{
+  "id": "mail_5_0f376f",
+  "timestamp": "2025-12-30T06:05:16+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "[LeetCode] Confirm E-mail Address",
+  "topic": "Email: [LeetCode] Confirm E-mail Address",
+  "summary": "Email from LeetCode <no-reply@leetcode.com> to lmariaimmanuel@gmail.com about: [LeetCode] Confirm E-mail Address",
+  "key_pointers": [
+    "From: LeetCode <no-reply@leetcode.com>",
+    "Received: Tue, 30 Dec 2025 06:05:16 +0000"
+  ],
+  "entities": [
+    "no-reply@leetcode.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "leetcode.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@leetcode.com",
+  "raw_ocr_excerpt": "Welcome !\n\nThanks for signing up with LeetCode!\nYou must follow this link to activate your account:\nhttps://leetcode.com/accounts/confirm-email/MjEwMTcyMTg:1vaSr6:Z39OW28Dc49iAwG8AU3hljCEUtqF-OrTPToXN30ki7Q/\n\nHave fun coding, and don't hesitate to contact us with your feedback.",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

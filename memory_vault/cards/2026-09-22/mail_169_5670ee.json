@@ -1,0 +1,29 @@
+{
+  "id": "mail_169_5670ee",
+  "timestamp": "2020-09-19T05:30:00+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Forget ad breaks in music.",
+  "topic": "Email: Forget ad breaks in music.",
+  "summary": "Email from \"Spotify\" <no-reply@spotify.com> to immanuellourdu@gmail.com about: Forget ad breaks in music.",
+  "key_pointers": [
+    "From: \"Spotify\" <no-reply@spotify.com>",
+    "Received: Sat, 19 Sep 2020 05:30:00 +0000 (UTC)"
+  ],
+  "entities": [
+    "no-reply@spotify.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "spotify.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@spotify.com",
+  "raw_ocr_excerpt": "Keep your calm with ad-free music, in just ₹39/week.  https://promo.spotify.com/in/?utm_source=Spotify_premiumupsell&utm_medium=house_email&utm_campaign=2020q3_IN_Wave 1&utm_content=zz_in_apac_email_Email_Banners_allusers_Bluetooth weekly\n\nKeep your calm with music without ads. Stream over 50 million songs, in just ₹39/week, only on Spotify Premium.\n\nPay with UPI, Paytm, debit & credit cards https://promo.spotify.com/in/?utm_source=Spotify_premiumupsell&utm_medium=house_email&utm_campaign=2020q3_IN_Wave 1&utm_content=zz_in_apac_email_Email_Banners_allusers_Bluetooth weekly\n\nGet Premium ( https://promo.spotify.com/in/?utm_source=Spotify_premiumupsell&utm_medium=house_email&utm_campaign=2020q3_IN_Wave 1&utm_content=zz_in_apac_email_Email_Banners_allusers_Bluetooth weekly )\n\n Terms and conditions apply.  ( https://www.spotify.com/in/legal/end-user-agreement )\n\n-------------\n\nGet Spotify for:\n  * iPhone (https://itunes.apple.com/app/spotify-music/id324684580)\n  * iPad (https://itunes.apple.com/app/spotify-music/id324684580)\n  * Android (https://play.google.com/store/apps/details?id=com.spotify.music)\n  * Other (https://www.spotify.com/download/)\n\nThis message was sent to immanuellourdu@gmail.com.\nIf you don't want to receive these emails from Spotify in the future, you can edit your profile ( https://www.spotify.com/accounts/profile ) or unsubscribe ( https://www.spotify.com/account/unsubscribe?t=DcdZCoAgFADAq3QBwQVfehx9CxWhlJZ4%2B5q%2F6dlfB68RRqjv2exT3DYdZl5K7btMVXg0lQqpKsJ3W4hM",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

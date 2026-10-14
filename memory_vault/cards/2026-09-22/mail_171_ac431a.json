@@ -1,0 +1,31 @@
+{
+  "id": "mail_171_ac431a",
+  "timestamp": "2020-09-21T02:19:58+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "3D4Medical Account: Email verification",
+  "topic": "Email: 3D4Medical Account: Email verification",
+  "summary": "Email from noreply@3d4medical.com to immanuellourdu@gmail.com about: 3D4Medical Account: Email verification",
+  "key_pointers": [
+    "Action: Action: 3D4Medical Account: Email verification",
+    "From: noreply@3d4medical.com",
+    "Received: Mon, 21 Sep 2020 02:19:58 +0000"
+  ],
+  "entities": [
+    "noreply@3d4medical.com",
+    "immanuellourdu@gmail.com",
+    "verification"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "3d4medical.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:noreply@3d4medical.com",
+  "raw_ocr_excerpt": "Hi  Thank you for registering. We'd like to make sure that we've got your<br> email address right. https://accounts.3d4medical.com/verify/d8bab2db6668c371a918b3ea76c778a6/",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

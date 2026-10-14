@@ -1,0 +1,31 @@
+{
+  "id": "mail_3_edd96a",
+  "timestamp": "2020-06-05T10:36:38+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Verify your email address",
+  "topic": "Email: Verify your email address",
+  "summary": "Email from Microsoft account team\r\n\t<account-security-noreply@accountprotection.microsoft.com> to immanuellourdu@gmail.com about: Verify your email address",
+  "key_pointers": [
+    "Action: Action: Verify your email address",
+    "From: Microsoft account team\r\n\t<account-security-noreply@accountprotection.microsoft.com>",
+    "Received: Fri, 05 Jun 2020 03:36:38 -0700"
+  ],
+  "entities": [
+    "account-security-noreply@accountprotection.microsoft.com",
+    "immanuellourdu@gmail.com",
+    "verify"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "accountprotection.microsoft.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:account-security-noreply@accountprotection.microsoft.com",
+  "raw_ocr_excerpt": "Microsoft account\n\nVerify your email address\n\nTo finish setting up your Microsoft account, we just need to make sure this email address is yours.\n\nTo verify your email address use this security code: 5334\n\nIf you didn't request this code, you can safely ignore this email. Someone else might have typed your email address by mistake.\n\nThanks,\nThe Microsoft account team",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

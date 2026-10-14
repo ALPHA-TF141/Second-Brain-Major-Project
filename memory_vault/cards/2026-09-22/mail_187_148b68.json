@@ -1,0 +1,29 @@
+{
+  "id": "mail_187_148b68",
+  "timestamp": "2026-02-02T12:46:59+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Security alert",
+  "topic": "Email: Security alert",
+  "summary": "Email from Google <no-reply@accounts.google.com> to lmariaimmanuel@gmail.com about: Security alert",
+  "key_pointers": [
+    "From: Google <no-reply@accounts.google.com>",
+    "Received: Mon, 02 Feb 2026 12:46:59 GMT"
+  ],
+  "entities": [
+    "no-reply@accounts.google.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "accounts.google.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@accounts.google.com",
+  "raw_ocr_excerpt": "[image: Google]\nYou allowed LinkedIn access to some of your Google Account data\n\nlmariaimmanuel@gmail.com\n\nIf you didn’t allow LinkedIn access to some of your Google Account data,\nsomeone else may be trying to access your Google Account data.\n\nTake a moment now to check your account activity and secure your account.\nCheck activity\n<https://accounts.google.com/AccountChooser?Email=lmariaimmanuel@gmail.com&continue=https://myaccount.google.com/alert/nt/1770036419000?rfn%3D127%26rfnc%3D1%26eid%3D4227698177764018592%26et%3D0>\nTo make changes at any time to the access that LinkedIn has to your data,\ngo to your Google Account\n<https://accounts.google.com/AccountChooser?Email=lmariaimmanuel@gmail.com&continue=https://myaccount.google.com/connections/overview/ASjxo9EnqQ2-5UGeG3um4ccr1xLUoX4kWrMBHIviTL2KqwqOK0no19-Mj0MUl9QbYMHDEhqosdEz28m89I042KqYpBo?utm_source%3Dsec_alert%26utm_medium%3Demail_notification%26force_all%3Dtrue>\nYou can also see security activity at\nhttps://myaccount.google.com/notifications\nYou received this email to let you know about important changes to your\nGoogle Account and services.\n© 2026 Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

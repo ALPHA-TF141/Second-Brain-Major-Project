@@ -63,7 +63,7 @@ Write-Host "==============================================" -ForegroundColor Cya
 Write-Host "  Backend  : http://127.0.0.1:8000" -ForegroundColor White
 Write-Host "  Frontend : http://127.0.0.1:5173" -ForegroundColor White
 Write-Host "  Desktop  : Electron window will open" -ForegroundColor White
-Write-Host "  Orb      : Press Alt + J anytime" -ForegroundColor White
+Write-Host "  Voice    : Alt+J focuses the app; the wake word summons Jarvis" -ForegroundColor White
 Write-Host "==============================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "  Keep this window open. Press Ctrl+C to stop." -ForegroundColor DarkGray

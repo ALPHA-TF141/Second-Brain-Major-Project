@@ -1,0 +1,29 @@
+{
+  "id": "mail_24_c3c957",
+  "timestamp": "2026-01-04T00:25:54+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "(1/9) You have pending action items in Dropbox",
+  "topic": "Email: (1/9) You have pending action items in Dropbox",
+  "summary": "Email from Dropbox <no-reply@txn.dropbox.com> to lmariaimmanuel@gmail.com about: (1/9) You have pending action items in Dropbox",
+  "key_pointers": [
+    "From: Dropbox <no-reply@txn.dropbox.com>",
+    "Received: Sun, 4 Jan 2026 00:25:54 +0000"
+  ],
+  "entities": [
+    "no-reply@txn.dropbox.com",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "txn.dropbox.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@txn.dropbox.com",
+  "raw_ocr_excerpt": "add content, share a file, edit a PDF,..  ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ \n\n \n<https://www.dropbox.com/?oref=e&_tk=email&_camp=10287267&_ad=d8efe7d7f1374ccc90b4a97bef291338&utm_source=iter&utm_medium=email&utm_term=us-en&utm_campaign=p1_bb_co_all_pcn_b202111&utm_content=h_l>\n \n<https://www.dropbox.com/?oref=e&_tk=email&_camp=10287267&_ad=d8efe7d7f1374ccc90b4a97bef291338&utm_source=iter&utm_medium=email&utm_term=us-en&utm_campaign=p1_bb_co_all_pcn_b202111&utm_content=h_l>\n\nYour account set-up made easy \n\nYou have started a Dropbox Basic plan, but what's next? We’ve compiled a list \nof action items that will help you set-up with success. \n\nTake action <https://www.dropbox.com/home?checklist=open> \n <https://www.dropbox.com/home?checklist=open> \n\nHere is how to get started: \n\nStart a Dropbox Basic plan \nAdd content <https://www.dropbox.com/home> \nShare a file or folder <https://www.dropbox.com/home?file_chooser_type=sharing>\nEdit a PDF <htt",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

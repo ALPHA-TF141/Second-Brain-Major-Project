@@ -1,0 +1,29 @@
+{
+  "id": "mail_164_dbbc46",
+  "timestamp": "2026-01-30T14:31:01+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Extra 30% OFF DSA Patterns Product — Last 2 Hrs to Grab!",
+  "topic": "Email: Extra 30% OFF DSA Patterns Product — Last 2 Hrs to Grab!",
+  "summary": "Email from ProPeers <no-reply@propeers.in> to lmariaimmanuel@gmail.com about: Extra 30% OFF DSA Patterns Product — Last 2 Hrs to Grab!",
+  "key_pointers": [
+    "From: ProPeers <no-reply@propeers.in>",
+    "Received: Fri, 30 Jan 2026 14:31:01 +0000"
+  ],
+  "entities": [
+    "no-reply@propeers.in",
+    "lmariaimmanuel@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "propeers.in",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@propeers.in",
+  "raw_ocr_excerpt": "This is the body",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

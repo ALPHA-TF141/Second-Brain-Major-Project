@@ -1,0 +1,29 @@
+{
+  "id": "card_20260918_161701_483",
+  "timestamp": "2026-09-18T16:17:01.483684Z",
+  "domain": "Technology",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "YouTube Music - Google Chrome",
+  "topic": "Web_Knowledge",
+  "summary": "[Technology] YouTube Music: Activity on chrome.exe: YouTube Music - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: YouTube Music - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Activity",
+    "Web_Knowledge",
+    "Music"
+  ],
+  "tags": [
+    "technology",
+    "chrome",
+    "web_knowledge"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: YouTube Music - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-18/hero_card_20260918_161701_483.webp",
+  "hero_image_info_score": 45.6
+}

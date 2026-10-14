@@ -1,0 +1,29 @@
+{
+  "id": "mail_8_44bace",
+  "timestamp": "2020-06-18T08:21:53+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "Immanuel, your new Casper L20 doesn't have the latest Google apps",
+  "topic": "Email: Immanuel, your new Casper L20 doesn't have the latest Google apps",
+  "summary": "Email from Google <no-reply@google.com> to immanuellourdu@gmail.com about: Immanuel, your new Casper L20 doesn't have the latest Google apps",
+  "key_pointers": [
+    "From: Google <no-reply@google.com>",
+    "Received: Thu, 18 Jun 2020 01:21:53 -0700"
+  ],
+  "entities": [
+    "no-reply@google.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "google.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:no-reply@google.com",
+  "raw_ocr_excerpt": "‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌\n\nDownload new Google apps, built for you\n\nGet the most out of your new phone. Save data, get things done offline, and  \nuse less space. Tap to download popular apps in India\n\nGoogle\n\nGoogle Apps\n\nGet new Google apps that take up less space, run faster, and help you save  \ndata\n\nGET APPS\n\nThis email can't receive replies. You are receiving this welcome message  \nbecause you recently activated your Google Account on your Casper L20.\n\n© 2020 Google LLC 1600 Amphitheatre Parkway, Mountain View, CA 94043\n\n—————————————————————————————",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

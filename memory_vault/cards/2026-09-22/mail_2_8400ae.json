@@ -1,0 +1,29 @@
+{
+  "id": "mail_2_8400ae",
+  "timestamp": "2020-06-04T14:13:51+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.7,
+  "app_source": "gmail",
+  "window_title": "🌎 You recently turned on Location History",
+  "topic": "Email: 🌎 You recently turned on Location History",
+  "summary": "Email from Google Location History <location-history-noreply@google.com> to immanuellourdu@gmail.com about: 🌎 You recently turned on Location History",
+  "key_pointers": [
+    "From: Google Location History <location-history-noreply@google.com>",
+    "Received: Thu, 04 Jun 2020 07:13:51 -0700"
+  ],
+  "entities": [
+    "location-history-noreply@google.com",
+    "immanuellourdu@gmail.com"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "google.com",
+    "message"
+  ],
+  "source_url_or_ref": "mailto:location-history-noreply@google.com",
+  "raw_ocr_excerpt": "Hello,\nYou turned on Location History on June 3, 2020, 10:58 Greenwich Mean Time.\nYou can pause and unpause it anytime.\nThis is a Google Account–level setting that saves where you go in your\nprivate Timeline, to help you remember the places you visited and the\nroutes you traveled.\nLocation History data also helps give you personalized information on\nGoogle, including better restaurant recommendations, and suggestions for a\nfaster commute.\nManage your Location History\nVisit your private Timeline to view, edit and delete your Location History\nGo to your Timeline <https://www.google.com/maps/timeline?ved=0ENeiAg>\nPause your Location History\nVisit Activity controls anytime to pause your Location History\nGo to Activity controls\n<https://myaccount.google.com/activitycontrols/location?utm_source=tl-email&utm_medium=email&utm_campaign=ww>\nYou received this one-time email because you turned on Location History.\nGoogle LLC\n1600 Amphitheatre Pkwy Mountain View, CA 94043 USA",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

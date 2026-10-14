@@ -1,0 +1,28 @@
+{
+  "id": "card_20260922_065546_278",
+  "timestamp": "2026-09-22T06:55:46.278926Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "Code.exe",
+  "window_title": "Visual Studio Code",
+  "topic": "Code",
+  "summary": "[Technology] Visual Studio Code: Activity on Code.exe: Visual Studio Code",
+  "key_pointers": [
+    "Activity on Code.exe: Visual Studio Code"
+  ],
+  "entities": [
+    "Code",
+    "Activity",
+    "Studio",
+    "Visual"
+  ],
+  "tags": [
+    "code",
+    "technology"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on Code.exe: Visual Studio Code",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_065546_278.webp",
+  "hero_image_info_score": 47.7
+}

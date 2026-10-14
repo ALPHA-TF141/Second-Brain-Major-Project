@@ -1,0 +1,31 @@
+{
+  "id": "mail_51_5dab35",
+  "timestamp": "2020-07-22T14:32:50+00:00",
+  "domain": "Communication",
+  "priority": "high",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Surprise Immanuel with a Laptop!",
+  "topic": "Email: Surprise Immanuel with a Laptop!",
+  "summary": "Email from \"WhitehatJr\" <referrals@whitehatjr.com> to immanuellourdu@gmail.com about: Surprise Immanuel with a Laptop!",
+  "key_pointers": [
+    "Action: Action: Surprise Immanuel with a Laptop!",
+    "From: \"WhitehatJr\" <referrals@whitehatjr.com>",
+    "Received: Wed, 22 Jul 2020 14:32:50 +0000 (UTC)"
+  ],
+  "entities": [
+    "referrals@whitehatjr.com",
+    "immanuellourdu@gmail.com",
+    "kindly"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "whitehatjr.com",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:referrals@whitehatjr.com",
+  "raw_ocr_excerpt": "Dear Celin victoria,\n\n*Did you know 57% of WhiteHat Jr students won a laptop this summer?*\n\nWhiteHat Jr will despatch a MacBook laptop absolutely free of cost to Immanuel to bring their creative visions to life!\n\nAll you need is 5 friends.\n\nHow do you win the MacBook in 3 simple steps?\n\n* Spread the love for coding! Introduce WhiteHat Jr to 5 of your closest friends.\n* Immanuel will get a MacBook immediately when 5 of your friends enrol their child with us.\n* Start now by sharing your unique referral link widely with your friends and family. Every referee registering via your unique link gets a free trial class for their kid and our academic counsellors will call them for the enrollment.\n\nSTART NOW TO GET YOUR MACBOOK ( http://u10390268.ct.sendgrid.net/ls/click?upn=yJhULD7ufxxYDs3eci9rVu6llRT7YM9bRs5-2FnD08IqvUvoymEf0a-2BWYDclyXkTKrGr59WqreTSOsC5cJ-2FNNVg7VhYU4mhhufkOCM4GtLqy0ht5Hw8tbIUyKxQqFZJoeFEjkNVhYpWgo7HYI8pSmSiBZ3pRr1NAeBpVySP2p0lDVy6xKPp6qlQvS9xgd1jZy-2BIg21Ah25nB3EzpvyXnE0nFs9094Wz2Eh-2B6MOZzVy0sAIajNxxn36dVaoit9ugCJGeTNE1bFHHOgJ-2BnctGacEfdNkVPwYHHESb9JtsDn0liAWCQcfYKPmMFLJL-2BmB9z2Uk39H34Ogds4IQK2XWzXBumxoShK1nzFJbE7tJBdiWwLp9F778s8u-2Bxx-2FW4RQEMxbdxW1S-2FHdTRgJ4fdnS6SqzwgjRdcct-2BAwVYFXdqbVP7k-3DW20T_v12URl19nfex9HuvDXYCoR9-2B85OSICI3w7l9rIvW7q7yC6rHpuaaBp87u4r59ttg0AMa2p2k7UB477-2FdtQCntP7patuHLj-2Bs-2BWp4M4KxUkpNyWc1Cqf-2FN63c6yZ8jGAplJboaS0Pj2Y0UddWJTMV11-2F0GqKy-2FtAdsz5MjmO65QB0NuQ0Ubvq69MaiW6JMwrp4aRj2sab8ANWdFAPh8ZMBPD9ay5udROiwzq7PiM2l5BkHwJCA2b4Zuoz39mk2",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

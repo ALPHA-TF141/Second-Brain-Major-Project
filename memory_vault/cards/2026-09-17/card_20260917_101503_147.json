@@ -1,0 +1,27 @@
+{
+  "id": "card_20260917_101503_147",
+  "timestamp": "2026-09-17T10:15:03.147302Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "CC40.exe",
+  "window_title": "Control center",
+  "topic": "Control center",
+  "summary": "[General] Control center: Activity on CC40.exe: Control center",
+  "key_pointers": [
+    "Activity on CC40.exe: Control center"
+  ],
+  "entities": [
+    "Activity",
+    "CC40",
+    "Control"
+  ],
+  "tags": [
+    "cc40",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on CC40.exe: Control center",
+  "hero_image": "memory_vault/images/2026-09-17/hero_card_20260917_101503_147.webp",
+  "hero_image_info_score": 29.25
+}

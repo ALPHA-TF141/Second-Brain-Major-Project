@@ -1,0 +1,31 @@
+{
+  "id": "mail_108_e89817",
+  "timestamp": "2026-01-23T03:41:16+00:00",
+  "domain": "Communication",
+  "priority": "medium",
+  "quality_score": 0.9,
+  "app_source": "gmail",
+  "window_title": "Please verify your email | Grad Partners",
+  "topic": "Email: Please verify your email | Grad Partners",
+  "summary": "Email from Grad Partners <admin@gradpartners.in> to lmariaimmanuel@gmail.com about: Please verify your email | Grad Partners",
+  "key_pointers": [
+    "Action: Action: Please verify your email | Grad Partners",
+    "From: Grad Partners <admin@gradpartners.in>",
+    "Received: Fri, 23 Jan 2026 03:41:16 +0000"
+  ],
+  "entities": [
+    "admin@gradpartners.in",
+    "lmariaimmanuel@gmail.com",
+    "verification"
+  ],
+  "tags": [
+    "email",
+    "inbox",
+    "gradpartners.in",
+    "action"
+  ],
+  "source_url_or_ref": "mailto:admin@gradpartners.in",
+  "raw_ocr_excerpt": "Grad Partners\n\nYou are almost there!\n\nOnly one step left to complete your account and showcase your skills. Please\nenter below verification code to validate your email.\n\n679544\n\nThis code will expire in 10 minutes for security reasons. If you didn't request\nthis verification, please ignore this email.\n\nStay tuned to us on :\n\nInstagram\n\nLinkedIn\n\nIn case you have any queries, Please reach out to us at\n\n[support@gradpartners.in]\nmailto:support@gradpartners.in\n\n© Copyright 2023. All Rights Reserved by Grad Partners",
+  "hero_image": null,
+  "hero_image_info_score": 0.0
+}

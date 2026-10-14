@@ -1,0 +1,33 @@
+{
+  "id": "card_20260922_065347_431",
+  "timestamp": "2026-09-22T06:53:47.431537Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "chrome.exe",
+  "window_title": "Credentials – APIs & Services – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "topic": "Cloud",
+  "summary": "[Technology] Credentials – APIs & Services – Jarvis Second Brain – Google Cloud console: Activity on chrome.exe: Credentials – APIs & Services – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Credentials – APIs & Services – Jarvis Second Brain – Google Cloud console - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Services",
+    "Jarvis",
+    "Second",
+    "Brain",
+    "APIs",
+    "Activity",
+    "Credentials"
+  ],
+  "tags": [
+    "cloud",
+    "chrome",
+    "technology"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Credentials – APIs & Services – Jarvis Second Brain – Google Cloud console - Google Chrome",
+  "hero_image": "memory_vault/images/2026-09-22/hero_card_20260922_065347_431.webp",
+  "hero_image_info_score": 53.55
+}

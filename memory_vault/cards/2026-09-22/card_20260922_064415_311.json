@@ -1,0 +1,27 @@
+{
+  "id": "card_20260922_064415_311",
+  "timestamp": "2026-09-22T06:44:15.311424Z",
+  "domain": "General",
+  "priority": "medium",
+  "quality_score": 0.8,
+  "app_source": "chrome.exe",
+  "window_title": "Untitled - Google Chrome",
+  "topic": "Untitled",
+  "summary": "[General] Untitled: Activity on chrome.exe: Untitled - Google Chrome",
+  "key_pointers": [
+    "Activity on chrome.exe: Untitled - Google Chrome"
+  ],
+  "entities": [
+    "Google",
+    "Untitled",
+    "Activity"
+  ],
+  "tags": [
+    "chrome",
+    "general"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on chrome.exe: Untitled - Google Chrome",
+  "hero_image": null,
+  "hero_image_info_score": 30.15
+}
