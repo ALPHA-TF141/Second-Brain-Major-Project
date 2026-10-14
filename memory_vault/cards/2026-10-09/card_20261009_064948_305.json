@@ -1,0 +1,32 @@
+{
+  "id": "card_20261009_064948_305",
+  "timestamp": "2026-10-09T06:49:48.305433Z",
+  "domain": "Technology",
+  "priority": "high",
+  "quality_score": 0.95,
+  "app_source": "Code.exe",
+  "window_title": "Release Notes: 1.141.0 - Second Brain - Visual Studio Code",
+  "topic": "Code",
+  "summary": "[Technology] Release Notes: 1.141.0 - Second Brain: Activity on Code.exe: Release Notes: 1.141.0 - Second Brain - Visual Studio Code",
+  "key_pointers": [
+    "Activity on Code.exe: Release Notes: 1.141.0 - Second Brain - Visual Studio Code"
+  ],
+  "entities": [
+    "Release",
+    "Visual",
+    "Notes",
+    "Studio",
+    "Activity",
+    "Second",
+    "Brain",
+    "Code"
+  ],
+  "tags": [
+    "technology",
+    "code"
+  ],
+  "source_url_or_ref": null,
+  "raw_ocr_excerpt": "Activity on Code.exe: Release Notes: 1.141.0 - Second Brain - Visual Studio Code",
+  "hero_image": "memory_vault/images/2026-10-09/hero_card_20261009_064948_305.webp",
+  "hero_image_info_score": 50.85
+}
