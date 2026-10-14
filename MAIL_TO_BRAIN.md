@@ -1,6 +1,6 @@
 # Mail → Brain: your inbox becomes askable memory
 
-Once a mailbox is connected (see `CONNECT_MAIL_CALENDAR.md`), Jarvis can read it
+Once a mailbox is connected (see `GOOGLE_SETUP.md`), Jarvis can read it
 on a timer, turn each new email into a permanent memory, and let you ask
 questions about it.
 

@@ -149,8 +149,6 @@ def test_connector(service_key: str, db: Session = Depends(get_db), user: User =
             diag_message = "Local Ollama listening on 11434. Fallback model active."
     elif "mail" in service_key or "gmail" in service_key:
         diag_message = f"IMAP SSL handshake verified for {record.account_identifier or 'mailbox'}."
-    elif "calendar" in service_key:
-        diag_message = "Calendar feed synchronised. Telemetry updated."
     elif "github" in service_key:
         diag_message = "GitHub vault remote repository link verified."
 

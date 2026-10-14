@@ -2,7 +2,7 @@ from hashlib import sha1
 
 from sqlalchemy.orm import Session
 
-from app.models.capture import AppUsage, ClipboardLog, MemorySession, Screenshot
+from app.models.capture import MemorySession, Screenshot
 from app.models.memory import Memory, MemoryRelationship, MemoryTag, SearchIndex, SessionSummary
 from app.models.ocr import DetectedTopic, SemanticChunk
 from app.summarization.session_summarizer import SessionSummarizer
@@ -28,7 +28,6 @@ class MemoryArchive:
             if self._upsert_memory_from_chunk(db, chunk):
                 created += 1
 
-        self._upsert_clipboard_memories(db, session_id)
         self._rebuild_summary(db, session_id)
         self._rebuild_relationships(db, session_id)
         db.commit()
@@ -59,30 +58,6 @@ class MemoryArchive:
         self._add_tags_and_index(db, memory)
         return True
 
-    def _upsert_clipboard_memories(self, db: Session, session_id: int):
-        clips = db.query(ClipboardLog).filter(ClipboardLog.session_id == session_id).all()
-        for clip in clips:
-            if not clip.text_preview.strip():
-                continue
-            content = f"Clipboard: {clip.text_preview.strip()}"
-            content_hash = self._hash(content)
-            if db.query(Memory).filter(Memory.content_hash == content_hash).first():
-                continue
-            memory = Memory(
-                session_id=session_id,
-                title="Clipboard Capture",
-                content=content,
-                content_hash=content_hash,
-                source_type="clipboard",
-                app_source="clipboard",
-                topic_label="Clipboard",
-                category="research",
-                created_at=clip.copied_at,
-            )
-            db.add(memory)
-            db.flush()
-            self._add_tags_and_index(db, memory)
-
     def _add_tags_and_index(self, db: Session, memory: Memory):
         tags = self.tagger.tag(memory.content, memory.topic_label, memory.source_type, memory.app_source)
         for tag in tags:
@@ -107,7 +82,7 @@ class MemoryArchive:
             return
 
         memories = db.query(Memory).filter(Memory.session_id == session_id).order_by(Memory.created_at.asc()).all()
-        app_rows = db.query(AppUsage.app_name).filter(AppUsage.session_id == session_id).all()
+        app_rows = []
         topic_rows = db.query(DetectedTopic.topic_label).filter(DetectedTopic.session_id == session_id).all()
         app_names = [name for name, _count in self._most_common([row[0] for row in app_rows])]
         topics = [name for name, _count in self._most_common([row[0] for row in topic_rows] + [memory.topic_label for memory in memories])]

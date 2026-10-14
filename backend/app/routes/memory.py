@@ -8,9 +8,8 @@ from app.database.session import get_db
 from app.memory.archive import memory_archive
 from app.models.memory import Memory, MemoryRelationship, SessionSummary
 from app.models.user import User
-from app.schemas.memory import MemoryOut, RelationshipOut, SessionSummaryOut, TimelineGroup
+from app.schemas.memory import MemoryOut, RelationshipOut, SessionSummaryOut
 from app.search.memory_search import memory_search
-from app.timeline.memory_timeline import memory_timeline_builder
 
 
 router = APIRouter()
@@ -49,25 +48,6 @@ def search_memories(
 ):
     memories = memory_search.search(db, q, source_type, topic, app, session_id, date)
     return attach_tags(db, memories)
-
-
-@router.get("/timeline", response_model=list[TimelineGroup])
-def memory_timeline(
-    group: str = "day",
-    q: str = "",
-    source_type: str = "",
-    topic: str = "",
-    app: str = "",
-    db: Session = Depends(get_db),
-    _user: User = Depends(get_current_user),
-):
-    memories = memory_search.search(db, q=q, source_type=source_type, topic=topic, app=app, limit=200)
-    grouped = memory_timeline_builder.group_by_week(memories) if group == "week" else memory_timeline_builder.group_by_day(memories)
-    response = []
-    for item in grouped:
-        label = item.get("week") or item.get("date")
-        response.append(TimelineGroup(label=label, memories=attach_tags(db, item["items"])))
-    return response
 
 
 @router.get("/memories/{memory_id}", response_model=MemoryOut)

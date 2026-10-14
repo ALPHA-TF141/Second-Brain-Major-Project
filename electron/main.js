@@ -4,7 +4,6 @@ const path = require('path');
 const isDev = !app.isPackaged;
 
 let mainWindow = null;
-let orbWindow = null;
 let tray = null;
 let isQuitting = false;
 
@@ -74,93 +73,6 @@ function createWindow() {
   mainWindow.on('show', () => { if (tray) tray.destroy(); });
 }
 
-// ---- Transparent Floating Golden Holographic Orb Window ----
-function createOrbWindow() {
-  if (orbWindow && !orbWindow.isDestroyed()) return orbWindow;
-
-  const primaryDisplay = screen.getPrimaryDisplay();
-  const { width: screenWidth, height: screenHeight } = primaryDisplay.workAreaSize;
-  const orbW = 380;
-  const orbH = 460;
-  const orbX = Math.round(screenWidth - orbW - 20);
-  const orbY = Math.round(screenHeight - orbH - 20);
-
-  orbWindow = new BrowserWindow({
-    width: orbW,
-    height: orbH,
-    x: orbX,
-    y: orbY,
-    frame: false,
-    transparent: true,
-    backgroundColor: '#00000000',
-    alwaysOnTop: true,
-    skipTaskbar: true,
-    hasShadow: false,
-    resizable: false,
-    show: false,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      contextIsolation: true,
-      nodeIntegration: false,
-      sandbox: false
-    }
-  });
-
-  const orbUrl = isDev
-    ? 'http://127.0.0.1:5173/#/jarvis-orb'
-    : `file://${path.join(__dirname, '../dist/index.html')}#/jarvis-orb`;
-
-  orbWindow.loadURL(orbUrl);
-
-  orbWindow.on('closed', () => {
-    orbWindow = null;
-  });
-
-  return orbWindow;
-}
-
-/**
- * Ensure the orb is VISIBLE and awake.
- *
- * Distinct from the Alt+J toggle on purpose: this is called when something
- * wants the user's attention (wake word detected, proactive announcement).
- * Using the toggle here would HIDE the orb whenever it happened to already be
- * on screen - the opposite of the intent.
- */
-function revealOrbWindow() {
-  if (!orbWindow || orbWindow.isDestroyed()) {
-    createOrbWindow();
-  }
-  if (!orbWindow) return;
-
-  if (!orbWindow.isVisible()) {
-    orbWindow.show();
-  }
-  orbWindow.focus();
-  orbWindow.webContents.send('jarvis:wake');
-}
-
-function toggleOrbWindow() {
-  if (!orbWindow || orbWindow.isDestroyed()) {
-    createOrbWindow();
-  }
-  if (!orbWindow) return;
-
-  if (orbWindow.isVisible()) {
-    orbWindow.hide();
-  } else {
-    revealOrbWindow();
-  }
-}
-
-// ---- Mic + notifications permission ----
-function setupPermissions() {
-  session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
-    return callback(true);
-  });
-  session.defaultSession.setPermissionCheckHandler(() => true);
-}
-
 function trayIcon() {
   let img = nativeImage.createFromPath(path.join(__dirname, 'icon.png'));
   if (img.isEmpty()) img = nativeImage.createEmpty();
@@ -172,7 +84,6 @@ function createTray() {
   tray = new Tray(trayIcon());
   tray.setToolTip('Second Brain — Jarvis');
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'Summon Jarvis Orb', click: () => toggleOrbWindow() },
     { label: 'Open Command Center', click: () => { mainWindow.show(); mainWindow.focus(); } },
     { type: 'separator' },
     { label: 'Pause capture', click: () => mainWindow.webContents.send('jarvis:capture', 'pause') },
@@ -184,7 +95,7 @@ function createTray() {
     { label: 'Quit', click: () => { isQuitting = true; app.quit(); } }
   ]);
   tray.setContextMenu(contextMenu);
-  tray.on('click', () => { toggleOrbWindow(); });
+  tray.on('click', () => { mainWindow.show(); mainWindow.focus(); });
 }
 
 // ---------------------------------------------------------------------------
@@ -209,15 +120,16 @@ ipcMain.handle('shell:open-external', async (_event, url) => {
 app.whenReady().then(() => {
   setupPermissions();
   createWindow();
-  createOrbWindow();
 
   // Register Global Jarvis Shortcuts: Alt+Space and Alt+J
   try {
     globalShortcut.register('Alt+J', () => {
-      toggleOrbWindow();
+      mainWindow.show();
+      mainWindow.focus();
     });
     globalShortcut.register('Alt+Space', () => {
-      toggleOrbWindow();
+      mainWindow.show();
+      mainWindow.focus();
     });
   } catch (err) {
     console.warn('Could not register global shortcuts:', err);
@@ -282,19 +194,22 @@ ipcMain.on('window:close', (event) => {
   createTray();
 });
 
-ipcMain.on('orb:hide', () => {
-  if (orbWindow && !orbWindow.isDestroyed()) {
-    orbWindow.hide();
+// The holographic orb window was removed with the pitch-only UI. Wake-word
+// and voice events now simply raise the main window.
+ipcMain.on('orb:hide', () => {});
+
+ipcMain.on('orb:show', () => {
+  if (mainWindow) {
+    mainWindow.show();
+    mainWindow.focus();
   }
 });
 
-ipcMain.on('orb:show', () => {
-  toggleOrbWindow();
-});
-
-// Always reveal (never toggle). Used by the wake word and proactive voice.
 ipcMain.on('orb:reveal', () => {
-  revealOrbWindow();
+  if (mainWindow) {
+    mainWindow.show();
+    mainWindow.focus();
+  }
 });
 
 ipcMain.on('orb:show-main', () => {

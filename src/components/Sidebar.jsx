@@ -64,7 +64,7 @@ function Sidebar() {
           Phase 9
         </div>
         <p className="text-sm leading-6 text-slate-400">
-          Knowledge Graph engine with interactive visualization, recommendations, and learning path exploration.
+          Temporal personal knowledge graph with validity intervals and contradiction tracking.
         </p>
       </div>
     </aside>

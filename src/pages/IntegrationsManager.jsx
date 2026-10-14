@@ -9,7 +9,7 @@ import { apiFetch, openInBrowser } from '../services/apiClient.js';
 /**
  * IntegrationsManager
  * ---------------------------------------------------------------------------
- * Two honest ways to connect real mail and calendar data:
+ * Two honest ways to connect real mail data:
 
  *   MAIL     Gmail App Password over IMAP
  *              - no Google Cloud project, no verification, no expiry, free
@@ -17,7 +17,6 @@ import { apiFetch, openInBrowser } from '../services/apiClient.js';
  *   MAIL     Google OAuth  (secondary)
  *              - required for Workspace/college accounts since May 2025
  *              - needs a Client ID/Secret and, to publish, Google verification
- *   CALENDAR Private iCal address (ICS)
  *              - no OAuth at all, read-only, free, never expires
 
  * Nothing here is simulated. If something is not connected it says so.
@@ -32,9 +31,7 @@ export default function IntegrationsManager() {
   const { apiClient } = useBackend();
 
   const [mailAccounts, setMailAccounts] = useState([]);
-  const [calendarSources, setCalendarSources] = useState([]);
   const [google, setGoogle] = useState({ configured: false, accounts: [] });
-  const [local, setLocal] = useState({});
 
   const [imapEmail, setImapEmail] = useState('');
   const [imapPassword, setImapPassword] = useState('');
@@ -43,9 +40,6 @@ export default function IntegrationsManager() {
   const [notice, setNotice] = useState(null);
   const [showImapHelp, setShowImapHelp] = useState(false);
 
-  const [icsUrl, setIcsUrl] = useState('');
-  const [icsLabel, setIcsLabel] = useState('');
-  const [showIcsHelp, setShowIcsHelp] = useState(false);
 
   const pollRef = useRef(null);
 
@@ -54,28 +48,19 @@ export default function IntegrationsManager() {
   const [syncResult, setSyncResult] = useState(null);
   const [syncing, setSyncing] = useState(false);
 
-  // Hands-free
-  const [voice, setVoice] = useState(null);
-  const [voiceBusy, setVoiceBusy] = useState('');
 
   const mailEmails = mailAccounts.map((a) => (a.email || '').toLowerCase());
 
   async function loadAll() {
     try {
-      const [mailRes, calRes, googRes, localRes, syncRes, voiceRes] = await Promise.all([
+      const [mailRes, googRes, syncRes] = await Promise.all([
         apiFetch(`${apiClient.baseUrl}/api/mail/accounts`),
-        apiFetch(`${apiClient.baseUrl}/api/calendar/sources`),
         apiFetch(`${apiClient.baseUrl}/api/google/status`),
-        apiFetch(`${apiClient.baseUrl}/api/os/integrations`),
-        apiFetch(`${apiClient.baseUrl}/api/mail/sync/status`),
-        apiFetch(`${apiClient.baseUrl}/api/proactive/status`)
+        apiFetch(`${apiClient.baseUrl}/api/mail/sync/status`)
       ]);
       if (mailRes.ok) setMailAccounts(await mailRes.json());
-      if (calRes.ok) setCalendarSources(await calRes.json());
       if (googRes.ok) setGoogle(await googRes.json());
-      if (localRes.ok) setLocal(await localRes.json());
       if (syncRes.ok) setSyncStatus(await syncRes.json());
-      if (voiceRes.ok) setVoice(await voiceRes.json());
     } catch {
       setNotice({ type: 'error', text: 'Could not reach the backend. Is it running?' });
     }
@@ -152,47 +137,6 @@ export default function IntegrationsManager() {
     }
   }
 
-  /* --------------------------------------------------- Calendar feed */
-  async function addFeed() {
-    if (!icsUrl.trim()) { setNotice({ type: 'error', text: 'Paste the calendar iCal address.' }); return; }
-    setBusy('ics');
-    setNotice({ type: 'info', text: 'Checking that address is a real calendar…' });
-    try {
-      const res = await apiFetch(`${apiClient.baseUrl}/api/calendar/feed`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: icsUrl.trim(), label: icsLabel })
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setNotice({ type: 'error', text: data.detail || 'Could not read that calendar.' });
-        return;
-      }
-      setNotice({
-        type: 'success',
-        text: `Calendar connected - ${data.source?.stats?.parsed_events ?? 0} events found.`
-      });
-
-      // Persist permanently to SQLite database
-      apiClient.saveConnector({
-        service_key: 'calendar_ical',
-        service_name: icsLabel || 'Google Calendar Feed',
-        account_identifier: icsUrl.trim(),
-        category: 'calendar',
-        is_live: true
-      }).catch(() => {});
-
-      setIcsUrl('');
-      setIcsLabel('');
-      await loadAll();
-    } catch (err) {
-      setNotice({ type: 'error', text: String(err.message || err) });
-    } finally {
-      setBusy('');
-    }
-  }
-
-  /* ------------------------------------------------------ Google OAuth */
   async function connectGoogle(email) {
     setBusy(email);
     setNotice(null);
@@ -200,7 +144,7 @@ export default function IntegrationsManager() {
       const res = await apiFetch(`${apiClient.baseUrl}/api/google/connect`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, services: ['gmail', 'calendar'] })
+        body: JSON.stringify({ email, services: ['gmail'] })
       });
       const data = await res.json();
       if (!res.ok) {
@@ -235,54 +179,6 @@ export default function IntegrationsManager() {
     }
   }
 
-  async function testWake() {
-    setVoiceBusy('wake');
-    try {
-      await apiFetch(`${apiClient.baseUrl}/api/proactive/wake/test`, { method: 'POST' });
-      setNotice({ type: 'success', text: 'Wake event fired - the orb should have appeared.' });
-    } catch {
-      setNotice({ type: 'error', text: 'Could not fire the wake event.' });
-    } finally {
-      setVoiceBusy('');
-    }
-  }
-
-  async function testSpeak() {
-    setVoiceBusy('speak');
-    try {
-      await apiFetch(`${apiClient.baseUrl}/api/proactive/announce`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          text: 'Sir, this is a proactive announcement. Your systems are nominal.',
-          priority: 'high',
-          source: 'manual',
-          force: true
-        })
-      });
-      setNotice({ type: 'success', text: 'Spoken. If you heard nothing, check your system volume.' });
-    } catch {
-      setNotice({ type: 'error', text: 'Could not speak.' });
-    } finally {
-      setVoiceBusy('');
-    }
-  }
-
-  async function toggleVoicePaused() {
-    const paused = voice?.voice?.enabled === false;
-    setVoiceBusy('pause');
-    try {
-      await apiFetch(`${apiClient.baseUrl}/api/proactive/${paused ? 'resume' : 'pause'}`, { method: 'POST' });
-      await loadAll();
-      setNotice({
-        type: 'success',
-        text: paused ? 'Proactive voice resumed.' : 'Proactive voice paused - Jarvis will stay quiet.'
-      });
-    } finally {
-      setVoiceBusy('');
-    }
-  }
-
   async function syncNow() {
     setSyncing(true);
     setSyncResult(null);
@@ -313,28 +209,6 @@ export default function IntegrationsManager() {
     }
   }
 
-  async function removeFeed(source) {
-    if (!window.confirm(`Remove "${source.name}"?`)) return;
-    setBusy(source.id);
-    try {
-      const res = await apiFetch(`${apiClient.baseUrl}/api/calendar/feed/${source.id}`, { method: 'DELETE' });
-      if (res.ok) {
-        setNotice({ type: 'success', text: 'Calendar removed.' });
-        await loadAll();
-      }
-    } finally {
-      setBusy('');
-    }
-  }
-
-  const noticeStyle = {
-    success: 'border-emerald-400/30 bg-emerald-500/10 text-emerald-200',
-    error: 'border-red-400/30 bg-red-500/10 text-red-200',
-    info: 'border-cyan-400/30 bg-cyan-500/10 text-cyan-100'
-  };
-
-  const icalSources = calendarSources.filter((s) => s.provider === 'ical');
-  const oauthCalendarSources = calendarSources.filter((s) => s.provider === 'google');
 
   return (
     <div className="flex h-full w-full flex-col bg-[#111318] p-6 text-slate-100 font-sans select-none overflow-y-auto thin-scrollbar">
@@ -650,260 +524,10 @@ GOOGLE_CLIENT_SECRET=...`}</pre>
           </section>
         )}
 
-        {/* ==================== HANDS-FREE ==================== */}
-        {voice && (
-          <section className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Mic size={14} className="text-amber-400" />
-              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
-                Hands-Free
-              </h3>
-              <span className={`ml-auto rounded px-2 py-0.5 text-[10px] font-mono font-bold ${
-                voice.wake_word?.running ? 'bg-emerald-400/10 text-emerald-300' : 'bg-amber-400/10 text-amber-300'
-              }`}>
-                {voice.wake_word?.running ? `"${voice.wake_word.model}" ACTIVE` : 'HOTKEY ONLY'}
-              </span>
-            </div>
-
-            <div className="rounded-2xl border border-amber-400/20 bg-[#0f1422] p-4 space-y-3">
-              {/* Wake word */}
-              <div className="flex items-start gap-2">
-                <Ear size={13} className="mt-0.5 text-amber-300 shrink-0" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-bold text-white">Wake word — say &quot;Hey Jarvis&quot;</p>
-                  {voice.wake_word?.running ? (
-                    <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
-                      Listening locally on this machine. No audio leaves your PC.
-                      {voice.wake_word.detections > 0 && ` Detected ${voice.wake_word.detections} time(s).`}
-                    </p>
-                  ) : (
-                    <div className="mt-1 space-y-1">
-                      <p className="text-[11px] text-slate-400 leading-relaxed">
-                        {voice.wake_word?.available
-                          ? `Not running. ${voice.wake_word.last_error || 'Press Alt+J to summon Jarvis.'}`
-                          : 'Needs two optional packages to listen offline:'}
-                      </p>
-                      {!voice.wake_word?.available && (
-                        <div className="rounded-lg border border-white/10 bg-black/30 p-2.5">
-                          <pre className="text-[10px] font-mono text-cyan-300 whitespace-pre-wrap break-all">{'backend/.venv/Scripts/python.exe -m pip install openwakeword sounddevice'}</pre>
-                          <p className="text-[10px] text-slate-500 mt-1">
-                            Then restart. Recent releases of openWakeWord ship no model files, so
-                            Jarvis downloads them once on first use (about 9 MB) and says so in the
-                            terminal. Alt+J keeps working either way.
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Proactive voice */}
-              <div className="flex items-start gap-2 pt-3 border-t border-white/5">
-                <Volume2 size={13} className="mt-0.5 text-amber-300 shrink-0" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-bold text-white">Speaks first</p>
-                  <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
-                    Deadlines found in your mail are announced aloud, not just filed.
-                    Only at <span className="font-mono text-amber-300">{voice.voice?.min_priority}</span> or above
-                    {voice.voice?.quiet_hours ? `, silent during ${voice.voice.quiet_hours}` : ''}.
-                    {voice.voice?.in_quiet_hours && ' (Currently within quiet hours.)'}
-                  </p>
-                  {voice.voice?.spoken_count > 0 && voice.voice?.last_spoken && (
-                    <p className="text-[10px] text-slate-500 mt-1 italic">
-                      Last said: &quot;{voice.voice.last_spoken.text.slice(0, 90)}&quot;
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* Controls */}
-              <div className="flex flex-wrap gap-2 pt-3 border-t border-white/5">
-                <button
-                  type="button"
-                  onClick={testWake}
-                  disabled={!!voiceBusy}
-                  className="flex items-center gap-1.5 rounded-lg border border-amber-400/30 bg-amber-500/10 px-3 py-1.5 text-[11px] font-semibold text-amber-200 hover:bg-amber-500/20 disabled:opacity-40"
-                >
-                  {voiceBusy === 'wake' ? <Loader2 size={11} className="animate-spin" /> : <Ear size={11} />}
-                  Test wake
-                </button>
-                <button
-                  type="button"
-                  onClick={testSpeak}
-                  disabled={!!voiceBusy}
-                  className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-semibold text-slate-300 hover:bg-white/10 disabled:opacity-40"
-                >
-                  {voiceBusy === 'speak' ? <Loader2 size={11} className="animate-spin" /> : <Volume2 size={11} />}
-                  Test voice
-                </button>
-                <button
-                  type="button"
-                  onClick={toggleVoicePaused}
-                  disabled={!!voiceBusy}
-                  className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[11px] font-semibold disabled:opacity-40 ${
-                    voice.voice?.enabled === false
-                      ? 'border-emerald-400/30 bg-emerald-500/10 text-emerald-200'
-                      : 'border-white/10 bg-white/5 text-slate-300 hover:bg-white/10'
-                  }`}
-                >
-                  {voice.voice?.enabled === false ? 'Resume speaking' : 'Pause speaking'}
-                </button>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* ==================== CALENDAR ==================== */}
-        <section className="space-y-3">
-          <div className="flex items-center gap-2">
-            <Calendar size={14} className="text-amber-400" />
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">Calendar</h3>
-            <span className={`ml-auto rounded px-2 py-0.5 text-[10px] font-mono font-bold ${
-              calendarSources.length ? 'bg-emerald-400/10 text-emerald-300' : 'bg-slate-500/10 text-slate-400'
-            }`}>
-              {calendarSources.length ? `${calendarSources.length} CONNECTED` : 'NONE CONNECTED'}
-            </span>
-          </div>
-
-          {icalSources.map((source) => (
-            <div key={source.id} className="rounded-2xl border border-emerald-400/20 bg-[#0f1422] p-4 flex items-center gap-3">
-              <div className="h-9 w-9 shrink-0 rounded-full bg-amber-400/10 border border-amber-400/20 flex items-center justify-center">
-                <Calendar size={14} className="text-amber-300" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <p className="text-sm font-semibold text-white truncate">{source.name}</p>
-                  <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />
-                  <span className="rounded bg-white/5 border border-white/10 px-1.5 py-0.5 text-[9px] font-mono text-slate-400">
-                    iCal
-                  </span>
-                </div>
-                {source.stats && (
-                  <p className="text-[11px] text-slate-500 mt-0.5">
-                    {source.stats.parsed_events ?? 0} events in this calendar
-                  </p>
-                )}
-              </div>
-              <button
-                type="button"
-                onClick={() => removeFeed(source)}
-                disabled={busy === source.id}
-                className="rounded-lg border border-red-400/20 bg-red-500/10 p-2 text-red-300 hover:bg-red-500/20 transition disabled:opacity-40 shrink-0"
-                title="Remove"
-              >
-                {busy === source.id ? <Loader2 size={13} className="animate-spin" /> : <Trash2 size={13} />}
-              </button>
-            </div>
-          ))}
-
-          {oauthCalendarSources.map((source) => (
-            <div key={source.id} className="rounded-2xl border border-emerald-400/20 bg-[#0f1422] p-4 flex items-center gap-3">
-              <Calendar size={14} className="text-amber-300 shrink-0" />
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold text-white truncate">{source.email}</p>
-                <p className="text-[11px] text-slate-500">Live via Google OAuth</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => disconnect(source)}
-                disabled={busy === source.id}
-                className="rounded-lg border border-red-400/20 bg-red-500/10 p-2 text-red-300 hover:bg-red-500/20 transition disabled:opacity-40 shrink-0"
-              >
-                <Trash2 size={13} />
-              </button>
-            </div>
-          ))}
-
-          <div className="rounded-2xl border border-amber-400/20 bg-[#0f1422] p-4 space-y-3">
-            <div className="flex items-start gap-2">
-              <Zap size={14} className="mt-0.5 text-amber-300 shrink-0" />
-              <div>
-                <p className="text-xs font-bold text-white">Add a calendar by private iCal address</p>
-                <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
-                  Recommended. Read-only, no OAuth, no expiry, and it works even for calendars
-                  Google would not let a third-party app touch.
-                </p>
-              </div>
-            </div>
-
-            <input
-              value={icsUrl}
-              onChange={(e) => setIcsUrl(e.target.value)}
-              placeholder="https://calendar.google.com/calendar/ical/…/private-…/basic.ics"
-              className="w-full rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-[11px] font-mono outline-none focus:border-amber-400/40"
-            />
-            <div className="flex gap-2">
-              <input
-                value={icsLabel}
-                onChange={(e) => setIcsLabel(e.target.value)}
-                placeholder="Label, e.g. College"
-                className="min-w-0 flex-1 rounded-lg border border-white/10 bg-slate-950/60 px-3 py-2 text-xs outline-none"
-              />
-              <button
-                type="button"
-                onClick={addFeed}
-                disabled={!icsUrl.trim() || !!busy}
-                className="flex items-center gap-1.5 rounded-lg bg-amber-400 px-4 py-2 text-xs font-bold text-slate-950 disabled:opacity-40"
-              >
-                {busy === 'ics' ? <Loader2 size={12} className="animate-spin" /> : <Calendar size={12} />}
-                Add
-              </button>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setShowIcsHelp((v) => !v)}
-              className="flex items-center gap-1 text-[11px] text-amber-400 hover:underline"
-            >
-              <ChevronDown size={11} className={showIcsHelp ? 'rotate-180 transition' : 'transition'} />
-              Where do I find this address?
-            </button>
-            {showIcsHelp && (
-              <ol className="ml-4 list-decimal space-y-1 text-[11px] text-slate-400 leading-relaxed">
-                <li>Open <span className="font-mono text-amber-300">calendar.google.com</span></li>
-                <li>Click the gear icon → <b className="text-slate-300">Settings</b></li>
-                <li>In the left list, click the calendar you want under <b className="text-slate-300">Settings for my calendars</b></li>
-                <li>Scroll to <b className="text-slate-300">Integrate calendar</b></li>
-                <li>Copy <b className="text-slate-300">Secret address in iCal format</b> and paste it above</li>
-                <li>Repeat for each account (switch Google account first)</li>
-              </ol>
-            )}
-          </div>
-        </section>
-
-        {/* ==================== LOCAL ==================== */}
-        <section className="space-y-3">
-          <div className="flex items-center gap-2">
-            <Info size={14} className="text-slate-400" />
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">Local Services</h3>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {['github', 'ollama', 'scraper'].map((key) => {
-              const item = local[key];
-              if (!item) return null;
-              return (
-                <div key={key} className="rounded-xl border border-white/10 bg-[#0f1422] p-3.5">
-                  <div className="flex items-center justify-between">
-                    <p className="text-xs font-semibold text-white">{item.service_name || key}</p>
-                    <span className={`rounded px-1.5 py-0.5 text-[10px] font-mono font-bold ${
-                      item.connected ? 'bg-emerald-400/10 text-emerald-300' : 'bg-amber-400/10 text-amber-300'
-                    }`}>
-                      {item.connected ? 'CONNECTED' : 'NOT CONNECTED'}
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">{item.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
         <p className="text-[11px] text-slate-500 leading-relaxed border-t border-white/5 pt-4">
           <ShieldCheck size={11} className="inline mb-0.5" /> Everything here is read-only: Jarvis can
-          read mail and calendars but never send, delete, or modify. Credentials are encrypted on disk
-          under <span className="font-mono">backend/data/</span>, which is git-ignored and never part of
-          the vault sync to GitHub.
+          read mail but never send, delete, or modify. Credentials are encrypted on disk
+          under <span className="font-mono">backend/data/</span>, which is git-ignored.
         </p>
       </div>
     </div>

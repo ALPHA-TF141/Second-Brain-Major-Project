@@ -9,9 +9,7 @@ writes it into BOTH stores that matter:
        could store an email and still be unable to answer questions about it -
        the RAG pipeline only reads SQLite, never the vault JSON cards.
 
-  2. Memory Vault (`memory_vault/cards/...`)
-       via vault_agent.store_card(), which also updates the knowledge graph and
-       compiles the email into the self-improving wiki, then syncs to GitHub.
+  2. (Legacy vault cards removed - SQLite is the single store.)
 
 Duplicate protection
     * IMAP   : UIDVALIDITY + last-UID cursor (stable identifiers)
@@ -402,7 +400,7 @@ class MailIngestionAgent:
         Classify bulk mail in two tiers, because "bulk" is not one thing:
 
           hard  - marketing/newsletters (List-Unsubscribe, auto-submitted).
-                  Never enters the vault; it would pollute the wiki and graph.
+                  Never enters the memory store as bulk noise.
           soft  - transactional bulk (Precedence: bulk) such as invoices and
                   billing notices. These are RECORD-KEEPING mail with real
                   amounts and due dates, so they are kept if they contain an
@@ -531,58 +529,9 @@ class MailIngestionAgent:
         db.commit()
         return memory.id
 
-    def _store_vault_card(self, message: Dict[str, Any], account_address: str,
-                          actions: List[Dict[str, Any]], importance: str, sync: bool = False):
-        """JSON card -> knowledge graph + wiki + GitHub (via vault_agent)."""
-        from app.agents.card_schema import JSONMemoryCard
-        from app.agents.vault_agent import vault_agent
-
-        subject = message.get("subject") or "(no subject)"
-        sender = message.get("from") or "unknown"
-        body = self._clean_body(message.get("body", ""), 1500)
-        sender_email = self._extract_email(sender)
-
-        pointers = []
-        if actions:
-            for action in actions:
-                pointers.append(
-                    f"{action['kind'].title()}: {action['title']}"
-                    + (f" - due {action['due_date']}" if action["due_date"] else "")
-                )
-        pointers.append(f"From: {sender}")
-        if message.get("date"):
-            pointers.append(f"Received: {message['date']}")
-
-        card = JSONMemoryCard(
-            id=f"mail_{message.get('uid') or self._hash(subject)[:10]}_{self._hash(account_address + subject)[:6]}",
-            timestamp=(message.get("date_parsed") or datetime.utcnow()).isoformat(),
-            domain="Communication",
-            priority="high" if importance == "high" else ("medium" if importance == "normal" else "low"),
-            quality_score=0.9 if actions else 0.7,
-            app_source="gmail",
-            window_title=subject,
-            topic=f"Email: {subject}",
-            summary=f"Email from {sender} to {account_address} about: {subject}",
-            key_pointers=pointers[:8],
-            entities=[sender_email, account_address] + [a["trigger"] for a in actions],
-            tags=["email", "inbox", sender_email.split("@")[-1], (actions[0]["kind"] if actions else "message")],
-            source_url_or_ref=f"mailto:{sender_email}" if sender_email else None,
-            raw_ocr_excerpt=body,
-            hero_image=None,
-        )
-
-        # sync=False for bulk runs: vault_agent otherwise kicks off a GitHub push
-        # per card. The existing 60-second vault loop picks them up instead.
-        try:
-            vault_agent.store_card(card, sync=sync)
-        except TypeError:
-            vault_agent.store_card(card)  # older signature
-        return card.id
-
-    # --------------------------------------------------------------- sync
     def sync_account(self, db: Session, account_id: str, user_id: int,
                      folders: Optional[List[str]] = None, limit: Optional[int] = None,
-                     notify: bool = True, store_vault: bool = True) -> Dict[str, Any]:
+                     notify: bool = True) -> Dict[str, Any]:
         from app.integrations.token_store import google_token_store
 
         folders = folders or [f.strip() for f in settings.mail_sync_folders.split(",") if f.strip()]
@@ -615,8 +564,7 @@ class MailIngestionAgent:
         for folder in folders:
             partial = None
             try:
-                partial = ingestor(db, client, account_id, folder, limit, session, address,
-                                   store_vault=store_vault)
+                partial = ingestor(db, client, account_id, folder, limit, session, address)
             except Exception as exc:
                 summary["errors"].append(f"{folder}: {type(exc).__name__}: {exc}")
                 # Ask the ingestor for whatever it managed before failing, so
@@ -641,26 +589,7 @@ class MailIngestionAgent:
             try:
                 import asyncio
 
-                from app.routes.os_store import os_store
                 from app.websocket.manager import manager
-
-                os_store.add_activity(
-                    "email",
-                    f"Ingested {summary['ingested']} email(s) from {address}",
-                    "success",
-                    f"{summary['actions']} action item(s) detected, {summary['skipped_bulk']} bulk skipped",
-                )
-
-                # Only speak when something actually needs attention - a plain
-                # "3 newsletters arrived" announcement would be noise.
-                if not summary["actions"] and summary["ingested"] >= 5:
-                    from app.agents.proactive_voice import proactive_voice
-
-                    proactive_voice.announce(
-                        f"Sir, {summary['ingested']} new emails have been filed into memory.",
-                        priority="normal",
-                        source="mail_digest",
-                    )
 
                 loop = asyncio.get_event_loop()
                 if loop.is_running():
@@ -677,7 +606,7 @@ class MailIngestionAgent:
         return summary
 
     def _sync_imap(self, db: Session, client: GmailImapClient, account_id: str, folder: str,
-                   limit: int, session, address: str, store_vault: bool = True) -> Dict[str, Any]:
+                   limit: int, session, address: str) -> Dict[str, Any]:
         out = {"ingested": 0, "skipped_bulk": 0, "duplicates": 0, "actions": 0,
                "messages": [], "errors": []}
 
@@ -718,8 +647,7 @@ class MailIngestionAgent:
                     out["duplicates"] += 1
                     continue
 
-                result = self._ingest_one(db, message, account_id, address, session,
-                                          store_vault=store_vault)
+                result = self._ingest_one(db, message, account_id, address, session)
                 if result["stored"]:
                     out["ingested"] += 1
                     out["actions"] += result["actions"]
@@ -752,7 +680,7 @@ class MailIngestionAgent:
         return out
 
     def _sync_google(self, db: Session, client, account_id: str, folder: str, limit: int,
-                     session, address: str, store_vault: bool = True) -> Dict[str, Any]:
+                     session, address: str) -> Dict[str, Any]:
         """Google path is synchronous-friendly: reuse the existing async client."""
         import asyncio
 
@@ -812,8 +740,7 @@ class MailIngestionAgent:
             full["precedence"] = ""
             full["auto_submitted"] = ""
 
-            result = self._ingest_one(db, full, account_id, address, session,
-                                      store_vault=store_vault)
+            result = self._ingest_one(db, full, account_id, address, session)
             if result["stored"]:
                 out["ingested"] += 1
                 out["actions"] += result["actions"]
@@ -843,7 +770,7 @@ class MailIngestionAgent:
 
     # ------------------------------------------------------- one message
     def _ingest_one(self, db: Session, message: Dict[str, Any], account_id: str,
-                    address: str, session, store_vault: bool = True) -> Dict[str, Any]:
+                    address: str, session) -> Dict[str, Any]:
         own = {address.lower()}
         bulk = self.bulk_kind(message)
         subject = message.get("subject") or ""
@@ -866,96 +793,10 @@ class MailIngestionAgent:
             return {"stored": False, "bulk": False, "actions": 0,
                     "importance": importance, "memory_id": None}
 
-        if store_vault:
-            try:
-                self._store_vault_card(message, address, actions, importance, sync=False)
-            except Exception as exc:
-                print(f"[MailIngest] Vault card failed for '{subject[:50]}': {exc}")
-
-        if actions:
-            self._create_tasks(actions, message, address)
-            self._notify_actions(actions, message, address)
-
-        if importance == "high":
-            self._notify_important(message, address, actions)
 
         return {"stored": True, "bulk": False, "actions": len(actions),
                 "importance": importance, "memory_id": memory_id}
 
-    def _create_tasks(self, actions: List[Dict[str, Any]], message: Dict[str, Any], address: str):
-        try:
-            from app.routes.os_store import os_store
-
-            for action in actions:
-                os_store.add_task({
-                    "title": action["title"],
-                    "project": "Email Follow-ups",
-                    "priority": action["priority"],
-                    "due_date": action["due_date"] or "",
-                    "status": "pending",
-                    "ai_suggested": True,
-                    "source": f"email:{address}",
-                })
-        except Exception as exc:
-            print(f"[MailIngest] Task creation failed: {exc}")
-
-    def _notify_actions(self, actions: List[Dict[str, Any]], message: Dict[str, Any], address: str):
-        try:
-            from app.routes.os_store import os_store
-
-            for action in actions:
-                due = f" - due {action['due_date']}" if action["due_date"] else ""
-                os_store.add_notification({
-                    "title": action["title"],
-                    "body": f"From {self._extract_email(message.get('from', ''))} ({address}){due}",
-                    "kind": "email_action",
-                    "priority": action["priority"],
-                    "source": "mail",
-                })
-        except Exception as exc:
-            print(f"[MailIngest] Notification failed: {exc}")
-
-        # Say it, do not just file it. This is the "Jarvis speaks first" half:
-        # a deadline found in your mail is announced aloud, and the orb comes up.
-        try:
-            from app.agents.proactive_voice import proactive_voice
-
-            for action in actions:
-                sender = self._extract_email(message.get("from", "")) or "someone"
-                kind = action.get("kind", "action")
-                due = action.get("due_date")
-
-                if kind == "deadline" and due:
-                    line = (f"Sir, {action['title'].split(':', 1)[-1].strip()} - "
-                            f"from {sender}, due {due}.")
-                elif kind == "deadline":
-                    line = f"Sir, {action['title'].split(':', 1)[-1].strip()} - from {sender}."
-                else:
-                    line = f"Sir, new action item from {sender}: {action['title'].split(':', 1)[-1].strip()}."
-
-                proactive_voice.announce(
-                    line,
-                    priority=action.get("priority", "high"),
-                    source="mail",
-                )
-        except Exception as exc:
-            print(f"[MailIngest] Proactive announce failed: {exc}")
-
-    def _notify_important(self, message: Dict[str, Any], address: str, actions: List[Dict[str, Any]]):
-        try:
-            from app.routes.os_store import os_store
-
-            os_store.add_notification({
-                "title": f"Important email: {message.get('subject', '(no subject)')[:90]}",
-                "body": f"From {self._extract_email(message.get('from', ''))} to {address}",
-                "kind": "email_important",
-                "priority": "high",
-                "source": "mail",
-            })
-        except Exception as exc:
-            print(f"[MailIngest] Notification failed: {exc}")
-
-    # ------------------------------------------------------------ sync all
     def sync_all(self, db: Session, user_id: int, notify: bool = True) -> Dict[str, Any]:
         from app.integrations.token_store import google_token_store
 

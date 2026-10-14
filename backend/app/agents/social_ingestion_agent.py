@@ -11,11 +11,13 @@ import httpx
 from bs4 import BeautifulSoup
 from PIL import Image
 
-from app.agents.card_schema import JSONMemoryCard
-from app.agents.curation_agent import curation_agent
-from app.agents.vault_agent import vault_agent
-from app.agents.wiki_compiler_agent import wiki_compiler
+import hashlib
+
 from app.config import settings
+from app.database.session import SessionLocal
+from app.models.capture import MemorySession
+from app.models.memory import Memory
+from app.models.user import User
 from app.websocket.manager import manager
 
 
@@ -80,85 +82,56 @@ class NativeSocialScraperAgent:
         if user_notes:
             clean_text = f"User Notes: {user_notes}\n\nContent:\n{clean_text}"
 
-        # Fast Curation & Deduplication Check
-        curation_result = curation_agent.evaluate_and_curate(
-            raw_text=clean_text,
-            app_source=f"native_{platform}",
-            window_title=title,
-            session_id=0,
-        )
-
-        card_id = f"card_{datetime.utcnow().strftime('%Y%m%d_%H%M%S_%f')[:19]}"
-        if not curation_result:
-            card = JSONMemoryCard(
-                id=card_id,
-                domain="Technology",
-                priority="high" if platform in ["youtube", "web_article"] else "medium",
-                quality_score=0.92,
+        # Persist into the memory store - the same tables the research layer
+        # reads. Duplicate captures are detected by content hash.
+        content_hash = hashlib.sha256(clean_text.encode("utf-8")).hexdigest()
+        db = SessionLocal()
+        try:
+            owner = db.query(User).order_by(User.id.asc()).first()
+            if not owner:
+                return {"status": "error", "detail": "No user in the database"}
+            existing = db.query(Memory).filter(Memory.content_hash == content_hash).first()
+            if existing:
+                return {"status": "duplicate", "memory_id": existing.id,
+                        "platform": platform, "title": title, "url": url}
+            session = MemorySession(user_id=owner.id, session_type=f"social_{platform}",
+                                    is_active=False)
+            db.add(session)
+            db.commit()
+            db.refresh(session)
+            memory = Memory(
+                session_id=session.id,
+                title=(title or f"{platform} capture")[:220],
+                content=clean_text,
+                content_hash=content_hash,
+                source_type="social",
                 app_source=f"native_{platform}",
-                window_title=title,
-                topic=title[:45],
-                summary=f"[{platform.title()}] {title}: {clean_text[:240]}...",
-                key_pointers=[p.strip() for p in clean_text.split("\n") if len(p.strip()) > 30][:4] or [title],
-                entities=[platform.title(), author],
-                tags=[platform, "free_native_intel"],
-                source_url_or_ref=url,
-                raw_ocr_excerpt=clean_text[:400],
+                topic_label=(title or "General")[:160],
+                category="learning",
             )
-        else:
-            card, _ = curation_result
-            card.source_url_or_ref = url
+            db.add(memory)
+            db.commit()
+            db.refresh(memory)
+            memory_id = memory.id
+        finally:
+            db.close()
 
-        # Set preliminary thumbnail URL for immediate UI rendering
-        if thumbnail_url:
-            card.hero_image = thumbnail_url
-
-        # Save card immediately so user gets sub-second response
-        vault_agent.store_card(card)
-
-        # Run background thumbnail optimization & wiki compilation in background task (Zero UI Freeze!)
-        asyncio.create_task(self._background_enrichment(thumbnail_url, card))
-
-        # Broadcast live update to Electron Stark HUD immediately
+        # Broadcast live update to the desktop shell
         await manager.broadcast({
             "type": "social_ingested",
-            "data": {
-                "id": card.id,
-                "title": card.topic or card.window_title,
-                "platform": platform,
-                "domain": card.domain,
-                "hero_image": card.hero_image,
-                "url": url,
-            },
+            "data": {"id": memory_id, "title": title, "platform": platform, "url": url},
             "timestamp": datetime.utcnow().isoformat(),
         })
 
         return {
             "status": "success",
-            "card_id": card.id,
+            "memory_id": memory_id,
             "platform": platform,
-            "title": card.topic or card.window_title,
-            "domain": card.domain,
-            "summary": card.summary,
-            "key_pointers": card.key_pointers,
-            "hero_image": card.hero_image,
+            "title": title,
+            "summary": clean_text[:240],
             "url": url,
         }
 
-    async def _background_enrichment(self, thumbnail_url: str, card: JSONMemoryCard):
-        """Asynchronously optimizes thumbnail and compiles into Master Wiki without blocking the UI."""
-        try:
-            if thumbnail_url and thumbnail_url.startswith("http"):
-                rel_path = await self._download_and_store_thumbnail(thumbnail_url, card.id)
-                if rel_path:
-                    card.hero_image = rel_path
-                    vault_agent.store_card(card)
-
-            wiki_compiler.compile_card_into_wiki(card)
-        except Exception as e:
-            print(f"[NativeScraper] Background enrichment notice: {e}")
-
-    # ==================== 1. YOUTUBE ULTRA-FAST NATIVE SCRAPER ====================
     async def _scrape_youtube_native(self, url: str) -> Dict:
         """Parallel extraction: fetches metadata and complete audio transcripts simultaneously in ~0.5s."""
         video_id = self._extract_youtube_id(url)
@@ -356,32 +329,6 @@ class NativeSocialScraperAgent:
             return True
         except Exception:
             return False
-
-    async def _download_and_store_thumbnail(self, image_url: str, card_id: str) -> Optional[str]:
-        try:
-            async with httpx.AsyncClient(timeout=8.0, follow_redirects=True) as client:
-                res = await client.get(image_url, headers=self.headers)
-                if res.status_code == 200:
-                    img_bytes = res.content
-                    date_str = datetime.utcnow().strftime("%Y-%m-%d")
-                    dest_dir = vault_agent.images_dir / date_str
-                    dest_dir.mkdir(parents=True, exist_ok=True)
-
-                    dest_filename = f"hero_{card_id}.webp"
-                    dest_path = dest_dir / dest_filename
-                    rel_path = f"memory_vault/images/{date_str}/{dest_filename}"
-
-                    with Image.open(io.BytesIO(img_bytes)) as img:
-                        if img.mode in ("RGBA", "P"):
-                            img = img.convert("RGB")
-                        if img.width > 1280:
-                            scale = 1280 / float(img.width)
-                            img = img.resize((1280, int(img.height * scale)), Image.Resampling.LANCZOS)
-                        img.save(str(dest_path), format="WEBP", quality=80)
-
-                    return rel_path
-        except Exception:
-            return None
 
 
 native_social_scraper = NativeSocialScraperAgent()

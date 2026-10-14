@@ -4,7 +4,6 @@ from pathlib import Path
 
 from app.models.voice import ConversationAudio, LanguagePreference, Transcript, VoiceCommand, VoiceSession
 from app.rag.pipeline import rag_pipeline
-from app.translation.tamil import tamil_helper
 from app.tts.coqui_tts import coqui_tts
 from app.voice.command_router import voice_command_router
 from app.wakeword.wakeword_detector import wakeword_detector
@@ -49,7 +48,7 @@ class VoiceOrchestrator:
     async def handle_text(self, db, user_id: int, session: VoiceSession, text: str, force: bool = False):
         prefs = self.get_preferences(db, user_id)
         wake_words = [word.strip() for word in prefs.wake_words.split(",")]
-        detected_language = tamil_helper.detect_language(text)
+        detected_language = "en"
 
         should_answer = force or session.mode in {"continuous", "push_to_talk"}
         if session.mode == "wake_word":
@@ -105,14 +104,14 @@ class VoiceOrchestrator:
         return {"transcript": transcript, "intent": intent, "answer": answer, "references": references, "audio": audio_result["file_path"]}
 
     def _augment_question(self, text: str, reply_language: str, detected_language: str, intent: str):
-        instruction = tamil_helper.response_instruction(reply_language, detected_language)
+        instruction = f"Reply in {reply_language}." if reply_language else ""
         if intent != "ask_memory":
             return f"{text}\n\nVoice command intent: {intent}. {instruction}"
         return f"{text}\n\n{instruction}"
 
     def _mode_for_intent(self, intent: str):
-        if intent in {"open_timeline", "semantic_search"}:
-            return "timeline"
+        if intent == "semantic_search":
+            return "semantic"
         if intent == "start_capture":
             return "summary"
         return "teaching"

@@ -1,8 +1,7 @@
 from app.auth.security import hash_password
 from app.config import settings
 from app.database.session import Base, SessionLocal, engine
-from app.models.activity import Activity
-from app.models.capture import ActivityLog, AppUsage, ClipboardLog, MemorySession, Screenshot
+from app.models.capture import MemorySession, Screenshot
 from app.models.conversation import AIFeedback, AISummary, Conversation, ConversationContext, Message, RetrievedMemory
 from app.models.graph import ConceptCluster, GraphEdge, GraphMetadata, GraphNode, LearningProgression, TopicRelationship
 from app.models.memory import Memory, MemoryRelationship, MemoryTag, SearchIndex, SessionSummary
@@ -19,7 +18,6 @@ from app.models.research import (
 )
 from app.models.session import UserSession
 from app.models.setting import Setting
-from app.models.timeline_event import TimelineEvent
 from app.models.connector import ConnectorCredential
 from app.models.user import User
 from app.models.voice import ConversationAudio, LanguagePreference, Transcript, VoiceCommand, VoiceSession
@@ -49,15 +47,7 @@ def init_database():
                 ]
             )
 
-        if not db.query(TimelineEvent).filter(TimelineEvent.user_id == user.id).first():
-            db.add(
-                TimelineEvent(
-                    user_id=user.id,
-                    title="Backend initialized",
-                    description="SQLite database and demo user are ready.",
-                    event_type="system",
-                )
-            )
+
 
         # Seed & ensure all app connectors are permanently stored in SQLite DB and live
         default_connectors = [
@@ -143,12 +133,8 @@ def init_database():
 
 
 __all__ = [
-    "Activity",
-    "ActivityLog",
     "AIFeedback",
     "AISummary",
-    "AppUsage",
-    "ClipboardLog",
     "Conversation",
     "ConversationAudio",
     "ConversationContext",
@@ -173,7 +159,6 @@ __all__ = [
     "VectorMemory",
     "UserSession",
     "Setting",
-    "TimelineEvent",
     "Transcript",
     "User",
     "LanguagePreference",

@@ -7,9 +7,9 @@ from sqlalchemy.orm import Session
 from app.auth.dependencies import get_current_user
 from app.auth.security import decode_token
 from app.database.session import get_db
-from app.models.capture import ActivityLog, MemorySession, Screenshot
+from app.models.capture import MemorySession, Screenshot
 from app.models.user import User
-from app.schemas.capture import ActivityLogOut, CaptureSessionOut, CaptureStartRequest, CaptureStatus, ScreenshotOut
+from app.schemas.capture import CaptureSessionOut, CaptureStartRequest, CaptureStatus, ScreenshotOut
 from app.services.capture_service import capture_manager
 
 
@@ -58,19 +58,6 @@ def list_capture_sessions(db: Session = Depends(get_db), user: User = Depends(ge
     )
 
 
-@router.get("/activity", response_model=list[ActivityLogOut])
-def list_capture_activity(db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
-    if not capture_manager.session_id:
-        return []
-    return (
-        db.query(ActivityLog)
-        .filter(ActivityLog.session_id == capture_manager.session_id)
-        .order_by(ActivityLog.created_at.desc())
-        .limit(50)
-        .all()
-    )
-
-
 @router.get("/screenshots", response_model=list[ScreenshotOut])
 def list_screenshots(db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
     if not capture_manager.session_id:
@@ -100,14 +87,6 @@ def get_screenshot_image(screenshot_id: int, token: str = "", db: Session = Depe
     if live_preview.exists():
         return FileResponse(live_preview, media_type="image/jpeg")
 
-    # Fallback to recent persistent hero captures in memory vault
-    from app.agents.vault_agent import vault_agent
-    if vault_agent.images_dir.exists():
-        heroes = sorted(vault_agent.images_dir.rglob("hero_*"), key=lambda p: p.stat().st_mtime, reverse=True)
-        if heroes and heroes[0].exists():
-            media = "image/webp" if heroes[0].suffix == ".webp" else "image/jpeg"
-            return FileResponse(heroes[0], media_type=media)
-
     raise HTTPException(status_code=404, detail="Screenshot file missing")
 
 
@@ -120,12 +99,5 @@ def get_live_preview(token: str = ""):
     live_preview = Path("data/screenshots/live_preview.jpg")
     if live_preview.exists():
         return FileResponse(live_preview, media_type="image/jpeg")
-
-    from app.agents.vault_agent import vault_agent
-    if vault_agent.images_dir.exists():
-        heroes = sorted(vault_agent.images_dir.rglob("hero_*"), key=lambda p: p.stat().st_mtime, reverse=True)
-        if heroes and heroes[0].exists():
-            media = "image/webp" if heroes[0].suffix == ".webp" else "image/jpeg"
-            return FileResponse(heroes[0], media_type=media)
 
     raise HTTPException(status_code=404, detail="No live preview captured yet")
