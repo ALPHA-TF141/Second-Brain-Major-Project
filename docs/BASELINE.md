@@ -50,7 +50,9 @@ sandbox (Python 3.11, Node 22), not from the Windows machine the roadmap targets
 - **Baseline pipelines leak forgotten items by design** (vanilla/hybrid/graph leak rate 0.022). This is the "no suppression" comparison arm; the adaptive pipeline enforces exclusion.
 - **Personal data is tracked in Git.** `data/second_brain.db` (repository root) is committed and contains an account e-mail address and connector identifiers. `memory_vault/` (cards, images, wiki, deliverables) is also committed. The runtime database `backend/data/` is git-ignored, so the tracked root copy is stale and unused. Removing tracked data is a repository decision and has not been made here.
 - **README drift.** The README says vault cards, wiki and deliverables were removed, but `memory_vault/` is still tracked.
-- **Roadmap phases 3–9 are not complete.** Temporal graph queries, retrieval-scoring tests, contradiction and consolidation test cases, graph/timeline/conflict UI, benchmark expansion, ablations with uncertainty, and the final demonstration are still open.
+- **Contradiction and temporal tests use rule-based paths only.** The neural NLI detector is skipped here. The benchmark corpus does not contain the new cases, so its published numbers do not reflect them.
+- **Temporal subject is always `user`.** Facts are not modelled as entity-to-entity relationships.
+- **Roadmap phases 3–9 are not complete.** Retrieval-scoring tests, consolidation test cases, graph/timeline/conflict UI, benchmark expansion, ablations with uncertainty, and the final demonstration are still open.
 
 ## 5. Roadmap status
 
@@ -58,9 +60,9 @@ sandbox (Python 3.11, Node 22), not from the Windows machine the roadmap targets
 |---|---|---|
 | 01 Repository setup and audit | Done | This document; `npm run lint`, `npm run build`, `npm run check:api`, `pytest`. |
 | 02 Core application and database | Largely done | CRUD, validation, error responses and restart persistence tested (`backend/tests/test_memory_crud.py`). Concurrency tests not yet written. |
-| 03 Temporal knowledge graph | Not started in this pass | Existing code, untested. |
+| 03 Temporal knowledge graph | Largely done | Point-in-time queries (`facts_as_of`, half-open interval), supersession with history, retraction, coexistence, source references. 10 tests in `backend/tests/test_temporal_graph.py`. Entity graph beyond a single user subject not done. |
 | 04 Retrieval and adaptive scoring | Not started in this pass | Existing code; benchmark is deterministic but small. |
-| 05 Contradiction and consolidation | Not started in this pass | Existing code; the benchmark has 2 detected conflicts. |
+| 05 Contradiction and consolidation | Contradiction part done | 14 tests in `backend/tests/test_contradictions.py`. Same-date/different-time conflicts detected; hedged claims not recorded as conflicts; resolved conflicts preserved on re-scan; negation conflicts name the older memory. Consolidation (duplicates, paraphrase thresholds) not yet tested. |
 | 06 Knowledge gaps and forgetting | Partly done | Forgetting paths covered by `backend/tests/test_forgetting_paths.py` and the hard-delete test. Gap-detection tests not written. |
 | 07 Desktop integration | Partly done | Memories screen now creates, edits and deletes through the backend. Graph, timeline, conflicts, consolidation and evaluation screens not audited. |
 | 08 Benchmarking | Not started in this pass | Existing benchmark reproduces; needs a larger dataset and ablations. |

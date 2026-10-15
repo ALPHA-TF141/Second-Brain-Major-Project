@@ -292,6 +292,38 @@ class TemporalKnowledgeGraph:
             for r in query.order_by(TemporalFact.confidence.desc()).all()
         ]
 
+    def facts_as_of(self, db, when: datetime, predicate: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Facts that were true at `when`, using the half-open interval rule:
+
+            valid_from <= when < valid_to      (valid_to NULL = still true)
+
+        A fact with no recorded start (valid_from NULL) is treated as valid from
+        the beginning of time. A fact that ends exactly at `when` is no longer
+        valid at `when`, so the replacement fact answers the boundary query.
+        """
+        from sqlalchemy import or_, and_
+        from app.models.research import TemporalFact
+
+        predicate = PREDICATE_CANON.get(predicate, predicate) if predicate else None
+        query = db.query(TemporalFact).filter(
+            TemporalFact.subject == self.subject,
+            or_(TemporalFact.valid_from.is_(None), TemporalFact.valid_from <= when),
+            or_(TemporalFact.valid_to.is_(None), TemporalFact.valid_to > when),
+        )
+        if predicate:
+            query = query.filter(TemporalFact.predicate == predicate)
+        return [
+            {
+                "id": r.id, "subject": r.subject, "predicate": r.predicate, "object": r.object,
+                "valid_from": r.valid_from.isoformat() if r.valid_from else None,
+                "valid_to": r.valid_to.isoformat() if r.valid_to else None,
+                "confidence": r.confidence, "source_memory_id": r.source_memory_id,
+                "as_of": when.isoformat(),
+            }
+            for r in query.order_by(TemporalFact.valid_from.asc(), TemporalFact.id.asc()).all()
+        ]
+
     def history(self, db, predicate: Optional[str] = None) -> List[Dict[str, Any]]:
         from app.models.research import TemporalFact
 
