@@ -88,7 +88,7 @@ Large language models augmented with retrieval over a user's own documents have 
 
 The consequence is a failure mode that general RAG evaluation does not measure. Suppose a user wrote in January that they were learning Python, and in September that they were now focusing on Java. Both statements are in the store. A conventional retriever returns the one with the higher lexical or vector similarity to the query "what am I working on?", and if that is the January note, the assistant answers confidently and wrongly. Every retrieved passage is faithful to its source; the system fabricates nothing and is still incorrect. Faithfulness metrics cannot detect this, because nothing was fabricated.
 
-This paper addresses that gap with one main research question: _does retrieval-time enforcement of temporal validity, contradiction status, duplication and explicit removal improve the evidence a personal RAG system leads with, in a way that recall-oriented metrics cannot see?_ Four hypotheses make it testable. H1: recall-oriented metrics saturate and therefore cannot separate pipelines on a personal corpus. H2: rank-sensitive and staleness metrics do separate them. H3: the separation is attributable per mechanism - duplicate reduction arises only once consolidation is enabled, leakage elimination only once forgetting is enforced, and stale\@1 reduction once temporal validity and forgetting are active. H4: the conflict detector is deliberately conservative, trading recall for precision on free-text pairs. Each hypothesis maps to a reported measurement: H1 and H2 to Tables III, IV and VII, H3 to the ablation in Table VIII, and H4 to the annotated-pair accuracy study in Section IV-C.
+This paper addresses that gap with one main research question: _does retrieval-time enforcement of temporal validity, contradiction status, duplication and explicit removal improve the evidence a personal RAG system leads with, in a way that recall-oriented metrics cannot see?_ Four hypotheses make it testable. H1: recall-oriented metrics saturate and therefore cannot separate pipelines on a personal corpus. H2: rank-sensitive and staleness metrics do separate them. H3: the separation is attributable per mechanism - duplicate reduction arises only once consolidation is enabled, leakage elimination only once forgetting is enforced, and stale\@1 reduction once temporal validity and forgetting are active. H4: the conflict detector is deliberately conservative, trading recall for precision on free-text pairs. Each hypothesis maps to a reported measurement: H1 and H2 to Tables II and IV, H3 to the ablation in Table V, and H4 to the annotated-pair accuracy study in Section IV-C.
 
 The contributions of this work are organised around what is adopted versus what is proposed (Table I). Established techniques - hybrid dense+lexical fusion, graph re-ranking, cross-encoder NLI, dependency parsing - are adopted and cited; the contribution is their coordinated, switchable integration and five specific mechanisms: an auditable eight-term scoring model with persisted components; supersession that closes facts instead of deleting them; rank damping instead of removal for contradictions; forgetting enforced across five independent retrieval surfaces with reversible restoration; and PersonalBrain-Bench, an instrument whose categories are designed to expose exactly these failures.
 
@@ -147,36 +147,13 @@ Work on hallucination reduction verifies generated claims against retrieved evid
 #v(0.6em)
 #align(center)[#text(size: 9.5pt, weight: "bold")[III. System Architecture and Methodology]]
 
-SecondBrain is a client–server personal knowledge system. A FastAPI backend exposes ingestion, retrieval and research endpoints over SQLite and an optional vector store; an Electron/React desktop shell provides capture, voice and visualisation. The substrate is standard: Sentence-BERT-style embeddings [18] over an approximate nearest-neighbour index [19], a local or hosted LLM for generation [20], and weakly-supervised speech recognition for the voice path [21]. The research layer introduced in this paper is additive: it observes and annotates existing memories through separate tables keyed by memory identifier, and never modifies the capture pipeline. All seven components are optional at runtime, so the system degrades to a conventional RAG assistant if any is disabled, which is what makes the comparative evaluation and the ablation in Section VI possible. Fig. 1 shows the resulting architecture: the research layer (C1–C6) annotates the memory store and gates retrieval, and PersonalBrain-Bench (C7) evaluates the four pipelines.
+SecondBrain is a client–server personal knowledge system. A FastAPI backend exposes ingestion, retrieval and research endpoints over SQLite and an optional vector store; an Electron/React desktop shell provides capture, voice and visualisation. The substrate is standard: Sentence-BERT-style embeddings [18] over an approximate nearest-neighbour index [19], a local or hosted LLM for generation [20], and weakly-supervised speech recognition for the voice path [21]. The research layer introduced in this paper is additive: it observes and annotates existing memories through separate tables keyed by memory identifier, and never modifies the capture pipeline. All seven components are optional at runtime, so the system degrades to a conventional RAG assistant if any is disabled, which is what makes the comparative evaluation and the ablation in Section VI possible. Processing proceeds through eight stages - capture/ingest; normalisation (chunking, content hash, dedup key); adaptive scoring (C1); temporal extraction and supersession (C2); conflict detection and damping (C3); consolidation (C4); switchable retrieval; and generation over the assembled context. Fig. 1 shows the resulting architecture: the research layer (C1–C6) annotates the memory store and gates retrieval, and PersonalBrain-Bench (C7) evaluates the four pipelines.
 
 #figure(
   image("diagrams/paper_architecture.svg", width: 100%),
   supplement: [Fig.],
-  caption: [SecondBrain architecture. Capture and normalisation are unchanged from a conventional personal RAG system; the research layer (dashed) is additive and switchable. C1–C6 annotate the memory store and gate retrieval (exclusion, rank damping, deduplication); C7 evaluates the four retrieval pipelines reported in Tables III–VIII.],
+  caption: [SecondBrain architecture. Capture and normalisation are unchanged from a conventional personal RAG system; the research layer (dashed) is additive and switchable. C1–C6 annotate the memory store and gate retrieval (exclusion, rank damping, deduplication); C7 evaluates the four retrieval pipelines reported in Tables II–V.],
 )
-#v(0.3em)
-#align(center)[
-#text(size: 8pt, weight: "bold")[TABLE II]\\\
-#text(size: 8pt)[Processing Stages]
-#v(0.15em)
-#table(
-  columns: (1.1cm, 2.1cm, 4.4cm),
-  stroke: 0.3pt + rgb("#888888"),
-  inset: 2.5pt,
-  align: (center, left, left),
-  fill: (x, y) => if y == 0 { rgb("#f2f2f2") } else { none },
-  [#text(size: 7.5pt, weight: "bold")[Stage]], [#text(size: 7.5pt, weight: "bold")[Component]], [#text(size: 7.5pt, weight: "bold")[Responsibility]],
-  [#text(size: 7pt)[1]], [#text(size: 7pt)[Capture / Ingest]], [#text(size: 7pt)[Screen OCR, mail (IMAP/OAuth), web and scrapers]],
-  [#text(size: 7pt)[2]], [#text(size: 7pt)[Normalisation]], [#text(size: 7pt)[Chunking, deduplication hash, memory + index]],
-  [#text(size: 7pt)[3]], [#text(size: 7pt)[Scoring (C1)]], [#text(size: 7pt)[Adaptive Memory Scoring: eight auditable terms]],
-  [#text(size: 7pt)[4]], [#text(size: 7pt)[Temporal (C2)]], [#text(size: 7pt)[Neural dependency parsing, intervals, supersession]],
-  [#text(size: 7pt)[5]], [#text(size: 7pt)[Conflict (C3)]], [#text(size: 7pt)[ONNX NLI Cross-Encoder + contradiction policy]],
-  [#text(size: 7pt)[6]], [#text(size: 7pt)[Consolidation (C4)]], [#text(size: 7pt)[Near-duplicate clustering, provenance retention]],
-  [#text(size: 7pt)[7]], [#text(size: 7pt)[Retrieval]], [#text(size: 7pt)[Four switchable pipelines (vanilla/hybrid/graph/adaptive)]],
-  [#text(size: 7pt)[8]], [#text(size: 7pt)[Generation]], [#text(size: 7pt)[Local or hosted LLM over assembled context]],
-)
-#text(size: 6.8pt, style: "italic")[C1–C4 denote research contributions introduced in this paper.]
-]
 #v(0.3em)
 
 #align(center)[#text(size: 9.5pt, weight: "bold")[IV. Proposed Method: Seven Contributions]]
@@ -253,43 +230,25 @@ All core figures were produced with $k = 5$, the deterministic TF-IDF dense back
 
 #v(0.2em)
 #align(center)[
-#text(size: 8pt, weight: "bold")[TABLE III]\\\
-#text(size: 8pt)[Retrieval Quality Across Four Pipelines (Core Corpus)]
+#text(size: 8pt, weight: "bold")[TABLE II]\
+#text(size: 8pt)[Core-Corpus Retrieval Quality, Staleness, Leakage and Duplication]
 #v(0.1em)
 #table(
-  columns: (2.8cm, 2.2cm, 2.2cm),
+  columns: (2.45cm, 1.1cm, 1.1cm, 1.2cm, 0.95cm, 1.0cm),
   stroke: 0.3pt + rgb("#888888"),
   inset: 2.6pt,
-  align: (left, center, center),
+  align: (left, center, center, center, center, center),
   fill: (x, y) => if y == 0 { rgb("#f2f2f2") } else { none },
-  [#text(size: 7.5pt, weight: "bold")[System]], [#text(size: 7.5pt, weight: "bold")[Hit\@5]], [#text(size: 7.5pt, weight: "bold")[MRR]],
-  [#text(size: 7.5pt)[Vanilla dense]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[0.833]],
-  [#text(size: 7.5pt)[Hybrid]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[0.944]],
-  [#text(size: 7.5pt)[Graph-augmented]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[0.944]],
-  [#text(size: 7.5pt)[Adaptive (proposed)]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[1.000]],
+  [#text(size: 7.5pt, weight: "bold")[System]], [#text(size: 7.5pt, weight: "bold")[Hit\@5]], [#text(size: 7.5pt, weight: "bold")[MRR]], [#text(size: 7.5pt, weight: "bold")[Stale\@1]], [#text(size: 7.5pt, weight: "bold")[Leak]], [#text(size: 7.5pt, weight: "bold")[Dup.]],
+  [#text(size: 7.5pt)[Vanilla dense]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[0.833]], [#text(size: 7.5pt)[0.364]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
+  [#text(size: 7.5pt)[Hybrid]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[0.944]], [#text(size: 7.5pt)[0.182]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
+  [#text(size: 7.5pt)[Graph-augmented]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[0.944]], [#text(size: 7.5pt)[0.182]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
+  [#text(size: 7.5pt)[Adaptive (proposed)]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[0.000]], [#text(size: 7.5pt)[0.000]], [#text(size: 7.5pt)[0.000]],
 )
-#text(size: 6.8pt, style: "italic")[$k = 5$; metrics over answerable questions.]
+#text(size: 6.5pt, style: "italic")[$k = 5$; metrics over answerable questions; last three lower-is-better (stale\@1 counts 4/11, 2/11, 2/11, 0/11).]
 ]
 #v(0.2em)
 
-#align(center)[
-#text(size: 8pt, weight: "bold")[TABLE IV]\\\
-#text(size: 8pt)[Staleness, Leakage and Duplication (Core Corpus)]
-#v(0.1em)
-#table(
-  columns: (2.8cm, 1.5cm, 1.5cm, 1.5cm),
-  stroke: 0.3pt + rgb("#888888"),
-  inset: 2.6pt,
-  align: (left, center, center, center),
-  fill: (x, y) => if y == 0 { rgb("#f2f2f2") } else { none },
-  [#text(size: 7.5pt, weight: "bold")[System]], [#text(size: 7.5pt, weight: "bold")[Stale\@1]], [#text(size: 7.5pt, weight: "bold")[Leak]], [#text(size: 7.5pt, weight: "bold")[Duplicate]],
-  [#text(size: 7.5pt)[Vanilla dense]], [#text(size: 7.5pt)[0.364]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
-  [#text(size: 7.5pt)[Hybrid]], [#text(size: 7.5pt)[0.182]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
-  [#text(size: 7.5pt)[Graph-augmented]], [#text(size: 7.5pt)[0.182]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
-  [#text(size: 7.5pt)[Adaptive (proposed)]], [#text(size: 7.5pt)[0.000]], [#text(size: 7.5pt)[0.000]], [#text(size: 7.5pt)[0.000]],
-)
-#text(size: 6.5pt, style: "italic")[Lower is better; counts behind stale\@1 are 4/11, 2/11, 2/11 and 0/11 queries.]
-]
 #v(0.2em)
 
 The central empirical finding is that Hit\@5 does not discriminate: all four systems reach 1.000. Every pipeline finds the relevant memory somewhere in its top five. A study reporting only recall would conclude that the research layer adds nothing. Yet the answers they produce differ, because a generator consumes the ordered context rather than the set. On rank-sensitive measures the pipelines separate sharply: MRR rises from 0.833 (vanilla) through 0.944 (hybrid, equal to graph-augmented) to 1.000 for the adaptive pipeline, a relative improvement of 5.9% over the strongest baseline and 20.0% over vanilla dense retrieval.
@@ -300,7 +259,7 @@ Forgotten-content leakage and duplicate context are both eliminated ($0.022 -> 0
 
 #v(0.2em)
 #align(center)[
-#text(size: 8pt, weight: "bold")[TABLE V]\\\
+#text(size: 8pt, weight: "bold")[TABLE III]\\\
 #text(size: 8pt)[Mean Reciprocal Rank by Question Category]
 #v(0.1em)
 #table(
@@ -320,35 +279,17 @@ Forgotten-content leakage and duplicate context are both eliminated ($0.022 -> 0
 ]
 #v(0.2em)
 
-Contradiction questions are where vanilla is weakest (0.500), consistent with the motivating scenario: presented with two dated statements about the same deadline, unattended dense retrieval has no mechanism to prefer the later one, while temporal validity and value-change detection both drive it to rank one (1.000). Temporal questions improve from 0.750 to 1.000 once predicate canonicalisation makes supersession fire.
+Contradiction questions are where vanilla is weakest (0.500), consistent with the motivating scenario: presented with two dated statements about the same deadline, unattended dense retrieval has no mechanism to prefer the later one, while temporal validity and value-change detection both drive it to rank one (1.000). Temporal questions improve from 0.750 to 1.000 once predicate canonicalisation makes supersession fire. End-to-end retrieval latency over the 11 core queries is 33 ms for vanilla dense (1.14$times$ hybrid), 29 ms for hybrid, 37 ms for graph-augmented (1.28$times$) and 65 ms for the adaptive pipeline (2.24$times$) - the price of the research layer at this corpus scale, from the same execution as Table II.
 
 #v(0.2em)
-#align(center)[
-#text(size: 8pt, weight: "bold")[TABLE VI]\\\
-#text(size: 8pt)[Latency on the Benchmark Corpus]
-#v(0.1em)
-#table(
-  columns: (3.0cm, 2.2cm, 2.0cm),
-  stroke: 0.3pt + rgb("#888888"),
-  inset: 2.6pt,
-  align: (left, center, center),
-  fill: (x, y) => if y == 0 { rgb("#f2f2f2") } else { none },
-  [#text(size: 7.5pt, weight: "bold")[System]], [#text(size: 7.5pt, weight: "bold")[Total ms (11 queries)]], [#text(size: 7.5pt, weight: "bold")[Relative]],
-  [#text(size: 7.5pt)[Vanilla dense]], [#text(size: 7.5pt)[33]], [#text(size: 7.5pt)[1.14$times$]],
-  [#text(size: 7.5pt)[Hybrid]], [#text(size: 7.5pt)[29]], [#text(size: 7.5pt)[1.00$times$]],
-  [#text(size: 7.5pt)[Graph-augmented]], [#text(size: 7.5pt)[37]], [#text(size: 7.5pt)[1.28$times$]],
-  [#text(size: 7.5pt)[Adaptive (proposed)]], [#text(size: 7.5pt)[65]], [#text(size: 7.5pt)[2.24$times$]],
-)
-#text(size: 6.8pt, style: "italic")[Latency from the same execution as Tables III–IV; $approx 2.2times$ hybrid on 15 memories.]
-]
 #v(0.2em)
 
 #text(style: "italic")[B. Multi-User Scalability and Statistical Significance]
-Table VII details performance across 5 diverse professional personas (Software Engineering, Machine Learning Research, Product Operations, University Academics, Health Informatics) over 30 queries; stale\@1 counts behind the rates are 10/30, 7/30, 7/30 and 1/30 queries respectively.
+Table IV covers the 5 personas over 30 queries; stale\@1 counts behind the rates are 10/30, 7/30, 7/30 and 1/30 queries respectively.
 
 #v(0.2em)
 #align(center)[
-#text(size: 8pt, weight: "bold")[TABLE VII]\\\
+#text(size: 8pt, weight: "bold")[TABLE IV]\\\
 #text(size: 8pt)[Multi-User Benchmark & Significance (5 Personas, 30 Queries)]
 #v(0.1em)
 #table(
@@ -371,11 +312,11 @@ Hit\@5 remains fully saturated at 1.000 across all systems. The proposed Adaptiv
 
 #text(style: "italic")[C. Component-Wise Ablation]
 
-Table VIII adds one mechanism per row to hybrid retrieval with the research layer disabled, in the same configuration as Tables III–IV. The design tests H3 directly: each metric should move only on the row that introduces the mechanism responsible for it.
+Table V adds one mechanism per row to hybrid retrieval with the research layer disabled, in the same configuration as Table II. The design tests H3 directly: each metric should move only on the row that introduces the mechanism responsible for it.
 
 #v(0.2em)
 #align(center)[
-#text(size: 8pt, weight: "bold")[TABLE VIII]\\\
+#text(size: 8pt, weight: "bold")[TABLE V]\\\
 #text(size: 8pt)[Cumulative Ablation: One Mechanism Per Row]
 #v(0.1em)
 #table(
@@ -401,7 +342,7 @@ The ablation confirms the predicted attribution for two of the three effects: th
 #v(0.6em)
 #align(center)[#text(size: 9.5pt, weight: "bold")[VII. Implementation and Verification]]
 
-The system is implemented rather than prototyped, and every number in this paper is regenerated by a committed script: a benchmark runner that rebuilds derived research state from scratch and reproduces Tables III–VI; an ablation runner producing Table VIII; a conflict-accuracy harness producing the Section IV-C figures; a multi-user runner producing Table VII with paired Wilcoxon tests; and a verification suite (static health checks, frontend–backend contract checks, pytest research tests covering scoring ranges, supersession semantics, NLI damping, consolidation provenance, gap suppression and leakage across all four modes, plus an endpoint sweep asserting no registered route returns a 5xx).
+The system is implemented rather than prototyped, and every number in this paper is regenerated by a committed script: a benchmark runner that rebuilds derived research state from scratch and reproduces Tables II–III and the latency figures; an ablation runner producing Table V; a conflict-accuracy harness producing the Section IV-C figures; a multi-user runner producing Table IV with paired Wilcoxon tests; and a verification suite (static health checks, frontend–backend contract checks, pytest research tests covering scoring ranges, supersession semantics, NLI damping, consolidation provenance, gap suppression and leakage across all four modes, plus an endpoint sweep asserting no registered route returns a 5xx).
 
 Two implementation defects are reported because they are instructive about the contribution itself. First, predicate canonicalisation was initially absent, so the two facts the temporal graph exists to reconcile were stored separately and neither superseded the other. Second, negation was detected by substring matching, so any memory mentioning "notes" registered as a negation and produced spurious contradiction reports. Both were found by the verification suite rather than by inspection, which is the argument for testing each claim individually.
 
