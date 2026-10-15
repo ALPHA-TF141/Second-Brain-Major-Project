@@ -37,31 +37,28 @@
     gutter: 1.0em,
     [
       #text(size: 9.5pt)[Dr. P S Anu Rakhi]\
+      #text(style: "italic", size: 9.5pt)[School of Computing]\
       #text(style: "italic", size: 9.5pt)[Assistant Professor]\
-      #text(style: "italic", size: 9.5pt)[Dept. of Computer Science]\
-      #text(style: "italic", size: 9.5pt)[and Engineering,]\
       #text(style: "italic", size: 9.5pt)[Vel Tech Rangarajan Dr Sagunthala]\
-      #text(style: "italic", size: 9.5pt)[R&D Institute of Science and Technology,]\
-      #text(style: "italic", size: 9.5pt)[Chennai, India.]\
-      #text(size: 9pt, fill: rgb("#0000ee"))[anurakhips\@veltech.edu.in]
+      #text(style: "italic", size: 9.5pt)[R&D Institute of Science and Technology]\
+      #text(size: 9.5pt)[Chennai, India]\
+      #text(size: 9pt)[anurakhips\@veltech.edu.in]
     ],
     [
       #text(size: 9.5pt)[Maria Immanuel L]\
-      #text(style: "italic", size: 9.5pt)[Dept. of Computer Science]\
-      #text(style: "italic", size: 9.5pt)[and Engineering,]\
+      #text(style: "italic", size: 9.5pt)[School of Computing]\
       #text(style: "italic", size: 9.5pt)[Vel Tech Rangarajan Dr Sagunthala]\
-      #text(style: "italic", size: 9.5pt)[R&D Institute of Science and Technology,]\
-      #text(style: "italic", size: 9.5pt)[Chennai, India.]\
-      #text(size: 9pt, fill: rgb("#0000ee"))[vtu24334\@veltech.edu.in]
+      #text(style: "italic", size: 9.5pt)[R&D Institute of Science and Technology]\
+      #text(size: 9.5pt)[Chennai, India]\
+      #text(size: 9pt)[vtu24334\@veltech.edu.in]
     ],
     [
       #text(size: 9.5pt)[Vigneshwaran S]\
-      #text(style: "italic", size: 9.5pt)[Dept. of Computer Science]\
-      #text(style: "italic", size: 9.5pt)[and Engineering,]\
+      #text(style: "italic", size: 9.5pt)[School of Computing]\
       #text(style: "italic", size: 9.5pt)[Vel Tech Rangarajan Dr Sagunthala]\
-      #text(style: "italic", size: 9.5pt)[R&D Institute of Science and Technology,]\
-      #text(style: "italic", size: 9.5pt)[Chennai, India.]\
-      #text(size: 9pt, fill: rgb("#0000ee"))[vtu24372\@veltech.edu.in]
+      #text(style: "italic", size: 9.5pt)[R&D Institute of Science and Technology]\
+      #text(size: 9.5pt)[Chennai, India]\
+      #text(size: 9pt)[vtu24372\@veltech.edu.in]
     ]
   )
   #v(0.8em)
