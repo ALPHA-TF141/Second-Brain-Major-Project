@@ -174,7 +174,8 @@ class AdaptiveMemoryRetrieval:
     # ================================================================== modes
     def retrieve(self, db, question: str, limit: int = 8, mode: str = "adaptive",
                  allowed_ids: Optional[Iterable[int]] = None,
-                 dense_backend: Optional[str] = None) -> List[Dict[str, Any]]:
+                 dense_backend: Optional[str] = None,
+                 ablation: Optional[Dict[str, bool]] = None) -> List[Dict[str, Any]]:
         """
         `allowed_ids` restricts the candidate pool to a set of memories.
 
@@ -260,27 +261,38 @@ class AdaptiveMemoryRetrieval:
 
         # ================================================= ADAPTIVE =======
         if mode == "adaptive":
-            ordered = self._apply_research_layer(db, ordered, trace)
+            ordered = self._apply_research_layer(db, ordered, trace, ablation)
 
         trace["stages"]["returned"] = min(len(ordered), limit)
         self.last_trace = trace
         return [self._shape(m, 0.0, {"rank_source": mode}) for m in ordered[:limit]]
 
     # ------------------------------------------------- research layer
-    def _apply_research_layer(self, db, ordered: List, trace: Dict[str, Any]) -> List:
+    def _apply_research_layer(self, db, ordered: List, trace: Dict[str, Any],
+                              ablation: Optional[Dict[str, bool]] = None) -> List:
+        # Ablation support (paper E1): when `ablation` is given, ONLY the named
+        # mechanisms run; absent keys are disabled. None = every mechanism on,
+        # which is the shipped behaviour.
         from app.models.research import ForgottenMemory, MemoryScore
         from app.research.consolidation import memory_consolidator
         from app.research.contradictions import contradiction_resolver
         from app.research.temporal import temporal_knowledge_graph
 
+        flags = {"forgetting": True, "temporal": True, "contradiction": True,
+                 "consolidation": True, "importance": True}
+        if ablation is not None:
+            flags = {key: bool(ablation.get(key, False)) for key in flags}
+            trace["stages"]["ablation"] = dict(flags)
+
         # 1. EXCLUDE forgotten memories. Absolute - nothing can re-admit them.
-        try:
-            forgotten = {row.memory_id for row in db.query(ForgottenMemory).all()}
-        except Exception:
-            forgotten = set()
-        before = len(ordered)
-        ordered = [m for m in ordered if m.id not in forgotten]
-        trace["stages"]["excluded_forgotten"] = before - len(ordered)
+        if flags["forgetting"]:
+            try:
+                forgotten = {row.memory_id for row in db.query(ForgottenMemory).all()}
+            except Exception:
+                forgotten = set()
+            before = len(ordered)
+            ordered = [m for m in ordered if m.id not in forgotten]
+            trace["stages"]["excluded_forgotten"] = before - len(ordered)
 
         # 2. DAMP superseded memories (temporal) and conflicted ones
         scores = {}
@@ -295,15 +307,17 @@ class AdaptiveMemoryRetrieval:
         for index, memory in enumerate(ordered):
             multiplier = 1.0
 
-            temporal_weight = temporal_knowledge_graph.temporal_weight(db, memory.id)
-            if temporal_weight < 0.7:
-                multiplier *= temporal_weight
-                damped_temporal += 1
+            if flags["temporal"]:
+                temporal_weight = temporal_knowledge_graph.temporal_weight(db, memory.id)
+                if temporal_weight < 0.7:
+                    multiplier *= temporal_weight
+                    damped_temporal += 1
 
-            conflict_mult, _reason = contradiction_resolver.conflict_penalty(db, memory.id)
-            if conflict_mult < 1.0:
-                multiplier *= conflict_mult
-                damped_conflict += 1
+            if flags["contradiction"]:
+                conflict_mult, _reason = contradiction_resolver.conflict_penalty(db, memory.id)
+                if conflict_mult < 1.0:
+                    multiplier *= conflict_mult
+                    damped_conflict += 1
 
             # Rank-preserving: the fused retrieval order is the prior, damping
             # adjusts it, and importance is only a light tie-breaker. Sorting on
@@ -311,7 +325,8 @@ class AdaptiveMemoryRetrieval:
             # high-importance-but-less-relevant memories above the gold one.
             prior = 1.0 / (1.0 + index)
             importance = scores.get(memory.id, 0.5)
-            final = prior * multiplier * (0.85 + 0.15 * importance)
+            importance_factor = (0.85 + 0.15 * importance) if flags["importance"] else 1.0
+            final = prior * multiplier * importance_factor
             adjusted.append((memory, final, multiplier, importance))
 
         adjusted.sort(key=lambda t: -t[1])
@@ -320,11 +335,12 @@ class AdaptiveMemoryRetrieval:
         trace["stages"]["damped_conflict"] = damped_conflict
 
         # 3. COLLAPSE near-duplicates so the context budget is not wasted
-        ids = [m.id for m in ordered]
-        kept_ids = memory_consolidator.retrieval_dedup(db, ids)
-        trace["stages"]["deduped"] = len(ids) - len(kept_ids)
-        by_id = {m.id: m for m in ordered}
-        ordered = [by_id[i] for i in kept_ids if i in by_id]
+        if flags["consolidation"]:
+            ids = [m.id for m in ordered]
+            kept_ids = memory_consolidator.retrieval_dedup(db, ids)
+            trace["stages"]["deduped"] = len(ids) - len(kept_ids)
+            by_id = {m.id: m for m in ordered}
+            ordered = [by_id[i] for i in kept_ids if i in by_id]
 
         return ordered
 

@@ -345,7 +345,8 @@ class BenchmarkRunner:
     # -------------------------------------------------------------- evaluate
     def evaluate(self, db, mode: str = "adaptive", k: int = 5,
                  key_to_id: Optional[Dict[str, int]] = None,
-                 dense_backend: str = "tfidf") -> Dict[str, Any]:
+                 dense_backend: str = "tfidf",
+                 ablation: Optional[Dict[str, bool]] = None) -> Dict[str, Any]:
         from app.models.memory import Memory
         from app.models.research import ForgottenMemory
         from app.research.consolidation import memory_consolidator
@@ -381,7 +382,7 @@ class BenchmarkRunner:
         corpus_ids = set(key_to_id.values())
 
         for question in self.bench.build_questions():
-            results = adaptive_retrieval.retrieve(db, question["question"], limit=k, mode=mode,
+            results = adaptive_retrieval.retrieve(db, question["question"], limit=k, mode=mode, ablation=ablation,
                                                   allowed_ids=corpus_ids,
                                                   dense_backend=dense_backend)
             result_ids = [r["memory_id"] for r in results]

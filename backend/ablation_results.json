@@ -1,0 +1,102 @@
+{
+  "corpus": {
+    "memories": 15,
+    "conflicts": 2
+  },
+  "k": 5,
+  "dense_backend": "tfidf",
+  "rows": [
+    {
+      "config": "hybrid (layer off)",
+      "mode": "hybrid",
+      "ablation": null,
+      "hit_at_5": 1.0,
+      "mrr": 0.9444,
+      "stale_top1_rate": 0.1818,
+      "staleness_rate": 0.087,
+      "duplicate_rate": 0.0217,
+      "forgotten_leak_rate": 0.0217,
+      "latency_ms": 36
+    },
+    {
+      "config": "+temporal",
+      "mode": "adaptive",
+      "ablation": {
+        "temporal": true
+      },
+      "hit_at_5": 1.0,
+      "mrr": 1.0,
+      "stale_top1_rate": 0.0909,
+      "staleness_rate": 0.087,
+      "duplicate_rate": 0.0217,
+      "forgotten_leak_rate": 0.0217,
+      "latency_ms": 39
+    },
+    {
+      "config": "+contradiction",
+      "mode": "adaptive",
+      "ablation": {
+        "temporal": true,
+        "contradiction": true
+      },
+      "hit_at_5": 1.0,
+      "mrr": 1.0,
+      "stale_top1_rate": 0.0909,
+      "staleness_rate": 0.087,
+      "duplicate_rate": 0.0217,
+      "forgotten_leak_rate": 0.0435,
+      "latency_ms": 56
+    },
+    {
+      "config": "+consolidation",
+      "mode": "adaptive",
+      "ablation": {
+        "temporal": true,
+        "contradiction": true,
+        "consolidation": true
+      },
+      "hit_at_5": 1.0,
+      "mrr": 1.0,
+      "stale_top1_rate": 0.0909,
+      "staleness_rate": 0.093,
+      "duplicate_rate": 0.0,
+      "forgotten_leak_rate": 0.0465,
+      "latency_ms": 54
+    },
+    {
+      "config": "+forgetting",
+      "mode": "adaptive",
+      "ablation": {
+        "temporal": true,
+        "contradiction": true,
+        "consolidation": true,
+        "forgetting": true
+      },
+      "hit_at_5": 1.0,
+      "mrr": 1.0,
+      "stale_top1_rate": 0.0,
+      "staleness_rate": 0.0698,
+      "duplicate_rate": 0.0,
+      "forgotten_leak_rate": 0.0,
+      "latency_ms": 52
+    },
+    {
+      "config": "+importance (full)",
+      "mode": "adaptive",
+      "ablation": {
+        "temporal": true,
+        "contradiction": true,
+        "consolidation": true,
+        "forgetting": true,
+        "importance": true
+      },
+      "hit_at_5": 1.0,
+      "mrr": 1.0,
+      "stale_top1_rate": 0.0,
+      "staleness_rate": 0.0698,
+      "duplicate_rate": 0.0,
+      "forgotten_leak_rate": 0.0,
+      "latency_ms": 52
+    }
+  ]
+}
