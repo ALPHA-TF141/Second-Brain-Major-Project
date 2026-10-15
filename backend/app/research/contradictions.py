@@ -41,6 +41,35 @@ def _has_negation(text: str) -> bool:
     return any(re.search(pattern, text) for pattern in NEGATION_PATTERNS)
 
 
+# Hedged statements are uncertain claims, not assertions. They are not recorded
+# as hard conflicts: "might be at 2 PM" does not contradict "is at 10 AM".
+HEDGE_PATTERN = re.compile(
+    r"\b(?:might|maybe|possibly|perhaps|probably|not sure|unsure|unconfirmed|tentative(?:ly)?|tbc|to be confirmed|i think|i believe)\b",
+    re.IGNORECASE,
+)
+
+
+def _is_hedged(text: str) -> bool:
+    return bool(HEDGE_PATTERN.search(text or ""))
+
+
+# Clock times: "10 AM", "2:30pm", "14:00". Normalised to "10am", "2:30pm", "14:00".
+TIME_PATTERN = re.compile(
+    r"\b(\d{1,2}(?::\d{2})?\s*(?:am|pm))\b|\b([01]?\d|2[0-3]):([0-5]\d)\b",
+    re.IGNORECASE,
+)
+
+
+def _clock_times(text: str) -> set:
+    found = set()
+    for m in TIME_PATTERN.finditer(text or ""):
+        if m.group(1):
+            found.add(re.sub(r"\s+", "", m.group(1).lower()))
+        else:
+            found.add(f"{int(m.group(2)):02d}:{m.group(3)}")
+    return found
+
+
 class ContradictionResolver:
     def __init__(self):
         self.min_similarity = 0.45
@@ -174,14 +203,23 @@ class ContradictionResolver:
                 similarity = self._similarity(text, other_text)
                 if similarity < self.min_similarity:
                     continue
-                # same topic, one denies -> conflict
+                if _is_hedged(text) or _is_hedged(other_text):
+                    continue      # uncertain claim: not a hard conflict
+                # same topic, one denies -> conflict. Name the older side by
+                # time: the retrieval penalty damps the OLDER memory.
+                other_time = other.created_at or datetime.min
+                mine_time = memory.created_at or datetime.min
+                if other_time <= mine_time:
+                    older_m, newer_m = other, memory
+                else:
+                    older_m, newer_m = memory, other
                 conflicts.append({
                     "subject": "user",
                     "predicate": "claim",
-                    "older_memory_id": None,
-                    "newer_memory_id": memory.id,
-                    "older_value": other.title or other.content[:60],
-                    "newer_value": text[:60],
+                    "older_memory_id": older_m.id,
+                    "newer_memory_id": newer_m.id,
+                    "older_value": (older_m.title or older_m.content or "")[:60],
+                    "newer_value": (newer_m.title or newer_m.content or "")[:60],
                     "conflict_type": "negation",
                     "severity": round(min(0.9, similarity + 0.2), 3),
                     "detected_by": "lexical",
@@ -246,10 +284,12 @@ class ContradictionResolver:
             candidate_query.order_by(Memory.created_at.desc()).limit(120).all()
         )
 
+        my_hedged = _is_hedged(text)
+        my_times = _clock_times(text)
         for other in candidates:
             other_text = f"{other.title or ''} {other.content or ''}"
             other_values = {v.lower().strip() for v in self.DATE_PATTERN.findall(other_text)}
-            if not other_values or other_values == my_values:
+            if not other_values:
                 continue
 
             other_sig = self._signature(other_text)
@@ -261,6 +301,37 @@ class ContradictionResolver:
             # memories that happened to contain a date. Requiring BOTH a high
             # overlap AND a few shared salient words keeps the pairings honest.
             if overlap < 0.5 or len(shared) < 3:
+                continue
+
+            # Uncertain claims are not hard conflicts.
+            if my_hedged or _is_hedged(other_text):
+                continue
+
+            if other_values == my_values:
+                # Same anchor date. A different single clock time for the same
+                # topic is a genuine contradiction ("10 AM" vs "2 PM" on 20 Oct).
+                other_times = _clock_times(other_text)
+                if len(my_times) == 1 and len(other_times) == 1 and my_times != other_times:
+                    mine_time = memory.created_at or datetime.min
+                    other_time = other.created_at or datetime.min
+                    if mine_time >= other_time:
+                        older_id, newer_id = other.id, memory.id
+                        older_val, newer_val = sorted(other_times)[0], sorted(my_times)[0]
+                    else:
+                        older_id, newer_id = memory.id, other.id
+                        older_val, newer_val = sorted(my_times)[0], sorted(other_times)[0]
+                    out.append({
+                        "subject": "topic",
+                        "predicate": "clock_time",
+                        "older_memory_id": older_id,
+                        "newer_memory_id": newer_id,
+                        "older_value": older_val,
+                        "newer_value": newer_val,
+                        "conflict_type": "contradiction",
+                        "severity": round(min(0.9, 0.6 + overlap * 0.3), 3),
+                        "detected_by": "value_change",
+                        "_shared": sorted(shared)[:4],
+                    })
                 continue
 
             mine_time = memory.created_at or datetime.min
@@ -309,15 +380,19 @@ class ContradictionResolver:
             query = query.filter(Memory.id.in_(memory_ids))
         memories = query.all()
 
-        # Clear previous auto-detections so a re-run does not accumulate
+        # Clear previous UNRESOLVED auto-detections so a re-run does not
+        # accumulate. Resolved conflicts are evidence a user reviewed; they are
+        # never deleted by a re-scan.
+        unresolved = MemoryConflict.resolved == False  # noqa: E712
         if scope_ids is not None:
             scope = list(scope_ids)
             db.query(MemoryConflict).filter(
+                unresolved,
                 (MemoryConflict.older_memory_id.in_(scope)) |
                 (MemoryConflict.newer_memory_id.in_(scope))
             ).delete(synchronize_session=False)
         else:
-            db.query(MemoryConflict).delete()
+            db.query(MemoryConflict).filter(unresolved).delete(synchronize_session=False)
         db.commit()
 
         stored = 0
@@ -349,6 +424,16 @@ class ContradictionResolver:
                             conflict["older_memory_id"], conflict["newer_memory_id"] = newer_id, older_id
                             conflict["older_value"], conflict["newer_value"] = \
                                 conflict["newer_value"], conflict["older_value"]
+
+                # Do not re-store a pair that already has a row (for example one
+                # the user resolved): the evidence is kept once, not duplicated.
+                already = db.query(MemoryConflict).filter(
+                    MemoryConflict.older_memory_id == conflict.get("older_memory_id"),
+                    MemoryConflict.newer_memory_id == conflict.get("newer_memory_id"),
+                    MemoryConflict.conflict_type == conflict.get("conflict_type", "value_change"),
+                ).first()
+                if already is not None:
+                    continue
 
                 row = MemoryConflict(
                     subject=conflict["subject"],

@@ -103,9 +103,19 @@ class ForgettingService:
 
         # 6. mark, or purge
         if hard:
+            # Purge every row that references the memory, so a hard delete does
+            # not leave orphaned tags, relationships or tombstones behind.
+            from app.models.memory import MemoryRelationship, MemoryTag
+
             db.query(MemoryConsolidation).filter(
                 MemoryConsolidation.canonical_memory_id == memory_id
             ).delete(synchronize_session=False)
+            db.query(MemoryTag).filter(MemoryTag.memory_id == memory_id).delete(synchronize_session=False)
+            db.query(MemoryRelationship).filter(
+                (MemoryRelationship.source_memory_id == memory_id)
+                | (MemoryRelationship.target_memory_id == memory_id)
+            ).delete(synchronize_session=False)
+            db.query(ForgottenMemory).filter(ForgottenMemory.memory_id == memory_id).delete(synchronize_session=False)
             db.delete(memory)
         else:
             existing = db.query(ForgottenMemory).filter(ForgottenMemory.memory_id == memory_id).first()

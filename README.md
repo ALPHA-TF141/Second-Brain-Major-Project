@@ -62,6 +62,17 @@ cd backend
 pip install -r requirements-semantic.txt
 ```
 
+## Tests and checks
+
+```bash
+npm run lint && npm run build && npm run check:api   # frontend
+cd backend && python -m pytest -q                    # backend (uses a temp database)
+```
+
+The neural NLI tests are skipped, with a reason printed, when the optional
+model is not installed. See `docs/BASELINE.md` for the audit, the defects
+fixed, and the open items.
+
 ## Research layer and benchmark
 
 The Memory Lab page (`/memory-lab`) demonstrates every mechanism and runs the

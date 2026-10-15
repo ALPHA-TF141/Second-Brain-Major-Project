@@ -21,6 +21,12 @@ import { apiFetch, openInBrowser } from '../services/apiClient.js';
 
  * Nothing here is simulated. If something is not connected it says so.
  */
+const noticeStyle = {
+  error: 'border-rose-500/30 bg-rose-500/10 text-rose-200',
+  success: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-200',
+  info: 'border-sky-500/30 bg-sky-500/10 text-sky-200',
+};
+
 const ACCOUNTS = [
   { email: 'immanuellourdu@gmail.com', kind: 'personal' },
   { email: 'lmariaimmanuel@gmail.com', kind: 'personal' },

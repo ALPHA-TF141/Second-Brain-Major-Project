@@ -1,7 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel
-
+from pydantic import BaseModel, Field
 
 class MemoryOut(BaseModel):
     id: int
@@ -49,3 +48,29 @@ class RelationshipOut(BaseModel):
 class TimelineGroup(BaseModel):
     label: str
     memories: list[MemoryOut]
+
+
+class MemoryCreate(BaseModel):
+    content: str = Field(..., description="The fact, note or event to remember.")
+    title: str | None = Field(default=None, max_length=220)
+    topic_label: str | None = Field(default=None, max_length=160)
+    category: str | None = Field(default=None, max_length=80)
+    tags: list[str] = Field(default_factory=list, max_length=20)
+
+
+class MemoryUpdate(BaseModel):
+    """Partial update. Omitted fields are left unchanged."""
+
+    content: str | None = None
+    title: str | None = Field(default=None, max_length=220)
+    topic_label: str | None = Field(default=None, max_length=160)
+    category: str | None = Field(default=None, max_length=80)
+    tags: list[str] | None = Field(default=None, max_length=20)
+
+
+class MemoryDeleteResult(BaseModel):
+    forgotten: bool
+    memory_id: int
+    hard_delete: bool
+    enforcement_points: int | None = None
+    removed: dict = Field(default_factory=dict)
