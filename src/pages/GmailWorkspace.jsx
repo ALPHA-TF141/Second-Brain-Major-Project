@@ -110,7 +110,6 @@ export default function GmailWorkspace() {
   async function openMessage(message) {
     setSelected({ ...message, body: '' });
     setDraft('');
-    setTaskNotice('');
     setBodyLoading(true);
     try {
       const res = await apiFetch(

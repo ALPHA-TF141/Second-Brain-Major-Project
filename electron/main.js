@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, session, Tray, Menu, nativeImage, shell, globalShortcut, screen } = require('electron');
+const { app, BrowserWindow, ipcMain, session, Tray, Menu, nativeImage, shell, globalShortcut } = require('electron');
 const path = require('path');
 
 const isDev = !app.isPackaged;
@@ -116,6 +116,15 @@ ipcMain.handle('shell:open-external', async (_event, url) => {
     return { ok: false, error: String(err) };
   }
 });
+
+// Grant only what the app needs. The voice pipeline needs the microphone
+// ('media'); every other browser permission (camera, geolocation,
+// notifications, ...) is denied.
+function setupPermissions() {
+  session.defaultSession.setPermissionRequestHandler((_webContents, permission, callback) => {
+    callback(permission === 'media');
+  });
+}
 
 app.whenReady().then(() => {
   setupPermissions();

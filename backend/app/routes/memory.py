@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import Response
 from sqlalchemy.orm import Session
 
@@ -8,7 +8,16 @@ from app.database.session import get_db
 from app.memory.archive import memory_archive
 from app.models.memory import Memory, MemoryRelationship, SessionSummary
 from app.models.user import User
-from app.schemas.memory import MemoryOut, RelationshipOut, SessionSummaryOut
+from app.schemas.memory import (
+    MemoryCreate,
+    MemoryDeleteResult,
+    MemoryOut,
+    MemoryUpdate,
+    RelationshipOut,
+    SessionSummaryOut,
+)
+from app.services import memory_crud
+from app.services.memory_crud import DuplicateMemoryError, MemoryNotFoundError, MemoryValidationError
 from app.search.memory_search import memory_search
 
 
@@ -50,12 +59,83 @@ def search_memories(
     return attach_tags(db, memories)
 
 
+@router.get("/memories", response_model=list[MemoryOut])
+def list_memories(
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    db: Session = Depends(get_db),
+    _user: User = Depends(get_current_user),
+):
+    """Live (not forgotten) memories, newest first."""
+    try:
+        memories = memory_crud.list_memories(db, limit=limit, offset=offset)
+    except MemoryValidationError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
+    return attach_tags(db, memories)
+
+
+@router.post("/memories", response_model=MemoryOut, status_code=201)
+def create_memory(payload: MemoryCreate, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    try:
+        memory = memory_crud.create_memory(
+            db,
+            user_id=user.id,
+            content=payload.content,
+            title=payload.title,
+            topic_label=payload.topic_label,
+            category=payload.category,
+            tags=payload.tags,
+        )
+    except MemoryValidationError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
+    except DuplicateMemoryError as exc:
+        raise HTTPException(status_code=409, detail=str(exc))
+    return attach_tags(db, [memory])[0]
+
+
 @router.get("/memories/{memory_id}", response_model=MemoryOut)
 def memory_detail(memory_id: int, db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
-    memory = db.query(Memory).filter(Memory.id == memory_id).first()
-    if not memory:
+    try:
+        memory = memory_crud.get_memory(db, memory_id)
+    except MemoryNotFoundError:
         raise HTTPException(status_code=404, detail="Memory not found")
     return attach_tags(db, [memory])[0]
+
+
+@router.put("/memories/{memory_id}", response_model=MemoryOut)
+def update_memory(memory_id: int, payload: MemoryUpdate, db: Session = Depends(get_db), _user: User = Depends(get_current_user)):
+    changes = payload.model_dump(exclude_unset=True)
+    if not changes:
+        raise HTTPException(status_code=422, detail="No fields to update")
+    try:
+        memory = memory_crud.update_memory(db, memory_id, **changes)
+    except MemoryNotFoundError:
+        raise HTTPException(status_code=404, detail="Memory not found")
+    except MemoryValidationError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
+    except DuplicateMemoryError as exc:
+        raise HTTPException(status_code=409, detail=str(exc))
+    return attach_tags(db, [memory])[0]
+
+
+@router.delete("/memories/{memory_id}", response_model=MemoryDeleteResult)
+def delete_memory(
+    memory_id: int,
+    hard: bool = Query(False, description="Purge the row and its derived data instead of tombstoning it."),
+    db: Session = Depends(get_db),
+    _user: User = Depends(get_current_user),
+):
+    try:
+        outcome = memory_crud.delete_memory(db, memory_id, hard=hard)
+    except MemoryNotFoundError:
+        raise HTTPException(status_code=404, detail="Memory not found")
+    return MemoryDeleteResult(
+        forgotten=True,
+        memory_id=memory_id,
+        hard_delete=hard,
+        enforcement_points=outcome.get("enforcement_points"),
+        removed=outcome.get("removed", {}),
+    )
 
 
 @router.get("/memories/{memory_id}/relationships", response_model=list[RelationshipOut])

@@ -12,12 +12,22 @@ from app.research.temporal import temporal_knowledge_graph
 from app.research.contradictions import contradiction_resolver
 from app.research.bench import benchmark_runner
 
+# The neural tests need the optional ONNX NLI model (requirements-semantic.txt
+# plus a one-time HuggingFace download). Skip them with a visible reason instead
+# of failing when that stack is absent; they run in full where it is installed.
+requires_neural_nli = pytest.mark.skipif(
+    not neural_nli.is_available(),
+    reason="optional neural NLI model not available (install requirements-semantic.txt and allow HuggingFace download)",
+)
 
+
+@requires_neural_nli
 def test_neural_nli_availability():
     """Ensure ONNX NLI model initializes and reports ready."""
     assert neural_nli.is_available() is True
 
 
+@requires_neural_nli
 def test_neural_nli_contradiction():
     """Ensure NLI Cross-Encoder detects semantic contradictions accurately."""
     premise = "The project evaluation deadline is 15 October 2026."
@@ -28,6 +38,7 @@ def test_neural_nli_contradiction():
     assert label == "contradiction"
 
 
+@requires_neural_nli
 def test_neural_nli_entailment():
     """Ensure NLI Cross-Encoder does not falsely flag consistent statements."""
     premise = "We are releasing version 2.0 next Tuesday."
@@ -37,6 +48,7 @@ def test_neural_nli_entailment():
     assert label == "consistent"
 
 
+@requires_neural_nli
 def test_neural_temporal_fact_extraction():
     """Ensure neural dependency parsing extracts non-regex state transitions."""
     text = "I switched over to Spring Boot for microservices architecture."
