@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="340" height="212" viewBox="0 0 340 212" font-family="Libertinus Serif, serif">
+  <defs/>
+  <!-- ================= left: main pipeline ================= -->
+  <!-- capture -->
+  <rect x="8" y="8" width="152" height="30" fill="#f2f2f2" stroke="#333" stroke-width="0.8"/>
+  <text x="84" y="20" text-anchor="middle" font-size="9.5">Capture &amp; ingest</text>
+  <text x="84" y="31" text-anchor="middle" font-size="7">screen OCR · mail · web · voice · clipboard</text>
+  <!-- arrow -->
+  <line x1="84" y1="38" x2="84" y2="46" stroke="#333" stroke-width="0.8"/>
+  <polygon points="84,50 81,45 87,45" fill="#333"/>
+  <!-- normalisation -->
+  <rect x="8" y="50" width="152" height="30" fill="#f2f2f2" stroke="#333" stroke-width="0.8"/>
+  <text x="84" y="62" text-anchor="middle" font-size="9.5">Normalisation</text>
+  <text x="84" y="73" text-anchor="middle" font-size="7">chunking · content hash · dedup key</text>
+  <line x1="84" y1="80" x2="84" y2="88" stroke="#333" stroke-width="0.8"/>
+  <polygon points="84,92 81,87 87,87" fill="#333"/>
+  <!-- memory store -->
+  <rect x="8" y="92" width="152" height="30" fill="#f2f2f2" stroke="#333" stroke-width="0.8"/>
+  <text x="84" y="104" text-anchor="middle" font-size="9.5">Memory store</text>
+  <text x="84" y="115" text-anchor="middle" font-size="7">SQLite · FTS index · vectors · derived graph</text>
+  <line x1="84" y1="122" x2="84" y2="130" stroke="#333" stroke-width="0.8"/>
+  <polygon points="84,134 81,129 87,129" fill="#333"/>
+  <!-- retrieval -->
+  <rect x="8" y="134" width="152" height="30" fill="#e8e8e8" stroke="#333" stroke-width="1.1"/>
+  <text x="84" y="146" text-anchor="middle" font-size="9.5" font-weight="bold">Retrieval</text>
+  <text x="84" y="157" text-anchor="middle" font-size="7">vanilla · hybrid · graph · adaptive</text>
+  <line x1="84" y1="164" x2="84" y2="172" stroke="#333" stroke-width="0.8"/>
+  <polygon points="84,176 81,171 87,171" fill="#333"/>
+  <!-- generation -->
+  <rect x="8" y="176" width="152" height="30" fill="#f2f2f2" stroke="#333" stroke-width="0.8"/>
+  <text x="84" y="188" text-anchor="middle" font-size="9.5">Generation</text>
+  <text x="84" y="199" text-anchor="middle" font-size="7">local / hosted LLM over ranked context</text>
+
+  <!-- ================= right: research layer ================= -->
+  <rect x="180" y="8" width="152" height="156" fill="none" stroke="#333" stroke-width="0.9" stroke-dasharray="4 2.5"/>
+  <text x="256" y="20" text-anchor="middle" font-size="8.5" font-style="italic">Research layer (additive, switchable)</text>
+
+  <rect x="188" y="26" width="136" height="18" fill="#ffffff" stroke="#555" stroke-width="0.6"/>
+  <text x="256" y="38" text-anchor="middle" font-size="7.8">C1  Adaptive scoring · 8 terms</text>
+  <rect x="188" y="48" width="136" height="18" fill="#ffffff" stroke="#555" stroke-width="0.6"/>
+  <text x="256" y="60" text-anchor="middle" font-size="7.8">C2  Temporal TKG · supersession</text>
+  <rect x="188" y="70" width="136" height="18" fill="#ffffff" stroke="#555" stroke-width="0.6"/>
+  <text x="256" y="82" text-anchor="middle" font-size="7.8">C3  NLI conflicts · rank damping</text>
+  <rect x="188" y="92" width="136" height="18" fill="#ffffff" stroke="#555" stroke-width="0.6"/>
+  <text x="256" y="104" text-anchor="middle" font-size="7.8">C4  Consolidation · provenance</text>
+  <rect x="188" y="114" width="136" height="18" fill="#ffffff" stroke="#555" stroke-width="0.6"/>
+  <text x="256" y="126" text-anchor="middle" font-size="7.8">C5  Knowledge-gap detection</text>
+  <rect x="188" y="136" width="136" height="18" fill="#ffffff" stroke="#555" stroke-width="0.6"/>
+  <text x="256" y="148" text-anchor="middle" font-size="7.8">C6  Forgetting · 5 surfaces</text>
+
+  <!-- C7 bench -->
+  <rect x="180" y="176" width="152" height="30" fill="#ffffff" stroke="#333" stroke-width="0.9"/>
+  <text x="256" y="188" text-anchor="middle" font-size="8.5">C7  PersonalBrain-Bench</text>
+  <text x="256" y="199" text-anchor="middle" font-size="7">evaluates the four pipelines (Tables III–VIII)</text>
+
+  <!-- store <-> research layer : annotate -->
+  <line x1="160" y1="101" x2="176" y2="101" stroke="#333" stroke-width="0.8"/>
+  <polygon points="180,101 175,98 175,104" fill="#333"/>
+  <line x1="176" y1="111" x2="164" y2="111" stroke="#333" stroke-width="0.8"/>
+  <polygon points="160,111 165,108 165,114" fill="#333"/>
+  <text x="170" y="94" text-anchor="middle" font-size="6.2">annotate</text>
+  <text x="170" y="122" text-anchor="middle" font-size="6.2">scores</text>
+
+  <!-- research layer -> retrieval : gating -->
+  <path d="M 188 164 L 188 172 L 168 172 L 168 152 L 164 152" fill="none" stroke="#333" stroke-width="0.8"/>
+  <polygon points="160,152 165,149 165,155" fill="#333"/>
+  <text x="203" y="171" text-anchor="middle" font-size="6.2">exclude · damp · dedup</text>
+
+  <!-- C7 -> retrieval : measurement -->
+  <line x1="180" y1="185" x2="168" y2="185" stroke="#333" stroke-width="0.8" stroke-dasharray="2.5 2"/>
+  <path d="M 168 185 L 168 160 L 164 160" fill="none" stroke="#333" stroke-width="0.8" stroke-dasharray="2.5 2"/>
+  <polygon points="160,160 165,157 165,163" fill="#333"/>
+</svg>

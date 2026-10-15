@@ -147,8 +147,13 @@ Work on hallucination reduction verifies generated claims against retrieved evid
 #v(0.6em)
 #align(center)[#text(size: 9.5pt, weight: "bold")[III. System Architecture and Methodology]]
 
-SecondBrain is a client–server personal knowledge system. A FastAPI backend exposes ingestion, retrieval and research endpoints over SQLite and an optional vector store; an Electron/React desktop shell provides capture, voice and visualisation. The substrate is standard: Sentence-BERT-style embeddings [18] over an approximate nearest-neighbour index [19], a local or hosted LLM for generation [20], and weakly-supervised speech recognition for the voice path [21]. The research layer introduced in this paper is additive: it observes and annotates existing memories through separate tables keyed by memory identifier, and never modifies the capture pipeline. All seven components are optional at runtime, so the system degrades to a conventional RAG assistant if any is disabled, which is what makes the comparative evaluation and the ablation in Section VI possible.
+SecondBrain is a client–server personal knowledge system. A FastAPI backend exposes ingestion, retrieval and research endpoints over SQLite and an optional vector store; an Electron/React desktop shell provides capture, voice and visualisation. The substrate is standard: Sentence-BERT-style embeddings [18] over an approximate nearest-neighbour index [19], a local or hosted LLM for generation [20], and weakly-supervised speech recognition for the voice path [21]. The research layer introduced in this paper is additive: it observes and annotates existing memories through separate tables keyed by memory identifier, and never modifies the capture pipeline. All seven components are optional at runtime, so the system degrades to a conventional RAG assistant if any is disabled, which is what makes the comparative evaluation and the ablation in Section VI possible. Fig. 1 shows the resulting architecture: the research layer (C1–C6) annotates the memory store and gates retrieval, and PersonalBrain-Bench (C7) evaluates the four pipelines.
 
+#figure(
+  image("diagrams/paper_architecture.svg", width: 100%),
+  supplement: [Fig.],
+  caption: [SecondBrain architecture. Capture and normalisation are unchanged from a conventional personal RAG system; the research layer (dashed) is additive and switchable. C1–C6 annotate the memory store and gate retrieval (exclusion, rank damping, deduplication); C7 evaluates the four retrieval pipelines reported in Tables III–VIII.],
+)
 #v(0.3em)
 #align(center)[
 #text(size: 8pt, weight: "bold")[TABLE II]\\\
