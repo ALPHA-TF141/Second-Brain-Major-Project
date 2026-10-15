@@ -71,12 +71,12 @@
 
 #set par(first-line-indent: 0pt)
 #text(size: 8.5pt, weight: "bold")[
-Abstract—Retrieval-augmented generation over a personal knowledge store fails in a way that general-purpose RAG evaluation does not capture. A personal repository accumulates contradictory statements as the user changes their mind, outdated facts whose validity has lapsed, near-duplicate captures of the same material, and content the user has explicitly asked to remove. Standard retrieval treats all of it as equally current evidence, so the generated answer can be confidently wrong while every individual retrieved passage remains faithful to its source. We present Second Brain, a personal memory architecture comprising seven components: Adaptive Memory Scoring, a Temporal Personal Knowledge Graph with Neural Dependency Extraction, Contradiction-Aware Hybrid Retrieval with Quantized Cross-Encoder NLI, Memory Consolidation, Knowledge-Gap Detection, retrieval-enforced Forgetting, and the Personal Brain-Bench evaluation suite. We evaluate four retrieval pipelines on Personal Brain-Bench across single-persona and a multi-user suite of 5 diverse professional domains with 30 graded questions. Hit\@5 saturates at 1.000 for all four systems, confirming that position-insensitive recall does not distinguish them. On the rank-sensitive and staleness metrics that do discriminate, the proposed pipeline reaches MRR 1.000 (core) and 0.9600 (multi-user) against 0.833–0.880 (vanilla dense), 0.940–0.944 (hybrid) and 0.940–0.944 (graph-augmented); reduces the rate of leading with superseded content from 0.364 to 0.000 (core) and from 0.333 to 0.033 on multi-user benchmarks ($p = 0.0027$, Wilcoxon signed-rank test); and eliminates both duplicate context and post-forgetting leakage (0.000 vs. 0.062), whereas every baseline continues to return explicitly unlearned content. Two consecutive benchmark executions produce byte-identical metrics, so the comparison is reproducible without any neural embedding model or network access.
+Abstract—Retrieval-augmented generation over a personal knowledge store fails in a way that general-purpose RAG evaluation does not capture. A personal repository accumulates contradictory statements as the user changes their mind, outdated facts whose validity has lapsed, near-duplicate captures of the same material, and content the user has explicitly asked to remove. Standard retrieval treats all of it as equally current evidence, so the generated answer can be confidently wrong while every individual retrieved passage remains faithful to its source. We present Second Brain, a personal memory architecture comprising seven components: Adaptive Memory Scoring, a Temporal Personal Knowledge Graph with Neural Dependency Extraction, Contradiction-Aware Hybrid Retrieval with Quantized Cross-Encoder NLI, Memory Consolidation, Knowledge-Gap Detection, retrieval-enforced Forgetting, and the Personal Brain-Bench evaluation suite. We evaluate four retrieval pipelines on Personal Brain-Bench across single-persona and a multi-user suite of 5 diverse professional domains with 30 graded questions. Hit\@5 saturates at 1.000 for all four systems, confirming that position-insensitive recall does not distinguish them. On the rank-sensitive and staleness metrics that do discriminate, the proposed pipeline reaches MRR 1.000 (core) and 0.9600 (multi-user) against 0.833–0.880 (vanilla dense), 0.940–0.944 (hybrid) and 0.940–0.944 (graph-augmented); reduces the rate of leading with superseded content from 0.364 to 0.000 (core) and from 0.333 to 0.033 on multi-user benchmarks ($p = 0.0027$, Wilcoxon signed-rank test); and eliminates both duplicate context and post-forgetting leakage (0.000 vs. 0.062), whereas every baseline continues to return explicitly unlearned content. A component-wise ablation attributes each effect to its mechanism. All core figures use $k = 5$, a deterministic TF-IDF dense backend and corpus-scoped candidate generation; two consecutive benchmark executions produce byte-identical metrics, so the comparison is reproducible without any neural embedding model or network access.
 ]
 
 #v(0.5em)
 #text(size: 8.5pt, weight: "bold")[
-Keywords—personal knowledge management, retrieval-augmented generation, temporal knowledge graphs, natural language inference, cross-encoder, contradiction resolution, machine unlearning, memory consolidation, large language model agents
+Keywords—personal knowledge management, retrieval-augmented generation, temporal knowledge graphs, natural language inference, cross-encoder, contradiction resolution, retrieval-level forgetting, memory consolidation, large language model agents
 ]
 
 #v(0.6em)
@@ -86,50 +86,72 @@ Keywords—personal knowledge management, retrieval-augmented generation, tempor
 
 Large language models augmented with retrieval over a user's own documents have become the dominant architecture for personal assistants. The retrieval layer is usually evaluated on general corpora, where documents are assumed mutually consistent, immutable and equally current. A personal knowledge store violates every one of those assumptions. The user changes their mind; a deadline is moved; the same web page is captured three times; a note is deliberately deleted.
 
-The consequence is a failure mode that general RAG evaluation does not measure. Suppose a user wrote in January that they were learning Python, and in September that they were now focusing on Java. Both statements are in the store. A conventional retriever returns the one with the higher lexical or vector similarity to the query "what am I working on?", and if that is the January note, the assistant answers confidently and wrongly. Every retrieved passage is faithful to its source; the system is hallucination-free and still incorrect. Faithfulness metrics cannot detect this, because nothing was fabricated.
+The consequence is a failure mode that general RAG evaluation does not measure. Suppose a user wrote in January that they were learning Python, and in September that they were now focusing on Java. Both statements are in the store. A conventional retriever returns the one with the higher lexical or vector similarity to the query "what am I working on?", and if that is the January note, the assistant answers confidently and wrongly. Every retrieved passage is faithful to its source; the system fabricates nothing and is still incorrect. Faithfulness metrics cannot detect this, because nothing was fabricated.
 
-This paper addresses that gap. We make three claims. First, recall-oriented metrics such as Hit\@k are insufficient for personal memory, because they saturate while the underlying answers remain wrong. Second, the discriminating signals are temporal validity, contradiction status, duplication and explicit removal, and these must be enforced at retrieval time rather than merely recorded. Third, a benchmark containing categories designed to expose these failures is a necessary instrument; without one, improvements are unmeasurable.
+This paper addresses that gap with one main research question: _does retrieval-time enforcement of temporal validity, contradiction status, duplication and explicit removal improve the evidence a personal RAG system leads with, in a way that recall-oriented metrics cannot see?_ Four hypotheses make it testable. H1: recall-oriented metrics saturate and therefore cannot separate pipelines on a personal corpus. H2: rank-sensitive and staleness metrics do separate them. H3: the separation is attributable per mechanism - duplicate reduction arises only once consolidation is enabled, leakage elimination only once forgetting is enforced, and stale\@1 reduction once temporal validity and forgetting are active. H4: the conflict detector is deliberately conservative, trading recall for precision on free-text pairs. Each hypothesis maps to a reported measurement: H1 and H2 to Tables III, IV and VII, H3 to the ablation in Table VIII, and H4 to the annotated-pair accuracy study in Section IV-C.
 
-The contributions of this work are:
-- A seven-component personal memory architecture, additive to an existing capture pipeline.
-- An importance-scoring model whose eight terms are individually persisted and therefore auditable.
-- A temporal triple store with validity intervals, state supersession, and neural dependency extraction that closes facts without deleting them.
-- Contradiction detection combining temporal, lexical-negative, and an ONNX-quantized Cross-Encoder NLI classifier with rank damping rather than removal.
-- Consolidation with provenance preservation, and a similarity threshold calibrated from measurement rather than assumed.
-- Forgetting enforced across five independent retrieval surfaces, with reversible restoration.
-- PersonalBrain-Bench and a multi-user evaluation showing rank-sensitive and staleness metrics separate the pipelines where Hit\@k cannot.
+The contributions of this work are organised around what is adopted versus what is proposed (Table I). Established techniques - hybrid dense+lexical fusion, graph re-ranking, cross-encoder NLI, dependency parsing - are adopted and cited; the contribution is their coordinated, switchable integration and five specific mechanisms: an auditable eight-term scoring model with persisted components; supersession that closes facts instead of deleting them; rank damping instead of removal for contradictions; forgetting enforced across five independent retrieval surfaces with reversible restoration; and PersonalBrain-Bench, an instrument whose categories are designed to expose exactly these failures.
 
-#v(0.6em)
+#v(0.2em)
+#align(center)[
+#text(size: 8pt, weight: "bold")[TABLE I]\\\
+#text(size: 8pt)[Adopted Techniques Versus Proposed Mechanisms]
+#v(0.1em)
+#table(
+  columns: (3.6cm, 1.5cm, 3.5cm),
+  stroke: 0.3pt + rgb("#888888"),
+  inset: 2.5pt,
+  align: (left, center, left),
+  fill: (x, y) => if y == 0 { rgb("#f2f2f2") } else { none },
+  [#text(size: 7.5pt, weight: "bold")[Technique]], [#text(size: 7.5pt, weight: "bold")[Status]], [#text(size: 7.5pt, weight: "bold")[Role in this paper]],
+  [#text(size: 7pt)[Dense + lexical hybrid fusion]], [#text(size: 7pt)[Adopted [3], [4]]], [#text(size: 7pt)[Baseline and candidate generator]],
+  [#text(size: 7pt)[Knowledge-graph re-ranking]], [#text(size: 7pt)[Adopted [6]–[8]]], [#text(size: 7pt)[Explicit graph-augmented baseline]],
+  [#text(size: 7pt)[Cross-encoder NLI (ONNX)]], [#text(size: 7pt)[Adopted model]], [#text(size: 7pt)[Conflict severity; proposed damping use]],
+  [#text(size: 7pt)[Dependency parsing (spaCy)]], [#text(size: 7pt)[Adopted tool]], [#text(size: 7pt)[Proposed predicate canonicalisation]],
+  [#text(size: 7pt)[Validity intervals / TKGs]], [#text(size: 7pt)[Adopted idea [9]]], [#text(size: 7pt)[Proposed close-not-delete supersession]],
+  [#text(size: 7pt)[Eight-term auditable scoring]], [#text(size: 7pt)[Proposed]], [#text(size: 7pt)[Persisted, versioned importance terms]],
+  [#text(size: 7pt)[Rank damping for conflicts]], [#text(size: 7pt)[Proposed]], [#text(size: 7pt)[Demote, never delete, superseded side]],
+  [#text(size: 7pt)[Five-surface forgetting]], [#text(size: 7pt)[Proposed]], [#text(size: 7pt)[Retrieval-level, distinct from [13]]],
+  [#text(size: 7pt)[PersonalBrain-Bench v1/v2]], [#text(size: 7pt)[Proposed]], [#text(size: 7pt)[Instrument exposing the failure mode]],
+)
+#text(size: 6.8pt, style: "italic")[No adopted technique is claimed as novel; the integration and the five proposed mechanisms are.]
+]
+#v(0.4em)
+
 #align(center)[#text(size: 9.5pt, weight: "bold")[II. Related Work]]
 
 #text(style: "italic")[A. Retrieval-Augmented Generation]
 
-RAG augments generation with retrieved context to ground responses in external evidence [1], [2]. Surveys of the area identify chunking, embedding, retrieval and generation as the stages where quality is won or lost. Graph RAG extends retrieval over a knowledge graph to support multi-hop questions that flat chunk retrieval cannot answer [3], [4]. Our work does not replace these; it adds a temporal and conflict layer above them, and we use a graph-augmented pipeline as an explicit baseline so the incremental effect is visible rather than assumed.
+RAG augments generation with retrieved context to ground responses in external evidence [1], [2]. Surveys of the area identify chunking, embedding, retrieval and generation as the stages where quality is won or lost. Our work does not replace these stages; it adds a temporal and conflict layer above them.
 
-#text(style: "italic")[B. Vector Stores and Hybrid Search]
+#text(style: "italic")[B. Dense, Lexical and Hybrid Retrieval]
 
-Comparative studies of vector databases characterise the retrieval substrate underlying RAG [6]. Hybrid retrieval fusing dense and lexical signals is well established [16], [17]. We adopt hybrid retrieval as a baseline and show that on a personal corpus it is the strongest of the three baselines, while still returning superseded content at rank one in 9.1% of queries (rising to 23.3% across multi-user queries).
+Dense passage retrieval [3] and probabilistic lexical ranking [4] are the two signals hybrid retrieval fuses; comparative studies characterise the vector stores that underlie them [5]. We adopt hybrid retrieval as a baseline and show that on a personal corpus it is the strongest of the three baselines, while still returning superseded content at rank one in 18.2% of queries (rising to 23.3% across multi-user queries).
 
-#text(style: "italic")[C. Agent Memory and Lifelong Personalisation]
+#text(style: "italic")[C. Graph Retrieval and Temporal Knowledge Graphs]
 
-Recent work on LLM-based agents identifies memory as a core component alongside perception, planning and action [5], [23], and proposes memory-augmented frameworks for persistent personalisation. These contributions establish that persistence matters; they do not specify what to do when persisted memories disagree. We treat disagreement as the central problem rather than an edge case.
+Graph RAG extends retrieval over a knowledge graph to support multi-hop questions that flat chunk retrieval cannot answer [6], [7]; knowledge graphs themselves are surveyed in [8]. Temporal knowledge graph completion studies validity intervals over evolving facts [9]. We use a graph-augmented pipeline as an explicit baseline so the incremental effect of the temporal layer is visible rather than assumed, and we treat interval validity as prior art, not as a claim.
 
-#text(style: "italic")[D. Machine Unlearning]
+#text(style: "italic")[D. Agent Memory and Lifelong Personalisation]
 
-Unlearning research considers how to remove the influence of specific training data [20]. Removal from a retrieval store is related but distinct, because an item can survive deletion in a vector index, a full-text index, or a derived graph. We show empirically that a naive pipeline continues to return explicitly removed content, and that exclusion must therefore be applied at every retrieval surface.
+Recent work on LLM-based agents identifies memory as a core component alongside perception, planning and action [10], surveys the memory mechanisms of agent architectures [11], and extends lifelong learning to LLM agents [12]. These contributions establish that persistence matters; they do not specify what to do when persisted memories disagree. We treat disagreement as the central problem rather than an edge case.
 
-#text(style: "italic")[E. Contradiction Handling and Hallucination Reduction]
+#text(style: "italic")[E. Machine Unlearning]
 
-Work on hallucination reduction verifies generated claims against retrieved evidence [7], [8], [9], [10], [11]. That is orthogonal to our setting: our failures arise when the retrieved evidence is itself outdated or mutually contradictory, so verification against the retrieved set would confirm rather than catch the error. We address this directly by integrating an ONNX Natural Language Inference (NLI) model to classify conflict severity at retrieval time.
+Unlearning research considers how to remove the influence of specific training data from model parameters [13]. Removal from a retrieval store is related but distinct, because an item can survive deletion in a vector index, a full-text index, or a derived graph. We show empirically that a naive pipeline continues to return explicitly removed content, and that exclusion must therefore be applied at every retrieval surface. Throughout this paper we therefore say _retrieval-level forgetting_ and make no claim about parameter-level unlearning.
+
+#text(style: "italic")[F. Contradiction Handling and Hallucination Reduction]
+
+Work on hallucination reduction verifies generated claims against retrieved evidence [14], [15], [16], [17]. That is orthogonal to our setting: our failures arise when the retrieved evidence is itself outdated or mutually contradictory, so verification against the retrieved set would confirm rather than catch the error. We address this directly by integrating an ONNX Natural Language Inference (NLI) model to classify conflict severity at retrieval time.
 
 #v(0.6em)
 #align(center)[#text(size: 9.5pt, weight: "bold")[III. System Architecture and Methodology]]
 
-SecondBrain is a client–server personal knowledge system. A FastAPI backend exposes ingestion, retrieval and research endpoints over SQLite and an optional vector store; an Electron/React desktop shell provides capture, voice and visualisation. The research layer introduced in this paper is additive: it observes and annotates existing memories through separate tables keyed by memory identifier, and never modifies the capture pipeline. All seven components are optional at runtime, so the system degrades to a conventional RAG assistant if any is disabled, which is what makes the comparative evaluation in Section VI possible.
+SecondBrain is a client–server personal knowledge system. A FastAPI backend exposes ingestion, retrieval and research endpoints over SQLite and an optional vector store; an Electron/React desktop shell provides capture, voice and visualisation. The substrate is standard: Sentence-BERT-style embeddings [18] over an approximate nearest-neighbour index [19], a local or hosted LLM for generation [20], and weakly-supervised speech recognition for the voice path [21]. The research layer introduced in this paper is additive: it observes and annotates existing memories through separate tables keyed by memory identifier, and never modifies the capture pipeline. All seven components are optional at runtime, so the system degrades to a conventional RAG assistant if any is disabled, which is what makes the comparative evaluation and the ablation in Section VI possible.
 
 #v(0.3em)
 #align(center)[
-#text(size: 8pt, weight: "bold")[TABLE I]\
+#text(size: 8pt, weight: "bold")[TABLE II]\\\
 #text(size: 8pt)[Processing Stages]
 #v(0.15em)
 #table(
@@ -160,7 +182,7 @@ A personal store grows without bound, and a retriever that weights all memories 
 #align(center)[
 $ M = w_1 R + w_2 F + w_3 T + w_4 G + w_5 U + w_6 P - w_7 D - w_8 C quad (1) $
 ]
-where $R$ is relevance to the user's represented interests, $F$ recurrence frequency, $T$ recency with exponential decay, $G$ graph connectivity of the memory's concepts, $U$ explicit user confirmation, $P$ predicted future utility, $D$ a redundancy penalty, and $C$ a contradiction penalty. Weights are versioned and stored, and all eight components are persisted alongside the total, so a score is auditable rather than opaque. Recency uses a half-life of 45 days: $T = 2^(-Delta t / 45)$.
+where $R$ is relevance to the user's represented interests, $F$ recurrence frequency, $T$ recency with exponential decay, $G$ graph connectivity of the memory's concepts, $U$ explicit user confirmation, $P$ predicted future utility, $D$ a redundancy penalty, and $C$ a contradiction penalty. Every term is computed on $[0, 1]$ and clipped; in weight version v1 the coefficients are $(w_1, dots, w_8) = (0.30, 0.08, 0.22, 0.15, 0.15, 0.10, 0.18, 0.25)$, the last two entering with negative sign. Weights are versioned and stored, and all eight components are persisted alongside the total, so a score is auditable rather than opaque. Recency uses a half-life of 45 days: $T = 2^(-Delta t / 45)$.
 
 #text(style: "italic")[B. Temporal Personal Knowledge Graph & Neural Dependency Extraction]
 
@@ -175,6 +197,8 @@ We detect three conflict classes. Temporal conflicts arise when a memory asserts
 To detect implicit contradictions lacking explicit keywords, we integrate an ONNX-quantized Cross-Encoder Natural Language Inference (NLI) model (`distilbert-base-uncased-mnli-int8`, ~64 MB). For candidate memory pairs with topical overlap, the NLI model computes continuous softmax probabilities: $[P("Entailment"), P("Neutral"), P("Contradiction")]$. When $P("Contradiction") >= 0.55$, conflict severity is set dynamically as $s = P("Contradiction")$.
 
 Resolution assigns a rank multiplier rather than removing the superseded memory: an unresolved conflict of severity $s$ damps the memory to $(1 - 0.7s)$, bounded in $[0.3, 1.0]$. Deletion would answer the stale-answer problem but destroy the historical-query capability, so damping resolves both. Final ordering is rank-preserving: the fused retrieval order supplies a prior $1 / (1 + i)$ which the multiplier $s$ adjusts, with importance acting only as a light tie-breaker. Sorting on importance alone proved actively harmful during development, promoting high-importance but less relevant memories above the gold answer.
+
+The detector's own accuracy was previously unmeasured; we therefore annotated 21 synthetic memory pairs (10 positives across the three classes, 11 hard negatives: near-duplicates, topically similar but consistent, same-words-different-subject, unrelated, and negation-worded-but-consistent pairs). In the shipped configuration the detector reaches precision 0.667, recall 0.400 (F1 0.500); with the neural classifier unavailable it recalls nothing. The detector is thus conservative by construction: it prefers silence to spurious conflicts, and Section VI-C reports where that conservatism costs it.
 
 #text(style: "italic")[D. Memory Consolidation]
 
@@ -203,7 +227,7 @@ To validate scalability across diverse users, we further formulate PersonalBrain
 
 #text(style: "italic")[A. Corpus]
 
-PersonalBrain-Bench contains 15 memories spanning email, notes, code, web captures and screen text, with creation timestamps distributed across a 240-day window so recency and supersession are exercised rather than simulated. The corpus deliberately embeds a superseded state pair (learning Python / now focusing on Java), a moved deadline (15 October $->$ 30 September), a three-member near-duplicate cluster, a multi-hop chain linking a project to a dataset and a model, a sensitive scratch note that is then explicitly forgotten, and a concept mentioned repeatedly without explanation. Ingestion produced 4 detected conflicts. Of 11 questions, 9 are answerable and the remainder test abstention or removal.
+PersonalBrain-Bench contains 15 memories spanning email, notes, code, web captures and screen text, with creation timestamps distributed across a 240-day window so recency and supersession are exercised rather than simulated. The corpus deliberately embeds a superseded state pair (learning Python / now focusing on Java), a moved deadline (15 October $->$ 30 September), a three-member near-duplicate cluster, a multi-hop chain linking a project to a dataset and a model, a sensitive scratch note that is then explicitly forgotten, and a concept mentioned repeatedly without explanation. Ingestion produced 2 detected conflicts. Of 11 questions, 9 are answerable and the remainder test abstention or removal.
 
 #text(style: "italic")[B. Systems Compared]
 
@@ -215,7 +239,7 @@ Hit\@k and MRR are computed over answerable questions only; including abstention
 
 #text(style: "italic")[D. Reproducibility]
 
-The core pipeline requires no external GPU: when no embedder is configured, dense retrieval is served by TF-IDF cosine similarity, which is deterministic. Two consecutive full executions produce byte-identical metrics (Section VII). All results reported here were produced by a single script and written to a machine-readable artefact.
+All core figures were produced with $k = 5$, the deterministic TF-IDF dense backend and corpus-scoped candidate generation; the leakage and staleness asymmetries are stated for exactly this configuration. The core pipeline requires no external GPU. Two consecutive full executions produce byte-identical metrics (Section VII). All results reported here were produced by single-command scripts and written to machine-readable artefacts, including the ablation of Section VI-C.
 
 #v(0.6em)
 #align(center)[#text(size: 9.5pt, weight: "bold")[VI. Results and Comparative Analysis]]
@@ -224,7 +248,7 @@ The core pipeline requires no external GPU: when no embedder is configured, dens
 
 #v(0.2em)
 #align(center)[
-#text(size: 8pt, weight: "bold")[TABLE II]\
+#text(size: 8pt, weight: "bold")[TABLE III]\\\
 #text(size: 8pt)[Retrieval Quality Across Four Pipelines (Core Corpus)]
 #v(0.1em)
 #table(
@@ -244,7 +268,7 @@ The core pipeline requires no external GPU: when no embedder is configured, dens
 #v(0.2em)
 
 #align(center)[
-#text(size: 8pt, weight: "bold")[TABLE III]\
+#text(size: 8pt, weight: "bold")[TABLE IV]\\\
 #text(size: 8pt)[Staleness, Leakage and Duplication (Core Corpus)]
 #v(0.1em)
 #table(
@@ -255,23 +279,23 @@ The core pipeline requires no external GPU: when no embedder is configured, dens
   fill: (x, y) => if y == 0 { rgb("#f2f2f2") } else { none },
   [#text(size: 7.5pt, weight: "bold")[System]], [#text(size: 7.5pt, weight: "bold")[Stale\@1]], [#text(size: 7.5pt, weight: "bold")[Leak]], [#text(size: 7.5pt, weight: "bold")[Duplicate]],
   [#text(size: 7.5pt)[Vanilla dense]], [#text(size: 7.5pt)[0.364]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
-  [#text(size: 7.5pt)[Hybrid]], [#text(size: 7.5pt)[0.091]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
-  [#text(size: 7.5pt)[Graph-augmented]], [#text(size: 7.5pt)[0.091]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
+  [#text(size: 7.5pt)[Hybrid]], [#text(size: 7.5pt)[0.182]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
+  [#text(size: 7.5pt)[Graph-augmented]], [#text(size: 7.5pt)[0.182]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
   [#text(size: 7.5pt)[Adaptive (proposed)]], [#text(size: 7.5pt)[0.000]], [#text(size: 7.5pt)[0.000]], [#text(size: 7.5pt)[0.000]],
 )
-#text(size: 6.5pt, style: "italic")[Lower is better; proposed system eliminates errors across all three.]
+#text(size: 6.5pt, style: "italic")[Lower is better; counts behind stale\@1 are 4/11, 2/11, 2/11 and 0/11 queries.]
 ]
 #v(0.2em)
 
 The central empirical finding is that Hit\@5 does not discriminate: all four systems reach 1.000. Every pipeline finds the relevant memory somewhere in its top five. A study reporting only recall would conclude that the research layer adds nothing. Yet the answers they produce differ, because a generator consumes the ordered context rather than the set. On rank-sensitive measures the pipelines separate sharply: MRR rises from 0.833 (vanilla) through 0.944 (hybrid, equal to graph-augmented) to 1.000 for the adaptive pipeline, a relative improvement of 5.9% over the strongest baseline and 20.0% over vanilla dense retrieval.
 
-Stale\@1 is the metric most directly tied to answer correctness. Vanilla leads with superseded content in 36.4% of queries; hybrid and graph reduce this to 9.1%, and the adaptive pipeline reduces it to 0.0%. The proposed system therefore never leads with an outdated fact on this corpus, while the strongest baseline still does so on roughly one query in eleven. Because each retrieved passage remains faithful to its source, no faithfulness metric would flag those cases.
+Stale\@1 is the metric most directly tied to answer correctness. Vanilla leads with superseded content in 36.4% of queries; hybrid and graph reduce this to 18.2%, and the adaptive pipeline reduces it to 0.0%. The proposed system therefore never leads with an outdated fact on this corpus, while the strongest baseline still does so on roughly one query in five. Because each retrieved passage remains faithful to its source, no faithfulness metric would flag those cases.
 
 Forgotten-content leakage and duplicate context are both eliminated ($0.022 -> 0.000$ and $0.022 -> 0.000$). The leakage result also demonstrates the negative case: every baseline continues to return explicitly unlearned content, confirming that removal is a retrieval-layer property not obtained by deleting a row from the primary table.
 
 #v(0.2em)
 #align(center)[
-#text(size: 8pt, weight: "bold")[TABLE IV]\
+#text(size: 8pt, weight: "bold")[TABLE V]\\\
 #text(size: 8pt)[Mean Reciprocal Rank by Question Category]
 #v(0.1em)
 #table(
@@ -295,7 +319,7 @@ Contradiction questions are where vanilla is weakest (0.500), consistent with th
 
 #v(0.2em)
 #align(center)[
-#text(size: 8pt, weight: "bold")[TABLE V]\
+#text(size: 8pt, weight: "bold")[TABLE VI]\\\
 #text(size: 8pt)[Latency on the Benchmark Corpus]
 #v(0.1em)
 #table(
@@ -308,18 +332,18 @@ Contradiction questions are where vanilla is weakest (0.500), consistent with th
   [#text(size: 7.5pt)[Vanilla dense]], [#text(size: 7.5pt)[33]], [#text(size: 7.5pt)[1.14$times$]],
   [#text(size: 7.5pt)[Hybrid]], [#text(size: 7.5pt)[29]], [#text(size: 7.5pt)[1.00$times$]],
   [#text(size: 7.5pt)[Graph-augmented]], [#text(size: 7.5pt)[37]], [#text(size: 7.5pt)[1.28$times$]],
-  [#text(size: 7.5pt)[Adaptive (proposed)]], [#text(size: 7.5pt)[80]], [#text(size: 7.5pt)[2.76$times$]],
+  [#text(size: 7.5pt)[Adaptive (proposed)]], [#text(size: 7.5pt)[65]], [#text(size: 7.5pt)[2.24$times$]],
 )
-#text(size: 6.8pt, style: "italic")[The adaptive pipeline costs $approx 2.8times$ the hybrid baseline on 15 memories.]
+#text(size: 6.8pt, style: "italic")[Latency from the same execution as Tables III–IV; $approx 2.2times$ hybrid on 15 memories.]
 ]
 #v(0.2em)
 
 #text(style: "italic")[B. Multi-User Scalability and Statistical Significance]
-Table VI details performance across 5 diverse professional personas (Software Engineering, Machine Learning Research, Product Operations, University Academics, Health Informatics) over 30 queries.
+Table VII details performance across 5 diverse professional personas (Software Engineering, Machine Learning Research, Product Operations, University Academics, Health Informatics) over 30 queries; stale\@1 counts behind the rates are 10/30, 7/30, 7/30 and 1/30 queries respectively.
 
 #v(0.2em)
 #align(center)[
-#text(size: 8pt, weight: "bold")[TABLE VI]\
+#text(size: 8pt, weight: "bold")[TABLE VII]\\\
 #text(size: 8pt)[Multi-User Benchmark & Significance (5 Personas, 30 Queries)]
 #v(0.1em)
 #table(
@@ -340,10 +364,39 @@ Table VI details performance across 5 diverse professional personas (Software En
 
 Hit\@5 remains fully saturated at 1.000 across all systems. The proposed Adaptive Neural pipeline achieves MRR 0.960 against 0.880 (vanilla) and 0.940 (hybrid). Crucially, Stale\@1 falls from 33.3% to 3.3%, which is statistically significant ($p = 0.0027$, Wilcoxon test). Baselines leak unlearned content in 4.5%–6.2% of answers, while the proposed architecture guarantees 0.0% leakage.
 
+#text(style: "italic")[C. Component-Wise Ablation]
+
+Table VIII adds one mechanism per row to hybrid retrieval with the research layer disabled, in the same configuration as Tables III–IV. The design tests H3 directly: each metric should move only on the row that introduces the mechanism responsible for it.
+
+#v(0.2em)
+#align(center)[
+#text(size: 8pt, weight: "bold")[TABLE VIII]\\\
+#text(size: 8pt)[Cumulative Ablation: One Mechanism Per Row]
+#v(0.1em)
+#table(
+  columns: (2.6cm, 1.1cm, 1.2cm, 1.2cm, 1.2cm),
+  stroke: 0.3pt + rgb("#888888"),
+  inset: 2.5pt,
+  align: (left, center, center, center, center),
+  fill: (x, y) => if y == 0 { rgb("#f2f2f2") } else { none },
+  [#text(size: 7.5pt, weight: "bold")[Configuration]], [#text(size: 7.5pt, weight: "bold")[MRR]], [#text(size: 7.5pt, weight: "bold")[Stale\@1]], [#text(size: 7.5pt, weight: "bold")[Dup.]], [#text(size: 7.5pt, weight: "bold")[Leak]],
+  [#text(size: 7.5pt)[Hybrid (layer off)]], [#text(size: 7.5pt)[0.944]], [#text(size: 7.5pt)[0.182]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
+  [#text(size: 7.5pt)[+ temporal]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[0.091]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.022]],
+  [#text(size: 7.5pt)[+ contradiction]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[0.091]], [#text(size: 7.5pt)[0.022]], [#text(size: 7.5pt)[0.043]],
+  [#text(size: 7.5pt)[+ consolidation]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[0.091]], [#text(size: 7.5pt)[0.000]], [#text(size: 7.5pt)[0.046]],
+  [#text(size: 7.5pt)[+ forgetting]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[0.000]], [#text(size: 7.5pt)[0.000]], [#text(size: 7.5pt)[0.000]],
+  [#text(size: 7.5pt)[+ importance (full)]], [#text(size: 7.5pt)[1.000]], [#text(size: 7.5pt)[0.000]], [#text(size: 7.5pt)[0.000]], [#text(size: 7.5pt)[0.000]],
+)
+#text(size: 6.5pt, style: "italic")[Duplicate rate falls only on the consolidation row; leakage only on the forgetting row.]
+]
+#v(0.2em)
+
+The ablation confirms the predicted attribution for two of the three effects: the duplicate rate falls to zero exactly when consolidation switches on, and leakage falls to zero exactly when forgetting switches on. Temporal validity supplies the MRR gain and halves stale\@1; forgetting removes the remainder, because the surviving stale case is a forgotten-and-superseded memory that only exclusion can remove. Two honest negatives belong in the record. Contradiction damping does not move stale\@1 on this corpus - its conflicts are not the top-ranked stale items - and on two of eleven queries it slightly raises leakage by reordering rather than excluding; its value is conflict resolution for historical queries, not ordering. Importance weighting adds nothing measurable: it is a light tie-breaker by design, and sorting on it alone was harmful in development. A failure analysis of the detector (Section IV-C) completes the picture: of ten annotated conflicts it missed five value-change pairs whose paraphrase shared no explicit predicate or date, and it raised two false positives on negation-worded but consistent pairs - precisely the conservative behaviour H4 predicts.
+
 #v(0.6em)
 #align(center)[#text(size: 9.5pt, weight: "bold")[VII. Implementation and Verification]]
 
-The system is implemented rather than prototyped. Every contribution described in Section IV is exercised by an automated verification suite that runs offline, and the paper's claims are each mapped to at least one executable check. The suite comprises 73 assertions covering scoring component behaviour and range, temporal extraction and supersession semantics, neural NLI contradiction classification and continuous damping, consolidation threshold and provenance retention, gap scoring and depth suppression, forgetting leakage across all four retrieval modes, benchmark comparability, and the API surface including authentication and error codes. In addition, 14 further suites cover the surrounding application, and the endpoint sweep exercises every registered route against a live server, asserting that none returns a 5xx.
+The system is implemented rather than prototyped, and every number in this paper is regenerated by a committed script: a benchmark runner that rebuilds derived research state from scratch and reproduces Tables III–VI; an ablation runner producing Table VIII; a conflict-accuracy harness producing the Section IV-C figures; a multi-user runner producing Table VII with paired Wilcoxon tests; and a verification suite (static health checks, frontend–backend contract checks, pytest research tests covering scoring ranges, supersession semantics, NLI damping, consolidation provenance, gap suppression and leakage across all four modes, plus an endpoint sweep asserting no registered route returns a 5xx).
 
 Two implementation defects are reported because they are instructive about the contribution itself. First, predicate canonicalisation was initially absent, so the two facts the temporal graph exists to reconcile were stored separately and neither superseded the other. Second, negation was detected by substring matching, so any memory mentioning "notes" registered as a negation and produced spurious contradiction reports. Both were found by the verification suite rather than by inspection, which is the argument for testing each claim individually.
 
@@ -354,21 +407,21 @@ Two implementation defects are reported because they are instructive about the c
 
 #text(weight: "bold")[Damping rather than deleting.] Removing superseded memories would attain the same stale\@1 result while making the assistant unable to answer historical queries. Both capabilities are legitimate, so the design must support both: validity intervals close facts without erasing them, and rank multipliers demote rather than remove.
 
-#text(weight: "bold")[Forgetting is a cross-cutting property.] The baseline leakage result shows that deletion at one surface is insufficient. Any system that promises removal while retaining a derived index has an unlearning hole.
+#text(weight: "bold")[Forgetting is a cross-cutting property.] The baseline leakage result shows that deletion at one surface is insufficient. Any system that promises removal while retaining a derived index has a forgetting hole.
 
 Four limitations are material:
 - While PersonalBrain-Bench v2 scales to 5 personas, evaluation on real-world longitudinal personal stores under strict privacy constraints remains future work.
-- Fact and conflict extraction combines neural models with conservative heuristics; multi-hop contradictions spanning three or more separate notes require recursive graph deduction.
+- Fact and conflict extraction combines neural models with conservative heuristics; the annotated-pair study (precision 0.667, recall 0.400) quantifies that conservatism, and multi-hop contradictions spanning three or more separate notes require recursive graph deduction.
 - Temporal handling uses UTC-normalised timestamps without full timezone or partial-interval reasoning, which would matter for events spanning midnight across zones.
-- The evaluation covers retrieval, not end-to-end generation quality. Whether higher MRR and lower stale\@1 translate into fewer incorrect answers in generated prose is not measured here, and is the natural next experiment.
+- The evaluation covers retrieval, not end-to-end generation quality. Whether higher MRR and lower stale\@1 translate into fewer incorrect answers in generated prose is not measured here. The designed next experiment fixes model, prompt, temperature and context budget across the four retrievers and uses two raters blind to the condition with a stated disagreement rule; an automatic judge, if added, must report its human-agreement rate.
 
 #v(0.6em)
 #colbreak()
 #align(center)[#text(size: 9.5pt, weight: "bold")[IX. Conclusion and Future Work]]
 
-Personal knowledge stores violate the consistency assumptions of general retrieval benchmarks, and the resulting failures are invisible to recall-oriented metrics. We presented SecondBrain, a seven-component personal memory architecture, and PersonalBrain-Bench, an instrument that exposes those failures. Across four pipelines and multi-user evaluations, Hit\@5 saturates while MRR rises from 0.833–0.880 to 0.960–1.000, the rate of leading with superseded content falls from 33.3%–36.4% to 0.0%–3.3% ($p = 0.0027$), and both post-forgetting leakage and duplicate context are eliminated, while every baseline continues to return explicitly unlearned content.
+Personal knowledge stores violate the consistency assumptions of general retrieval benchmarks, and the resulting failures are invisible to recall-oriented metrics. We presented SecondBrain, a seven-component personal memory architecture, and PersonalBrain-Bench, an instrument that exposes those failures. Across four pipelines and multi-user evaluations, Hit\@5 saturates while MRR rises from 0.833–0.880 to 0.960–1.000, the rate of leading with superseded content falls from 33.3%–36.4% to 0.0%–3.3% ($p = 0.0027$), and both post-forgetting leakage and duplicate context are eliminated, while every baseline continues to return explicitly unlearned content. A cumulative ablation attributes the duplicate and leakage effects to consolidation and forgetting respectively, and reports two negative results - contradiction damping and importance weighting - that the corpus does not reward.
 
-Future work proceeds in four directions: (1) an independent per-component ablation and a learned weighting of scoring terms via Pairwise Learning-to-Rank; (2) recursive multi-hop contradiction reasoning; (3) a blind human study comparing generated answers across systems; and (4) growth of the benchmark toward longitudinal personal corpora under appropriate de-identification safeguards.
+Future work proceeds in four directions: (1) the blinded end-to-end generation study designed in Section VIII; (2) recursive multi-hop contradiction reasoning; (3) a learned weighting of scoring terms via Pairwise Learning-to-Rank, now that the ablation has fixed the baseline each learned weight must beat; and (4) growth of the benchmark toward longitudinal personal corpora under appropriate de-identification safeguards.
 
 #v(0.5em)
 #align(center)[#text(size: 9pt, weight: "bold")[Acknowledgment]]
@@ -384,55 +437,45 @@ Future work proceeds in four directions: (1) an independent per-component ablati
 
 [2] Y. Gao, Y. Xiong, X. Gao, K. Jia, J. Pan, Y. Bi, Y. Dai, J. Sun, and H. Wang, "Retrieval-Augmented Generation for Large Language Models: A Survey," _arXiv:2312.10997_, 2023.
 
-[3] D. Edge et al., "From Local to Global: A Graph RAG Approach to Query-Focused Summarization," _arXiv:2404.16130_, 2024.
+[3] V. Karpukhin et al., "Dense Passage Retrieval for Open-Domain Question Answering," in _Proc. EMNLP_, 2020, pp. 6769–6781.
 
-[4] Z. Peng et al., "Graph Retrieval-Augmented Generation: A Survey," _arXiv:2408.08921_, 2024.
+[4] S. Robertson and H. Zaragoza, "The Probabilistic Relevance Framework: BM25 and Beyond," _Foundations and Trends in Information Retrieval_, vol. 3, no. 4, pp. 333–389, 2009.
 
-[5] L. Wang et al., "A Survey on Large Language Model based Autonomous Agents," _Frontiers of Computer Science_, vol. 18, no. 6, 2024.
+[5] N. Bruch, S. Nedelkoski, and S. Mandal, "A Deep Dive into Vector Stores: Classifying the Backbone of Retrieval-Augmented Generation," in _Proc. IEEE Int. Conf. Big Data_, 2024.
 
-[6] N. Bruch, S. Nedelkoski, and S. Mandal, "A Deep Dive into Vector Stores: Classifying the Backbone of Retrieval-Augmented Generation," in _Proc. IEEE Int. Conf. Big Data_, 2024.
+[6] D. Edge et al., "From Local to Global: A Graph RAG Approach to Query-Focused Summarization," _arXiv:2404.16130_, 2024.
 
-[7] Y. Hou et al., "Enhancing Factual Reliability in Large Language Models Through Retrieval Augmented Generation," _IEEE Access_, 2025.
+[7] Z. Peng et al., "Graph Retrieval-Augmented Generation: A Survey," _arXiv:2408.08921_, 2024.
 
-[8] X. Ji et al., "RAG Certainty: Quantifying the Certainty of Context-Based Responses by LLMs," in _Proc. IEEE ICASSP_, 2026.
+[8] A. Hogan et al., "Knowledge Graphs," _ACM Computing Surveys_, vol. 54, no. 4, 2021.
 
-[9] K. R. Z. et al., "ReRag: A New Architecture for Reducing the Hallucination by Retrieval-Augmented Generation," _IEEE Access_, 2025.
+[9] Z. Cai et al., "Temporal Knowledge Graph Completion: A Survey," in _Proc. IJCAI_, 2023.
 
-[10] A. Asai, Z. Wu, Y. Wang, A. Sil, and H. Hajishirzi, "Self-RAG: Learning to Retrieve, Generate and Critique through Self-Reflection," in _Proc. ICLR_, 2024.
+[10] L. Wang et al., "A Survey on Large Language Model based Autonomous Agents," _Frontiers of Computer Science_, vol. 18, no. 6, 2024.
 
-[11] S. Yan et al., "Corrective Retrieval Augmented Generation," _arXiv:2401.15884_, 2024.
+[11] Z. Zhang et al., "A Survey on the Memory Mechanism of Large Language Model based Agents," _arXiv:2404.13501_, 2024.
 
-[12] Y. Wang et al., "A Systematic Review of Prompt Injection Attacks on Large Language Models," _IEEE Access_, 2025.
+[12] Q. Zheng, X. Shi, Y. Cai, J. Li, Y. Zhang, B. Li, J. Yu, and Z. Ma, "Lifelong Learning of Large Language Model based Agents: A Roadmap," _IEEE Trans. Pattern Anal. Mach. Intell._, 2026 (early access).
 
-[13] L. Zhu et al., "Large Language Models: A Concise Review of Types and Considerations," _IEEE Access_, 2025.
+[13] L. Bourtoule et al., "Machine Unlearning," in _Proc. IEEE Symp. Security and Privacy (S&P)_, 2021, pp. 141–159.
 
-[14] T. Brown et al., "Language Models are Few-Shot Learners," in _Proc. NeurIPS_, vol. 33, 2020, pp. 1877–1901.
+[14] A. Asai, Z. Wu, Y. Wang, A. Sil, and H. Hajishirzi, "Self-RAG: Learning to Retrieve, Generate and Critique through Self-Reflection," in _Proc. ICLR_, 2024.
 
-[15] N. Reimers and I. Gurevych, "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks," in _Proc. EMNLP_, 2019, pp. 3982–3992.
+[15] S. Yan et al., "Corrective Retrieval Augmented Generation," _arXiv:2401.15884_, 2024.
 
-[16] V. Karpukhin et al., "Dense Passage Retrieval for Open-Domain Question Answering," in _Proc. EMNLP_, 2020, pp. 6769–6781.
+[16] H. Ko, D. Gürkan, and A. Yarman Vural, "ReRag: A New Architecture for Reducing the Hallucination by Retrieval-Augmented Generation," in _Proc. 9th Int. Conf. Comput. Sci. Eng. (UBMK)_, 2024, pp. 961–965.
 
-[17] S. Robertson and H. Zaragoza, "The Probabilistic Relevance Framework: BM25 and Beyond," _Foundations and Trends in Information Retrieval_, vol. 3, no. 4, pp. 333–389, 2009.
+[17] X. Ji et al., "RAG Certainty: Quantifying the Certainty of Context-Based Responses by LLMs," in _Proc. IEEE ICASSP_, 2025.
 
-[18] J. Johnson, M. Douze, and H. Jégou, "Billion-Scale Similarity Search with GPUs," _IEEE Trans. Big Data_, vol. 7, no. 3, pp. 535–547, 2021.
+[18] N. Reimers and I. Gurevych, "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks," in _Proc. EMNLP_, 2019, pp. 3982–3992.
 
-#colbreak()
+[19] J. Johnson, M. Douze, and H. Jégou, "Billion-Scale Similarity Search with GPUs," _IEEE Trans. Big Data_, vol. 7, no. 3, pp. 535–547, 2021.
 
-[19] A. Hogan et al., "Knowledge Graphs," _ACM Computing Surveys_, vol. 54, no. 4, 2021.
+[20] T. Brown et al., "Language Models are Few-Shot Learners," in _Proc. NeurIPS_, vol. 33, 2020, pp. 1877–1901.
 
-[20] L. Bourtoule et al., "Machine Unlearning," in _Proc. IEEE Symp. Security and Privacy (S&P)_, 2021, pp. 141–159.
-
-[21] Y. Wu et al., "A Survey of Complex Reasoning Enhancement Methods for Large Language Models," _IEEE Trans. Artif. Intell._, 2026.
-
-[22] C. Zhang et al., "Constructing Personalised Learning Resource Recommendation with Multimodal Interaction Data," _IEEE Trans. Learning Technol._, 2025.
-
-[23] R. Wang et al., "Lifelong Learning of Large Language Model based Agents," _IEEE Trans. Pattern Anal. Mach. Intell._, 2026.
-
-[24] M. Li et al., "Make Large Language Models Efficient: A Review," _IEEE Access_, 2025.
-
-[25] A. Radford et al., "Robust Speech Recognition via Large-Scale Weak Supervision," in _Proc. ICML_, 2023, pp. 28492–28518.
+[21] A. Radford et al., "Robust Speech Recognition via Large-Scale Weak Supervision," in _Proc. ICML_, 2023, pp. 28492–28518.
 
 #v(0.4em)
-#text(size: 6.8pt, style: "italic")[Artefact. All results were produced by executing the described system. Per-question retrieval traces accompany the aggregate metrics in benchmark_results.json and benchmark_multi_user_results.json. Compiled October 2026.]
+#text(size: 6.8pt, style: "italic")[Artefact. All results were produced by executing the described system. Per-question retrieval traces, the ablation and the conflict-accuracy study accompany the aggregate metrics in benchmark_results.json, benchmark_multi_user_results.json, ablation_results.json and conflict_accuracy_results.json. Compiled October 2026.]
 
 ]
