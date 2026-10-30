@@ -44,7 +44,7 @@ def main() -> None:
     k = int(os.environ.get("BENCH_K", "5"))
 
     print("=" * 78)
-    print(" PersonalBrain-Bench: single-user evaluation, four pipelines")
+    print(" PersonalBrain-Bench: single-user evaluation, five pipelines")
     print("=" * 78)
 
     init_database()
@@ -58,6 +58,13 @@ def main() -> None:
     config = results["configuration"]
     print(f"\nCorpus: {corpus['memories']} memories, "
           f"{corpus['conflicts']} detected conflicts, k={results['k']}")
+    graph = results.get("graph", {})
+    if graph:
+        print(f"Graph: {graph.get('nodes', 0)} nodes / {graph.get('edges', 0)} edges "
+              f"({graph.get('extractor', '?')} extractor), mean degree "
+              f"{graph.get('mean_degree', 0)}, connected memories "
+              f"{graph.get('connected_memory_fraction', 0):.0%}")
+        print(f"  edges by type: {graph.get('edges_by_type', {})}")
     print(f"Configuration: dense_backend={config['dense_backend']} "
           f"(requested {config['dense_backend_requested']}), "
           f"scoring_weights={config['scoring_weights_version']}, "
@@ -67,7 +74,7 @@ def main() -> None:
     print(f"{'Pipeline':<10} | {'Hit@5':>6} | {'MRR':>6} | {'stale@1':>7} | "
           f"{'stale':>6} | {'dup':>6} | {'leak':>6} | {'latency':>9}")
     print("-" * 78)
-    for mode in ("vanilla", "hybrid", "graph", "adaptive"):
+    for mode in ("vanilla", "hybrid", "graph", "adaptive", "adaptive_graph"):
         m = results["results"][mode]
         print(f"{mode:<10} | {m['hit_at_k']:>6.3f} | {m['mrr']:>6.3f} | "
               f"{m['stale_top1_rate']:>7.3f} | {m['staleness_rate']:>6.3f} | "

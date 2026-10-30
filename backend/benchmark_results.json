@@ -3,10 +3,32 @@
     "memories": 15,
     "conflicts": 2
   },
+  "graph": {
+    "extractor": "rule",
+    "nodes": 119,
+    "edges": 147,
+    "nodes_by_type": {
+      "concept": 104,
+      "memory": 15
+    },
+    "edges_by_type": {
+      "mentions": 145,
+      "learning": 1,
+      "focus": 1
+    },
+    "mean_degree": 2.471,
+    "memory_nodes": 15,
+    "connected_memory_fraction": 1.0,
+    "built": {
+      "memories": 15,
+      "entities": 145,
+      "triples": 2
+    }
+  },
   "k": 5,
   "configuration": {
-    "dense_backend": "tfidf",
-    "dense_backend_requested": "tfidf",
+    "dense_backend": "bm25",
+    "dense_backend_requested": "bm25",
     "scoring_weights_version": "v1",
     "corpus_scope": true,
     "k": 5
@@ -18,14 +40,14 @@
       "questions": 11,
       "answerable_questions": 9,
       "hit_at_k": 1.0,
-      "mrr": 0.8333,
+      "mrr": 0.7778,
       "stale_top1_rate": 0.3636,
       "precision_at_k": 0.3629,
       "staleness_rate": 0.0889,
       "forgotten_leak_rate": 0.0222,
       "duplicate_rate": 0.0222,
       "avg_context_chars": 409.4,
-      "latency_ms": 55,
+      "latency_ms": 31,
       "per_type": {
         "factual": {
           "n": 3,
@@ -66,7 +88,7 @@
         "duplicate": {
           "n": 1,
           "hit_at_k": 1.0,
-          "mrr": 1.0,
+          "mrr": 0.5,
           "stale_results": 0
         }
       },
@@ -280,16 +302,16 @@
           "answerable": true,
           "hit": true,
           "top1_is_stale": false,
-          "rank": 1,
-          "reciprocal_rank": 1.0,
+          "rank": 2,
+          "reciprocal_rank": 0.5,
           "precision": 0.333,
           "stale_results": 0,
           "forgotten_leak": 0,
           "context_chars": 348,
           "retrieved": [
+            "dup_c",
             "dup_a",
-            "dup_b",
-            "dup_c"
+            "dup_b"
           ]
         }
       ]
@@ -307,7 +329,7 @@
       "forgotten_leak_rate": 0.0217,
       "duplicate_rate": 0.0217,
       "avg_context_chars": 409.4,
-      "latency_ms": 30,
+      "latency_ms": 71,
       "per_type": {
         "factual": {
           "n": 3,
@@ -570,8 +592,8 @@
           "context_chars": 461,
           "retrieved": [
             "dup_a",
-            "dup_b",
             "dup_c",
+            "dup_b",
             "airnet"
           ]
         }
@@ -590,7 +612,7 @@
       "forgotten_leak_rate": 0.0217,
       "duplicate_rate": 0.0217,
       "avg_context_chars": 409.4,
-      "latency_ms": 41,
+      "latency_ms": 57,
       "per_type": {
         "factual": {
           "n": 3,
@@ -794,8 +816,8 @@
             "airnet",
             "dataset",
             "deadline_new",
-            "deadline_old",
-            "randomforest"
+            "randomforest",
+            "deadline_old"
           ]
         },
         {
@@ -853,9 +875,9 @@
           "context_chars": 461,
           "retrieved": [
             "dup_a",
-            "dup_b",
             "dup_c",
-            "airnet"
+            "airnet",
+            "dup_b"
           ]
         }
       ]
@@ -873,7 +895,287 @@
       "forgotten_leak_rate": 0.0,
       "duplicate_rate": 0.0,
       "avg_context_chars": 397.3,
-      "latency_ms": 66,
+      "latency_ms": 57,
+      "per_type": {
+        "factual": {
+          "n": 3,
+          "hit_at_k": 1.0,
+          "mrr": 1.0,
+          "stale_results": 0
+        },
+        "temporal": {
+          "n": 2,
+          "hit_at_k": 1.0,
+          "mrr": 1.0,
+          "stale_results": 1
+        },
+        "contradiction": {
+          "n": 2,
+          "hit_at_k": 1.0,
+          "mrr": 1.0,
+          "stale_results": 2
+        },
+        "multi_hop": {
+          "n": 1,
+          "hit_at_k": 1.0,
+          "mrr": 1.0,
+          "stale_results": 0
+        },
+        "forgetting": {
+          "n": 1,
+          "hit_at_k": 0.0,
+          "mrr": 0.0,
+          "stale_results": 0
+        },
+        "gap": {
+          "n": 1,
+          "hit_at_k": 0.0,
+          "mrr": 0.0,
+          "stale_results": 0
+        },
+        "duplicate": {
+          "n": 1,
+          "hit_at_k": 1.0,
+          "mrr": 1.0,
+          "stale_results": 0
+        }
+      },
+      "per_question": [
+        {
+          "id": "q1",
+          "type": "factual",
+          "question": "When is the IEEE conference paper submission deadline?",
+          "answerable": true,
+          "hit": true,
+          "top1_is_stale": false,
+          "rank": 1,
+          "reciprocal_rank": 1.0,
+          "precision": 0.2,
+          "stale_results": 0,
+          "forgotten_leak": 0,
+          "context_chars": 543,
+          "retrieved": [
+            "ieee",
+            "deadline_new",
+            "airnet",
+            "gap1",
+            "dataset"
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "factual",
+          "question": "What does the pollution dataset contain?",
+          "answerable": true,
+          "hit": true,
+          "top1_is_stale": false,
+          "rank": 1,
+          "reciprocal_rank": 1.0,
+          "precision": 0.2,
+          "stale_results": 0,
+          "forgotten_leak": 0,
+          "context_chars": 543,
+          "retrieved": [
+            "dataset",
+            "airnet",
+            "ieee",
+            "deadline_new",
+            "gap1"
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "factual",
+          "question": "Which model is compared against Random Forest for AQI?",
+          "answerable": true,
+          "hit": true,
+          "top1_is_stale": false,
+          "rank": 1,
+          "reciprocal_rank": 1.0,
+          "precision": 0.4,
+          "stale_results": 0,
+          "forgotten_leak": 0,
+          "context_chars": 523,
+          "retrieved": [
+            "randomforest",
+            "airnet",
+            "dataset",
+            "java_new",
+            "python_old"
+          ]
+        },
+        {
+          "id": "q4",
+          "type": "temporal",
+          "question": "What programming language am I currently focusing on?",
+          "answerable": true,
+          "hit": true,
+          "top1_is_stale": false,
+          "rank": 1,
+          "reciprocal_rank": 1.0,
+          "precision": 1.0,
+          "stale_results": 0,
+          "forgotten_leak": 0,
+          "context_chars": 74,
+          "retrieved": [
+            "java_new"
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "temporal",
+          "question": "What am I learning right now?",
+          "answerable": true,
+          "hit": true,
+          "top1_is_stale": false,
+          "rank": 1,
+          "reciprocal_rank": 1.0,
+          "precision": 0.333,
+          "stale_results": 1,
+          "forgotten_leak": 0,
+          "context_chars": 237,
+          "retrieved": [
+            "java_new",
+            "deadline_new",
+            "python_old"
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "contradiction",
+          "question": "When is the project evaluation deadline?",
+          "answerable": true,
+          "hit": true,
+          "top1_is_stale": false,
+          "rank": 1,
+          "reciprocal_rank": 1.0,
+          "precision": 0.2,
+          "stale_results": 1,
+          "forgotten_leak": 0,
+          "context_chars": 483,
+          "retrieved": [
+            "deadline_new",
+            "airnet",
+            "ieee",
+            "deadline_old",
+            "gap1"
+          ]
+        },
+        {
+          "id": "q7",
+          "type": "contradiction",
+          "question": "What is the current project deadline?",
+          "answerable": true,
+          "hit": true,
+          "top1_is_stale": false,
+          "rank": 1,
+          "reciprocal_rank": 1.0,
+          "precision": 0.2,
+          "stale_results": 1,
+          "forgotten_leak": 0,
+          "context_chars": 483,
+          "retrieved": [
+            "deadline_new",
+            "airnet",
+            "ieee",
+            "deadline_old",
+            "gap1"
+          ]
+        },
+        {
+          "id": "q8",
+          "type": "multi_hop",
+          "question": "How does the air pollution project compare models on the dataset?",
+          "answerable": true,
+          "hit": true,
+          "top1_is_stale": false,
+          "rank": 1,
+          "reciprocal_rank": 1.0,
+          "precision": 0.6,
+          "stale_results": 0,
+          "forgotten_leak": 0,
+          "context_chars": 641,
+          "retrieved": [
+            "airnet",
+            "dataset",
+            "deadline_new",
+            "randomforest",
+            "ieee"
+          ]
+        },
+        {
+          "id": "q9",
+          "type": "forgetting",
+          "question": "What was the temporary lab portal credential?",
+          "answerable": false,
+          "hit": false,
+          "top1_is_stale": false,
+          "rank": 0,
+          "reciprocal_rank": 0.0,
+          "precision": 0.0,
+          "stale_results": 0,
+          "forgotten_leak": 0,
+          "context_chars": 486,
+          "retrieved": [
+            "gap2",
+            "gap3",
+            "deadline_new",
+            "ieee",
+            "airnet"
+          ]
+        },
+        {
+          "id": "q10",
+          "type": "gap",
+          "question": "What do I know about multithreading in depth?",
+          "answerable": false,
+          "hit": false,
+          "top1_is_stale": false,
+          "rank": 0,
+          "reciprocal_rank": 0.0,
+          "precision": 0.0,
+          "stale_results": 0,
+          "forgotten_leak": 0,
+          "context_chars": 128,
+          "retrieved": [
+            "gap2",
+            "gap3"
+          ]
+        },
+        {
+          "id": "q11",
+          "type": "duplicate",
+          "question": "How does FastAPI routing work?",
+          "answerable": true,
+          "hit": true,
+          "top1_is_stale": false,
+          "rank": 1,
+          "reciprocal_rank": 1.0,
+          "precision": 0.5,
+          "stale_results": 0,
+          "forgotten_leak": 0,
+          "context_chars": 229,
+          "retrieved": [
+            "dup_a",
+            "airnet"
+          ]
+        }
+      ]
+    },
+    "adaptive_graph": {
+      "mode": "adaptive_graph",
+      "k": 5,
+      "questions": 11,
+      "answerable_questions": 9,
+      "hit_at_k": 1.0,
+      "mrr": 1.0,
+      "stale_top1_rate": 0.0,
+      "precision_at_k": 0.4037,
+      "staleness_rate": 0.0698,
+      "forgotten_leak_rate": 0.0,
+      "duplicate_rate": 0.0,
+      "avg_context_chars": 397.3,
+      "latency_ms": 90,
       "per_type": {
         "factual": {
           "n": 3,
@@ -1144,7 +1446,7 @@
   "comparison": {
     "adaptive_vs_vanilla": {
       "hit_at_k_delta": 0.0,
-      "mrr_delta": 0.1667,
+      "mrr_delta": 0.2222,
       "staleness_reduction": 0.0191,
       "duplicate_reduction": 0.0222,
       "context_reduction_pct": 3.0

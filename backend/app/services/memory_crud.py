@@ -12,6 +12,7 @@ Deletion is delegated to `ForgettingService`:
 """
 from __future__ import annotations
 
+import logging
 from datetime import datetime
 from typing import Iterable, Optional
 
@@ -22,6 +23,8 @@ from app.memory.archive import memory_archive
 from app.models.capture import MemorySession
 from app.models.memory import Memory, MemoryTag, SearchIndex
 from app.models.research import ForgottenMemory
+
+logger = logging.getLogger(__name__)
 
 MAX_TITLE_CHARS = 220
 MAX_CONTENT_CHARS = 20_000
@@ -168,6 +171,20 @@ def create_memory(
     db.add(memory)
     db.flush()
     _write_index(db, memory, tag_list)
+
+    # Materialise the memory into the knowledge graph. Without this call the
+    # graph tables stayed empty in every fresh database and the graph-dependent
+    # features (retrieval expansion, gap detection, importance scoring) had
+    # nothing to read. Failure here must never reject the user's note, so it is
+    # logged and swallowed: the memory is still saved and indexed.
+    try:
+        from app.research.graph_builder import graph_builder
+
+        graph_builder.build_memory(db, memory.id, title, content,
+                                   at=memory.created_at, commit=False)
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.warning("graph build failed for memory %s: %s", memory.id, exc)
+
     _commit(db)
     db.refresh(memory)
     return memory

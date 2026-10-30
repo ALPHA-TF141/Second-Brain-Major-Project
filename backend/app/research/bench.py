@@ -243,6 +243,11 @@ class BenchmarkRunner:
 
             ids = [m.id for m in db.query(Memory).filter(Memory.app_source.like("bench:%")).all()]
             if ids:
+                # Graph rows first: they carry a foreign key to the memories that
+                # are about to disappear, and a stale memory node would keep a
+                # recycled id connected to the previous run's concepts.
+                from app.research.graph_builder import graph_builder
+                graph_builder.clear(db, ids)
                 from app.models.memory import MemoryTag
                 from app.models.research import MemoryConflict, MemoryScore
                 db.query(SearchIndex).filter(SearchIndex.memory_id.in_(ids)).delete(synchronize_session=False)
@@ -322,6 +327,24 @@ class BenchmarkRunner:
             db, memory_ids=sorted(corpus_scope), scope_ids=corpus_scope)
         db.commit()
 
+        # The knowledge graph is built from the corpus, in the same chronological
+        # order as the temporal facts, so its predicate edges point from older
+        # concepts to newer ones. Without this call the graph tables stay empty
+        # and the "graph" pipeline silently degenerates to "hybrid" - the exact
+        # weakness earlier versions of this benchmark had to disclose.
+        from app.research.graph_builder import graph_builder
+
+        built = graph_builder.build_all(
+            db,
+            [
+                {"id": key_to_id[key], "title": item["title"], "content": item["content"],
+                 "created_at": item["created_at"]}
+                for key, item in sorted(corpus.items(), key=lambda kv: kv[1]["created_at"])
+            ],
+            commit=True,
+        )
+        graph_summary = graph_builder.stats(db)
+
         # The forgetting evaluation is meaningless unless something has actually
         # been forgotten, so the corpus includes a target and we unlearn it here
         # through the real service (which enforces exclusion at every retrieval
@@ -340,6 +363,7 @@ class BenchmarkRunner:
             "conflicts": conflict_result["conflicts"],
             "forgotten": forgotten,
             "session_id": session.id,
+            "graph": {**graph_summary, "built": built},
         }
 
     # -------------------------------------------------------------- evaluate
@@ -481,7 +505,7 @@ class BenchmarkRunner:
         key_to_id = ingest["key_to_id"]
 
         results = {}
-        for mode in ("vanilla", "hybrid", "graph", "adaptive"):
+        for mode in ("vanilla", "hybrid", "graph", "adaptive", "adaptive_graph"):
             outcome = self.evaluate(db, mode=mode, k=k, key_to_id=key_to_id,
                                     dense_backend=dense_backend)
             results[mode] = outcome
@@ -515,6 +539,7 @@ class BenchmarkRunner:
 
         return {
             "corpus": {"memories": ingest["memories"], "conflicts": ingest["conflicts"]},
+            "graph": ingest.get("graph", {}),
             "k": k,
             "configuration": configuration,
             "results": results,

@@ -1,0 +1,249 @@
+{
+  "dense_backend": "tfidf",
+  "core": {
+    "questions": 11,
+    "answerable": 9,
+    "metrics": {
+      "vanilla": {
+        "mrr": 0.8333,
+        "hit_at_5": 1.0,
+        "stale_at_1": 0.3636,
+        "duplicate_rate": 0.0222,
+        "leak_rate": 0.0222
+      },
+      "hybrid": {
+        "mrr": 0.9444,
+        "hit_at_5": 1.0,
+        "stale_at_1": 0.1818,
+        "duplicate_rate": 0.0217,
+        "leak_rate": 0.0217
+      },
+      "graph": {
+        "mrr": 0.9444,
+        "hit_at_5": 1.0,
+        "stale_at_1": 0.1818,
+        "duplicate_rate": 0.0217,
+        "leak_rate": 0.0217
+      },
+      "adaptive": {
+        "mrr": 1.0,
+        "hit_at_5": 1.0,
+        "stale_at_1": 0.0,
+        "duplicate_rate": 0.0,
+        "leak_rate": 0.0
+      },
+      "adaptive_graph": {
+        "mrr": 1.0,
+        "hit_at_5": 1.0,
+        "stale_at_1": 0.0,
+        "duplicate_rate": 0.0,
+        "leak_rate": 0.0
+      }
+    },
+    "bootstrap": {
+      "adaptive_vs_vanilla": {
+        "delta_mrr": 0.1667,
+        "ci95": [
+          0.0,
+          0.3333
+        ],
+        "delta_stale_at_1": -0.3636,
+        "stale_ci95": [
+          -0.6364,
+          -0.0909
+        ]
+      },
+      "adaptive_vs_hybrid": {
+        "delta_mrr": 0.0556,
+        "ci95": [
+          0.0,
+          0.1667
+        ],
+        "delta_stale_at_1": -0.1818,
+        "stale_ci95": [
+          -0.4545,
+          0.0
+        ]
+      },
+      "adaptive_vs_graph": {
+        "delta_mrr": 0.0556,
+        "ci95": [
+          0.0,
+          0.1667
+        ],
+        "delta_stale_at_1": -0.1818,
+        "stale_ci95": [
+          -0.4545,
+          0.0
+        ]
+      },
+      "adaptive_graph_vs_adaptive": {
+        "delta_mrr": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "graph": {
+      "extractor": "rule",
+      "nodes": 125,
+      "edges": 153,
+      "nodes_by_type": {
+        "concept": 110,
+        "memory": 15
+      },
+      "edges_by_type": {
+        "mentions": 145,
+        "focus": 5,
+        "learning": 3
+      },
+      "mean_degree": 2.448,
+      "memory_nodes": 15,
+      "connected_memory_fraction": 1.0,
+      "built": {
+        "memories": 15,
+        "entities": 145,
+        "triples": 2
+      }
+    }
+  },
+  "leave_one_out": [
+    {
+      "configuration": "full (adaptive + graph)",
+      "mrr": 1.0,
+      "stale_at_1": 0.0,
+      "duplicate_rate": 0.0,
+      "leak_rate": 0.0
+    },
+    {
+      "configuration": "\u2212 graph",
+      "mrr": 1.0,
+      "stale_at_1": 0.0,
+      "duplicate_rate": 0.0,
+      "leak_rate": 0.0
+    },
+    {
+      "configuration": "\u2212 temporal",
+      "mrr": 1.0,
+      "stale_at_1": 0.0,
+      "duplicate_rate": 0.0,
+      "leak_rate": 0.0
+    },
+    {
+      "configuration": "\u2212 contradiction",
+      "mrr": 1.0,
+      "stale_at_1": 0.0,
+      "duplicate_rate": 0.0,
+      "leak_rate": 0.0
+    },
+    {
+      "configuration": "\u2212 consolidation",
+      "mrr": 1.0,
+      "stale_at_1": 0.0,
+      "duplicate_rate": 0.0217,
+      "leak_rate": 0.0
+    },
+    {
+      "configuration": "\u2212 forgetting",
+      "mrr": 1.0,
+      "stale_at_1": 0.0909,
+      "duplicate_rate": 0.0,
+      "leak_rate": 0.0465
+    },
+    {
+      "configuration": "\u2212 importance",
+      "mrr": 1.0,
+      "stale_at_1": 0.0,
+      "duplicate_rate": 0.0,
+      "leak_rate": 0.0
+    }
+  ],
+  "personas": {
+    "summary": {
+      "vanilla": {
+        "hit_at_5": 1.0,
+        "mrr": 0.88,
+        "mrr_std": 0.2135,
+        "stale_top1_rate": 0.3333,
+        "leak_rate": 0.0617,
+        "duplicate_rate": 0.0067,
+        "mean_latency_ms": 2.0
+      },
+      "hybrid": {
+        "hit_at_5": 1.0,
+        "mrr": 0.94,
+        "mrr_std": 0.1625,
+        "stale_top1_rate": 0.2333,
+        "leak_rate": 0.045,
+        "duplicate_rate": 0.0033,
+        "mean_latency_ms": 2.19
+      },
+      "graph": {
+        "hit_at_5": 1.0,
+        "mrr": 0.94,
+        "mrr_std": 0.1625,
+        "stale_top1_rate": 0.2333,
+        "leak_rate": 0.045,
+        "duplicate_rate": 0.0033,
+        "mean_latency_ms": 6.55
+      },
+      "adaptive": {
+        "hit_at_5": 1.0,
+        "mrr": 0.94,
+        "mrr_std": 0.1625,
+        "stale_top1_rate": 0.1,
+        "leak_rate": 0.0,
+        "duplicate_rate": 0.0,
+        "mean_latency_ms": 5.07
+      },
+      "adaptive_graph": {
+        "hit_at_5": 1.0,
+        "mrr": 0.94,
+        "mrr_std": 0.1625,
+        "stale_top1_rate": 0.1,
+        "leak_rate": 0.0,
+        "duplicate_rate": 0.0,
+        "mean_latency_ms": 7.39
+      }
+    },
+    "cluster_bootstrap": {
+      "adaptive_vs_vanilla": {
+        "delta_mrr": 0.06,
+        "ci95": [
+          0.02,
+          0.0833
+        ],
+        "delta_stale_at_1": -0.2,
+        "stale_ci95": [
+          -0.28,
+          -0.1333
+        ]
+      },
+      "adaptive_vs_hybrid": {
+        "delta_mrr": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "delta_stale_at_1": -0.16,
+        "stale_ci95": [
+          -0.1667,
+          -0.1333
+        ]
+      },
+      "adaptive_vs_graph": {
+        "delta_mrr": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "delta_stale_at_1": -0.16,
+        "stale_ci95": [
+          -0.1667,
+          -0.1333
+        ]
+      }
+    }
+  }
+}

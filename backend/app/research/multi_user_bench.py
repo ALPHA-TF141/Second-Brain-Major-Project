@@ -40,6 +40,8 @@ from app.models.user import User
 from app.research.bench import PersonalBrainBench, _tokens
 from app.research.contradictions import contradiction_resolver
 from app.research.forgetting import forgetting_service
+from sqlalchemy import or_
+
 from app.research.pipeline import MODES, adaptive_retrieval
 from app.research.scoring import adaptive_memory_scorer
 from app.research.temporal import temporal_knowledge_graph
@@ -211,6 +213,43 @@ class MultiUserBenchmarkRunner:
     def __init__(self, n_repeats: int = 1):
         self.n_repeats = n_repeats
 
+    @staticmethod
+    def _purge_previous_runs(db) -> None:
+        """Delete memories/sessions (and derived state) from earlier bench runs."""
+        from app.models.capture import MemorySession
+        from app.models.memory import Memory, SearchIndex
+        from app.models.research import (
+            ForgottenMemory, KnowledgeGap, MemoryConflict, MemoryScore, TemporalFact,
+        )
+        from app.research.graph_builder import graph_builder
+
+        sessions = (db.query(MemorySession)
+                      .filter(MemorySession.session_type.in_(("multi_bench", "benchmark")))
+                      .all())
+        session_ids = [session.id for session in sessions]
+        if not session_ids:
+            return
+
+        memory_ids = [row.id for row in
+                      db.query(Memory.id).filter(Memory.session_id.in_(session_ids)).all()]
+        if memory_ids:
+            graph_builder.clear(db, memory_ids)
+            db.query(TemporalFact).filter(
+                TemporalFact.source_memory_id.in_(memory_ids)).delete(synchronize_session=False)
+            db.query(MemoryScore).filter(
+                MemoryScore.memory_id.in_(memory_ids)).delete(synchronize_session=False)
+            db.query(MemoryConflict).filter(
+                or_(MemoryConflict.older_memory_id.in_(memory_ids),
+                    MemoryConflict.newer_memory_id.in_(memory_ids))).delete(synchronize_session=False)
+            db.query(ForgottenMemory).filter(
+                ForgottenMemory.memory_id.in_(memory_ids)).delete(synchronize_session=False)
+            db.query(SearchIndex).filter(SearchIndex.memory_id.in_(memory_ids)).delete(synchronize_session=False)
+            db.query(Memory).filter(Memory.id.in_(memory_ids)).delete(synchronize_session=False)
+
+        db.query(KnowledgeGap).delete(synchronize_session=False)
+        db.query(MemorySession).filter(MemorySession.id.in_(session_ids)).delete(synchronize_session=False)
+        db.commit()
+
     def run_benchmark(self, db, k: int = 5) -> Dict[str, Any]:
         """
         Execute benchmark over all persona profiles, returning aggregated metrics
@@ -220,8 +259,19 @@ class MultiUserBenchmarkRunner:
         if not user:
             return {"error": "No user in database"}
 
+        # Purge anything a previous (possibly crashed) run left behind, BEFORE
+        # inserting this run's personas. Memory.content_hash is UNIQUE, so a
+        # leftover row from an aborted run makes the next run fail with an
+        # IntegrityError that looks like a data problem and is really a
+        # reproducibility problem: the same script worked yesterday.
+        self._purge_previous_runs(db)
+
         all_results = {mode: {"hit": [], "mrr": [], "stale": [], "leak": [], "dup": [], "latency": []} for mode in MODES}
         persona_summaries = []
+        # One row per (query, mode). The cluster bootstrap in scripts/run_stats.py
+        # resamples personas from these rows instead of pretending six queries
+        # from one persona are six independent observations.
+        per_query_rows: List[Dict[str, Any]] = []
 
         total_queries = 0
         now = datetime.utcnow()
@@ -309,6 +359,18 @@ class MultiUserBenchmarkRunner:
             # Contradiction detection
             contradiction_resolver.resolve(db, memory_ids=list(scope_ids), scope_ids=scope_ids, use_neural=True)
 
+            # Knowledge graph for THIS persona only. Built before evaluation so
+            # the graph pipelines see a populated graph, and scoped so one
+            # persona's concepts cannot leak into the next.
+            from app.research.graph_builder import graph_builder
+
+            graph_builder.build_all(
+                db,
+                [{"id": key_to_id[it["key"]], "title": it["title"], "content": it["content"],
+                  "created_at": now - timedelta(days=it["days_ago"])} for it in items],
+                commit=True,
+            )
+
             # Adaptive scoring
             adaptive_memory_scorer.score_corpus(db)
 
@@ -333,15 +395,16 @@ class MultiUserBenchmarkRunner:
                     retrieved_ids = [r["memory_id"] for r in results]
 
                     # 1. Hit & MRR (for answerable queries)
+                    query_hit = 0.0
+                    query_mrr = 0.0
                     if gold_ids:
-                        hit = 1.0 if any(gid in retrieved_ids for gid in gold_ids) else 0.0
-                        mrr = 0.0
+                        query_hit = 1.0 if any(gid in retrieved_ids for gid in gold_ids) else 0.0
                         for rank, rid in enumerate(retrieved_ids, 1):
                             if rid in gold_ids:
-                                mrr = 1.0 / rank
+                                query_mrr = 1.0 / rank
                                 break
-                        all_results[mode]["hit"].append(hit)
-                        all_results[mode]["mrr"].append(mrr)
+                        all_results[mode]["hit"].append(query_hit)
+                        all_results[mode]["mrr"].append(query_mrr)
 
                     # 2. Staleness at rank 1
                     top1_stale = 0.0
@@ -369,10 +432,51 @@ class MultiUserBenchmarkRunner:
                     dup_rate = (dups / pairs) if pairs > 0 else 0.0
                     all_results[mode]["dup"].append(dup_rate)
                     all_results[mode]["latency"].append(lat_ms)
+                    per_query_rows.append({
+                        "persona": role,
+                        "question": q_text,
+                        "answerable": bool(gold_ids),
+                        "mode": mode,
+                        "mrr": query_mrr,
+                        "hit": query_hit,
+                        "stale_top1": top1_stale,
+                        "leak": leak_rate,
+                        "dup": dup_rate,
+                    })
 
                 total_queries += 1
 
-            # Clean up persona memory rows
+            # Clean up persona memory rows AND everything derived from them.
+            #
+            # This is the persona-isolation bug the paper had to disclose: only
+            # the Memory rows were deleted, so temporal facts, conflicts, scores,
+            # gaps, tombstones and graph nodes survived. SQLite then hands the
+            # freed primary keys straight back to the next persona, and those
+            # retained records re-attach to unrelated memories - which is how the
+            # combined runner produced a different MRR from the isolated one.
+            from app.models.research import (
+                ForgottenMemory, KnowledgeGap, MemoryConflict,
+                MemoryConsolidation, MemoryScore, TemporalFact,
+            )
+            from app.research.graph_builder import graph_builder
+
+            scope = sorted(scope_ids)
+            graph_builder.clear(db, scope)
+            # Field names differ per table: temporal facts key on
+            # source_memory_id, scores/conflicts/tombstones on memory_id, and
+            # gaps are keyed by concept rather than by memory - so they are
+            # rebuilt from the graph instead of deleted by memory id.
+            db.query(TemporalFact).filter(
+                TemporalFact.source_memory_id.in_(scope)).delete(synchronize_session=False)
+            db.query(MemoryScore).filter(
+                MemoryScore.memory_id.in_(scope)).delete(synchronize_session=False)
+            db.query(MemoryConflict).filter(
+                or_(MemoryConflict.older_memory_id.in_(scope),
+                    MemoryConflict.newer_memory_id.in_(scope))).delete(synchronize_session=False)
+            db.query(ForgottenMemory).filter(
+                ForgottenMemory.memory_id.in_(scope)).delete(synchronize_session=False)
+            db.query(KnowledgeGap).delete(synchronize_session=False)
+
             db.query(SearchIndex).filter(SearchIndex.session_id == session.id).delete(synchronize_session=False)
             db.query(Memory).filter(Memory.session_id == session.id).delete(synchronize_session=False)
             db.query(MemorySession).filter(MemorySession.id == session.id).delete(synchronize_session=False)
@@ -423,6 +527,7 @@ class MultiUserBenchmarkRunner:
             "k": k,
             "summary": summary,
             "significance": p_values,
+            "per_query": per_query_rows,
         }
 
 

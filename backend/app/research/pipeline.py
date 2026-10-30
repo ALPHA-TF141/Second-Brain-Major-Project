@@ -22,9 +22,15 @@ context budget on items that damping later removes.
 """
 from __future__ import annotations
 
+import os
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
-MODES = ("vanilla", "hybrid", "graph", "adaptive")
+from app.research.graph_builder import graph_builder
+
+# adaptive_graph = adaptive + query-conditioned graph expansion. It exists as a
+# SEPARATE mode so the graph's contribution can be measured instead of assumed:
+# "adaptive" keeps the paper's original definition (research layer on hybrid).
+MODES = ("vanilla", "hybrid", "graph", "adaptive", "adaptive_graph")
 
 
 class AdaptiveMemoryRetrieval:
@@ -58,6 +64,72 @@ class AdaptiveMemoryRetrieval:
             return out
         except Exception:
             return []
+
+    @staticmethod
+    def _candidate_bm25(db, question: str, limit: int,
+                        allowed_ids: Optional[set] = None,
+                        k1: float = 1.5, b: float = 0.75) -> List[Tuple[int, float]]:
+        """
+        Okapi BM25 - the stronger lexical baseline the paper was missing.
+
+        TF-IDF cosine and BM25 differ in exactly the regime this corpus lives in
+        (short documents, rare terms): BM25 saturates term frequency and
+        normalises by document length, so a long memory cannot win by repeating
+        a word. Reviewers ask for it by name, and it costs nothing to add because
+        it is pure arithmetic - no model, no network, deterministic.
+        """
+        import math
+        import re
+        from collections import Counter
+
+        from app.models.memory import Memory
+
+        def vec(text: str) -> Counter:
+            return Counter(re.findall(r"[a-z][a-z0-9_+.#-]{2,}", (text or "").lower()))
+
+        query = db.query(Memory)
+        if allowed_ids is not None:
+            if not allowed_ids:
+                return []
+            query = query.filter(Memory.id.in_(allowed_ids))
+        memories = query.all()
+        if not memories:
+            return []
+
+        query_terms = vec(question)
+        if not query_terms:
+            return []
+
+        doc_vecs = [(m, vec(f"{m.title or ''} {m.content or ''}")) for m in memories]
+        total_docs = max(1, len(doc_vecs))
+        avg_length = sum(sum(dv.values()) for _m, dv in doc_vecs) / total_docs or 1.0
+
+        df = Counter()
+        for _m, dv in doc_vecs:
+            for term in dv:
+                df[term] += 1
+
+        def idf(term: str) -> float:
+            n = df.get(term, 0)
+            return math.log(1.0 + (total_docs - n + 0.5) / (n + 0.5))
+
+        scored = []
+        for memory, dv in doc_vecs:
+            length = sum(dv.values()) or 1
+            score = 0.0
+            for term, q_count in query_terms.items():
+                tf = dv.get(term, 0)
+                if not tf:
+                    continue
+                denominator = tf + k1 * (1.0 - b + b * length / avg_length)
+                score += idf(term) * (tf * (k1 + 1.0) / denominator) * q_count
+            if score > 0:
+                scored.append((memory.id, score))
+
+        scored.sort(key=lambda t: -t[1])
+        # normalise to [0,1] so the hybrid ranker sees the same scale as TF-IDF
+        ceiling = scored[0][1] if scored else 1.0
+        return [(mid, value / ceiling) for mid, value in scored[:limit]]
 
     @staticmethod
     def _candidate_tfidf(db, question: str, limit: int,
@@ -195,14 +267,19 @@ class AdaptiveMemoryRetrieval:
         scope = set(allowed_ids) if allowed_ids is not None else None
 
         trace: Dict[str, Any] = {"mode": mode, "question": question, "stages": {}}
-        pool = max(limit * 4, 24)
+        # Pool size is configurable because it decides whether graph expansion
+        # can do anything at all: when the pool is larger than the corpus every
+        # memory is already a candidate, so "the graph found something lexical
+        # retrieval missed" is untestable by construction.
+        pool = int(os.getenv("RETRIEVAL_POOL", "0") or 0) or max(limit * 4, 24)
 
         # ---- candidate generation ----------------------------------------
         # `dense_backend="tfidf"` pins the offline dense retriever and never even
         # loads the neural model. The benchmark asks for that: it is deterministic,
         # needs no network, and it is the configuration the published numbers were
         # produced with, so the table means the same thing on every machine.
-        semantic = ([] if dense_backend == "tfidf"
+        bm25 = dense_backend == "bm25"
+        semantic = ([] if dense_backend in ("tfidf", "bm25")
                     else self._candidate_semantic(db, question, pool, scope))
         keyword_ids = self._candidate_keyword(db, question, pool, scope)
         trace["stages"]["semantic_candidates"] = len(semantic)
@@ -213,9 +290,14 @@ class AdaptiveMemoryRetrieval:
         # Dense candidates: neural if an embedder is configured, otherwise
         # TF-IDF. Either way every mode has a real dense signal, so no baseline
         # degenerates to zero and flatters the proposed method.
-        dense = semantic if semantic else self._candidate_tfidf(db, question, pool, scope)
+        if bm25:
+            dense = self._candidate_bm25(db, question, pool, scope)
+        elif semantic:
+            dense = semantic
+        else:
+            dense = self._candidate_tfidf(db, question, pool, scope)
         trace["stages"]["dense_backend"] = (
-            "tfidf" if dense_backend == "tfidf" else ("neural" if semantic else "tfidf"))
+            "bm25" if bm25 else ("neural" if semantic else "tfidf"))
         trace["stages"]["dense_pinned"] = dense_backend or "auto"
         trace["stages"]["dense_candidates"] = len(dense)
 
@@ -253,14 +335,45 @@ class AdaptiveMemoryRetrieval:
         trace["stages"]["fused_pool"] = len(ordered)
 
         # ==================================================== GRAPH =======
-        if mode == "graph":
+        # Query-conditioned expansion, not a degree-only sort.
+        #
+        # The previous implementation ranked memories by how many edges their
+        # nodes had, which promotes hub memories whether or not they relate to
+        # the QUESTION - it is a popularity prior, not a retrieval signal. This
+        # version seeds from concepts the query actually names, walks one
+        # predicate hop, and fuses the result with the lexical prior. A memory
+        # the lexical retriever missed entirely can still be pulled in (that is
+        # what multi-hop questions need).
+        if mode in ("graph", "adaptive_graph"):
             ids = [m.id for m in ordered]
-            boost = self._graph_neighbours(db, ids)
-            ordered.sort(key=lambda m: -boost.get(m.id, 0.0))
-            trace["stages"]["graph_boost"] = round(sum(boost.values()) / max(1, len(boost)), 4)
+            graph_scores = graph_builder.expand_scores(db, question, ids, hops=1)
+            alpha = float(os.getenv("GRAPH_ALPHA", "0.3"))
+            fused: Dict[int, float] = {}
+            rows_by_id = {m.id: m for m in ordered}
+            for index, memory in enumerate(ordered):
+                prior = 1.0 / (1.0 + index)
+                fused[memory.id] = (1.0 - alpha) * prior + alpha * graph_scores.get(memory.id, 0.0)
+
+            missing = [mid for mid in graph_scores if mid not in fused]
+            if missing:
+                extra = db.query(Memory).filter(Memory.id.in_(missing)).all()
+                if scope is not None:
+                    extra = [m for m in extra if m.id in scope]
+                for memory in extra:
+                    fused[memory.id] = alpha * graph_scores[memory.id]
+                    rows_by_id[memory.id] = memory
+
+            ordered = [rows_by_id[mid] for mid in sorted(fused, key=lambda k: -fused[k])
+                       if mid in rows_by_id]
+            trace["stages"]["graph_alpha"] = alpha
+            trace["stages"]["graph_seeded_memories"] = len(graph_scores)
+            trace["stages"]["graph_promoted"] = len(missing)
 
         # ================================================= ADAPTIVE =======
-        if mode == "adaptive":
+        # adaptive_graph runs the same research layer as adaptive, on top of a
+        # graph-expanded ranking. Keeping them separate is what makes the
+        # question "does the graph add anything?" answerable.
+        if mode in ("adaptive", "adaptive_graph"):
             ordered = self._apply_research_layer(db, ordered, trace, ablation)
 
         trace["stages"]["returned"] = min(len(ordered), limit)
