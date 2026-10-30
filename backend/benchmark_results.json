@@ -8,8 +8,8 @@
     "nodes": 119,
     "edges": 147,
     "nodes_by_type": {
-      "concept": 104,
-      "memory": 15
+      "memory": 15,
+      "concept": 104
     },
     "edges_by_type": {
       "mentions": 145,
@@ -27,8 +27,8 @@
   },
   "k": 5,
   "configuration": {
-    "dense_backend": "bm25",
-    "dense_backend_requested": "bm25",
+    "dense_backend": "tfidf",
+    "dense_backend_requested": "tfidf",
     "scoring_weights_version": "v1",
     "corpus_scope": true,
     "k": 5
@@ -40,14 +40,14 @@
       "questions": 11,
       "answerable_questions": 9,
       "hit_at_k": 1.0,
-      "mrr": 0.7778,
+      "mrr": 0.8333,
       "stale_top1_rate": 0.3636,
       "precision_at_k": 0.3629,
       "staleness_rate": 0.0889,
       "forgotten_leak_rate": 0.0222,
       "duplicate_rate": 0.0222,
       "avg_context_chars": 409.4,
-      "latency_ms": 31,
+      "latency_ms": 81,
       "per_type": {
         "factual": {
           "n": 3,
@@ -88,7 +88,7 @@
         "duplicate": {
           "n": 1,
           "hit_at_k": 1.0,
-          "mrr": 0.5,
+          "mrr": 1.0,
           "stale_results": 0
         }
       },
@@ -302,16 +302,16 @@
           "answerable": true,
           "hit": true,
           "top1_is_stale": false,
-          "rank": 2,
-          "reciprocal_rank": 0.5,
+          "rank": 1,
+          "reciprocal_rank": 1.0,
           "precision": 0.333,
           "stale_results": 0,
           "forgotten_leak": 0,
           "context_chars": 348,
           "retrieved": [
-            "dup_c",
             "dup_a",
-            "dup_b"
+            "dup_b",
+            "dup_c"
           ]
         }
       ]
@@ -329,7 +329,7 @@
       "forgotten_leak_rate": 0.0217,
       "duplicate_rate": 0.0217,
       "avg_context_chars": 409.4,
-      "latency_ms": 71,
+      "latency_ms": 28,
       "per_type": {
         "factual": {
           "n": 3,
@@ -592,8 +592,8 @@
           "context_chars": 461,
           "retrieved": [
             "dup_a",
-            "dup_c",
             "dup_b",
+            "dup_c",
             "airnet"
           ]
         }
@@ -612,7 +612,7 @@
       "forgotten_leak_rate": 0.0217,
       "duplicate_rate": 0.0217,
       "avg_context_chars": 409.4,
-      "latency_ms": 57,
+      "latency_ms": 64,
       "per_type": {
         "factual": {
           "n": 3,
@@ -875,9 +875,9 @@
           "context_chars": 461,
           "retrieved": [
             "dup_a",
-            "dup_c",
+            "dup_b",
             "airnet",
-            "dup_b"
+            "dup_c"
           ]
         }
       ]
@@ -895,7 +895,7 @@
       "forgotten_leak_rate": 0.0,
       "duplicate_rate": 0.0,
       "avg_context_chars": 397.3,
-      "latency_ms": 57,
+      "latency_ms": 66,
       "per_type": {
         "factual": {
           "n": 3,
@@ -1175,7 +1175,7 @@
       "forgotten_leak_rate": 0.0,
       "duplicate_rate": 0.0,
       "avg_context_chars": 397.3,
-      "latency_ms": 90,
+      "latency_ms": 91,
       "per_type": {
         "factual": {
           "n": 3,
@@ -1446,7 +1446,7 @@
   "comparison": {
     "adaptive_vs_vanilla": {
       "hit_at_k_delta": 0.0,
-      "mrr_delta": 0.2222,
+      "mrr_delta": 0.1667,
       "staleness_reduction": 0.0191,
       "duplicate_reduction": 0.0222,
       "context_reduction_pct": 3.0

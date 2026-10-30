@@ -327,12 +327,25 @@ class GraphBuilder:
             db.delete(node)
             removed += 1
 
-        # concepts that lost every edge are dead weight in the next expansion
+        # Prune concepts that no longer belong to any memory.
+        #
+        # The first version of this loop tested "has no edges at all" and ran
+        # once. A concept kept alive by a predicate edge to another concept that
+        # was pruned later in the same pass survived, so the node count crept up
+        # by a handful on every benchmark run and two runs of the same corpus
+        # produced different graph statistics. The invariant that actually
+        # matters is reachability from a memory node, so test that directly.
+        linked_concept_ids = {
+            edge.target_node_id for edge in db.query(GraphEdge).join(
+                GraphNode, GraphEdge.source_node_id == GraphNode.id
+            ).filter(GraphNode.node_type == "memory").all()
+        }
         for node in db.query(GraphNode).filter(GraphNode.node_type == "concept").all():
-            linked = db.query(GraphEdge).filter(
-                (GraphEdge.source_node_id == node.id) | (GraphEdge.target_node_id == node.id)
-            ).count()
-            if not linked:
+            if node.id not in linked_concept_ids:
+                db.query(GraphEdge).filter(
+                    (GraphEdge.source_node_id == node.id) |
+                    (GraphEdge.target_node_id == node.id)
+                ).delete(synchronize_session=False)
                 db.delete(node)
         if commit:
             db.commit()

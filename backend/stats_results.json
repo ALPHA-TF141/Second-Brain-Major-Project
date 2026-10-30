@@ -87,18 +87,18 @@
     },
     "graph": {
       "extractor": "rule",
-      "nodes": 125,
-      "edges": 153,
+      "nodes": 119,
+      "edges": 147,
       "nodes_by_type": {
-        "concept": 110,
-        "memory": 15
+        "memory": 15,
+        "concept": 104
       },
       "edges_by_type": {
         "mentions": 145,
-        "focus": 5,
-        "learning": 3
+        "learning": 1,
+        "focus": 1
       },
-      "mean_degree": 2.448,
+      "mean_degree": 2.471,
       "memory_nodes": 15,
       "connected_memory_fraction": 1.0,
       "built": {
@@ -168,7 +168,7 @@
         "stale_top1_rate": 0.3333,
         "leak_rate": 0.0617,
         "duplicate_rate": 0.0067,
-        "mean_latency_ms": 2.0
+        "mean_latency_ms": 2.06
       },
       "hybrid": {
         "hit_at_5": 1.0,
@@ -177,7 +177,7 @@
         "stale_top1_rate": 0.2333,
         "leak_rate": 0.045,
         "duplicate_rate": 0.0033,
-        "mean_latency_ms": 2.19
+        "mean_latency_ms": 2.23
       },
       "graph": {
         "hit_at_5": 1.0,
@@ -186,7 +186,7 @@
         "stale_top1_rate": 0.2333,
         "leak_rate": 0.045,
         "duplicate_rate": 0.0033,
-        "mean_latency_ms": 6.55
+        "mean_latency_ms": 6.72
       },
       "adaptive": {
         "hit_at_5": 1.0,
@@ -195,7 +195,7 @@
         "stale_top1_rate": 0.1,
         "leak_rate": 0.0,
         "duplicate_rate": 0.0,
-        "mean_latency_ms": 5.07
+        "mean_latency_ms": 5.31
       },
       "adaptive_graph": {
         "hit_at_5": 1.0,
@@ -204,7 +204,7 @@
         "stale_top1_rate": 0.1,
         "leak_rate": 0.0,
         "duplicate_rate": 0.0,
-        "mean_latency_ms": 7.39
+        "mean_latency_ms": 7.51
       }
     },
     "cluster_bootstrap": {
