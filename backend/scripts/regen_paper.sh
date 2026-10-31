@@ -57,5 +57,5 @@ PYCODE
 "$PY" "$BE/scripts/export_paper_metrics.py" --paper-dir paper
 
 echo
-echo "Generated TeX written to paper/generated/."
+echo "paper/main.tex patched in place."
 echo "Now compile paper/main.tex with pdfLaTeX (Overleaf: Menu > Compiler > pdfLaTeX)."

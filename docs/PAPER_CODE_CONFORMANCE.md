@@ -139,3 +139,9 @@ all inline numbers come from `paper/generated/*.tex`, written by
 `backend/scripts/export_paper_metrics.py`. `backend/scripts/regen_paper.sh`
 re-runs the experiments and the exporter in one step; `paper/README.md`
 documents the mapping.
+
+## Single-file manuscript
+
+`paper/main.tex` is self-contained: no `\input`, no separate `generated/`
+directory. The exporter patches it in place, so the file you open in Overleaf is
+the file the code writes to.

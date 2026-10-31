@@ -235,6 +235,20 @@ def tab_bootstrap(stats: Dict[str, Any]) -> str:
     return "\n".join(rows)
 
 
+def _prf(block: Dict[str, Any]) -> Dict[str, Any]:
+    """Flatten one split's counts into a fixed shape."""
+    return {
+        "precision": block.get("precision"),
+        "recall": block.get("recall"),
+        "f1": block.get("f1"),
+        "tp": block.get("tp"),
+        "fp": block.get("fp"),
+        "fn": block.get("fn"),
+        "pairs": block.get("pairs"),
+        "positives": block.get("positives"),
+    }
+
+
 def nli_numbers(dev: Dict[str, Any], hold: Dict[str, Any],
                 core: Dict[str, Any]) -> str:
     """Macros for the conflict-detection paragraph of Section IV-C."""
@@ -414,16 +428,124 @@ def metrics_macros(
 
 
 # ------------------------------------------------------------------------ main
+MARK = "==== "
+METRICS_BEGIN = "% ==== BEGIN GENERATED METRICS ===="
+METRICS_END = "% ==== END GENERATED METRICS ===="
+TABLES = [
+    # (label, builder, caption, colspec, header, note, size, tabcolsep)
+    ("tab:core", "tab_core", "Reproduced Core-Corpus Retrieval Results",
+     "@{}lccccc@{}",
+     r"\textbf{System} & \textbf{Hit@5} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Leak} & \textbf{Dup.}",
+     None, None, None),
+    ("tab:category", "tab_category", "Reproduced MRR by Question Category",
+     "@{}lcccc@{}",
+     r"\textbf{Category} & \textbf{$n$} & \textbf{Hybrid} & \textbf{Adaptive} & $\boldsymbol{\Delta}$",
+     None, None, "4pt"),
+    ("tab:multi", "tab_personas", "Isolated Five-Persona Results",
+     "@{}lcccc@{}",
+     r"\textbf{System} & \textbf{Hit@5} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Leak}",
+     None, None, "4pt"),
+    ("tab:bootstrap", "tab_bootstrap", "Paired Bootstrap of Adaptive Against Each Baseline",
+     "@{}llcccc@{}",
+     r"\textbf{Scope} & \textbf{Comparison} & $\boldsymbol{\Delta}$\textbf{MRR} & \textbf{95\% CI} & "
+     r"$\boldsymbol{\Delta}$\textbf{St.@1} & \textbf{95\% CI}",
+     "St.@1 is stale@1. Persona intervals use a cluster bootstrap over personas; "
+     "core intervals resample questions.", "scriptsize", "2pt"),
+    ("tab:scaling", "tab_scaling", "Distractor Scaling: Questions Fixed, Pool Grown",
+     "@{}llcccccc@{}",
+     r"\textbf{Pool} & \textbf{System} & \textbf{Hit@5} & \textbf{MRR} & \textbf{Evid.} & "
+     r"\textbf{Stale@1} & \textbf{Dup.} & \textbf{Leak}",
+     "Evidence recall is the fraction of required gold memories returned for multi-evidence questions. "
+     "Distractors are drawn from the same vocabulary as the corpus but contain no gold key, so they can "
+     "only cost a system rank.", None, "3.5pt"),
+    ("tab:cumulative", "tab_cumulative", "Cumulative Ablation: One Mechanism Enabled per Row",
+     "@{}lcccc@{}",
+     r"\textbf{Configuration} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Dup.} & \textbf{Leak}",
+     "Mechanisms are switched on in pipeline order; each row includes every mechanism above it. "
+     "This is a cumulative sequence, not a factorial design.", None, "4pt"),
+    ("tab:loo", "tab_loo", "Leave-One-Out Ablation",
+     "@{}lcccc@{}",
+     r"\textbf{Configuration} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Dup.} & \textbf{Leak}",
+     "Each row removes one mechanism from the full system. Mechanisms whose removal changes no metric "
+     "are reported as neutral rather than as contributing.", None, "4pt"),
+]
+
+
+def _table_body(name: str, core, multi, stats, scaling, conflict, ablation, holdout) -> str:
+    if name == "tab_core":
+        return tab_core(core)
+    if name == "tab_category":
+        return tab_category(core)
+    if name == "tab_personas":
+        return tab_personas(multi)
+    if name == "tab_bootstrap":
+        return tab_bootstrap(stats)
+    if name == "tab_scaling":
+        return tab_scaling(scaling)
+    if name == "tab_cumulative":
+        return tab_cumulative(ablation)
+    if name == "tab_loo":
+        return tab_ablation(stats)
+    raise KeyError(name)
+
+
+def _replace_region(text: str, begin: str, end: str, payload: str) -> str:
+    """Swap the text between two marker lines, keeping the markers."""
+    start = text.index(begin)
+    stop = text.index(end, start)
+    head = text[:start + len(begin)]
+    tail = text[stop:]
+    return f"{head}\n{payload}\n{tail}"
+
+
+def patch_main(paper_dir: Path, core, multi, stats, scaling, conflict, ablation, holdout) -> dict:
+    """Write the generated values and tables into paper/main.tex in place."""
+    main_tex = paper_dir / "main.tex"
+    text = main_tex.read_text(encoding="utf-8")
+
+    macros = metrics_macros(core or {}, multi or {}, stats or {}, scaling or {},
+                            conflict or {}, ablation or {}, holdout or {})
+    if conflict:
+        macros += "\n\n" + nli_numbers(conflict, holdout or {}, core or {})
+    text = _replace_region(text, METRICS_BEGIN, METRICS_END, macros)
+
+    written = {}
+    for label, builder, caption, colspec, header, note, size, tabcolsep in TABLES:
+        rows = _table_body(builder, core or {}, multi or {}, stats or {}, scaling or {},
+                           conflict or {}, ablation or {}, holdout or {})
+        if not rows:
+            continue
+        kwargs = {"rows": rows, "caption": caption, "label": label,
+                  "colspec": colspec, "header": header}
+        if note is not None:
+            kwargs["note"] = note
+        if size:
+            kwargs["size"] = size
+        if tabcolsep:
+            kwargs["tabcolsep"] = tabcolsep
+        float_tex = wrap_table(**kwargs)
+        begin, end = f"% ==== BEGIN TABLE {label} ====", f"% ==== END TABLE {label} ===="
+        if begin not in text or end not in text:
+            print(f"  ! markers for {label} not found in main.tex")
+            continue
+        text = _replace_region(text, begin, end, float_tex)
+        written[label] = len(float_tex)
+
+    main_tex.write_text(text, encoding="utf-8")
+    return written
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--paper-dir", default=str(DEFAULT_PAPER_DIR))
     args = parser.parse_args()
 
     paper_dir = Path(args.paper_dir).resolve()
-    out_dir = paper_dir / "generated"
-    out_dir.mkdir(parents=True, exist_ok=True)
+    if not (paper_dir / "main.tex").exists():
+        raise SystemExit(f"main.tex not found in {paper_dir}")
 
-    print(f"Exporting metrics -> {out_dir}")
+    print(f"Updating {paper_dir / 'main.tex'} in place")
+
     core = load(BACKEND_DIR / "benchmark_results.json")
     multi = load(BACKEND_DIR / "benchmark_multi_user_results.json")
     stats = load(BACKEND_DIR / "stats_results.json")
@@ -432,110 +554,22 @@ def main() -> None:
     conflict = load(BACKEND_DIR / "conflict_accuracy_results.json")
     holdout = load(BACKEND_DIR / "conflict_accuracy_holdout.json")
 
-    if core:
-        write(out_dir / "tab_core.tex", wrap_table(
-            rows=tab_core(core),
-            caption="Reproduced Core-Corpus Retrieval Results",
-            label="tab:core",
-            colspec="@{}lccccc@{}",
-            header=r"\textbf{System} & \textbf{Hit@5} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Leak} & \textbf{Dup.}",
-            note="Hit@5 and MRR use \\CorpusAnswerable{} answerable questions; stale@1 uses all "
-                 "\\CorpusQuestions{} (\\CoreVanillaStaleCount, \\CoreHybridStaleCount, "
-                 "\\CoreGraphStaleCount and \\CoreAdaptiveStaleCount). "
-                 f"The systems returned {_items_returned(core)} items, respectively."))
-        write(out_dir / "tab_category.tex", wrap_table(
-            rows=tab_category(core),
-            caption="Reproduced MRR by Question Category",
-            label="tab:category",
-            colspec="@{}lcccc@{}",
-            header=r"\textbf{Category} & \textbf{$n$} & \textbf{Hybrid} & \textbf{Adaptive} & $\boldsymbol{\Delta}$",
-            note="$\\Delta$ is adaptive minus hybrid. The two no-gold questions are omitted.",
-            tabcolsep="4pt"))
-    if multi:
-        write(out_dir / "tab_personas.tex", wrap_table(
-            rows=tab_personas(multi),
-            caption="Isolated Five-Persona Results",
-            label="tab:multi",
-            colspec="@{}lcccc@{}",
-            header=r"\textbf{System} & \textbf{Hit@5} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Leak}",
-            note="\\PersonaCount{} isolated synthetic personas: MRR/Hit@5 over \\PersonaAnswerable{} answerable "
-                 "queries; stale@1 over \\PersonaQueries{}. Leak is the mean per-query fraction. Graph and hybrid "
-                 "coincide because both place every gold item inside the top five.",
-            tabcolsep="4pt"))
-    if stats:
-        write(out_dir / "tab_loo.tex", wrap_table(
-            rows=tab_ablation(stats),
-            caption="Leave-One-Out Ablation",
-            label="tab:loo",
-            colspec="@{}lcccc@{}",
-            header=r"\textbf{Configuration} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Dup.} & \textbf{Leak}",
-            note="Each row removes one mechanism from the full system. Mechanisms whose removal changes no metric "
-                 "are reported as neutral rather than as contributing.",
-            tabcolsep="4pt"))
-        write(out_dir / "tab_bootstrap.tex", wrap_table(
-            rows=tab_bootstrap(stats),
-            caption="Paired Bootstrap of Adaptive Against Each Baseline",
-            label="tab:bootstrap",
-            colspec="@{}llcccc@{}",
-            header=r"\textbf{Scope} & \textbf{Comparison} & $\boldsymbol{\Delta}$\textbf{MRR} & \textbf{95\% CI} & $\boldsymbol{\Delta}$\textbf{St.@1} & \textbf{95\% CI}",
-            size="scriptsize", tabcolsep="2pt",
-            note="St.@1 is stale@1. Persona intervals use a cluster bootstrap over personas; core intervals resample questions."))
-    if ablation:
-        write(out_dir / "tab_cumulative.tex", wrap_table(
-            rows=tab_cumulative(ablation),
-            caption="Cumulative Ablation: One Mechanism Enabled per Row",
-            label="tab:cumulative",
-            colspec="@{}lcccc@{}",
-            header=r"\textbf{Configuration} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Dup.} & \textbf{Leak}",
-            note="Mechanisms are switched on in pipeline order; each row includes every mechanism above it. "
-                 "This is a cumulative sequence, not a factorial design.",
-            tabcolsep="4pt"))
-    elif ablation:
-        write(out_dir / "tab_loo.tex", wrap_table(
-            rows="\n".join(
-                f"{tex_escape(row['config'])} & {f3(row['mrr'])} & {f3(row['stale_top1_rate'])} & "
-                f"{f3(row['duplicate_rate'])} & {f3(row['forgotten_leak_rate'])} \\\\"
-                for row in ablation.get("rows", [])),
-            caption="Leave-One-Out Ablation", label="tab:loo",
-            colspec="@{}lcccc@{}",
-            header=r"\textbf{Configuration} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Dup.} & \textbf{Leak}"))
-    if scaling:
-        write(out_dir / "tab_scaling.tex", wrap_table(
-            rows=tab_scaling(scaling),
-            caption="Distractor Scaling: Questions Fixed, Pool Grown",
-            label="tab:scaling",
-            colspec="@{}llcccccc@{}",
-            header=r"\textbf{Pool} & \textbf{System} & \textbf{Hit@5} & \textbf{MRR} & \textbf{Evid.} & \textbf{Stale@1} & \textbf{Dup.} & \textbf{Leak}",
-            tabcolsep="3.5pt",
-            note="Evidence recall is the fraction of required gold memories returned for multi-evidence questions. "
-                 "Distractors are drawn from the same vocabulary as the corpus but contain no gold key, so they can "
-                 "only cost a system rank."))
-    if conflict:
-        write(out_dir / "nli_numbers.tex", nli_numbers(conflict or {}, holdout or {}, core or {}))
-
-    write(out_dir / "metrics.tex", metrics_macros(
-        core or {}, multi or {}, stats or {}, scaling or {}, conflict or {},
-        ablation or {}, holdout or {}))
-
     missing = [name for name, art in (
         ("benchmark_results.json", core),
         ("benchmark_multi_user_results.json", multi),
         ("stats_results.json", stats),
         ("scaling_results.json", scaling),
+        ("ablation_results.json", ablation),
         ("conflict_accuracy_results.json", conflict),
-    ) if art is None]
+    ) if not art]
     if missing:
-        print("\n  Incomplete: run the matching script(s) first:")
-        for name in missing:
-            script = {
-                "benchmark_results.json": "scripts/run_bench.py",
-                "benchmark_multi_user_results.json": "scripts/run_multi_user_bench.py",
-                "stats_results.json": "scripts/run_stats.py",
-                "scaling_results.json": "scripts/run_scaling.py",
-                "conflict_accuracy_results.json": "scripts/run_conflict_accuracy.py",
-            }[name]
-            print(f"    python backend/{script}")
-    print("\nDone. Recompile paper/main.tex (pdfLaTeX).")
+        print("  ! missing artefacts (run backend/scripts/regen_paper.sh): " + ", ".join(missing))
+
+    written = patch_main(paper_dir, core, multi, stats, scaling, conflict, ablation, holdout)
+    for label, size in written.items():
+        print(f"  table {label:<16} {size:>5} chars")
+
+    print("\nDone. Compile paper/main.tex with pdfLaTeX (Overleaf: Menu > Compiler > pdfLaTeX).")
 
 
 if __name__ == "__main__":

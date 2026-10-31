@@ -63,12 +63,170 @@
 \newif\ifanonymousreview
 \anonymousreviewfalse
 
+% ======================================================================
+% GENERATED VALUES. Written by backend/scripts/export_paper_metrics.py
+% from the JSON artefacts in backend/. Do not hand-edit this block; it is
+% replaced on every run of backend/scripts/regen_paper.sh.
+% ==== BEGIN GENERATED METRICS ====
+% Generated 2026-10-31 05:35 UTC
+% Source: backend/*.json - do not edit by hand
+
+\newcommand{\CorpusMemories}{15}
+\newcommand{\CorpusQuestions}{11}
+\newcommand{\CorpusAnswerable}{9}
+\newcommand{\CoreVanillaStaleCount}{4}
+\newcommand{\CoreVanillaEvid}{0.963}
+\newcommand{\CoreVanillaHit}{1.000}
+\newcommand{\CoreVanillaMrr}{0.833}
+\newcommand{\CoreVanillaStale}{0.364}
+\newcommand{\CoreVanillaStaleRate}{0.089}
+\newcommand{\CoreVanillaLeak}{0.022}
+\newcommand{\CoreVanillaDup}{0.022}
+\newcommand{\CoreVanillaLatency}{29}
+\newcommand{\CoreHybridStaleCount}{2}
+\newcommand{\CoreHybridEvid}{1.000}
+\newcommand{\CoreHybridHit}{1.000}
+\newcommand{\CoreHybridMrr}{0.944}
+\newcommand{\CoreHybridStale}{0.182}
+\newcommand{\CoreHybridStaleRate}{0.087}
+\newcommand{\CoreHybridLeak}{0.022}
+\newcommand{\CoreHybridDup}{0.022}
+\newcommand{\CoreHybridLatency}{23}
+\newcommand{\CoreGraphStaleCount}{2}
+\newcommand{\CoreGraphEvid}{1.000}
+\newcommand{\CoreGraphHit}{1.000}
+\newcommand{\CoreGraphMrr}{0.944}
+\newcommand{\CoreGraphStale}{0.182}
+\newcommand{\CoreGraphStaleRate}{0.087}
+\newcommand{\CoreGraphLeak}{0.022}
+\newcommand{\CoreGraphDup}{0.022}
+\newcommand{\CoreGraphLatency}{76}
+\newcommand{\CoreAdaptiveStaleCount}{0}
+\newcommand{\CoreAdaptiveEvid}{1.000}
+\newcommand{\CoreAdaptiveHit}{1.000}
+\newcommand{\CoreAdaptiveMrr}{1.000}
+\newcommand{\CoreAdaptiveStale}{0.000}
+\newcommand{\CoreAdaptiveStaleRate}{0.070}
+\newcommand{\CoreAdaptiveLeak}{0.000}
+\newcommand{\CoreAdaptiveDup}{0.000}
+\newcommand{\CoreAdaptiveLatency}{51}
+\newcommand{\CoreAdaptiveGraphStaleCount}{0}
+\newcommand{\CoreAdaptiveGraphEvid}{1.000}
+\newcommand{\CoreAdaptiveGraphHit}{1.000}
+\newcommand{\CoreAdaptiveGraphMrr}{1.000}
+\newcommand{\CoreAdaptiveGraphStale}{0.000}
+\newcommand{\CoreAdaptiveGraphStaleRate}{0.070}
+\newcommand{\CoreAdaptiveGraphLeak}{0.000}
+\newcommand{\CoreAdaptiveGraphDup}{0.000}
+\newcommand{\CoreAdaptiveGraphLatency}{100}
+\newcommand{\PersonaQueries}{30}
+\newcommand{\PersonaUniqueQueries}{30}
+\newcommand{\PersonaAnswerable}{25}
+\newcommand{\PersonaCount}{5}
+\newcommand{\PersonaVanillaMrr}{0.880}
+\newcommand{\PersonaVanillaStale}{0.333}
+\newcommand{\PersonaVanillaLeak}{0.062}
+\newcommand{\PersonaHybridMrr}{0.940}
+\newcommand{\PersonaHybridStale}{0.233}
+\newcommand{\PersonaHybridLeak}{0.045}
+\newcommand{\PersonaGraphMrr}{0.940}
+\newcommand{\PersonaGraphStale}{0.233}
+\newcommand{\PersonaGraphLeak}{0.045}
+\newcommand{\PersonaAdaptiveMrr}{0.960}
+\newcommand{\PersonaAdaptiveStale}{0.067}
+\newcommand{\PersonaAdaptiveLeak}{0.000}
+\newcommand{\PersonaAdaptiveGraphMrr}{0.960}
+\newcommand{\PersonaAdaptiveGraphStale}{0.067}
+\newcommand{\PersonaAdaptiveGraphLeak}{0.000}
+\newcommand{\ScaleMaxDecoys}{100}
+\newcommand{\ScaleMemories}{115}
+\newcommand{\ScaleFirstMemories}{15}
+\newcommand{\ScaleHybridEvid}{1.000}
+\newcommand{\ScaleAdaptiveEvid}{1.000}
+\newcommand{\ScaleHybridMrr}{0.889}
+\newcommand{\ScaleHybridDup}{0.234}
+\newcommand{\ScaleHybridStale}{0.273}
+\newcommand{\ScaleAdaptiveMrr}{1.000}
+\newcommand{\ScaleAdaptiveDup}{0.000}
+\newcommand{\ScaleAdaptiveStale}{0.000}
+\newcommand{\AblHybridMrr}{0.944}
+\newcommand{\AblHybridStale}{0.182}
+\newcommand{\AblHybridDup}{0.022}
+\newcommand{\AblHybridLeak}{0.022}
+\newcommand{\AblTemporalMrr}{1.000}
+\newcommand{\AblTemporalStale}{0.091}
+\newcommand{\AblTemporalDup}{0.022}
+\newcommand{\AblTemporalLeak}{0.022}
+\newcommand{\AblContradictionMrr}{1.000}
+\newcommand{\AblContradictionStale}{0.091}
+\newcommand{\AblContradictionDup}{0.022}
+\newcommand{\AblContradictionLeak}{0.043}
+\newcommand{\AblConsolidationMrr}{1.000}
+\newcommand{\AblConsolidationStale}{0.091}
+\newcommand{\AblConsolidationDup}{0.000}
+\newcommand{\AblConsolidationLeak}{0.046}
+\newcommand{\AblForgettingMrr}{1.000}
+\newcommand{\AblForgettingStale}{0.000}
+\newcommand{\AblForgettingDup}{0.000}
+\newcommand{\AblForgettingLeak}{0.000}
+\newcommand{\AblAllMrr}{1.000}
+\newcommand{\AblAllStale}{0.000}
+\newcommand{\AblAllDup}{0.000}
+\newcommand{\AblAllLeak}{0.000}
+\newcommand{\CoreDeltaMrr}{+0.056}
+\newcommand{\CoreDeltaMrrLo}{+0.000}
+\newcommand{\CoreDeltaMrrHi}{+0.167}
+\newcommand{\CoreDeltaStale}{-0.182}
+\newcommand{\CoreDeltaStaleLo}{-0.455}
+\newcommand{\CoreDeltaStaleHi}{+0.000}
+\newcommand{\PersonaDeltaMrr}{+0.020}
+\newcommand{\PersonaDeltaMrrLo}{+0.000}
+\newcommand{\PersonaDeltaMrrHi}{+0.060}
+\newcommand{\PersonaDeltaStale}{-0.200}
+\newcommand{\PersonaDeltaStaleLo}{-0.280}
+\newcommand{\PersonaDeltaStaleHi}{-0.133}
+\newcommand{\TestPassed}{29}
+\newcommand{\TestSkipped}{0}
+\newcommand{\TestFailed}{0}
+
+% generated from conflict_accuracy{,_holdout}.json
+\newcommand{\NliDevPairs}{21}
+\newcommand{\NliDevPositives}{10}
+\newcommand{\NliDevPrecision}{1.000}
+\newcommand{\NliDevRecall}{1.000}
+\newcommand{\NliDevFone}{1.000}
+\newcommand{\NliDevTp}{10}
+\newcommand{\NliDevFp}{0}
+\newcommand{\NliDevFn}{0}
+\newcommand{\NliDevValueChangeGold}{7}
+\newcommand{\NliDevValueChangeDetected}{7}
+\newcommand{\NliDevNegationGold}{3}
+\newcommand{\NliDevNegationDetected}{3}
+\newcommand{\NliHoldPairs}{12}
+\newcommand{\NliHoldPositives}{6}
+\newcommand{\NliHoldPrecision}{0.857}
+\newcommand{\NliHoldRecall}{1.000}
+\newcommand{\NliHoldFone}{0.923}
+\newcommand{\NliHoldTp}{6}
+\newcommand{\NliHoldFp}{1}
+\newcommand{\NliHoldFn}{0}
+\newcommand{\NliHoldValueChangeGold}{3}
+\newcommand{\NliHoldValueChangeDetected}{3}
+\newcommand{\NliHoldNegationGold}{3}
+\newcommand{\NliHoldNegationDetected}{3}
+\newcommand{\NliPrecision}{1.000}
+\newcommand{\NliRecall}{1.000}
+\newcommand{\NliFone}{1.000}
+\newcommand{\NliTp}{10}
+\newcommand{\NliFp}{0}
+\newcommand{\NliFn}{0}
+% ==== END GENERATED METRICS ====
+% ======================================================================
+
 \begin{document}
 
 % ---- every number below is generated from backend/*.json by
 %      backend/scripts/export_paper_metrics.py - edit the code, not this file
-\input{generated/metrics.tex}
-\input{generated/nli_numbers.tex}
 
 \title{Adaptive Temporal Personal Knowledge Graph with Memory Consolidation and Contradiction-Aware Retrieval-Augmented Generation}
 
@@ -249,35 +407,189 @@ The four repository runners were executed on fresh SQLite databases at $k=5$ wit
 
 \section{Results and Comparative Analysis}
 \subsection{Core-Corpus Results}
-\input{generated/tab_core.tex}
+% ==== BEGIN TABLE tab:core ====
+\begin{table}[t]
+\caption{Reproduced Core-Corpus Retrieval Results}
+\label{tab:core}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{System} & \textbf{Hit@5} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Leak} & \textbf{Dup.} \\
+\midrule
+TF-IDF vector & 1.000 & 0.833 & 0.364 & 0.022 & 0.022 \\
+Hybrid & 1.000 & 0.944 & 0.182 & 0.022 & 0.022 \\
+Graph-aug. & 1.000 & 0.944 & 0.182 & 0.022 & 0.022 \\
+Adaptive & 1.000 & 1.000 & 0.000 & 0.000 & 0.000 \\
+Adaptive+graph & 1.000 & 1.000 & 0.000 & 0.000 & 0.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+% ==== END TABLE tab:core ====
 
 Hit@5 is 1.000 for every configuration, while MRR and stale@1 differ. Each benchmark run builds a knowledge graph over the corpus (119 nodes, 147 edges, mean degree 2.47, every memory connected). The adaptive mode's zero stale@1 does not mean that no forbidden item was retrieved: its aggregate staleness rate over all returned items is \CoreAdaptiveStaleRate{}, so forbidden results appear below rank one even when they never take it. The zero duplicate and leak rates are limited to the stated metrics and test cases.
 
-\input{generated/tab_category.tex}
+% ==== BEGIN TABLE tab:category ====
+\begin{table}[t]
+\caption{Reproduced MRR by Question Category}
+\label{tab:category}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Category} & \textbf{$n$} & \textbf{Hybrid} & \textbf{Adaptive} & $\boldsymbol{\Delta}$ \\
+\midrule
+Factual & 3 & 1.000 & 1.000 & $+0.000$ \\
+Temporal & 2 & 0.750 & 1.000 & $+0.250$ \\
+Contradiction & 2 & 1.000 & 1.000 & $+0.000$ \\
+Multi hop & 1 & 1.000 & 1.000 & $+0.000$ \\
+Duplicate & 1 & 1.000 & 1.000 & $+0.000$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+% ==== END TABLE tab:category ====
 
 The core script reports elapsed time over all \CorpusQuestions{} queries, not per-query latency. One run recorded \CoreVanillaLatency\,ms (TF-IDF), \CoreHybridLatency\,ms (hybrid), \CoreGraphLatency\,ms (graph-augmented) and \CoreAdaptiveLatency\,ms (adaptive); these are uncontrolled, environment-specific diagnostic timings rather than measurements.
 
 \subsection{Five-Persona Results and Statistical Reporting}
-\input{generated/tab_personas.tex}
+% ==== BEGIN TABLE tab:multi ====
+\begin{table}[t]
+\caption{Isolated Five-Persona Results}
+\label{tab:multi}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{System} & \textbf{Hit@5} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Leak} \\
+\midrule
+TF-IDF vector & 1.000 & 0.880 & 0.333 & 0.062 \\
+Hybrid & 1.000 & 0.940 & 0.233 & 0.045 \\
+Graph-aug. & 1.000 & 0.940 & 0.233 & 0.045 \\
+Adaptive & 1.000 & 0.960 & 0.067 & 0.000 \\
+Adaptive+graph & 1.000 & 0.960 & 0.067 & 0.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+% ==== END TABLE tab:multi ====
 
 Adaptive matches hybrid on MRR (\PersonaAdaptiveMrr{} versus \PersonaHybridMrr{}) while reducing stale@1 from \PersonaHybridStale{} to \PersonaAdaptiveStale{} and eliminating forgotten-item leakage. Each persona is evaluated in a fresh database and the runner purges derived state -- temporal facts, conflicts, scores, tombstones and graph rows -- between personas, so no persona inherits another's annotations.
 
 The suite contains five synthetic personas, not real users, and six queries share each persona, so query-level tests are not independent. We therefore resample personas rather than queries (cluster bootstrap, 10{,}000 resamples) and report intervals rather than $p$-values. Against hybrid the adaptive layer changes MRR by $\PersonaDeltaMrr$ with a 95\% interval of $[\PersonaDeltaMrrLo, \PersonaDeltaMrrHi]$ -- no evidence of an MRR effect -- but reduces stale@1 by $\PersonaDeltaStale$ $[\PersonaDeltaStaleLo, \PersonaDeltaStaleHi]$, an interval that excludes zero (Table~\ref{tab:bootstrap}). The honest reading is that the research layer improves the validity of the top-ranked result, not the depth of the ranking.
 
-\input{generated/tab_bootstrap.tex}
+% ==== BEGIN TABLE tab:bootstrap ====
+\begin{table}[t]
+\caption{Paired Bootstrap of Adaptive Against Each Baseline}
+\label{tab:bootstrap}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+\textbf{Scope} & \textbf{Comparison} & $\boldsymbol{\Delta}$\textbf{MRR} & \textbf{95\% CI} & $\boldsymbol{\Delta}$\textbf{St.@1} & \textbf{95\% CI} \\
+\midrule
+Core & vs TF-IDF & $+0.167$ & $[+0.000, +0.333]$ & $-0.364$ & $[-0.636, -0.091]$ \\
+Core & vs hybrid & $+0.056$ & $[+0.000, +0.167]$ & $-0.182$ & $[-0.455, +0.000]$ \\
+Core & vs graph & $+0.056$ & $[+0.000, +0.167]$ & $-0.182$ & $[-0.455, +0.000]$ \\
+Core & graph+ad. vs ad. & $+0.000$ & $[+0.000, +0.000]$ & $+0.000$ & $[+0.000, +0.000]$ \\
+\midrule
+Personas & vs TF-IDF & $+0.080$ & $[+0.020, +0.133]$ & $-0.240$ & $[-0.320, -0.150]$ \\
+Personas & vs hybrid & $+0.020$ & $[+0.000, +0.060]$ & $-0.200$ & $[-0.280, -0.133]$ \\
+Personas & vs graph & $+0.020$ & $[+0.000, +0.060]$ & $-0.200$ & $[-0.280, -0.133]$ \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}
+\raggedright\scriptsize St.@1 is stale@1. Persona intervals use a cluster bootstrap over personas; core intervals resample questions.
+\end{table}
+% ==== END TABLE tab:bootstrap ====
 
 \subsection{Distractor Scaling}
 \label{sec:scaling}
 The core corpus is small enough that Hit@5 saturates at 1.000 for every system, which hides any difference between retrievers. To test whether the research layer survives a harder candidate pool we hold the questions fixed and add topically similar distractor memories that never contain a gold or forbidden item. Table~\ref{tab:scaling} reports the result at \ScaleMemories{} memories. Adaptive MRR stays at \ScaleAdaptiveMrr{} while hybrid drops to \ScaleHybridMrr{}, and the separation widens on every validity metric: adaptive holds stale@1 at \ScaleAdaptiveStale{} while hybrid rises to \ScaleHybridStale{}, and hybrid's duplicate rate climbs to \ScaleHybridDup{} while adaptive stays at zero. Both systems keep evidence recall at \ScaleHybridEvid{}, so the loss is rank position, not recall of the required evidence. The research layer therefore does more work as the candidate pool grows: the same questions become no harder for adaptive while hybrid loses ranks and admits stale and duplicate items.
 
-\input{generated/tab_scaling.tex}
+% ==== BEGIN TABLE tab:scaling ====
+\begin{table}[t]
+\caption{Distractor Scaling: Questions Fixed, Pool Grown}
+\label{tab:scaling}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}llcccccc@{}}
+\toprule
+\textbf{Pool} & \textbf{System} & \textbf{Hit@5} & \textbf{MRR} & \textbf{Evid.} & \textbf{Stale@1} & \textbf{Dup.} & \textbf{Leak} \\
+\midrule
+15 mem. & Hybrid & 1.000 & 0.944 & 1.000 & 0.182 & 0.022 & 0.022 \\
+ & Graph-aug. & 1.000 & 0.944 & 1.000 & 0.182 & 0.022 & 0.022 \\
+ & Adaptive & 1.000 & 1.000 & 1.000 & 0.000 & 0.000 & 0.000 \\
+40 mem. & Hybrid & 1.000 & 0.944 & 1.000 & 0.182 & 0.170 & 0.021 \\
+ & Graph-aug. & 1.000 & 0.944 & 1.000 & 0.182 & 0.192 & 0.021 \\
+ & Adaptive & 1.000 & 1.000 & 1.000 & 0.000 & 0.000 & 0.000 \\
+65 mem. & Hybrid & 1.000 & 0.944 & 1.000 & 0.182 & 0.192 & 0.021 \\
+ & Graph-aug. & 1.000 & 0.944 & 1.000 & 0.182 & 0.213 & 0.021 \\
+ & Adaptive & 1.000 & 1.000 & 1.000 & 0.000 & 0.000 & 0.000 \\
+115 mem. & Hybrid & 1.000 & 0.889 & 1.000 & 0.273 & 0.234 & 0.021 \\
+ & Graph-aug. & 1.000 & 0.889 & 1.000 & 0.273 & 0.255 & 0.021 \\
+ & Adaptive & 1.000 & 1.000 & 1.000 & 0.000 & 0.000 & 0.000 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}
+\raggedright\scriptsize Evidence recall is the fraction of required gold memories returned for multi-evidence questions. Distractors are drawn from the same vocabulary as the corpus but contain no gold key, so they can only cost a system rank.
+\end{table}
+% ==== END TABLE tab:scaling ====
 
 \subsection{Cumulative Ablation}
-\input{generated/tab_cumulative.tex}
+% ==== BEGIN TABLE tab:cumulative ====
+\begin{table}[t]
+\caption{Cumulative Ablation: One Mechanism Enabled per Row}
+\label{tab:cumulative}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Configuration} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Dup.} & \textbf{Leak} \\
+\midrule
+hybrid (layer off) & 0.944 & 0.182 & 0.022 & 0.022 \\
++temporal & 1.000 & 0.091 & 0.022 & 0.022 \\
++contradiction & 1.000 & 0.091 & 0.022 & 0.043 \\
++consolidation & 1.000 & 0.091 & 0.000 & 0.046 \\
++forgetting & 1.000 & 0.000 & 0.000 & 0.000 \\
++importance (full) & 1.000 & 0.000 & 0.000 & 0.000 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}
+\raggedright\scriptsize Mechanisms are switched on in pipeline order; each row includes every mechanism above it. This is a cumulative sequence, not a factorial design.
+\end{table}
+% ==== END TABLE tab:cumulative ====
 
 Adding temporal handling raises MRR from \AblHybridMrr{} to \AblTemporalMrr{} and halves stale@1 from \AblHybridStale{} to \AblTemporalStale{}. Contradiction damping leaves MRR and stale@1 unchanged at that point and raises measured leakage from \AblTemporalLeak{} to \AblContradictionLeak{} in this sequence. Consolidation removes the remaining duplicates (\AblContradictionDup{} to \AblConsolidationDup{}), and forgetting removes the remaining stale and leaked items. Importance weighting changes none of the shown metrics, so it is reported as neutral. The cumulative order is not a factorial design; the leave-one-out table below separately removes one mechanism from the complete system.
 
-\input{generated/tab_loo.tex}
+% ==== BEGIN TABLE tab:loo ====
+\begin{table}[t]
+\caption{Leave-One-Out Ablation}
+\label{tab:loo}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Configuration} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Dup.} & \textbf{Leak} \\
+\midrule
+full (adaptive + graph) & 1.000 & 0.000 & 0.000 & 0.000 \\
+− graph & 1.000 & 0.000 & 0.000 & 0.000 \\
+− temporal & 1.000 & 0.000 & 0.000 & 0.000 \\
+− contradiction & 1.000 & 0.000 & 0.000 & 0.000 \\
+− consolidation & 1.000 & 0.000 & 0.022 & 0.000 \\
+− forgetting & 1.000 & 0.091 & 0.000 & 0.046 \\
+− importance & 1.000 & 0.000 & 0.000 & 0.000 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}
+\raggedright\scriptsize Each row removes one mechanism from the full system. Mechanisms whose removal changes no metric are reported as neutral rather than as contributing.
+\end{table}
+% ==== END TABLE tab:loo ====
 
 \section{Implementation and Verification}
 \label{sec:verification}
