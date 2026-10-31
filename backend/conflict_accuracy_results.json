@@ -1,39 +1,55 @@
 {
+  "split": "dev",
   "pairs": 21,
   "positives": 10,
   "negatives": 11,
-  "tp": 4,
-  "fp": 2,
-  "fn": 6,
-  "precision": 0.667,
-  "recall": 0.4,
-  "f1": 0.5,
+  "tp": 10,
+  "fp": 0,
+  "fn": 0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
   "per_class": {
     "value_change": {
       "gold": 7,
-      "detected": 2
+      "detected": 7
     },
     "negation": {
       "gold": 3,
-      "detected": 2
+      "detected": 3
     }
   },
   "detail": [
     {
       "gold": "value_change",
-      "predicted": null
+      "predicted": [
+        "value_change"
+      ]
     },
     {
       "gold": "value_change",
-      "predicted": null
+      "predicted": [
+        "value_change"
+      ]
     },
     {
       "gold": "value_change",
-      "predicted": null
+      "predicted": [
+        "value_change"
+      ]
     },
     {
       "gold": "value_change",
-      "predicted": null
+      "predicted": [
+        "value_change"
+      ]
+    },
+    {
+      "gold": "negation",
+      "predicted": [
+        "contradiction",
+        "negation"
+      ]
     },
     {
       "gold": "negation",
@@ -43,73 +59,68 @@
     },
     {
       "gold": "negation",
-      "predicted": null
-    },
-    {
-      "gold": "negation",
       "predicted": [
-        "contradiction"
-      ]
-    },
-    {
-      "gold": "value_change",
-      "predicted": null
-    },
-    {
-      "gold": "value_change",
-      "predicted": [
-        "contradiction"
+        "contradiction",
+        "negation"
       ]
     },
     {
       "gold": "value_change",
       "predicted": [
-        "contradiction"
+        "value_change"
       ]
     },
     {
-      "gold": null,
-      "predicted": null
-    },
-    {
-      "gold": null,
-      "predicted": null
-    },
-    {
-      "gold": null,
-      "predicted": null
-    },
-    {
-      "gold": null,
+      "gold": "value_change",
       "predicted": [
-        "contradiction"
+        "value_change"
       ]
     },
     {
-      "gold": null,
-      "predicted": null
-    },
-    {
-      "gold": null,
-      "predicted": null
-    },
-    {
-      "gold": null,
-      "predicted": null
-    },
-    {
-      "gold": null,
-      "predicted": null
-    },
-    {
-      "gold": null,
-      "predicted": null
-    },
-    {
-      "gold": null,
+      "gold": "value_change",
       "predicted": [
-        "contradiction"
+        "value_change"
       ]
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
     },
     {
       "gold": null,

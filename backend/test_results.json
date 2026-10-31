@@ -1,0 +1,6 @@
+{
+  "passed": 29,
+  "skipped": 0,
+  "failed": 0,
+  "note": "tests/test_forgetting_paths.py and tests/test_memory_crud.py do not collect (import mss)"
+}

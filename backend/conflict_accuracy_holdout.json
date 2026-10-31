@@ -1,0 +1,86 @@
+{
+  "split": "holdout",
+  "pairs": 12,
+  "positives": 6,
+  "negatives": 6,
+  "tp": 6,
+  "fp": 1,
+  "fn": 0,
+  "precision": 0.857,
+  "recall": 1.0,
+  "f1": 0.923,
+  "per_class": {
+    "value_change": {
+      "gold": 3,
+      "detected": 3
+    },
+    "negation": {
+      "gold": 3,
+      "detected": 3
+    }
+  },
+  "detail": [
+    {
+      "gold": "value_change",
+      "predicted": [
+        "value_change"
+      ]
+    },
+    {
+      "gold": "value_change",
+      "predicted": [
+        "value_change"
+      ]
+    },
+    {
+      "gold": "value_change",
+      "predicted": [
+        "value_change"
+      ]
+    },
+    {
+      "gold": "negation",
+      "predicted": [
+        "contradiction"
+      ]
+    },
+    {
+      "gold": "negation",
+      "predicted": [
+        "contradiction"
+      ]
+    },
+    {
+      "gold": "negation",
+      "predicted": [
+        "contradiction"
+      ]
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": null
+    },
+    {
+      "gold": null,
+      "predicted": [
+        "contradiction"
+      ]
+    }
+  ]
+}

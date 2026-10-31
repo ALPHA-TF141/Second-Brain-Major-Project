@@ -1,0 +1,20 @@
+\begin{table}[t]
+\caption{Isolated Five-Persona Results}
+\label{tab:multi}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{System} & \textbf{Hit@5} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Leak} \\
+\midrule
+TF-IDF vector & 1.000 & 0.880 & 0.333 & 0.062 \\
+Hybrid & 1.000 & 0.940 & 0.233 & 0.045 \\
+Graph-aug. & 1.000 & 0.940 & 0.233 & 0.045 \\
+Adaptive & 1.000 & 0.960 & 0.067 & 0.000 \\
+Adaptive+graph & 1.000 & 0.960 & 0.067 & 0.000 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}
+\raggedright\scriptsize \PersonaCount{} isolated synthetic personas: MRR/Hit@5 over \PersonaAnswerable{} answerable queries; stale@1 over \PersonaQueries{}. Leak is the mean per-query fraction. Graph and hybrid coincide because both place every gold item inside the top five.
+\end{table}

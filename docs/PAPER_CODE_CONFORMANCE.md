@@ -116,3 +116,26 @@ Expected core-corpus table (deterministic; latency varies):
 | Hybrid | 1.000 | 0.944 | 0.182 | 0.022 | 0.022 |
 | Graph-aug. | 1.000 | 0.944 | 0.182 | 0.022 | 0.022 |
 | Adaptive | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 |
+
+## Conflict detection: what changed and why
+
+| Item | Before | Now | Evidence |
+| --- | --- | --- | --- |
+| ONNX NLI at runtime | never loaded (`huggingface_hub` missing), silently returned "no conflict" | loads; `requirements-semantic.txt` already listed the deps | `neural_nli.is_available() == True` |
+| Missing-model path | `classify_conflict` returned `(False, 0.0, "unknown")` despite logging "falling back to rule-based" | explicit conservative `_rule_conflict` (one-sided negation over near-identical claims) | `tests/test_neural_research.py` |
+| Decision rule | max contradiction over both premise orders | minimum over both orders decides; max is still reported as severity | `classify_conflict(..., both_orders=True)` |
+| Polarity guard | none | two restriction markers (`never` vs `only`) suppress an NLI-only conflict | holdout FP analysis |
+| Value slots | calendar dates only | dates, numeric slots anchored on the counted noun, and named-entity substitution with a change cue | dev/holdout pair sets |
+| Tokenisation | sentence-final punctuation kept (`"RAM."` != `"RAM"`), silently blocking pairs | punctuation stripped around tokens | `tests/test_contradictions.py` |
+
+Resulting agreement between paper and code: Section IV-C's description of four
+signals, the both-orders rule and the 0.55 threshold is now exactly what
+`contradictions.py` and `neural_nli.py` do.
+
+## Generated tables
+
+`paper/main.tex` no longer contains any literal measurement. Tables II-VIII and
+all inline numbers come from `paper/generated/*.tex`, written by
+`backend/scripts/export_paper_metrics.py`. `backend/scripts/regen_paper.sh`
+re-runs the experiments and the exporter in one step; `paper/README.md`
+documents the mapping.

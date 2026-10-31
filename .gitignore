@@ -19,3 +19,8 @@ backend/data/integrations/
 .env
 .env.local
 **/.env
+
+# --- generated paper build artefacts --- 
+paper/build_local.*
+
+paper/_*.tex

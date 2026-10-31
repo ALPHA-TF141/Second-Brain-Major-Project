@@ -68,7 +68,71 @@ class PersonalBrainBench:
         self.now = datetime.utcnow()
 
     # ------------------------------------------------------------- corpus
-    def build_corpus(self) -> List[Dict[str, Any]]:
+    # Distractor templates. The core corpus is deliberately small (15
+    # memories), which saturates Hit@5 at 1.000 for every system and hides any
+    # difference between retrievers. Scaling the DISTRACTOR pool instead of the
+    # question set keeps the questions fixed while making the task harder, so
+    # the comparison measures the retrievers rather than the corpus size.
+    #
+    # Decoys are topically similar on purpose (papers, deadlines, datasets,
+    # models, stacks) but never contain a gold or forbidden key, so they can
+    # only ever cost a system rank, never grant it a correct answer.
+    DECOY_TEMPLATES: List[Tuple[str, str]] = [
+        ("The {name} reading group meets on {day} in room {room}. Attendees bring one "
+         "paper each and the discussion covers retrieval baselines and evaluation.",
+         "reading-group notes"),
+        ("{name} reported that the {dataset} preprocessing job finished in {n} minutes. "
+         "No anomalies were found in the validation split.", "job log"),
+        ("A draft of the {name} proposal was shared for comments. It lists three work "
+         "packages and a budget summary in the appendix.", "email"),
+        ("Lecture {n} of the {name} course covers matrix factorisation, with a worked "
+         "example on implicit feedback.", "lecture note"),
+        ("The {name} dashboard shows weekday peaks around {n} requests per minute and a "
+         "quiet period on Sunday mornings.", "metrics"),
+        ("{name} asked whether the {dataset} licence permits redistribution; the answer "
+         "is no without written permission.", "chat"),
+        ("Backup of the {name} workspace completed. Archive size {n} MB, checksums "
+         "verified.", "system notice"),
+        ("Notes from the {name} review: the introduction is clear, but the related work "
+         "section needs two more citations.", "review note"),
+    ]
+
+    def build_corpus(self, decoys: int = 0) -> List[Dict[str, Any]]:
+        corpus = self._build_core_corpus()
+        if decoys:
+            corpus.extend(self._build_decoys(decoys))
+            corpus.sort(key=lambda item: item["created_at"])
+        return corpus
+
+    def _build_decoys(self, count: int) -> List[Dict[str, Any]]:
+        names = ["Aarav", "Bhavna", "Chetan", "Divya", "Eshan", "Farah", "Gaurav",
+                 "Harini", "Ishaan", "Jaya", "Kabir", "Lakshmi", "Manoj", "Nithya",
+                 "Omkar", "Pooja", "Rahul", "Sneha", "Tanya", "Uday", "Varun",
+                 "Wasim", "Yamini", "Zoya"]
+        datasets = ["sensor", "census", "traffic", "housing", "network", "energy",
+                    "climate", "weather"]
+        days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+        rows: List[Dict[str, Any]] = []
+        for index in range(count):
+            template, label = self.DECOY_TEMPLATES[index % len(self.DECOY_TEMPLATES)]
+            text = template.format(
+                name=names[index % len(names)],
+                dataset=datasets[(index * 3) % len(datasets)],
+                day=days[index % len(days)],
+                room=100 + (index % 40),
+                n=5 + (index * 7) % 60,
+            )
+            rows.append({
+                "key": f"decoy_{index:03d}",
+                "title": f"{label} {index + 1}",
+                "content": text,
+                "source_type": "note",
+                "app_source": "decoy",
+                "created_at": self.now - timedelta(days=(index * 5) % 220),
+            })
+        return rows
+
+    def _build_core_corpus(self) -> List[Dict[str, Any]]:
         now = self.now
         def days_ago(n: int) -> datetime:
             return now - timedelta(days=n)
@@ -201,7 +265,7 @@ class BenchmarkRunner:
         self.bench = PersonalBrainBench()
 
     # ------------------------------------------------------------ ingest
-    def load_corpus(self, db, reset: bool = True) -> Dict[str, Any]:
+    def load_corpus(self, db, reset: bool = True, decoys: int = 0) -> Dict[str, Any]:
         """
         Materialise the synthetic corpus into the real tables.
 
@@ -279,7 +343,8 @@ class BenchmarkRunner:
         db.refresh(session)
 
         key_to_id: Dict[str, int] = {}
-        for item in self.bench.build_corpus():
+        corpus_rows = self.bench.build_corpus(decoys=decoys)
+        for item in corpus_rows:
             content = item["content"]
             memory = Memory(
                 session_id=session.id,
@@ -311,7 +376,7 @@ class BenchmarkRunner:
         adaptive_memory_scorer.score_corpus(db, scope_ids=corpus_scope)
 
         # temporal facts, in chronological order so supersession behaves correctly
-        corpus = {c["key"]: c for c in self.bench.build_corpus()}
+        corpus = {c["key"]: c for c in corpus_rows}
         for key in sorted(corpus, key=lambda k: corpus[k]["created_at"]):
             item = corpus[key]
             facts = temporal_knowledge_graph.extract_facts(item["content"])
@@ -359,6 +424,7 @@ class BenchmarkRunner:
 
         return {
             "memories": len(key_to_id),
+            "decoys": decoys,
             "key_to_id": key_to_id,
             "conflicts": conflict_result["conflicts"],
             "forgotten": forgotten,
@@ -415,6 +481,11 @@ class BenchmarkRunner:
             gold = set(question["gold_keys"])
             forbidden = set(question["forbidden_keys"])
             hits = [1 for key in result_keys if key in gold]
+            # Evidence recall: did the system surface ALL required evidence, not
+            # just one gold item? Hit@k answers "is there a gold item in the top
+            # k", which a multi-hop question passes with a single fragment. This
+            # is the metric a graph expansion is supposed to move.
+            evidence_recall = (len(set(result_keys) & gold) / len(gold)) if gold else None
 
             rank = 0
             for index, key in enumerate(result_keys, start=1):
@@ -452,6 +523,7 @@ class BenchmarkRunner:
                 "rank": rank,
                 "reciprocal_rank": (1.0 / rank) if rank else 0.0,
                 "precision": round(len(hits) / max(1, len(result_keys)), 3),
+                "evidence_recall": (round(evidence_recall, 3) if evidence_recall is not None else None),
                 "stale_results": stale,
                 "forgotten_leak": forgotten_leak,
                 "context_chars": tokens,
@@ -477,6 +549,8 @@ class BenchmarkRunner:
             "answerable_questions": len(answerable),
             "hit_at_k": round(sum(1 for q in answerable if q["hit"]) / max(1, len(answerable)), 4),
             "mrr": round(sum(q["reciprocal_rank"] for q in answerable) / max(1, len(answerable)), 4),
+            "evidence_recall": round(sum((q["evidence_recall"] or 0.0) for q in answerable)
+                                     / max(1, len(answerable)), 4),
             "stale_top1_rate": round(stale_top1 / max(1, questions), 4),
             "precision_at_k": round(sum(q["precision"] for q in answerable) / max(1, len(answerable)), 4),
             "staleness_rate": round(sum(q["stale_results"] for q in per_question) / max(1, total_results), 4),

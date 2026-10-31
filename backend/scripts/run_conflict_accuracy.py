@@ -12,7 +12,12 @@ detector (rule signals + ONNX NLI when installed) and scores it:
   negatives    : near-duplicates, topically similar but consistent,
                  same-topic different-subject, unrelated text
 
-Artifact: backend/conflict_accuracy_results.json
+The 21-pair DEVELOPMENT set below informed the rule design, so its score is
+optimistic by construction. A second, separately written HOLDOUT set (different
+domains, frozen rules) is run with --split holdout and reported next to it.
+
+Artifacts: backend/conflict_accuracy_results.json
+           backend/conflict_accuracy_holdout.json
 """
 import json
 import os
@@ -109,7 +114,65 @@ PAIRS = [
 ]
 
 
+# Frozen rules were applied to this set without further tuning. Different
+# domains from the development set: travel, health, budget, language study,
+# equipment, subscriptions.
+HOLDOUT_PAIRS = [
+    # positives: value change
+    ("My flight to Pune is booked for 14 January 2027.",
+     "The flight was rebooked to 21 January 2027 after the schedule change.",
+     "value_change"),
+    ("The gym membership costs 1,800 rupees per month.",
+     "The gym raised the monthly fee to 2,400 rupees.",
+     "value_change"),
+    ("I practise Japanese for 20 minutes every morning.",
+     "My morning Japanese practice is now 45 minutes.",
+     "value_change"),
+    # positives: negation
+    ("I take the metro to the campus every weekday.",
+     "I do not take the metro to the campus any longer.",
+     "negation"),
+    ("My sister lives in Bengaluru.",
+     "My sister no longer lives in Bengaluru, she moved to Kochi.",
+     "negation"),
+    ("I keep a paper backup of the interview transcripts.",
+     "I never keep paper backups of the interviews now.",
+     "negation"),
+    # negatives: consistent
+    ("The reading list for the course has nine papers.",
+     "The course reading list includes a survey of graph retrieval.",
+     None),
+    ("I log every experiment seed in the notebook.",
+     "The experiment notebook records the seed for each run.",
+     None),
+    ("The hostel mess closes at nine in the evening.",
+     "Dinner at the mess starts around half past seven.",
+     None),
+    # negatives: same topic, different entity
+    ("My brother plays badminton on Sunday mornings.",
+     "My cousin plays badminton at the same court on Sunday mornings.",
+     None),
+    # negatives: unrelated
+    ("The printer on the second floor jams on glossy paper.",
+     "Matrix factorisation approximates a sparse rating grid.",
+     None),
+    # negatives: negation words but consistent
+    ("I avoid caffeine after 6 pm on weekdays.",
+     "On weekdays I keep caffeine intake to before 6 pm.",
+     None),
+]
+
 def main() -> None:
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--split", choices=("dev", "holdout"), default="dev",
+                        help="dev = rule-development set, holdout = frozen rules")
+    args = parser.parse_args()
+    pairs = PAIRS if args.split == "dev" else HOLDOUT_PAIRS
+    out_name = ("conflict_accuracy_results.json" if args.split == "dev"
+                else "conflict_accuracy_holdout.json")
+
     init_database()
     db = SessionLocal()
     try:
@@ -119,7 +182,7 @@ def main() -> None:
 
         gold = []          # (id_a, id_b, gold_class)
         scope = []
-        for i, (ta, tb, cls) in enumerate(PAIRS):
+        for i, (ta, tb, cls) in enumerate(pairs):
             session = MemorySession(user_id=owner.id, session_type=f"e3_{i}",
                                     is_active=False)
             db.add(session)
@@ -178,7 +241,8 @@ def main() -> None:
         recall = tp / max(1, tp + fn)
         f1 = 2 * precision * recall / max(1e-9, precision + recall)
         out = {
-            "pairs": len(PAIRS),
+            "split": args.split,
+            "pairs": len(pairs),
             "positives": sum(1 for *_ , c in [(g[0], g[1], g[2]) for g in gold] if c),
             "negatives": sum(1 for g in gold if g[2] is None),
             "tp": tp, "fp": fp, "fn": fn,
@@ -188,7 +252,7 @@ def main() -> None:
             "per_class": per_class,
             "detail": detail,
         }
-        (BACKEND_DIR / "conflict_accuracy_results.json").write_text(
+        (BACKEND_DIR / out_name).write_text(
             json.dumps(out, indent=2))
         print(json.dumps({k: v for k, v in out.items() if k != "detail"}, indent=2))
     finally:

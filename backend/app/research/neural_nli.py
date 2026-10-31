@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import logging
 import os
+import re
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
@@ -129,9 +130,17 @@ class NeuralNLIClassifier:
         text_a: str,
         text_b: str,
         threshold: float = 0.50,
+        both_orders: bool = True,
     ) -> Tuple[bool, float, str]:
         """
         Check bidirectional contradiction between text_a and text_b.
+
+        ``both_orders`` requires the contradiction to hold in *both* premise
+        orders before a conflict is reported. A max over the two orders fires
+        on topical pairs where one direction happens to look contradictory
+        (the "abstract is due 25 September" versus "two-column format" case),
+        so the decision uses the minimum while ``severity`` still reports the
+        strongest of the two.
 
         Returns:
           (is_conflict, severity, dominant_label)
@@ -140,15 +149,52 @@ class NeuralNLIClassifier:
         probs_ba = self.predict_pair(text_b, text_a)
 
         if not probs_ab and not probs_ba:
-            return False, 0.0, "unknown"
+            # Degradation path: no ONNX model in this environment. The scorer
+            # below is deliberately conservative - one-sided explicit negation
+            # over a near-identical claim - so that a missing model lowers
+            # recall instead of inventing contradictions.
+            return self._rule_conflict(text_a, text_b)
 
         p_contra_ab = probs_ab["contradiction"] if probs_ab else 0.0
         p_contra_ba = probs_ba["contradiction"] if probs_ba else 0.0
         max_contra = max(p_contra_ab, p_contra_ba)
+        min_contra = min(p_contra_ab, p_contra_ba)
 
-        is_conflict = max_contra >= threshold
+        decisive = min_contra if both_orders else max_contra
+        is_conflict = decisive >= threshold
         dominant = "contradiction" if is_conflict else "consistent"
         return is_conflict, round(float(max_contra), 4), dominant
+
+
+    # ------------------------------------------------------- lexical fallback
+    @staticmethod
+    def _rule_conflict(text_a: str, text_b: str) -> Tuple[bool, float, str]:
+        """
+        Rule-only contradiction estimate used when the ONNX model is absent.
+
+        A single explicit negation on one side of two near-identical claims is
+        the only pattern scored as a contradiction; everything else returns
+        "consistent" so that the metric degrades predictably.
+        """
+        neg = re.compile(
+            r"\b(?:not|never|no longer|stopped|quit|cancelled|canceled|abandoned)\b",
+            re.IGNORECASE,
+        )
+        toks = lambda t: set(re.findall(r"[a-z][a-z0-9_+.#-]{2,}", (t or "").lower()))
+        ta, tb = toks(text_a), toks(text_b)
+        if not ta or not tb:
+            return False, 0.0, "unknown"
+
+        neg_a, neg_b = bool(neg.search(text_a or "")), bool(neg.search(text_b or ""))
+        if neg_a == neg_b:
+            return False, 0.0, "consistent"
+
+        jaccard = len(ta & tb) / len(ta | tb)
+        if jaccard < 0.40:
+            return False, round(jaccard, 4), "consistent"
+
+        severity = round(min(0.95, 0.55 + 0.45 * jaccard), 4)
+        return True, severity, "contradiction"
 
 
 neural_nli = NeuralNLIClassifier()

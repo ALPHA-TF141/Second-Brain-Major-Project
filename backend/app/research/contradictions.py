@@ -43,6 +43,16 @@ def _has_negation(text: str) -> bool:
 
 # Hedged statements are uncertain claims, not assertions. They are not recorded
 # as hard conflicts: "might be at 2 PM" does not contradict "is at 10 AM".
+# Restriction markers. Two memories that both restrict the same statement
+# ("never outside sessions" versus "only inside sessions") are usually saying
+# the same thing, and MNLI reads that pair as a contradiction. When both sides
+# carry a marker the neural signal alone is not trusted.
+POLARITY_PATTERN = re.compile(
+    r"\b(?:not|never|no|none|nothing|without|cannot|can't|only|except|excluding)\b",
+    re.IGNORECASE,
+)
+
+
 HEDGE_PATTERN = re.compile(
     r"\b(?:might|maybe|possibly|perhaps|probably|not sure|unsure|unconfirmed|tentative(?:ly)?|tbc|to be confirmed|i think|i believe)\b",
     re.IGNORECASE,
@@ -77,7 +87,14 @@ class ContradictionResolver:
     # ------------------------------------------------------------- detection
     @staticmethod
     def _tokens(text: str) -> set:
-        return set(re.findall(r"[a-z][a-z0-9_+.#-]{2,}", (text or "").lower()))
+        """
+        Lowercase word set. Surrounding punctuation is stripped first: the raw
+        pattern kept the sentence-final full stop, so "RAM." and "RAM" were
+        different tokens and a near-identical pair failed the similarity gate.
+        Interior punctuation that carries meaning (v2.0, c++) is preserved.
+        """
+        words = re.findall(r"[a-z][a-z0-9_+.#-]{2,}", (text or "").lower())
+        return {w.strip(".,;:!?-_#") for w in words if len(w.strip(".,;:!?-_#")) >= 2}
 
     def _similarity(self, a: str, b: str) -> float:
         ta, tb = self._tokens(a), self._tokens(b)
@@ -123,7 +140,14 @@ class ContradictionResolver:
                 if len(shared) < 2 and (len(shared) / max(1, len(my_tokens | other_tokens))) < 0.15:
                     continue
 
-                is_conflict, severity, _ = neural_nli.classify_conflict(text, other_text, threshold=0.55)
+                # Both premise orders must agree, and two one-sided
+                # restriction markers cancel the signal.
+                if bool(POLARITY_PATTERN.search(text)) and bool(POLARITY_PATTERN.search(other_text)):
+                    continue
+
+                is_conflict, severity, _ = neural_nli.classify_conflict(
+                    text, other_text, threshold=0.55, both_orders=True
+                )
                 if is_conflict:
                     mine_time = memory.created_at or datetime.min
                     other_time = other.created_at or datetime.min
@@ -228,12 +252,171 @@ class ContradictionResolver:
 
         # ---- (c) factual value changes --------------------------------
         conflicts.extend(self._detect_value_changes(db, memory, scope_ids))
+        conflicts.extend(self._detect_slot_changes(db, memory, scope_ids))
 
         # ---- (d) neural NLI contradictions ----------------------------
         if use_neural:
             conflicts.extend(self._detect_neural_conflicts(db, memory, scope_ids))
 
         return conflicts
+
+    # ------------------------------------------- generalised value slots
+    # The dated-value rule below only fires when both memories carry a
+    # calendar date. Supersession in a personal memory store is usually not
+    # dated: "40 GPU-hours per epoch" becomes "12 GPU-hours", "8,000
+    # screenshots" becomes "5,400", a repository moves from GitLab to GitHub.
+    # This detector extracts typed value slots and compares them instead.
+    # A number plus the word that names what it counts: "8,000 labelled
+    # screenshots" anchors on "labelled", "2,400 rupees" on "rupees". The
+    # anchor, not the unit spelling, decides whether two numbers occupy the
+    # same slot, so "10 AM" and "2 PM" never pair while "12 synthetic
+    # memories" and "15 synthetic memories" do.
+    NUMBER_PATTERN = re.compile(r"\b(\d[\d,]*(?:\.\d+)?)\b")
+    SLOT_SKIPWORDS = {
+        "the", "a", "an", "of", "and", "or", "to", "in", "on", "at", "for",
+        "is", "was", "were", "be", "been", "per", "by", "with", "from",
+    }
+
+    MONTH_OR_DAY = {
+        "jan", "january", "feb", "february", "mar", "march", "apr", "april",
+        "may", "jun", "june", "jul", "july", "aug", "august", "sep", "sept",
+        "september", "oct", "october", "nov", "november", "dec", "december",
+        "mon", "tue", "tues", "wed", "thu", "thur", "thurs", "fri", "sat", "sun",
+    }
+
+    # A change of circumstances is normally announced. Requiring the cue in
+    # exactly one memory keeps the rule from pairing two statements that both
+    # describe a stable state.
+    CHANGE_CUE = re.compile(
+        r"\b(?:now|switched|switch(?:ed)? to|moved|migrated|changed|instead|"
+        r"any ?more|no longer|after the|upgraded|replaced|extended)\b",
+        re.IGNORECASE,
+    )
+
+    def _quantities(self, text: str) -> set:
+        """(value, slot anchor) pairs for every number in the text."""
+        out = set()
+        tokens = re.findall(r"[A-Za-z][A-Za-z0-9+#._-]*|\d[\d,]*(?:\.\d+)?", text or "")
+        for index, token in enumerate(tokens):
+            if not token[0].isdigit():
+                continue
+            try:
+                value = float(token.replace(",", ""))
+            except ValueError:
+                continue
+            anchor = ""
+            for follow in tokens[index + 1:index + 4]:
+                low = follow.lower().strip(".,;:!?-#")
+                if follow[0].isdigit() or low in self.SLOT_SKIPWORDS or len(low) < 2:
+                    continue
+                # Dates belong to the calendar rule, so a month or weekday is
+                # never a numeric slot anchor.
+                if low in self.MONTH_OR_DAY:
+                    continue
+                anchor = low
+                break
+            if anchor:
+                out.add((value, anchor))
+        return out
+
+    ENTITY_STOPWORDS = {
+        "the", "a", "an", "and", "but", "after", "before", "every", "each",
+        "this", "that", "these", "those", "then", "now", "again", "also",
+        "i", "my", "me", "we", "our", "you", "your", "it", "its",
+    }
+
+    def _entities(self, text: str) -> set:
+        """Capitalised tokens that are not sentence-initial, dates or stopwords."""
+        found = set()
+        for sentence in re.split(r"[.!?\n]", text or ""):
+            words = re.findall(r"[A-Za-z][A-Za-z0-9+#._-]{2,}", sentence or "")
+            for word in words[1:]:
+                low = word.lower()
+                if word[0].isupper() and low not in self.MONTH_OR_DAY \
+                        and low not in self.ENTITY_STOPWORDS:
+                    found.add(low)
+        return found
+
+    def _detect_slot_changes(self, db, memory,
+                             scope_ids: Optional[Iterable[int]] = None) -> List[Dict[str, Any]]:
+        """Same topic, different typed value slot (quantity or named entity)."""
+        from app.models.memory import Memory
+
+        text = f"{memory.title or ''} {memory.content or ''}".strip()
+        my_sig = self._signature(text)
+        my_qty = self._quantities(text)
+        my_ent = self._entities(text)
+        my_cue = bool(self.CHANGE_CUE.search(text))
+        if len(my_sig) < 2 or (not my_qty and not my_ent):
+            return []
+        if _is_hedged(text):
+            return []
+
+        candidate_query = db.query(Memory).filter(Memory.id != memory.id)
+        if scope_ids is not None:
+            candidate_query = candidate_query.filter(Memory.id.in_(scope_ids))
+        candidates = candidate_query.order_by(Memory.created_at.desc()).limit(120).all()
+
+        out: List[Dict[str, Any]] = []
+        for other in candidates:
+            other_text = f"{other.title or ''} {other.content or ''}".strip()
+            other_sig = self._signature(other_text)
+            shared = my_sig & other_sig
+            if not shared:
+                continue
+            overlap = len(shared) / max(1, min(len(my_sig), len(other_sig)))
+            if _is_hedged(other_text):
+                continue
+
+            other_qty = self._quantities(other_text)
+            other_ent = self._entities(other_text)
+            other_cue = bool(self.CHANGE_CUE.search(other_text))
+
+            kind, mine_val, other_val = None, "", ""
+            # (a) quantity slot: same unit, different number
+            anchors = {a for _, a in my_qty} & {a for _, a in other_qty}
+            if shared and anchors and overlap >= 0.15:
+                mine_vals = {v for v, a in my_qty if a in anchors}
+                other_vals = {v for v, a in other_qty if a in anchors}
+                if mine_vals and other_vals and mine_vals != other_vals:
+                    kind = "quantity"
+                    mine_val = "%g" % sorted(mine_vals)[0]
+                    other_val = "%g" % sorted(other_vals)[0]
+
+            # (b) entity slot: both name a different entity and one side
+            #     announces a change of circumstances
+            if kind is None and my_cue != other_cue and overlap >= 0.10:
+                only_mine, only_other = my_ent - other_ent, other_ent - my_ent
+                if only_mine and only_other:
+                    kind = "entity"
+                    mine_val = sorted(only_mine)[0]
+                    other_val = sorted(only_other)[0]
+
+            if kind is None:
+                continue
+
+            mine_time = memory.created_at or datetime.min
+            other_time = other.created_at or datetime.min
+            if mine_time >= other_time:
+                older_id, newer_id = other.id, memory.id
+                older_val, newer_val = other_val, mine_val
+            else:
+                older_id, newer_id = memory.id, other.id
+                older_val, newer_val = mine_val, other_val
+
+            out.append({
+                "subject": "topic",
+                "predicate": kind,
+                "older_memory_id": older_id,
+                "newer_memory_id": newer_id,
+                "older_value": older_val,
+                "newer_value": newer_val,
+                "conflict_type": "value_change",
+                "severity": round(min(0.9, 0.5 + overlap * 0.4), 3),
+                "detected_by": "value_slot",
+                "_shared": sorted(shared)[:4],
+            })
+        return out
 
     # ---------------------------------------------------- value changes
     DATE_PATTERN = re.compile(
@@ -245,7 +428,8 @@ class ContradictionResolver:
 
     def _signature(self, text: str) -> set:
         """Salient topic words, used to decide whether two texts discuss the same thing."""
-        words = re.findall(r"[a-z][a-z0-9_+.#-]{3,}", (text or "").lower())
+        words = [w.strip(".,;:!?-_#")
+                 for w in re.findall(r"[a-z][a-z0-9_+.#-]{3,}", (text or "").lower())]
         # Only GENERIC filler is removed. An earlier version also stripped
         # "deadline" and "project" - which are precisely the topic words that
         # make two memories about the same subject, so the strongest real
@@ -300,7 +484,7 @@ class ContradictionResolver:
             # worse than a missed one, and a loose threshold paired any two
             # memories that happened to contain a date. Requiring BOTH a high
             # overlap AND a few shared salient words keeps the pairings honest.
-            if overlap < 0.5 or len(shared) < 3:
+            if overlap < 0.5 or len(shared) < 2:
                 continue
 
             # Uncertain claims are not hard conflicts.

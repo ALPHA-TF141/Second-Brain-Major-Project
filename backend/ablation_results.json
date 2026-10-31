@@ -16,7 +16,7 @@
       "staleness_rate": 0.087,
       "duplicate_rate": 0.0217,
       "forgotten_leak_rate": 0.0217,
-      "latency_ms": 36
+      "latency_ms": 29
     },
     {
       "config": "+temporal",
@@ -30,7 +30,7 @@
       "staleness_rate": 0.087,
       "duplicate_rate": 0.0217,
       "forgotten_leak_rate": 0.0217,
-      "latency_ms": 39
+      "latency_ms": 37
     },
     {
       "config": "+contradiction",
@@ -45,7 +45,7 @@
       "staleness_rate": 0.087,
       "duplicate_rate": 0.0217,
       "forgotten_leak_rate": 0.0435,
-      "latency_ms": 56
+      "latency_ms": 46
     },
     {
       "config": "+consolidation",
@@ -61,7 +61,7 @@
       "staleness_rate": 0.093,
       "duplicate_rate": 0.0,
       "forgotten_leak_rate": 0.0465,
-      "latency_ms": 54
+      "latency_ms": 48
     },
     {
       "config": "+forgetting",
@@ -78,7 +78,7 @@
       "staleness_rate": 0.0698,
       "duplicate_rate": 0.0,
       "forgotten_leak_rate": 0.0,
-      "latency_ms": 52
+      "latency_ms": 48
     },
     {
       "config": "+importance (full)",
@@ -96,7 +96,7 @@
       "staleness_rate": 0.0698,
       "duplicate_rate": 0.0,
       "forgotten_leak_rate": 0.0,
-      "latency_ms": 52
+      "latency_ms": 50
     }
   ]
 }

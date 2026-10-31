@@ -1,0 +1,21 @@
+\begin{table}[t]
+\caption{Cumulative Ablation: One Mechanism Enabled per Row}
+\label{tab:cumulative}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Configuration} & \textbf{MRR} & \textbf{Stale@1} & \textbf{Dup.} & \textbf{Leak} \\
+\midrule
+hybrid (layer off) & 0.944 & 0.182 & 0.022 & 0.022 \\
++temporal & 1.000 & 0.091 & 0.022 & 0.022 \\
++contradiction & 1.000 & 0.091 & 0.022 & 0.043 \\
++consolidation & 1.000 & 0.091 & 0.000 & 0.046 \\
++forgetting & 1.000 & 0.000 & 0.000 & 0.000 \\
++importance (full) & 1.000 & 0.000 & 0.000 & 0.000 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}
+\raggedright\scriptsize Mechanisms are switched on in pipeline order; each row includes every mechanism above it. This is a cumulative sequence, not a factorial design.
+\end{table}
