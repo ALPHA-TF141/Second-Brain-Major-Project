@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import AppLayout from '../layouts/AppLayout.jsx';
 import Dashboard from '../pages/Dashboard.jsx';
+import ResearchObservatory from '../pages/ResearchObservatory.jsx';
 import AgentWorkspace from '../pages/AgentWorkspace.jsx';
 import GmailWorkspace from '../pages/GmailWorkspace.jsx';
 import KnowledgeWorkspace from '../pages/KnowledgeWorkspace.jsx';
@@ -14,7 +15,9 @@ export default function AppRoutes() {
     <Routes>
       <Route element={<AppLayout />}>
         {/* Home: memory store overview */}
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<ResearchObservatory />} />
+        <Route path="/research" element={<Navigate to="/" replace />} />
+        <Route path="/workspace" element={<Dashboard />} />
 
         {/* RAG chat over the personal knowledge store */}
         <Route path="/agent" element={<AgentWorkspace />} />

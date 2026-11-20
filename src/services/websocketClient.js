@@ -6,7 +6,7 @@ export function createLiveSocket({ onOpen, onMessage, onClose, onError } = {}) {
     return null;
   }
 
-  const wsBaseUrl = apiClient.baseUrl.replace(/^http/, 'ws');
+  const wsBaseUrl = (apiClient.baseUrl || window.location.origin).replace(/^http/, 'ws');
   const socket = new WebSocket(`${wsBaseUrl}/ws/live?token=${encodeURIComponent(token)}`);
 
   socket.onopen = () => {

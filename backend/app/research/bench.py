@@ -472,6 +472,7 @@ class BenchmarkRunner:
         corpus_ids = set(key_to_id.values())
 
         for question in self.bench.build_questions():
+            query_duplicate_pairs = 0
             results = adaptive_retrieval.retrieve(db, question["question"], limit=k, mode=mode, ablation=ablation,
                                                   allowed_ids=corpus_ids,
                                                   dense_backend=dense_backend)
@@ -513,6 +514,7 @@ class BenchmarkRunner:
                     for j in range(i + 1, len(texts)):
                         if memory_consolidator.similarity(texts[i], texts[j]) >= 0.90:
                             duplicate_pairs += 1
+                            query_duplicate_pairs += 1
 
             per_question.append({
                 "id": question["id"], "type": question["type"],
@@ -524,10 +526,21 @@ class BenchmarkRunner:
                 "reciprocal_rank": (1.0 / rank) if rank else 0.0,
                 "precision": round(len(hits) / max(1, len(result_keys)), 3),
                 "evidence_recall": (round(evidence_recall, 3) if evidence_recall is not None else None),
+                "evidence_recall_exact": evidence_recall,
                 "stale_results": stale,
                 "forgotten_leak": forgotten_leak,
                 "context_chars": tokens,
                 "retrieved": result_keys,
+                "gold_keys": sorted(gold),
+                "forbidden_keys": sorted(forbidden),
+                "duplicate_pairs": query_duplicate_pairs,
+                "returned_count": len(result_ids),
+                "ranking": [{"rank": i + 1, "key": id_to_key.get(r["memory_id"], "?"),
+                             "memory_id": r["memory_id"], "score": r.get("score"),
+                             "gold": id_to_key.get(r["memory_id"], "?") in gold,
+                             "forbidden": id_to_key.get(r["memory_id"], "?") in forbidden,
+                             "forgotten": r["memory_id"] in forgotten} for i, r in enumerate(results)],
+                "pipeline_trace": __import__("copy").deepcopy(adaptive_retrieval.last_trace),
             })
 
         elapsed_ms = int((time.time() - start) * 1000)
