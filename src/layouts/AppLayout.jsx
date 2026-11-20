@@ -32,8 +32,8 @@ import { useBackend } from '../context/BackendContext.jsx';
 export default function AppLayout() {
   const { apiClient, loginDemo, username, liveEvents } = useBackend();
   const location = useLocation();
-  const isHome = location.pathname === '/';
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(isHome);
+  const isResearch = location.pathname === '/' || location.pathname === '/research';
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const lastNotified = useRef(null);
   const lastWakedAt = useRef(null);
   const lastSpokenAt = useRef(null);
@@ -133,20 +133,15 @@ export default function AppLayout() {
     }
   }, [liveEvents]);
 
-  // Auto-login as Immanuel & auto-start capture
+  // Research sessions must not silently capture the screen or change the corpus.
   useEffect(() => {
     let cancelled = false;
 
     async function boot() {
       try {
         if (!apiClient.getToken()) await loginDemo('Immanuel');
-        const status = await apiClient.captureStatus().catch(() => null);
-        if (!cancelled && status && !status.is_active) {
-          await apiClient.startCapture({
-            sessionType: 'continuous',
-            screenshotIntervalSeconds: 5
-          }).catch((e) => console.warn('Auto-capture start note:', e));
-        }
+        // Capture is started explicitly from project controls, not on application boot.
+        if (cancelled) return;
       } catch (e) {
         console.warn('Boot note:', e);
       }
@@ -172,7 +167,8 @@ export default function AppLayout() {
 
   // Persistent primary working tabs
   const allWorkingTabs = [
-    { label: 'Home', path: '/', icon: LayoutDashboard, badge: 'Live' },
+    { label: 'Research Observatory', path: '/', icon: FlaskConical, badge: 'IEEE' },
+    { label: 'Workspace', path: '/workspace', icon: LayoutDashboard },
     { label: 'AI Agent', path: '/agent', icon: Bot, badge: 'Qwen' },
     { label: 'Gmail', path: '/gmail', icon: Mail },
     { label: 'Knowledge', path: '/knowledge', icon: BookOpen },
@@ -191,10 +187,10 @@ export default function AppLayout() {
             <Cpu size={12} className="animate-pulse" />
           </div>
           <span className="font-mono text-[11px] font-bold tracking-widest text-cyan-300 uppercase">
-            JARVIS // PERSONAL AI OPERATING SYSTEM
+            SECONDBRAIN // RESEARCH WORKSPACE
           </span>
           <span className="rounded bg-cyan-500/15 border border-cyan-400/30 px-1.5 py-0.2 text-[9px] font-mono text-cyan-300 font-semibold uppercase">
-            MARK VII
+            OBSERVATORY
           </span>
         </div>
 
@@ -304,16 +300,16 @@ export default function AppLayout() {
             {!isSidebarCollapsed ? (
               <div className="rounded-xl border border-white/5 bg-black/40 p-2 space-y-1">
                 <div className="flex items-center justify-between text-[9.5px] font-mono text-slate-400">
-                  <span>STORAGE</span>
-                  <span className="text-emerald-400 font-bold">0.0 MB BLOAT</span>
+                  <span>RESEARCH</span>
+                  <span className="text-emerald-400 font-bold">INSPECT ACTUAL DATA</span>
                 </div>
                 <div className="flex items-center justify-between text-[9.5px] font-mono text-slate-400">
-                  <span>GIT VAULT</span>
-                  <span className="text-cyan-400 font-bold">AUTO 60s</span>
+                  <span>EXPERIMENTS</span>
+                  <span className="text-cyan-400 font-bold">ISOLATED RUNS</span>
                 </div>
               </div>
             ) : (
-              <div className="flex justify-center text-emerald-400" title="Zero Local Storage Bloat Active">
+              <div className="flex justify-center text-emerald-400" title="Research-first workspace">
                 <ShieldCheck size={16} />
               </div>
             )}
@@ -322,7 +318,7 @@ export default function AppLayout() {
 
         {/* Main Application Viewport */}
         <div className="relative flex flex-1 flex-col min-h-0 min-w-0 overflow-hidden bg-[#070a13]">
-          <Outlet />
+          <div className="h-full w-full" data-workspace={isResearch ? 'research' : 'application'}><Outlet /></div>
         </div>
       </div>
 

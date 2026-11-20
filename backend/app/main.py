@@ -9,6 +9,7 @@ from app.audio_streaming.voice_stream import router as voice_stream_router
 from app.config import settings
 from app.database.init_db import init_database
 from app.routes import auth, capture, chat, connectors, google, health, mail, memory, ocr, research, semantic, sessions, settings as settings_routes, social, voice
+from app.routes.observatory import router as observatory_router
 from app.services.ocr_service import ocr_processor
 from app.streaming.chat_stream import router as chat_stream_router
 from app.workers.embedding_worker import embedding_worker
@@ -40,6 +41,7 @@ app.include_router(social.router)
 app.include_router(google.router)
 app.include_router(mail.router)
 app.include_router(research.router)
+app.include_router(observatory_router)
 app.include_router(websocket_router)
 app.include_router(chat_stream_router)
 app.include_router(voice_stream_router)

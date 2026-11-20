@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+// Browser: same-origin /api via Vite proxy; Electron file://: local backend.
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? (window.location.protocol === 'file:' ? 'http://127.0.0.1:8000' : '');
 const TOKEN_KEY = 'second_brain_token';
 
 function getToken() {

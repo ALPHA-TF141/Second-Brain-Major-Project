@@ -1,5 +1,17 @@
 # Second Brain
 
+## Research-first workspace
+
+The default page is now the **Research Observatory**: IEEE core benchmark comparisons,
+per-query calculation ledgers, live memory-score arithmetic, an auto-updating retrieval probe,
+and an explorer for all recorded research artifacts. Application tools remain available.
+Screen capture no longer starts automatically on application boot.
+
+**Start here:** [Research Observatory setup, calculation definitions, safety and limitations](docs/RESEARCH_OBSERVATORY.md).
+Use the lightweight `backend/requirements-research.txt` + `app.research_main:app` profile
+if your focus is experiments, not screen capture/mail/voice.
+
+
 A desktop personal-knowledge assistant built around the research layer of the
 companion IEEE paper: *An Adaptive Temporal Personal Knowledge Graph with
 Memory Consolidation and Contradiction-Aware Retrieval-Augmented Generation*.

@@ -300,6 +300,8 @@ class AdaptiveMemoryRetrieval:
             "bm25" if bm25 else ("neural" if semantic else "tfidf"))
         trace["stages"]["dense_pinned"] = dense_backend or "auto"
         trace["stages"]["dense_candidates"] = len(dense)
+        trace["dense_candidate_scores"] = [{"memory_id": mid, "score": score} for mid, score in dense]
+        trace["lexical_definition"] = "TF-IDF cosine: dot(query, document) / (norm(query) × norm(document)); repository tokenizer/IDF"
 
         # ================================================== VANILLA =======
         if mode == "vanilla":
@@ -322,6 +324,9 @@ class AdaptiveMemoryRetrieval:
             [{"memory_id": mid, "score": score} for mid, score in dense],
             keyword_memories,
         )
+        trace["hybrid_calculations"] = ranked
+        trace["hybrid_equation"] = "0.7 × dense_score + 0.3 × keyword_score + 0.08 × keyword-hit recency"
+        ranking_scores = {item["memory_id"]: item["hybrid_score"] for item in ranked}
         ranked_ids = [item["memory_id"] for item in ranked]
         if not ranked_ids:
             ranked_ids = keyword_ids
@@ -365,6 +370,9 @@ class AdaptiveMemoryRetrieval:
 
             ordered = [rows_by_id[mid] for mid in sorted(fused, key=lambda k: -fused[k])
                        if mid in rows_by_id]
+            ranking_scores = fused
+            trace["graph_calculations"] = [{"memory_id": mid, "graph_score": graph_scores.get(mid, 0.0),
+                                             "fused_score": value} for mid, value in fused.items()]
             trace["stages"]["graph_alpha"] = alpha
             trace["stages"]["graph_seeded_memories"] = len(graph_scores)
             trace["stages"]["graph_promoted"] = len(missing)
@@ -375,10 +383,11 @@ class AdaptiveMemoryRetrieval:
         # question "does the graph add anything?" answerable.
         if mode in ("adaptive", "adaptive_graph"):
             ordered = self._apply_research_layer(db, ordered, trace, ablation)
+            ranking_scores = {c["memory_id"]: c["adjusted_score"] for c in trace.get("candidate_calculations", [])}
 
         trace["stages"]["returned"] = min(len(ordered), limit)
         self.last_trace = trace
-        return [self._shape(m, 0.0, {"rank_source": mode}) for m in ordered[:limit]]
+        return [self._shape(m, ranking_scores.get(m.id, 0.0), {"rank_source": mode}) for m in ordered[:limit]]
 
     # ------------------------------------------------- research layer
     def _apply_research_layer(self, db, ordered: List, trace: Dict[str, Any],
@@ -417,8 +426,11 @@ class AdaptiveMemoryRetrieval:
         adjusted = []
         damped_temporal = 0
         damped_conflict = 0
+        trace["candidate_calculations"] = []
         for index, memory in enumerate(ordered):
             multiplier = 1.0
+            temporal_weight = 1.0
+            conflict_mult = 1.0
 
             if flags["temporal"]:
                 temporal_weight = temporal_knowledge_graph.temporal_weight(db, memory.id)
@@ -432,7 +444,7 @@ class AdaptiveMemoryRetrieval:
                     multiplier *= conflict_mult
                     damped_conflict += 1
 
-            # Rank-preserving: the fused retrieval order is the prior, damping
+            # The fused retrieval order is the prior; damping may reorder it.
             # adjusts it, and importance is only a light tie-breaker. Sorting on
             # importance alone was actively HARMFUL in testing - it promoted
             # high-importance-but-less-relevant memories above the gold one.
@@ -441,6 +453,15 @@ class AdaptiveMemoryRetrieval:
             importance_factor = (0.85 + 0.15 * importance) if flags["importance"] else 1.0
             final = prior * multiplier * importance_factor
             adjusted.append((memory, final, multiplier, importance))
+            trace["candidate_calculations"].append({
+                "memory_id": memory.id, "input_rank": index + 1,
+                "prior": prior, "temporal_weight": temporal_weight,
+                "temporal_factor_applied": temporal_weight if temporal_weight < .7 else 1.0,
+                "conflict_factor": conflict_mult, "combined_multiplier": multiplier,
+                "importance": importance, "importance_factor": importance_factor,
+                "adjusted_score": final,
+                "formula": "(1 / input_rank) × combined_multiplier × importance_factor",
+            })
 
         adjusted.sort(key=lambda t: -t[1])
         ordered = [m for m, _final, _mult, _imp in adjusted]
@@ -455,6 +476,9 @@ class AdaptiveMemoryRetrieval:
             by_id = {m.id: m for m in ordered}
             ordered = [by_id[i] for i in kept_ids if i in by_id]
 
+        kept = {m.id for m in ordered}
+        for calculation in trace["candidate_calculations"]:
+            calculation["kept_after_dedup"] = calculation["memory_id"] in kept
         return ordered
 
     @staticmethod

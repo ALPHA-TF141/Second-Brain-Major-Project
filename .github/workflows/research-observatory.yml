@@ -1,0 +1,28 @@
+name: Research observatory
+on:
+  push:
+  pull_request:
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    env:
+      ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+  calculations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r backend/requirements-research.txt
+      - name: Arithmetic, isolation and research regression tests
+        working-directory: backend
+        run: python -m pytest tests/test_observatory.py tests/test_temporal_graph.py tests/test_contradictions.py tests/test_neural_research.py -q

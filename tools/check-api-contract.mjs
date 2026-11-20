@@ -95,12 +95,12 @@ for (const file of routeFiles) {
 const frontendFiles = walk(SRC, (f) => /\.(jsx?|tsx?)$/.test(f));
 const calls = []; // { url, method, file, line }
 
-const CALL_SITE = /(apiFetch\(|fetch\(|apiClient\.[a-zA-Z]+\(|axios\.[a-zA-Z]+\(|\.open\(\s*['"]\w+['"]\s*,)/g;
+const CALL_SITE = /(observatoryRequest\(|apiFetch\(|fetch\(|apiClient\.[a-zA-Z]+\(|axios\.[a-zA-Z]+\(|\.open\(\s*['"]\w+['"]\s*,)/g;
 // () allowed too: urls are often built with ${encodeURIComponent(id)} inline
 // Allow ternaries and quotes inside ${...} so
 // `${base}/api/proactive/${paused ? 'resume' : 'pause'}` is captured whole
 // instead of being truncated at the '?'.
-const URL_IN_TEXT = /\/api\/[A-Za-z0-9_\-/.${}()?:'" ]*/g;
+const URL_IN_TEXT = /\/api\/[A-Za-z0-9_\-/.${}()\[\]?:'" ]*/g;
 
 /** Blank out comments (preserving offsets) so doc text is never scanned. */
 function stripComments(src) {
@@ -175,7 +175,14 @@ const matched = [];
 
 for (const c of calls) {
   const knownMethods = [...backendRoutes.keys()]
-    .filter((k) => k.split(' ')[1] === c.url)
+    .filter((k) => {
+      const route = k.split(' ')[1];
+      if (route === c.url) return true;
+      // A literal client value (e.g. /artifacts/core) may target a path parameter.
+      const routeParts = route.split('/');
+      const callParts = c.url.split('/');
+      return routeParts.length === callParts.length && routeParts.every((p, i) => p === '{}' || p === callParts[i]);
+    })
     .map((k) => k.split(' ')[0]);
 
   if (knownMethods.length === 0 && !backendNormalized.has(c.url)) {

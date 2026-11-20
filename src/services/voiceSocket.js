@@ -10,7 +10,7 @@ export async function createVoiceSocket({ onEvent, onOpen, onClose, onError } = 
 
   if (!token) return null;
 
-  const wsBaseUrl = apiClient.baseUrl.replace(/^http/, 'ws');
+  const wsBaseUrl = (apiClient.baseUrl || window.location.origin).replace(/^http/, 'ws');
   const socket = new WebSocket(`${wsBaseUrl}/ws/voice?token=${encodeURIComponent(token)}`);
 
   socket.onopen = () => onOpen?.(socket);
